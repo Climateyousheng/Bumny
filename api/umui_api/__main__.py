@@ -20,6 +20,10 @@ def main(argv: list[str] | None = None) -> None:
         help="SSH target name from targets.toml.",
     )
     parser.add_argument(
+        "--app-pack-path",
+        help="Path to UMUI application pack directory (e.g. fixtures/app_pack/vn8.6).",
+    )
+    parser.add_argument(
         "--host",
         default="127.0.0.1",
         help="Bind address (default: 127.0.0.1).",
@@ -38,7 +42,7 @@ def main(argv: list[str] | None = None) -> None:
     if args.db_path:
         from umui_api.app import create_app
 
-        app = create_app(db_path=args.db_path)
+        app = create_app(db_path=args.db_path, app_pack_path=args.app_pack_path)
     else:
         from umui_connectors import SshFileSystem, load_targets
 
@@ -47,7 +51,7 @@ def main(argv: list[str] | None = None) -> None:
         targets = load_targets()
         target = targets[args.target]
         fs = SshFileSystem(target)
-        app = create_app(fs=fs, db_path=target.db_path)
+        app = create_app(fs=fs, db_path=target.db_path, app_pack_path=args.app_pack_path)
 
     uvicorn.run(app, host=args.host, port=args.port)
 
