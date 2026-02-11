@@ -6,10 +6,11 @@ from contextlib import asynccontextmanager
 from typing import TYPE_CHECKING, Any
 
 from fastapi import FastAPI
+from umui_core.storage.app_pack import AppPackPaths
 from umui_core.storage.layout import DatabasePaths, FileSystem, LocalFileSystem
 
 from umui_api.errors import register_error_handlers
-from umui_api.routers import experiments, jobs, locks
+from umui_api.routers import bridge, experiments, jobs, locks
 
 if TYPE_CHECKING:
     from collections.abc import AsyncGenerator
@@ -27,6 +28,7 @@ def create_app(
     *,
     fs: FileSystem | None = None,
     db_path: str | None = None,
+    app_pack_path: str | None = None,
 ) -> FastAPI:
     """Create and configure the FastAPI application.
 
@@ -44,11 +46,13 @@ def create_app(
     app = FastAPI(title="UMUI API", version="0.1.0", lifespan=_lifespan)
     app.state.fs = fs
     app.state.paths = DatabasePaths(db_path or "")
+    app.state.app_pack = AppPackPaths(app_pack_path or "")
 
     register_error_handlers(app)
 
     app.include_router(experiments.router)
     app.include_router(jobs.router)
     app.include_router(locks.router)
+    app.include_router(bridge.router)
 
     return app

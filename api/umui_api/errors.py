@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 
 from fastapi.responses import JSONResponse
 from umui_core.locking.locks import LockError
+from umui_core.ops.bridge import BasisNotFoundError, BridgeError
 from umui_core.ops.experiments import (
     ExperimentExistsError,
     ExperimentNotFoundError,
@@ -26,6 +27,8 @@ _EXCEPTION_STATUS: list[tuple[type[Exception], int]] = [
     (JobLockedError, 423),
     (InvalidIdError, 422),
     (LockError, 409),
+    (BasisNotFoundError, 404),
+    (BridgeError, 400),
 ]
 
 

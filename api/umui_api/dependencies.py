@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Annotated
 
 from fastapi import Depends, Header, HTTPException, Request
+from umui_core.storage.app_pack import AppPackPaths
 from umui_core.storage.layout import DatabasePaths, FileSystem
 
 
@@ -29,6 +30,13 @@ def get_user(
     return x_umui_user
 
 
+def get_app_pack(request: Request) -> AppPackPaths:
+    """Retrieve AppPackPaths from application state."""
+    app_pack: AppPackPaths = request.app.state.app_pack
+    return app_pack
+
+
 Fs = Annotated[FileSystem, Depends(get_fs)]
 Paths = Annotated[DatabasePaths, Depends(get_paths)]
 User = Annotated[str, Depends(get_user)]
+AppPack = Annotated[AppPackPaths, Depends(get_app_pack)]
