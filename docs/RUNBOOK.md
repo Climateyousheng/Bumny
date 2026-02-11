@@ -7,8 +7,8 @@ Operational procedures for the UMUI Next system.
 ### Local development (fixture data)
 
 ```bash
-# Start API
-uv run python -m umui_api --db-path ./fixtures/samples
+# Start API (with app pack for bridge editor)
+uv run python -m umui_api --db-path ./fixtures/samples --app-pack-path ./fixtures/app_pack/vn8.6
 
 # Start UI (separate terminal)
 cd ui && npm run dev
@@ -29,8 +29,8 @@ jump_hosts = ["bp14", "archer2"]
 connect_timeout = 30.0
 EOF
 
-# Start API with SSH backend
-uv run python -m umui_api --target puma2
+# Start API with SSH backend (app-pack-path needed for bridge)
+uv run python -m umui_api --target puma2 --app-pack-path ./fixtures/app_pack/vn8.6
 
 # Start UI (separate terminal)
 cd ui && npm run dev
@@ -49,13 +49,15 @@ npm run build
 ### CLI options
 
 ```
-usage: umui_api [-h] (--db-path DB_PATH | --target TARGET) [--host HOST] [--port PORT]
+usage: umui_api [-h] (--db-path DB_PATH | --target TARGET)
+                [--app-pack-path APP_PACK_PATH] [--host HOST] [--port PORT]
 
 Options:
-  --db-path PATH    Path to local UMUI database directory
-  --target NAME     SSH target name from ~/.config/umui/targets.toml
-  --host ADDRESS    Bind address (default: 127.0.0.1)
-  --port NUMBER     Port number (default: 8000)
+  --db-path PATH         Path to local UMUI database directory
+  --target NAME          SSH target name from ~/.config/umui/targets.toml
+  --app-pack-path PATH   Path to UMUI application pack (e.g. fixtures/app_pack/vn8.6)
+  --host ADDRESS         Bind address (default: 127.0.0.1)
+  --port NUMBER          Port number (default: 8000)
 ```
 
 ### Health check
@@ -63,11 +65,40 @@ Options:
 ```bash
 # List experiments (should return JSON)
 curl http://127.0.0.1:8000/experiments
+
+# Check bridge nav tree (requires --app-pack-path)
+curl http://127.0.0.1:8000/bridge/nav
 ```
 
 ### API endpoints
 
-15 endpoints across experiments, jobs, and locks. See README.md for the full table.
+23 endpoints across experiments, jobs, locks, and bridge:
+
+| Group | Method | Endpoint | Description |
+|-------|--------|----------|-------------|
+| Experiments | GET | `/experiments` | List all experiments |
+| | GET | `/experiments/{id}` | Get experiment details |
+| | POST | `/experiments` | Create experiment |
+| | PATCH | `/experiments/{id}` | Update experiment |
+| | DELETE | `/experiments/{id}` | Delete experiment |
+| | POST | `/experiments/{id}/copy` | Copy experiment |
+| Jobs | GET | `/experiments/{id}/jobs` | List jobs |
+| | GET | `/experiments/{id}/jobs/{jid}` | Get job details |
+| | POST | `/experiments/{id}/jobs` | Create job |
+| | PATCH | `/experiments/{id}/jobs/{jid}` | Update job |
+| | DELETE | `/experiments/{id}/jobs/{jid}` | Delete job |
+| | POST | `/experiments/{id}/jobs/{jid}/copy` | Copy job |
+| Locks | GET | `/experiments/{id}/jobs/{jid}/lock` | Check lock status |
+| | POST | `/experiments/{id}/jobs/{jid}/lock` | Acquire lock |
+| | DELETE | `/experiments/{id}/jobs/{jid}/lock` | Release lock |
+| Bridge | GET | `/bridge/nav` | Navigation tree |
+| | GET | `/bridge/windows/{wid}` | Window definition (with optional server-side expression eval) |
+| | GET | `/bridge/windows/{wid}/help` | Window help text |
+| | GET | `/bridge/register` | Variable register |
+| | GET | `/bridge/partitions` | Partition definitions |
+| | GET | `/bridge/variables/{eid}/{jid}` | All variables for a job |
+| | GET | `/bridge/variables/{eid}/{jid}/{wid}` | Variables scoped to a window |
+| | PATCH | `/bridge/variables/{eid}/{jid}` | Update variables |
 
 Mutating endpoints require the `X-UMUI-User` header:
 
@@ -79,6 +110,17 @@ curl -X POST http://127.0.0.1:8000/experiments \
 ```
 
 ## Common Issues and Fixes
+
+### Bridge shows "Not found"
+
+**Symptom**: Clicking "Open Bridge" shows a blank page or error.
+
+**Cause**: API server started without `--app-pack-path`. Bridge endpoints need the app pack to load window definitions, navigation tree, and help files.
+
+**Fix**: Restart the API with the app pack path:
+```bash
+uv run python -m umui_api --db-path ./fixtures/samples --app-pack-path ./fixtures/app_pack/vn8.6
+```
 
 ### SSH connection failures
 
@@ -113,7 +155,7 @@ ssh puma2     # from archer2
 
 **Fix**: Ensure the API is running before starting the UI dev server:
 ```bash
-uv run python -m umui_api --db-path ./fixtures/samples
+uv run python -m umui_api --db-path ./fixtures/samples --app-pack-path ./fixtures/app_pack/vn8.6
 ```
 
 ### Node.js localStorage warnings
@@ -137,6 +179,20 @@ curl -X POST http://127.0.0.1:8000/experiments/{exp_id}/jobs/{job_id}/lock \
   -H "X-UMUI-User: <your-username>" \
   -H "Content-Type: application/json" \
   -d '{"force": true}'
+```
+
+### Window fails to load in bridge
+
+**Symptom**: Clicking a panel in the nav tree shows an error instead of the window content.
+
+**Causes**:
+1. The `.pan` file is missing from the app pack
+2. The window has a `win_type` of `"dummy"` (expected — shows a placeholder)
+3. Variable resolution failed for the selected experiment/job
+
+**Fix**: Check that the app pack path contains the expected window file:
+```bash
+ls fixtures/app_pack/vn8.6/windows/<window_name>.pan
 ```
 
 ## Monitoring
@@ -176,7 +232,7 @@ The API is stateless — it reads/writes directly to the database directory. To 
 1. Stop the API server
 2. `git checkout <previous-commit>`
 3. `uv sync`
-4. Restart: `uv run python -m umui_api --db-path ./fixtures/samples`
+4. Restart: `uv run python -m umui_api --db-path ./fixtures/samples --app-pack-path ./fixtures/app_pack/vn8.6`
 
 ### Data rollback
 

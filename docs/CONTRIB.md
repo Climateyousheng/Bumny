@@ -46,6 +46,14 @@ This is a uv workspace with three Python packages and one npm package:
 | `api/` (`umui-api`) | Python | umui-core, umui-connectors, fastapi, uvicorn |
 | `ui/` (`umui-ui`) | npm | react, react-router-dom, @tanstack/react-query, shadcn/ui |
 
+### Key directories
+
+| Directory | Contents |
+|-----------|----------|
+| `fixtures/samples/` | 3 real experiments from puma2 (aaaa, xqgt, xqjc) |
+| `fixtures/app_pack/vn8.6/` | Application pack: 206 windows, navigation tree, variable register, help files |
+| `fixtures/live_db/` | Production database snapshot (gitignored, ~386 MB) |
+
 ## Available Scripts
 
 ### Python (run from project root)
@@ -62,14 +70,14 @@ This is a uv workspace with three Python packages and one npm package:
 | `uv run mypy --strict core/` | Type check core package |
 | `uv run mypy --strict connectors/` | Type check connectors package |
 | `uv run mypy --strict api/` | Type check API package |
-| `uv run python -m umui_api --db-path ./fixtures/samples` | Start API with local fixture data |
+| `uv run python -m umui_api --db-path ./fixtures/samples --app-pack-path ./fixtures/app_pack/vn8.6` | Start API with local fixture data + app pack |
 | `uv run python -m umui_api --target puma2` | Start API with SSH to puma2 |
 
 ### Frontend (run from `ui/`)
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start Vite dev server (port 5173, proxies `/experiments` to `:8000`) |
+| `npm run dev` | Start Vite dev server (port 5173, proxies `/experiments` and `/bridge` to `:8000`) |
 | `npm run build` | TypeScript build + Vite production bundle |
 | `npm run preview` | Preview production build |
 | `npm run typecheck` | `tsc --noEmit` |
@@ -83,21 +91,21 @@ This is a uv workspace with three Python packages and one npm package:
 ### Running the full stack
 
 ```bash
-# Terminal 1: API server
-uv run python -m umui_api --db-path ./fixtures/samples
+# Terminal 1: API server (with app pack for bridge editor)
+uv run python -m umui_api --db-path ./fixtures/samples --app-pack-path ./fixtures/app_pack/vn8.6
 
 # Terminal 2: Frontend dev server
 cd ui && npm run dev
 # Open http://localhost:5173
 ```
 
-The Vite dev server proxies all requests to `/experiments` to the API at `http://127.0.0.1:8000`.
+The Vite dev server proxies `/experiments` and `/bridge` requests to the API at `http://127.0.0.1:8000`.
 
 ### Making changes
 
 1. **Backend (Python)**: Edit files in `core/`, `connectors/`, or `api/`. Run `uv run pytest` to verify.
 2. **Frontend (React)**: Edit files in `ui/src/`. The Vite dev server hot-reloads automatically.
-3. **API contract changes**: Update `api/umui_api/schemas.py` first, then sync `ui/src/types/` to match.
+3. **API contract changes**: Update schemas in `api/umui_api/schemas.py` or `schemas_bridge.py`, then sync `ui/src/types/` to match.
 
 ### Code quality checks
 
@@ -129,15 +137,18 @@ npm run test:coverage
 - **Mocking**: MSW v2 (network-level, tests the full fetch path)
 - **Coverage**: @vitest/coverage-v8 (target >= 80%)
 - **Test structure**:
-  - `tests/lib/` -- API client, user store
-  - `tests/hooks/` -- TanStack Query hooks, UserContext
+  - `tests/lib/` -- API client, user store, expression evaluator (30 cases)
+  - `tests/hooks/` -- TanStack Query hooks for experiments, jobs, locks, bridge
   - `tests/components/` -- Component rendering + interactions
+  - `tests/components/bridge/` -- Nav tree, component renderer, entry/table/push-next displays
   - `tests/integration/` -- Multi-page CRUD flows
-  - `tests/mocks/` -- MSW handlers, server, fixtures
+  - `tests/mocks/` -- MSW handlers (experiments, jobs, locks, bridge), server, fixtures
 
 ### Test fixtures
 
 The `fixtures/samples/` directory contains real experiment data from puma2 (3 experiments: `aaaa`, `xqgt`, `xqjc`). The API server can use these directly via `--db-path ./fixtures/samples`.
+
+The `fixtures/app_pack/vn8.6/` directory contains the real UMUI application pack with window definitions, navigation tree, variable register, and help files. The API server uses these via `--app-pack-path ./fixtures/app_pack/vn8.6`.
 
 ## Configuration
 
@@ -154,7 +165,7 @@ The `fixtures/samples/` directory contains real experiment data from puma2 (3 ex
 | Tool | Config file | Purpose |
 |------|------------|---------|
 | TypeScript | `ui/tsconfig.json` | Strict mode, path aliases (`@/` -> `src/`) |
-| Vite | `ui/vite.config.ts` | Bundler, dev proxy |
+| Vite | `ui/vite.config.ts` | Bundler, dev proxy (`/experiments`, `/bridge` -> `:8000`) |
 | Vitest | `ui/vitest.config.ts` | Test runner (jsdom, MSW setup) |
 | Tailwind | `ui/tailwind.config.js` | CSS utility classes |
 | ESLint | `ui/eslint.config.js` | Linting (react-hooks, react-refresh) |
@@ -163,3 +174,14 @@ The `fixtures/samples/` directory contains real experiment data from puma2 (3 ex
 ## API Authentication
 
 The API uses a simple `X-UMUI-User` header for identity (no password). The frontend stores the username in localStorage and sends it with every mutating request. Read-only endpoints (GET) do not require the header.
+
+## Architecture Notes
+
+### Bridge editor
+
+The bridge editor renders the legacy UMUI window definitions in a modern web UI:
+
+- **Navigation tree**: Parsed from `nav.spec` in the app pack. Node types: `node` (branch), `panel` (clickable window), `shared` (duplicate panel, blue styling), `follow_on` (hidden, via pushnext only).
+- **Window renderer**: Parses `.pan` files into a component tree. Component types: text, entry, check, basrad, table, gap, block, case, invisible, pushnext.
+- **Expression evaluation**: Conditional visibility (case/invisible) is evaluated server-side to avoid transferring all variables to the client. The API returns an `active` boolean on each conditional component.
+- **Variables**: Fetched per-window (scoped endpoint) for display, not the full basis file.
