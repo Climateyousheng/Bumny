@@ -1,0 +1,15 @@
+The HadCM2 Sulphate Loading file contains Anthropogenic 
+(tropospheric) sulphate loading patterns.
+
+It is only required in your dump if you are using the HadCM2
+version of the shortware radiation (version 2B) and you have chosen
+HadCM2's approximate treatment of sulphate aerosol.
+
+If this is the case and you are starting from a dump that does
+not have this field included, you will need to either configure
+or update this field.
+
+Typically, you will choose to configure the field.
+
+%I ancill_gen
+

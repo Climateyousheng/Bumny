@@ -1,0 +1,103 @@
+%C---------------------------------------------------------------------
+%C  File: nds_bld_gencmd
+%C
+%C  Purpose: Generates FCM_BLD_COMMAND, which calls extract, build or run
+%C
+%C  Include files:
+%C   * nds_prog_env    (programming environment)
+%C   * nds_target_vars (Job specific environment variables)
+%C   * nds_user_vars   (User specific environment variables)
+%C   * nds_build_cmd   (build directories and "fcm build" command)
+%C   * nds_spect_files (spectral files path for LW/SW)
+%C
+%C  Arrays:  models_compile 
+%C             These are set up via processing/proc_switches
+%C---------------------------------------------------------------------
+#---------------------------------------------------------------------
+# Script: FCM_BLD_COMMAND
+#---------------------------------------------------------------------
+#
+# Purpose: generates build command(s) depending on models 
+#          chosen and links separate builds to the top 
+#          level bin directory
+#
+# Created from umui vn%VERSION
+#---------------------------------------------------------------------
+%T set progenv "bld"
+%I nds_prog_env
+%I nds_user_vars
+%I nds_spect_files
+%I nds_target_vars
+%I nds_build_cmd
+
+# Loop through all sub-models and build if requested
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+typeset -l blddir
+
+for item in %TCL putl "[string toupper $models_compile]" %ENDTCL
+do
+  eval compval=\$COMP_${item}
+  blddir=$item
+
+  if test $compval = "true" ; then
+    echo COMP_${item} is true - run build command
+    $BLD_CMD $UM_ROUTDIR/$blddir/cfg/bld.cfg
+
+    RC=$?
+    if test $RC -eq 0 ; then
+      echo ${item} build is OK
+    else
+      echo ${item} build failed
+      exit $RC
+    fi
+  fi
+done
+
+# Link separate builds to the top level bin dir
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+mkdir -p $UM_RDATADIR/bin
+RC=$?
+if test $RC -ne 0 ; then
+  echo mkdir $UM_RDATADIR/bin failed
+  exit $RC
+fi
+
+for item in %TCL putl "[string toupper $models_compile]" %ENDTCL
+do
+  blddir=$item
+
+  if test "$item" = "UMSCRIPTS" ; then
+    if test -d $UM_ROUTDIR/$blddir/bin ; then
+      chmod 755 $UM_ROUTDIR/$blddir/bin/* 1>/dev/null 2>&1
+      cp -f $UM_ROUTDIR/$blddir/bin/*  $UM_RDATADIR/bin/ 1>/dev/null 2>&1
+    fi
+  else
+    if test "$item" = "UMRECON" ; then
+      exepath=%PATHREC
+      exename=%FILEREC
+
+    elif test "$item" = "UMATMOS" ; then
+      exepath=%PATHEXEC
+      exename=%FILEEXEC
+
+    else
+      exepath=$UM_RDATADIR/bin
+      if test $item = "CICE" ; then
+        exename=CICE.exe
+      else
+        exename=%FILENEMO
+      fi
+    fi
+
+    eval compval=\$COMP_${item}
+    if test $compval = "true" ; then
+      mkdir -p $exepath
+      if test -x $UM_ROUTDIR/$blddir/bin/$exename ; then
+        cp -f $UM_ROUTDIR/$blddir/bin/$exename $exepath/ 1>/dev/null 2>&1
+      fi
+    fi
+  fi
+ 
+done
+

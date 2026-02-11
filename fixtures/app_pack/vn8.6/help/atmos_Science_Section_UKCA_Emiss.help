@@ -1,0 +1,23 @@
+  New UKCA emissions:
+
+This new system allows the use of NetCDF emission files. It has been tested 
+with RAQ and Srat-Trop jobs, and it is likely to replace the use of single- 
+and multi-level user ancillaries for UKCA emissions in the future.
+
+When this option is active the logical L_UKCA_NEW_EMISS is set to TRUE. Then 
+the user should indicate a unique path for the NetCDF emission files and the 
+name of one or more emission files. This is done by completing the entry box 
+"Directory pathname for NetCDF emission files" and filling in at least one 
+cell in the table "Names for NetCDF emission files", respectively.
+
+Note that although there is currently a maximum number of 40 emission files, 
+there is no limit on the number of emission fields in each file.
+
+The frequency (in hours) at which emissions will be updated should be set 
+separately for each NetCDF emission file with a global attribute called 
+'update_freq_in_hours'. This means that all emission fields present in the 
+same file will be updated with the same frequency while this frequency can 
+change from file to file.
+
+See section "New emission system in UKCA" of UMPDP084 for more information 
+on the metadata attributes needed in the NetCDF files. 

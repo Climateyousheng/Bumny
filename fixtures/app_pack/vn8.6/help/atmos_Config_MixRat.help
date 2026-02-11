@@ -1,0 +1,14 @@
+
+The use of mixing ratios in the UM is controlled by a set of switches. 
+The default is to use specific quantities for moist variables. 
+
+The dynamics with ENDGAME will move to using mixing ratios by default.
+
+The use of mixing ratios in the physics is controlled by two switches. 
+The first cover atmos_physics1 - raditaion, micro-physics and GWD. 
+The second covers atmos_physics2 - boundary layer, hydrology and convection. 
+
+It is not recommended to switch on the use of mixing ratio if they are not 
+being used by the dynamics.
+
+

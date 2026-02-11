@@ -1,0 +1,79 @@
+<M001_S026_I001>
+Item (1:26:1) RIVER WATER STORAGE, kg (prognostic)
+
+River water storage in a river routing gridbox, from global 
+river routing scheme, on river routing grid.
+
+Use time profile agreeing with the river routing timestep. 
+Note that an offset is needed.
+
+e.g. T3HDMRV or T24HDMRV:  time mean over 1 dumping period, 
+sampling frequency 3 (or 24) hours (depending on river routing 
+timestep),  output diagnostic at regular intervals, sampling 
+offset 3 (or 24 hours, depending on river routing timestep), 
+every dump period, starting at dump 1.
+
+</M001_S026_I001>
+#
+<M001_S026_I002>
+Item (1:26:2) GRIDBOX OUTFLOW, kg/s (diagnostic)
+
+River water outflow from a river routing gridbox, from global 
+river routing scheme, on river routing grid.
+Use time profile agreeing with the river routing timestep. 
+Note that an offset is needed.
+.
+e.g. T3HDMRV or T24HDMRV:  time mean over 1 dumping period, 
+sampling frequency 3 (or 24) hours (depending on river routing 
+timestep),  output diagnostic at regular intervals, sampling 
+offset 3 (or 24 hours, depending on river routing timestep), 
+every dump period, starting at dump 1.
+
+</M001_S026_I002>
+#
+<M001_S026_I003>
+Item (1:26:3) GRIDBOX INFLOW, kg/s (diagnostic)
+
+River water inflow to a river routing gridbox, from global 
+river routing scheme, on river routing grid.
+Use time profile agreeing with the river routing timestep. 
+Note that an offset is needed.
+.
+e.g. T3HDMRV or T24HDMRV:  time mean over 1 dumping period, 
+sampling frequency 3 (or 24) hours (depending on river routing 
+timestep),  output diagnostic at regular intervals, sampling 
+offset 3 (or 24 hours, depending on river routing timestep), 
+every dump period, starting at dump 1.
+
+</M001_S026_I003>
+#
+<M001_S026_I004>
+Item (1:26:4) RIVER OUTFLOW, kg/s (diagnostic)
+
+River water outflow from coastal points, from global river 
+routing scheme, on atmosphere grid for coupling of freshwater 
+fluxes to the ocean.
+
+Use time profile agreeing with the river routing timestep. 
+Note that an offset is needed.
+
+e.g. T3HDMRV or T24HDMRV:  time mean over 1 dumping period, 
+sampling frequency 3 (or 24) hours (depending on river routing 
+timestep),  output diagnostic at regular intervals, sampling 
+offset 3 (or 24 hours, depending on river routing timestep), 
+every dump period, starting at dump 1.
+
+</M001_S026_I004>
+#
+<M001_S026_I006>
+Item: (1:26:6) INLANDBASINFLOW TRIP GRID, kg/s (diagnostic)
+
+Inland basin outflow on TRIP river routing grid.
+ 
+Only applies to global TRIP river routing scheme - outflow from 
+inland basins is re-routed to the soil moisture store.
+
+Calculated each river routing timestep.
+
+</M001_S026_I006>
+#

@@ -1,0 +1,12 @@
+The Quit button
+This button will Quit the navigation window and return you to the GHUI
+entry panel.
+
+If you opened the job "read/write", made changes to it and if you have
+not subsequently saved your job, you will be prompted as to whether
+or not to save it. If you select to quit anyway the changes you made
+will be lost. If you select cancel, you will be returned to the
+navigation window, where you can save your job. 
+
+If you opened the job "read only". Then Quit will return you to the
+GHUI entry panel.

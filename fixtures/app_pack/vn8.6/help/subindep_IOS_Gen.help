@@ -1,0 +1,79 @@
+===============================================
+General Options
+===============================================
+
+Buffering memory per IO task (buffer_size)
+-----------------------------------------------
+The amount of data (MB) that each IO server can have outstanding. 
+Increasing this smooths the IO load over time, but means there 
+is more uncommitted data in the case of a failure. The value 
+must be small enough to be accommodated by resource limits given 
+to the scheduler.
+
+
+General Messaging Concurrency (IOS_concurrency)
+-----------------------------------------------
+This is the number of IOS transactions that the atmosphere model may 
+initiate before having to check for completion. It can be thought of 
+as the number of concurrent in-flight operations decoupling the model 
+from the IO server. Note completion of such an operation is the point 
+at which receipt has been acknowledged, not when the IO server has 
+processed it.
+
+
+Force read-only files to open locally (IOS_local_ro_files)
+-----------------------------------------------
+If enabled, files opened with read only attributes will not use an 
+IO server, and will be read on MPI rank 0.
+
+
+Polling Delay (IOS_backoff_interval)
+-----------------------------------------------
+This is the time delay in microseconds that the IO server will delay 
+befor retrying an operation, or checking the queue for work. It is 
+intended to allow a thread running on mutithreaded hardware (e.g. SMT) 
+to yield resources to other executing threads, when idle.
+Setting a large value (e.g. more than a few milliseconds) may have a 
+pathological effect on job performance.
+
+
+Timeout Period (IOS_timeout)
+------------------------------------------------
+This is the time in seconds that a component of the IOS will wait when 
+it is expecting an operation to complete. It allows the model to abort
+with meaningful debug information in case of a deadlock.
+
+
+IOS Allocation policy (IOS_Unit_Alloc_Policy)
+------------------------------------------------
+This option specifies how a fortran unit is mapped onto one of the 
+available IO servers. 
+
+Static allocation based on unit number: all allowed units are assigned 
+to servers at start up with a round robin allocation.
+
+Static allocation based on usage order: units are assigned to servers 
+with a round robin allocation policy as they are first used.
+
+Dynamic allocation at reinitialisation points: Units are generally 
+allocated on first use as above, but the model is able to remap the 
+allocation during execution where it safe to do so (e.g. new dump 
+files and STASH reinitialisation). The allocation of a unit to a new 
+IO server can be either deterministic on a round robin basis, or be 
+load balanced, based upon the IO server states. load balancing provides 
+a more optimal mapping in most cases but is more expensive to perform. 
+
+
+IO Servers acquire level of print output from model (IOS_acquire_model_prsts)
+------------------------------------------------
+The IO servers do not read the majority of UM namelist files, 
+including those that set output levels. The servers therefore start 
+with a seperate initial output level defined on this panel. If 
+selected, this option will cause the model setting to take precidence 
+when it becomes available. 
+
+
+Interleave parallel servers
+------------------------------------------------
+Specify whether tasks for each IO server will be assigned in order or round 
+robin (interleaved)

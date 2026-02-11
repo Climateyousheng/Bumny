@@ -1,0 +1,14 @@
+This window allows users to specify the use of the user multi-level ancillary 
+file for the atmosphere.
+
+
+
+Here is the help on the user-ancillary system:
+
+%I user_ancill_gen
+
+
+
+Here is the help on the ancillary system:
+
+%I ancill_gen

@@ -1,0 +1,56 @@
+This window allows users to specify choices associated with the
+build of the NEMO Ocean model executable.
+
+Many options in this window are only used if the model is recompiled.
+However, they always remain active in a UMUI sense as this allows the
+UMUI "difference" function to spot differences in jobs.
+This will only work if users keep the options in line with the way
+the executable in use was built.
+
+
+Type of model run: A normal run (NRUN) is required to start any integration.
+A continuation run (CRUN) can be used to continue a long, automatically resubmitting  
+integration, or to continue an integration that has failed for some reason.
+You cannot select a compilation step for any component (Atmosphere, Ocean or Sea-ice) 
+at the same time as a continuation run. (i.e. when performing a CRUN you must always 
+run using existing executable components.)
+You cannot select a CRUN when running or compiling the reconfiguration. 
+
+
+The executable can be kept and used in subsequent runs. Care
+should be taken if using an executable for two different runs
+(rather than a continuation of the same run). It is safest to only
+re-use executables for "continuations" of the same run. If in doubt
+re-build.
+
+If the executable is to be re-compiled you can specify the number of
+independent compilation processes that can be run simultaneously. 
+Generally this is set to 4 or 5, but as the NEMO executable compiles
+fairly quickly it is not crucial.
+If the executable is not to be re-compiled this part of the window is
+not enabled.
+
+The name and location of the executable needs to be defined. From UM
+version 8.0 onwards, the name of the executable can, in principle, be 
+anything you like. However it will aid clarity if you employ standard 
+names (e.g. nemo.exe.)
+
+$DATAW/bin is the standard location for the executable. FCM always 
+builds to a default location $DATAW/bin so when building for the first 
+time or re-compiling do not change this setting.
+
+Note that although it appears possible to change the location where the 
+executable is built, this is in fact not the case. This location directory
+is only available for editing in order to allow you employ an existing 
+executable which resides elsewhere. 
+
+Building NEMO with CICE
+-----------------------
+
+It is possible to build NEMO and CICE into one executable and in this case
+it is this NEMO compilation settings panel that is relevant, as the CICE
+code is incorporated into NEMO. The name of the combined executable will be 
+that specified in relation to the NEMO component i.e. model.exe or nemo.exe.
+
+The CICE FCM settings panel is still valid for specifying base configs and
+branches but the CICE compilation panel is disabled and its settings ignored.

@@ -1,0 +1,107 @@
+This window allows users to set the reference time used in the ancillary field
+updating system.
+One reference time is used for all sub-models.
+See the UM Basic Users Guide on Ancillary files or the brief summary below.
+
+The reference time can be set to a true date or each element can be
+set to 0. By setting each element to 0, the reference time will be set
+to the same as the start time. This can give problems with
+bit-comparison if you are forced to re-start a run as a new run and
+forget to set the reference time to the date of the original NRUN.
+
+Climate model users are advised to set a true date. Such users who are
+generally doing long integrations will almost certainly be using
+updating of ancillary fields. So setting a true date in this window
+ensures that new runs starting from part way through an existing run
+will give bit comparison. Usually the climate mean reference time is a
+good choice for the ancillary reference time.
+
+The reference time is used for all fields in all sub/internal models.
+
+The following describes why an ancillary reference time is required:
+
+In the windows associated with individual ancillary fields and files,
+the user can specify a period of updating. This is not enough to
+define the actual point of updating. Before UM 3.4, the first point of
+updating was always the beginning of a new run, and subsequent updates
+occurred at the specified frequency after that. This would mean that
+if the run were restarted as an NRUN at a time that was not an
+updating point of the original run, the updating points of the new run
+would be different and the results would therefore not bit compare
+with the original run.
+
+The following explains this further. The data in the ancillary file is
+time-interpolated at each of the update points based on a date mid-way
+through the updating period. This makes the data suitable (on average)
+for the whole period.
+
+Consider a run, producing restart dumps daily, but updating an
+ancillary field every 5 days. This is what happens pre-3.4 and 
+if you use a "0" date now:
+
+Run             0...1...2...3...4...5...6...7...8...9...A...B   Ts and days
+Dumping         x   x   x   x   x   x   x   x   x   x   x   x   Daily
+Update ancil    x                   x                   x       5 days   
+Interp date     ^---------|         ^--------|    
+
+Updating at timestep zero uses a time-interpolation to day 2.5 and the
+ancillary field is in use from 0 <= day < 5.
+
+Clearly, a similar new run starting from a dump at day 3 will use
+different dates for the updating and base them on different 
+time-interpolation days. This will not give the same result as
+the first run.
+
+If an ancillary reference time is provided, all updating points (and
+consequently, the time-interpolation dates) will be an integral number
+of updating periods from this reference time regardless of the time of
+the NRUN.
+
+In this case, updating does occur as the run starts up. However, the 
+time-interpolation date used is relative half way between the fixed
+updating dates that are nearest to the start of the run. Hence, you
+always get the same result.
+
+
+_________________________________
+Ancillary files are data files in the format described in UMDP F3. See the Basic
+User Guide for a full explanation, but a summary follows.
+
+Ancillary files hold fields that define some sort of externally prescribed
+condition to your model. In some circumstances these fields can be supplied by
+another sub-model rather than an ancillary file (as the Sea Surface Temperature
+can be supplied to the atmospheric model by the oceanic model). 
+
+Any ancillary files used need to have been created for the domain of the model
+you are running. Most standard resolutions have ancillary files pre-created in
+central directories. Users often point to these directories with the UM
+environment variable $UM_ANCIL_A/O/S set in the window: 
+[sub-model independent/ File and directory naming].
+
+Ancillary files for non-standard domains will need to be created by the user.
+There are programs available to do this. See the Basic Users Guide.
+
+Ancillary files can hold fields that are potentially time-varying (Vegetation
+parameters) or fixed (orographic height). Some of the standard files holding
+potentially time-varying fields hold fixed fields, so be careful when changing
+settings. The naming convention of the file helps determine this:- files with 
+"clim" in the name hold time varying fields, files with "parm" hold fixed 
+fileds.
+
+Ancillary fields can be specified as one of:
+Not used	Take values from the dump or implicitly supplied via coupling.
+Configured	Overwrite values at reconfiguration, interpolate in time to the
+                start dump time if time-varying.
+Updated		Overwrite the field periodically as the model progresses. The
+                start of each period is defined relative to a common ancillary
+                updating reference time specified at 
+                [Sub-Model Independent / Ancillary reference time]. The field is
+                updated at the start of each period and at the beginning of the
+                run. The fields are time-interpolated to the centre point of the
+                period in question. The start time of the run may be part way
+                through a period. In this case the fields are time-interpolated
+                to the centre point of the full period without reference to the
+                start time. It is possible to use the start time as the 
+                reference time. 
+Some cannot be updated. 
+

@@ -1,0 +1,212 @@
+#!/bin/ksh
+%C---------------------------------------------------------------------
+%C  File:  nds_extract
+%C---------------------------------------------------------------------
+%C
+%C  Purpose: Generates EXTR_SCR, which performs fcm sxtracts from 
+%C           required repositories
+%C
+%C  Include files:
+%C   * nds_um_machine ()
+%C   * nds_target_vars  (Job specific environment variables)
+%C
+%C  Arrays:  models_compile, models_extract 
+%C             These are set up via processing/proc_switches
+%C---------------------------------------------------------------------
+#---------------------------------------------------------------------
+# Script: EXTR_SCR
+# Purpose: generates extract command(s) depending on model's switches
+#         
+# Created from UMUI vn%VERSION
+#---------------------------------------------------------------------  
+%I nds_um_machine
+%TCL
+
+   set umui_ver [get_variable_value VERSION]
+   set usr_ver [string trim %FCM_USR_VER]
+
+   if {%LFCM_USRTRNK=="Y" && $usr_ver!=""} {
+      set brnch_ver $usr_ver
+   } else {
+      set brnch_ver vn$umui_ver   
+   }   
+
+%ENDTCL  
+# Environment variables for FCM repositories and bindings
+%TCL
+   set str_atver "@$brnch_ver"
+   set umfcm_container %UMFCM_CONTAINER
+   set suffix [lindex [split $umfcm_container "@"] 1]
+   if {$suffix == ""} {   
+      append umfcm_container $str_atver     
+   } else {
+      set str_atver "@$suffix"
+   }
+   putl "export UM_CONTAINER=$umfcm_container"
+%ENDTCL
+
+# FCM Repository variables
+export UM_SVN_URL=%UMSVN_URL
+export UM_SVN_BIND=%UMSVN_BIND
+export UM_VN=%TCL putl "$brnch_ver" %ENDTCL
+%T if { %JULES=="T" } {
+export JULES_SVN_URL=%JULES_SVN_URL
+export JULES_VER=%FCM_JULES_VER
+%T }
+%T if { [inactive_var JL_FLAKE]==0 && %JL_FLAKE == "T" } {
+export FLAKE_SVN_URL=%FLAKE_SVN_URL
+export FLAKE_VER=%FCM_FLAKE_VER
+%T }
+%T if { %NEMO == "T" } {
+export NEMO_SVN_URL=%NEMO_SVN_URL
+export NEMO_SVN_BASE=%NEMO_CODE_LOC
+export NEMO_VER=%FCM_NEMO_VER
+export IOIPSL_SVN_URL=%IOIPSL_SVN_URL
+export IOIPSL_SVN_BASE=%IOIPSL_CODE_LOC
+export IOIPSL_VER=%FCM_IOIPSL_VER
+%TCL
+if { %NEMOKEY_IOMPUT == "Y" } {
+  putl "export NEMOIOSERVER=\\\$HERE/NEMOIOSERVER_repos.cfg"
+} else {
+  putl "export NEMOIOSERVER=/dev/null"
+}
+%ENDTCL
+%T }
+
+%T if { %CICE == "T" } {
+export CICE_SVN_URL=%CICE_SVN_URL
+export CICE_VER=%FCM_CICE_VER
+%T }
+
+export UM_USR_MACH_OVRDS=/dev/null
+export UM_USR_FILE_OVRDS=/dev/null  
+export UM_USR_PATHS_OVRDS=/dev/null
+
+%TCL
+   putl "export UM_MACHINE=$um_machine"
+   if {%LFCM_PREBUILD=="Y"} {
+      putl "export UM_PREBUILD=%UMFCM_PREBLD"
+   } else {
+      putl "export UM_PREBUILD=\"\""
+   }
+%ENDTCL
+%I nds_target_vars
+
+export UM_RHOST=%MACH_NAME
+export UM_RLOGNAME=$USERID
+export UM_REMOTE_SHELL=ssh
+export UM_MAINDIR=%UMFCM_OUTDIR/$RUNID
+
+# Local Script Variables
+REPOS_DECL=${UM_CONTAINER%%/*}
+UM_RMAINDIR=$UM_ROUTDIR
+
+. $PROCESSED_DIR/COMP_SWITCHES
+   
+%TCL
+   if {%LFULL_EXT == "Y" && %LFCM_PREBUILD !="Y"} {
+      set opt_e1 "-f"
+   } else {
+      set opt_e1 ""
+   }
+   
+   set out_file [string trim %FCM_OUT_EXT]
+   if { $out_file != ""} {
+      set opt_e2 "1> $out_file 2>&1"
+   } else {
+      set opt_e2 ""
+   }   
+
+%ENDTCL
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Extract Base Repository
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for item
+in %TCL putl "[string toupper $models_extract]" %ENDTCL
+do
+
+   eval extrval=\$EXTR_${item}
+   if test ${extrval} = "true" ; then
+      if test ! -d ${UM_MAINDIR}/baserepos/${item} ; then
+          mkdir -p ${UM_MAINDIR}/baserepos/${item}
+      fi
+
+      export UM_OUTDIR=${UM_MAINDIR}/baserepos/${item}
+      export UM_ROUTDIR=${UM_RMAINDIR}/baserepos/${item}
+
+      if test -e $PROCESSED_DIR/FCM_EXTRACT_${item}_CFG ; then
+         export UM_JOB_CFG=$PROCESSED_DIR/FCM_EXTRACT_${item}_CFG
+      else
+         export UM_JOB_CFG=/dev/null       
+      fi
+
+
+      RC=0
+      echo "Extracting ${item} base repository..."
+      export UM_REPOS_DECL=${REPOS_DECL}/${item}_repos.cfg%TCL putl "$str_atver" %ENDTCL
+
+%T putl "     fcm extract $opt_e1 -v %FCM_VERB_EXT \$UM_CONTAINER $opt_e2"
+
+      RC=$?
+      if test $RC -eq 0 ; then
+         echo ${item} base repository extract is OK
+      else
+         echo ${item} base repository extract failed
+         exit $RC
+      fi
+   fi
+done
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Extract Requested Sub-Models
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for item
+in %TCL putl "[string toupper $models_compile]" %ENDTCL
+do
+
+   eval compval=\$COMP_${item}
+   typeset -l blddir
+   blddir=${item}
+
+   if test $compval = "true" ; then
+      if test ! -d ${UM_MAINDIR}/${blddir} ; then
+         echo "created $blddir sub-directory."
+         mkdir -p ${UM_MAINDIR}/${blddir}
+      fi
+
+      export UM_OUTDIR=${UM_MAINDIR}/${blddir}
+      export UM_ROUTDIR=${UM_RMAINDIR}/${blddir}
+  
+     # Set overrides files properly before atmos or reconf extract   
+      if test ${item} = "UMATMOS" -o ${item} = "UMRECON" ; then
+         export UM_USR_MACH_OVRDS=$PROCESSED_DIR/USR_MACH_OVRDS
+         export UM_USR_FILE_OVRDS=$PROCESSED_DIR/USR_FILE_OVRDS
+         export UM_USR_PATHS_OVRDS=$PROCESSED_DIR/USR_PATHS_OVRDS
+      else 
+         export UM_USR_MACH_OVRDS=/dev/null
+         export UM_USR_FILE_OVRDS=/dev/null  
+         export UM_USR_PATHS_OVRDS=/dev/null 
+      fi
+
+      if test  ${item} = "NEMO" -o ${item} = "CICE" -o \
+         ${item} = "NEMO_CICE" -o ${item} = "UM_NEMO_CICE" ; then
+         export UM_REPOS_DECL=/dev/null
+         cfg_script="NEMOCICE"
+      else
+         export UM_REPOS_DECL=${REPOS_DECL}/UMATMOS_repos.cfg%TCL putl "$str_atver" %ENDTCL
+         cfg_script=${item}
+      fi
+
+      echo "Extracting ${item} including any branches..."    
+      export UM_JOB_CFG=$PROCESSED_DIR/FCM_${cfg_script}_CFG
+%T  putl "      fcm extract $opt_e1 -v %FCM_VERB_EXT \$UM_CONTAINER $opt_e2"
+      RC=$?
+      if test $RC -eq 0 ; then
+         echo ${item} extract is OK
+      else
+         echo ${item} extract failed
+         exit $RC
+      fi
+   fi
+done
+

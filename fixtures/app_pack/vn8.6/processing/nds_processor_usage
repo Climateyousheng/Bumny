@@ -1,0 +1,83 @@
+%C ======================================================
+%C module: nds_processor_usage
+%C
+%C Processor usage and decomposition for MPP 
+%C
+%C Module included in:
+%C  * SUBMIT   via processing/nds_submit
+%C ====================================================== 
+%C
+%T if { %ATMOS=="T" } {
+NMPPE=%NMPPE           # E-W decomposition
+NMPPN=%NMPPN           # N-S decomposition
+%T }
+%TCL
+   set totpe "\$UM_NPES"
+   if { %NEMO=="T" } {
+      set nemo_nproc [expr (int(%NEMO_IPROC) * int(%NEMO_JPROC))] 
+      putl "NEMO_NPROC=$nemo_nproc"
+      putl "NEMO_IPROC=%NEMO_IPROC      # NEMO PEs East-West"
+      putl "NEMO_JPROC=%NEMO_JPROC      # NEMO PEs North-South"
+      set totpe "$totpe+\$NEMO_NPROC"
+      if { %CICE=="T" } {
+          putl "CICE_NPROC=$nemo_nproc"
+      }
+   } else {
+      putl "NEMO_NPROC=0"
+      if { %CICE=="T" } {
+         putl "CICE_NPROC=%CICE_NPROC"
+         set totpe "$totpe+\$CICE_NPROC"  
+      }
+   }
+
+   if {[inactive_var OASIS]==0 && %OASIS=="T"} {
+      if { %OASISWHICH==4 } {
+         putl "PRISM_NPROC=0"
+         putl "CPL_TASK_SPACING=%CPL_TASK_SPACING"
+      } elseif { %OASISWHICH==3 && %OASIS_MPI_TYPE==1} {
+         putl "PRISM_NPROC=%OASIS3_NPROC"
+      } elseif { %OASISWHICH==3 && %OASIS_MPI_TYPE==2} {
+         putl "PRISM_NPROC=1"
+      }
+      set totpe "$totpe+\$PRISM_NPROC"
+   }
+
+    if { [inactive_var IOS_NPROC] == 0 } {
+      if { %IOS_NPROC > 0 } {
+         set flume_ios [expr (int(%IOS_NPROC) * int(%IOS_NTASK))]
+      } else {
+         set flume_ios %IOS_NPROC
+      }
+      set totpe "$totpe+\$FLUME_IOS_NPROC"
+
+   } else {
+      set flume_ios 0	
+   }
+   putl "FLUME_IOS_NPROC=$flume_ios"
+
+%ENDTCL
+
+########################################
+# Calculate total PEs for use in job   #
+########################################
+%T   if {%ATMOS=="T"} {
+let UM_NPES=$NMPPE*$NMPPN
+%T   } else {
+let UM_NPES=0
+%T   }
+# Number of processors requested, including sub-models
+((TOTAL_PE_REQ=%TCL put "$totpe"%ENDTCL))
+echo "Total PEs requested: $TOTAL_PE_REQ"
+
+########################################
+# Reconfiguration: Processor Usage     #
+########################################
+%TCL
+   set rcf_npese %RCF_NMPPE
+   set rcf_npesn %RCF_NMPPN
+
+   set rcf_npes [expr {$rcf_npese * $rcf_npesn}]
+   putl "RCF_NPROCX=$rcf_npese      # E-W decomposition"
+   putl "RCF_NPROCY=$rcf_npesn      # N-S decomposition"
+   putl "RCF_NPES=$rcf_npes"
+%ENDTCL

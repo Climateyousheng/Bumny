@@ -1,0 +1,107 @@
+Help for window : atmos_Science_Section_Rad_Call2
+This window deals with the treatment of both SW and LW radiation on the 
+diagnostic time-step (if multiple radiative time-steps are selected)
+
+CLOUD OPTIONS
+-------------
+
+Select representation of clouds
+-------------------------------
+Mixed-phase clouds contain both ice crystals and water droplets. These
+may be represented as forming a homogeneous mixture or as being
+segregated into separate sub-clouds placed side by side. The latter is
+recommended as being more realistic (and is the only option available for
+a single cloud type, i.e. when there is no convective cloud).
+
+Select option for overlapping clouds
+------------------------------------
+The options for treating the vertical overlap between different cloud 
+layers as as follows:
+    * maximum-random: clouds in adjacent layers are maximally overlapped, 
+      clouds separated by clear-sky are randomly overlapped
+    * random: all clouds are random ly overlapped
+    * exponential-random: for clouds in adjacent layers the overlap is 
+      a linear combination of maximum and random. The parameter controlling 
+      the proportion of each depends on the decorrelation pressure scale(s), 
+      which are the same on the progonostic and diagnostic times-step and are 
+      set in the rad_cloud window
+
+Select method for representing horizontal water content variability
+-------------------------------------------------------------------
+cloud water content exhibits sugrid-scale variability the options for 
+reperesenting the radiative effects of this variability are as follows:
+    * homogeneous: horizontal water content variability is ignored
+    * scaling factor: The mean water content in each gridbox is multiplied b 
+      scaling factor
+    * McICA: A stochastic cloud generator is used to produce sub-columns 
+      containing different water content values, which are randomly sampled.
+
+The select water content variability switch becomes active if either scaling 
+factor or McICA are selected. The options are:
+  0)   Use fixed value. This value is the same on the full and diagnostic 
+       time-step and is set in the rad_cloud window.
+  1)   Use cloud fraction & resolution parametrization described in Hill et al (2012, QJ)
+  2)   Use cca from convection scheme for regime dependent param 
+  3)   Use deep and mid-level (not shallow) cca from conv scheme for regime dependence 
+  4)   Use parametrization described in Boutle et al 2013 
+  5)   Use regime dependent parametrization with smoothed cca field 
+  6)   Use deep and mid-level cca parametrization with smoothed cca field.
+
+Types of droplets and ice crystals
+----------------------------------
+Cloud in the model may be divided into convective and layer cloud. The
+spectral data file may contain data for a number of different
+populations of droplets or ice crystals, described as types. Appropriate
+types must be selected for all components within a cloud. Information on
+which types are available in the standard spectral files may be found in
+the supporting documentation. For the current HadGEM spectral files
+(hadgem1_3 to hadgem1_6) we recommend type 5 droplets (Pade fits with
+thick averaging) and type 8 crystals (ice aggregates with thin averaging).
+
+Using Microphysics in the longwave
+--------------------------------------------
+Selecting cloud microphysics invokes code to relate the effective radius of
+cloud droplets to the liquid water content and the concentration of
+cloud condensation nuclei.
+The microphysical parameterization is of more importance in the
+shortwave and as a result, it is not possible to turn it on and off separately
+on the prognostic and diagnostic time-steps. In longwave it can be turned on or
+off independently on the prognostic and diagnostic time-steps.
+
+GAS OPTIONS
+-----------
+Treatment of gaseous absorption in the SW/LW
+--------------------------------------------
+Theoretically, the appropriate treatment of overlapping gaseous absorption
+should be "Random Overlap", but this is very expensive. The approximate
+method of "Equivalent Extinction" is normally recommended. As a modification
+to the method of Equivalent Extinction for the LW, it is possible to use the
+modulus of the fluxes to weight the minor gas k-terms. This may reduce the
+bias associated with this method. A further correction is required where the
+scaling is different for each k-term in the spectral file.
+
+Absorption by gases
+-------------------
+Absorption by each of the listed gases may be included only if the relevant 
+data are present in the spectral file. To include any of these gases on the 
+diagnostic time-step, they must also be used on the prognostic time-step, 
+where their mass mixing ratios should be set. Mass mixing rations for O2 
+is set in the SWGEN2 panel, while the others are set in the LW panels.
+
+OTHER LW OPTIONS
+----------------
+
+Treatment of scattering in the LW
+---------------------------------
+To save computational expense, there is the option to use an approximate 
+treatment of scattering in the LW, which uses a cheaper solver. The hybrid
+method uses a different treatment of scattering for each k-term and requires
+the methods to be set in the spectral file.
+
+Include tail pf solar flux in LW
+--------------------------------
+The infra-red tail of the solar flux extends into the LW region of the
+spectrum and may be treated as incoming diffuse LW radiation. This is
+only possible with certain spectral files (the SES2 spectral files with
+names beginning "ses"). For other spectral files this flux is generally
+included with the SW direct flux.

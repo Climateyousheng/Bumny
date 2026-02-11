@@ -1,0 +1,9 @@
+This window allows users to choose the sub-models/internal models
+that they wish to run with.
+
+You cannot run with both the ocean-GCM and the SLAB model at once.
+You must choose at least one of the models listed.
+The SLAB model needs to be run with the Atmospeheric model.
+The wave model can only be run alone.
+
+See the UM Basic User Guide on sub-models.

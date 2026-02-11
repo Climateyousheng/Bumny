@@ -1,0 +1,112 @@
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C NAMELIST STSHCOMP
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C used procedures: microphy_set
+%C imbedded files: none
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ &STSHCOMP
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ RUN_TARGET_END= %ERYR , %ERMO , %ERDA , %ERHR , %ERMI , %ERSE ,
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%T if { %ATMOS == "T" } { 
+ OCAAA=%OCAAA,
+%T   if { %OCAAA == 2 || %OCAAA == 3 || %OCAAA == 4 } { 
+ EWSPACEA=%EWSPACEA, 
+ NSSPACEA=%NSSPACEA,
+ FRSTLATA=%FRSTLATA, 
+ FRSTLONA=%FRSTLONA,
+ POLELATA=%POLELATA, 
+ POLELONA=%POLELONA,
+ MESO='%MESO',
+%T   } elseif { %OCAAA == 5 } {
+ LATS=%LATS, 
+ LONS=%LONS,
+%T   } 
+ SWBND=%SWBND, 
+ LWBND=%LWBND,
+%T if {%OROGR=="1" || %OROGR=="2"} {
+ OROGR='Y',
+%T } elseif {%OROGR=="0"} {
+ OROGR='N',
+%T } 
+ SWMCR='Y',
+ ZonAvOzone=%TCL replacep EXPOZ Y .TRUE. N .FALSE. %ENDTCL,
+ OCALB=1, 
+ LFLOOR='%FLOOR', 
+%C ========== TCA Tracers  ==========  
+%T if {%USE_TCA=="Y"} {
+ TCA=%TCL tdelimit %TCA {,} {} %ENDTCL,
+%T } else {
+%TCL
+   set list {}
+   for {set i 1} {$i<=%N_ATRACERS} {incr i} {
+     lappend list 0
+   } 
+%ENDTCL
+ TCA=%TCL tdelimit $list {,} {} %ENDTCL,
+%T unset list
+%T }
+%C ========== TCA_LBC Tracers  ==========
+%T if {(%USE_TCA=="Y")&&(%ATMOS_SR(36)!="0A")&&(%OCAAA!=1)} {
+ TCA_LBC=%TCL tdelimit %LBC_TCA {,} {} %ENDTCL,
+%T } else {
+%TCL
+   set list {}
+   for {set i 1} {$i<=%N_ATRACERS} {incr i} {
+     lappend list 0
+   } 
+%ENDTCL
+ TCA_LBC=%TCL tdelimit $list {,} {} %ENDTCL,
+%T unset list
+%T }
+%C ======= UKCA Tracers begin =======
+%T if {%ATMOS_SR(34)=="1A"} {
+ TC_UKCA=%TCL tdelimit %UKCA_TCA {,} {} %ENDTCL,
+%T } else {
+%TCL
+   set list {}
+   for {set i 1} {$i<=%N_UKCATRAC} {incr i} {
+     lappend list 0
+   } 
+%ENDTCL
+ TC_UKCA=%TCL tdelimit $list {,} {} %ENDTCL,
+%T unset list
+%T }
+%C ======= UKCA LBC begin =======
+%T if {%ATMOS_SR(37)=="1A" && %ATMOS_SR(34)=="1A" && %OCAAA!="1"} {
+ TC_LBC_UKCA=%TCL tdelimit %UKCA_LBC {,} {} %ENDTCL,
+%T } else {
+%TCL
+   set list {}
+   for {set i 1} {$i<=%N_UKCATRAC} {incr i} {
+     lappend list 0
+   } 
+%ENDTCL
+ TC_LBC_UKCA=%TCL tdelimit $list {,} {} %ENDTCL,
+%T unset list
+%T }
+%C ======= All Tracers end =======
+%T    if { (%USERPRE_A=="Y") && (%USERCODES_A=="Y") } {
+ USER_LEVEL_CODES(1,1)=%TCL tdelimit %ULEV_A {,} {} %ENDTCL,  
+ USER_PSEUDO_FIRST_CODES(1,1)=%TCL tdelimit %UPSF_A {,} {} %ENDTCL, 
+ USER_PSEUDO_LAST_CODES(1,1)=%TCL tdelimit %UPSL_A {,} {} %ENDTCL,  
+%T    }
+%TCL
+  set types {}
+  set groups {}
+  set pos 0
+  if {(%ATMOS_SR(18)!="0A")&&(%AAS_AC=="Y")} {
+    if {%ASACMOPS=="Y"} {lappend types 406 ; incr pos ; lappend groups $pos }
+    if {%ASACPREC=="Y"} {lappend types 506 ; incr pos ; lappend groups $pos }
+    if {%ASACTCR=="Y"}  {lappend types 706 ; incr pos ; lappend groups $pos }
+  } else {
+    set types  0
+    set groups  0
+  }
+%ENDTCL
+ AOBINC=%TCL tdelimit $types {,} { } %ENDTCL,
+ AOBGRP=%TCL tdelimit $groups {,} { } %ENDTCL,
+%T unset pos types groups
+%T } ; # end of { %ATMOS == "T" }
+ /
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

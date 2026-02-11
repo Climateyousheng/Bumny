@@ -1,0 +1,73 @@
+HELP screen for UMUI vn5.4 
+Window:  atmos_Science_Section_Aero_Effects
+
+Warning!
+--------
+Users are advised to consult the aerosol modelling group before setting 
+up experiments incorporating aerosol effects in the UM.
+
+General information
+-------------------
+This panel can be used to select direct and/or indirect effects of sulphate,
+sea-salt and/or soot aerosol in the UM. If selected, these effects will alter
+the evolution of other (non-aerosol) model variables.
+
+The direct effect models the scattering or absorption of radiation by aerosols;
+the 3A Edwards-Slingo code contains code to model this, and suitable spectral
+files must be included (via the windows atmos_Science_Section_SWGen2 and
+atmos_Science_Section_LWGen2, or atmos_InFiles_OtherAncil_Spectral).
+
+The first indirect effect allows aerosols to affect the optical properties
+of clouds; the code for this is in the 3A Edwards-Slingo radiation scheme. 
+
+The second indirect effect models the impact of the aerosol on cloud lifetimes,
+and a suitable version of the large scale ppn section must be selected for this
+(3C or 3D).
+
+When using any indirect effect it is advisable to switch on both the sulphate
+and the corresponding sea-salt effect.
+
+
+Sulphate aerosol effects:
+------------------------
+These may be selected independently of each other; however, if sulphate
+effects are required, the Sulphur Cycle must be selected in panel 
+atmos_Science_Section_Aero.
+
+
+The option to use sulphate and/or sea-salt aerosol to calculate CCN in Sulphur 
+Cycle affects the diffusional scavenging of Aitken mode sulphate into cloud
+droplets. This affects only the sulphur 'chemistry' code (and the soot code if 
+also included), and, unlike the direct or indirect effects, will not change the
+evolution of other (non-aerosol) model variables. 
+If using the Sulphur Cycle it is advisable to have this effect ON.
+
+
+Sea-salt aerosol effects
+------------------------
+Sea-salt is not modelled explicitly, but appropriate sea-salt concentrations are
+generated locally within the model from the wind speed variables.
+The direct effect of sea-salt aerosol may be used independently of all other 
+effects, but the indirect effects are linked and supplementary to the sulphate 
+aerosol indirect effects, and cannot be selected alone.
+
+Include Sea Salt in PM diagnostics? 
+-----------------------------------
+If this box is checked the particulate matter (PM10 and PM2.5) diagnostics 
+will include sea salt and Sea PM10 and PM2.5 diagnostics will be available. 
+This can be chosen regardless of the value of any other sea salt options.
+
+Soot aerosol effects
+--------------------
+The direct effect is independent of all other effects, but the Soot Scheme must
+be selected on panel atmos_Science_Section_Aero.
+
+
+Biomass aerosol effects
+-----------------------
+The direct effect is independent of all other effects, but the Biomass Scheme 
+must first be selected in panel atmos_Science_Section_Aero.
+The indirect effects, and use in determining CCN for the aerosol scheme,
+may be selected independently of each other (although this is not
+recommended), but are linked and supplementary to the sulphate aerosol effects,
+and cannot be selected alone (as with sea-salt).

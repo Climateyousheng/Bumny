@@ -1,0 +1,58 @@
+===============================================
+MPI Behaviour
+===============================================
+
+Serialize all MPI calls (serialize_mpi_calls)
+------------------------------------------------
+Lock access to the MPI library so that two threads can't call it 
+simultaneously. A value of 'false', will allow the IO server to 
+determine whether or not a particular MPI library supports this, 
+where setting it to 'true' will force the behaviour (which may 
+be useful if you think the MPI library has threading bugs)
+
+ 
+MPI only allowed on thread 0 (thread_0_calls_mpi)
+------------------------------------------------
+Force the IOS to only allow thread zero in an OpenMP team to call 
+the MPI library. A value of 'false', will allow the IO server to 
+determine whether or not a particular MPI library supports arbitrary 
+threads calling the library, where setting it to 'true' will force 
+the behaviour (which may be useful if you think the MPI library has 
+threading bugs)
+
+
+===============================================
+Tuning
+===============================================
+
+Report message characteristics (IOS_async_stats)
+------------------------------------------------
+This reports message characteristics for stash/dump operations. 
+
+
+Profile OpenMP locks (IOS_Lock_Meter)
+------------------------------------------------
+This option measures and reports time waiting for OpenMP locks, 
+including locks on MPI in serialised MPI implementations and locks 
+on the shared memory queue. 
+
+
+===============================================
+Debugging
+===============================================
+
+Omit data writes (IOS_no_write)
+------------------------------------------------
+Disables actual IO to disk for accelerated stash/dump output 
+
+
+Omit data packing (IOS_no_packing)
+------------------------------------------------
+For stash and dump output via the accelerated method, the packing 
+profile will be ignored and data will be written uncompressed. 
+
+
+Omit data subdomaining (IOS_no_subdomaining)
+------------------------------------------------
+For stash and dump output via the accelerated method, the spatial 
+profile of the field is ignored and a whole field will be written. 

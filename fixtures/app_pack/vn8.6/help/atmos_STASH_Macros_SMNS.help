@@ -1,0 +1,10 @@
+This panel allows the user to switch on fieldsfile output 
+to be input to the SURF soil moisture nudging scheme.
+
+The user can decide whether to output some fields on all 
+land surface tiles or as a land mean, which requires the 
+equivalent switch to be set in the SURF system too.
+
+The nudging macro fields are written to unit 84 (PPSMC).
+
+There are currently two macros in use.

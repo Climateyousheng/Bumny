@@ -1,0 +1,20 @@
+%C ======================================================
+%C module: nds_user_vars
+%C
+%C will set up variables UM_ROUTDIR, UM_RDATADIR on a remote machine
+%C as well common use variables USERID, RUNID
+%C
+%C Module included in:
+%C  * MAIN_SCR via processing/nds_main
+%C  * FCM_BLD_COMMAND via processing/nds_bld_gencmd
+%C ====================================================== 
+%C
+
+#---------------------------------------------
+# User defined environment variables
+#---------------------------------------------
+%T for { set i 1 } { $i <= %N_ENVARS } {incr i } {
+%T   if { %ENVAR_NAME($i) != "" } {
+export %ENVAR_NAME($i)=%ENVAR_VAL($i)
+%T   } 
+%T }

@@ -1,0 +1,121 @@
+%C---------------------------------------------------------------------
+%C  File: fcm_jules_cfg
+%C
+%C  Purpose: Generates configuration for extract and build of the 
+%C           JULES repository within the UM atmosphere, including branches
+%C
+%C  Module included in:
+%C   * FCM_UMATMOS_CFG via processing/fcm_atmos_cfg
+%C---------------------------------------------------------------------
+%TCL
+# Part 1 - Inherit from a Precompiled Build
+# =========================================
+   if { %LFCM_PREBUILD!="Y" } {
+      append part1 "\nuse \$UM_MAINDIR/baserepos/JULES/cfg/ext.cfg" 
+   }
+
+   if { $subm=="umatmos" && %JL_FLAKE=="T" } {
+      append part1 "\nuse \$UM_MAINDIR/baserepos/FLAKE/cfg/ext.cfg"
+   }
+
+# Part 2 - Script build declarations (MANDATORY)
+# ==============================================
+   append part2b "\nbld::pp::jules             1"
+
+   if { $subm=="umatmos" && %JL_FLAKE=="T" } {
+      append part2b "\nbld::pp::flake             1"
+   }
+
+# Part 3a - Model Specific Sections
+# =================================
+   set jules3a "%%jobdefs \\"
+   set def_list {}
+
+# JULES Model definition
+   lappend def_list UM_JULES
+  
+   if { $subm=="umatmos" } {
+      if {%JL_FLAKE=="T"} {lappend def_list UM_FLAKE}
+   }
+
+   # ATMOS=atmos jobdef always present for JULES, so is safe to replace       
+   set findreplace "%%jobdefs \\"
+   foreach def $def_list {
+      set str "   ${def}=[string tolower $def] \\"
+      append jules3a "\n$str"
+   }
+
+#   set part3a [string map [list $findreplace $jules3a] $part3a]
+   set part3a [string map [list $findreplace $part3a] $jules3a]
+
+# Part 3b - Executable definition
+# ===============================
+   # N/A
+
+
+# Part 3c - Optional Flags
+# ========================
+   # N/A
+
+
+# Part 4 - Branches (OPTIONAL)
+# ============================
+   set branches${type} %LFCM_USRBRN_JULES
+   for {set i 1} {$i <= %FCM_BRN_COUNT} {incr i} {
+      set julesrepos($i) JULES
+      set repos${type}($i) JULES
+      set branch_name${type}($i) [get_variable_value FCM_USRBRN_VAL_JULES($i)]
+      set branch_ver${type}($i) [get_variable_value FCM_USRBRN_VER_JULES($i)]
+      set branch_use${type}($i) [get_variable_value FCM_USRBRN_USE_JULES($i)]
+
+   }
+   set type [expr $type + 1]
+
+   if {$subm=="umatmos" && %JL_FLAKE=="T" } { 
+      set branches${type} %LFCM_USRBRN_FLAKE
+      for {set i 1} {$i <= %FCM_BRN_COUNT} {incr i} {
+         set repos${type}($i) FLAKE
+         set branch_name${type}($i) [get_variable_value FCM_USRBRN_VAL_FLAKE($i)]
+         set branch_ver${type}($i) [get_variable_value FCM_USRBRN_VER_FLAKE($i)]
+         set branch_use${type}($i) [get_variable_value FCM_USRBRN_USE_FLAKE($i)]
+      }
+      set type [expr $type + 1]
+   } 
+
+
+# Part 4b - Central Scripts mods (OPTIONAL)
+# ========================================
+   # N/A
+
+# Part 5 - Working copy (OPTIONAL)
+# ================================
+   set workingcopy${type_wc} %LFCM_WRKCP_JULES
+   set repos_wc${type_wc} "jules"
+   set wkcpy_name${type_wc} %FCM_WRKCP_JULES
+   set type_wc [expr $type_wc + 1]
+
+
+   if { $subm=="umatmos" && %JL_FLAKE=="T" } { 
+      set workingcopy${type_wc} %LFCM_WRKCP_FLAKE
+      set repos_wc${type_wc} "flake"
+      set wkcpy_name${type_wc} %FCM_WRKCP_FLAKE
+      set type_wc [expr $type_wc + 1]
+   }
+
+
+# Part 6a - Pre-bindings UMUI controlled Libraries (OPTIONAL)
+# ===========================================================
+   # N/A
+
+
+# Part 6b - Bind File
+# ===================
+   # N/A
+
+
+# Part 6c - Post-bindings UMUI controlled Libraries (OPTIONAL)
+# ============================================================
+   # N/A
+
+%ENDTCL
+

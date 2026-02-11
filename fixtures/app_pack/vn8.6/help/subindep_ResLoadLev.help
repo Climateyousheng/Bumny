@@ -1,0 +1,17 @@
+Much of the job resource information on this window is specifically
+for the Met Office supercomputer system. Non-Met Office users should 
+seek local advice.
+
+Little will need to be specified if this job is externally controlled
+via the Generalised Suite system (SCS).
+
+The time setting is a "wall-clock" time. ie. total real time for the
+job to complete. You are advised to set a realistic time as the
+scheduler uses the value to work out how to schedule your
+job. Specifying a value that is much larger than required will result
+in your job queueing for longer. Remember to reduce or increase the
+time appropriately when changing processor configuration.
+
+The memory limit on the IBM is a value in units of gigabytes (Gb). If
+the input value is a fraction, it is converted to units of megabytes (Mb)
+when the job is processed.

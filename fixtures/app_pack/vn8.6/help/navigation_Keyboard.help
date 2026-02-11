@@ -1,0 +1,64 @@
+      Moving around with the keyboard and other key bindings.
+      -------------------------------------------------------
+Make sure you are not in Caps lock. Not all buttons have been bound
+to the keyboard: stash is the major example - you will therefore 
+still need the mouse sometimes. 
+
+
+Navigation Window
+
+Cursors:          to move up and down within panels and left and right between panels.
+Space  :          to expand or close highlighted node or to open highlighted window.
+Alt-letter:       (separately on some keyboards) to select one of the menu buttons.
+Alt-h letter:     to choose a help topic.
+
+
+Window panels
+
+Cursors:          to move up, down, left and right.
+Return:           to move down.
+Escape:           to exit from a table.
+Space:            to select a button (same as left mouse button).
+
+CTRL_h:           for help         
+
+
+Text displays such as Help Windows
+
+Cursors:          to move up, down, left and right if necessary.
+Space or return:  to close window.
+
+
+Windows with one or more buttons where one button is highlighted
+
+Cursors:          to move left and right.
+Space:            to select highlighted option.
+
+
+Table elements (outside STASH):
+
+TAB:               to move to next box
+Escape:            to leave the table and move to the next item
+Up Down cursor:    to move up or down a row
+Left Right cursor: to move within a box
+CTRL-r:            to delete a whole line
+CTRL-i:            to insert a line (not applicable to all tables)
+
+
+
+General notes:
+To use keys in a particular window you need to have the "input focus" in
+that window. If you are using the keyboard, this focus should be passed from
+window to window automatically. It shows up in the navigation window as a 
+border around one of the panels, and in input windows as a groove around one 
+the buttons, the cursor present in an entry box or a highlighted button.
+
+However, you may sometimes want to use the mouse, perhaps to move a
+window, to open a second window while the first is still open or to go
+to another application. To use the keyboard again when you have done this
+you will need to put the focus back in one of the windows. For the 
+navigation window, just click on it and the focus will appear in the left
+panel. For input windows just click on on of the entries. NB if you allow
+the mouse to pass over some windows then they will steal the focus.
+
+

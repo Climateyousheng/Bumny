@@ -1,0 +1,14 @@
+This window allows users to specify which STASHmacro to use to drive the
+external FOAM Ocean model.  
+
+The macro writes FOAM driving fields to Unit 100.
+
+Foam requires all diagnostics from T+6, every 6 hours for global
+models, and from T+3 every 3 hours for limited area models. In
+addition rainfall diagnostics are required from T+0 as these are
+accumulations.
+
+Most users will not require such output.
+
+%I macros
+

@@ -1,0 +1,11 @@
+This window allows users to specify which STASHmacro to use to drive the AC
+assimilation scheme.
+
+This macro asks STASH to provide diagnostics that are placed into D1 and are
+pulled out using a special TAG by the assimilation code.
+It is required if and only if the run is using the AC assimilation scheme.
+
+%I macros
+
+
+

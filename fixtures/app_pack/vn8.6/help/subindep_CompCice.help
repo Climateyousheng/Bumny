@@ -1,0 +1,56 @@
+This window allows users to specify choices associated with the
+build of the CICE Sea Ice model executable.
+
+Many options in this window are only used if the model is recompiled.
+However, they always remain active in a UMUI sense as this allows the
+difference function to spot differences in jobs.
+This will only work if users keep the options in line with the way
+the executable in use was built.
+
+
+Type of model run: A normal run (NRUN) is required to start any integration. 
+A continuation run (CRUN) can be used to continue a long, automatically resubmitting  
+integration, or to continue an integration that has failed for some reason.
+You cannot select a compilation step for any component (Atmosphere, Ocean or Sea-ice) 
+at the same time as a continuation run. (i.e. when performing a CRUN you must always 
+run using existing executable components.)
+You cannot select a CRUN when running or compiling the reconfiguration. 
+
+
+The executable made can be kept and used in subsequent runs. Care
+should be taken if using an executable for two different runs
+(rather than a continuation of the same run). It is safest to only
+re-use executables for "continuations" of the same run. If in doubt
+re-build.
+
+If the executable is to be re-compiled you can specify the number of
+independent compilation processes that can be run simultaneously. 
+Generally this is set to 4 or 5, but as the CICE executable compiles
+fairly fast it is not crucial.
+If the executable is not to be re-compiled this part of the window is
+not enabled.
+
+
+The name and location of the executable needs to be
+defined. Currently (UM 7.1) it is not possible to change the name of the
+executable for CICE so this setting should stay as the default CICE.exe.
+$DATAW/bin is the standard location for the executable. Note that although
+it appears possible to change where the executable is built here, this is
+not the case. This field is only to specify where the built executable is
+located. FCM always builds to a default location $DATAW/bin so when building
+for the first time or re-compiling do not change this setting.
+If you are wanting to run using an existing executable without compiling
+you can change the executable name and directory accordingly.
+
+Building NEMO with CICE
+-----------------------
+
+It is possible to build NEMO and CICE into one executable and in this case
+it is the NEMO compilation settings panel that is relevant as the CICE
+code is incorporated into NEMO and it is the NEMO model.exe that is built.
+The CICE FCM settings panel is still valid for specifying base configs and
+branches but this CICE compilation panel is ignored.
+
+This panel is only available when building CICE standalone.
+
+

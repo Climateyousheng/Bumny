@@ -1,0 +1,212 @@
+This window allows users to specify options which determine the 
+NEMO source code base that will be built and also enables them 
+to use their own modifications on top of this.
+
+Repository Definitions
+----------------------
+
+From UMUI vn7.9 onwards the FCM repository definitions for NEMO 
+and IOIPSL baseline code including URL and code revision number or 
+keyword are supplied via this panel instead of through a 
+"Job Configuration File".
+
+"NEMO Repository URL" will typically be set to fcm:nemo_tr/NEMO 
+for pre vn3.4 NEMO versions and to fcm:nemo_tr/NEMOGCM/NEMO for 
+vn3.4 and later.
+
+"NEMO code location" would usually be set to "OPA_SRC" in all cases. 
+
+"IOIPSL Repository URL" will typically be set to fcm:ioipsl_tr when 
+using the old-style IOIPSL IO interface and to fcm:nemo_tr/NEMOGCM/EXTERNAL 
+when using the newer iomput (IO Server) IO interface. 
+(iomput is activated via a switch on the "links to NEMO model" window.)
+
+"IOIPSL code location" should usually be set to "src" when using the 
+old-style IOIPSL IO interface and to "IOIPSL/src" when using the newer 
+iomput IO interface. 
+
+The detached NEMO IO server is not yet available via the UMUI - when 
+selected, the iomput code is run in "attached mode". 
+
+From NEMO vn3.4 onwards the "IOIPSL repository URL" in the NEMO FCM 
+panel should normally be set to  "fcm:nemo_tr/NEMOGCM/EXTERNAL" and 
+the "IOIPSL code location" set to "IOIPSL/src". (see a standard job 
+using iomput for examples).
+
+Additional Source Directories
+-----------------------------
+
+List and activate any additional source code directories which you wish 
+to include in the compilation from the source repository. 
+Other directories may be included here, e.g. if you wish to build with 
+LIM2, then include the directory "LIM_SRC_2". 
+
+NEMO 3.0 and 3.2 require that C1D_SRC and LIM_SRC_2 are included in this list. 
+
+NEMO 3.3.1 requires that C1D_SRC and LIM_SRC_3 are NOT included since source code
+reorganisation has meant that these are no longer needed by NEMO for compilation
+LIM3 trunk code does not even compile at 3.3.1 without bug fixes! 
+
+When iomput is activated, the XMLF90 and XMLIO_SERVER sub directories are 
+automatically included in the build.
+
+NEMO Compiler Flags File
+------------------------
+
+Specify a path / filename of a 'base' .cfg file for NEMO. 
+
+This file should normally contain any machine specific build tool overrides,
+compiler flag overrides.  Build exclude dependency declarations etc. could
+also be included.
+
+FPP keys Configuration File
+---------------------------
+
+Specify a path / filename of a .cfg file which contains a bld::tool::fppkeys::nemo
+declaration followed by a list of keys for the NEMO configuration you wish to
+build.
+
+For versions of NEMO which use static allocation, namely versions 3.0 and 3.2, 
+three fppkeys are configured via UMUI panels and automatically added to the keys set 
+in the FPP keys Configuration File:
+
+  IPROC
+  JPROC
+  IJPROC
+  
+NEMO vn3.3.1 onwards uses dynamic allocation, hence these keys are not set in 
+this case (rather environment variables NEMO_IPROC, NEMO_JPROC and NEMO_NPROC are 
+exported and used in processing the NEMO namelist.)
+
+It is probably better to seek out existing samples of the above two .cfg files and
+modify them accordingly rather than creating from scratch.
+	     
+
+User branches
+-------------
+
+If you have made code modifications and/or wish to use other developers'
+modifications you need to enable the option "Include modifications from branches".
+Note that there are two types of branches possible as the NEMO repository
+contains two projects: NEMO (base code) and IOIPSL (IO system code). Hence the 'Type'
+column on this table. The type should be entered in as lower case (nemo or ioipsl)
+and the branch location can be entered using any valid FCM URL syntax. For example:
+
+fcm:nemo_br/dev/[userid]/[branch name]
+fcm:ioipsl_br/dev/[userid]/[branch name]
+
+or
+
+svn://fcm2/NEMO_svn/NEMO/branches/dev/[userid]/[branch name]
+svn://fcm2/NEMO_svn/IOIPSL/branches/dev/[userid]/[branch name]
+
+Note that '/src' is NOT required on the end of branches (as it is for
+the UM Atmosphere) as the repository structure is different.
+
+Generally, the revision column of this table is left blank as this ensures that
+the 'HEAD'(latest version) of the branch is used. If you are using other developers'
+branches, however,you may need to use a revision. This is a way of allowing you to
+use a stable version of the branch while the author continues to make changes.
+
+
+Using working copies instead of branches to apply changes
+---------------------------------------------------------
+
+If you wish to experiment with temporary changes (e.g debugging print statements)
+and therefore do not wish to commit them to the repository straight away you can
+point directly at your working copy.(i.e. where you checked out your NEMO/IOIPSL
+source code to and made your changes).
+
+Enable either or both the
+
+"Include modifications from NEMO working copy"
+or
+"Include modifications from IOIPSL working copy"
+
+options and enter the path to your working copy directory.
+
+Again, '/src' on the end is not required for NEMO and IOIPSL.
+
+nemo_Science_Link 	
+
+Help for window : nemo_Science_Link 
+
+This window allows users to specify 'Science' options for the NEMO model.
+
+NEMO version
+------------
+
+Select the version of NEMO you wish to use. 
+Currently you must choose either version 3.2, 3.3.1 or 3.4. 
+These are the only versions explicitly supported by the UM model control 
+infrastructure. The need to distinguish between versions arises from the 
+need to process different formats of namelist under each NEMO release.
+NEMO uses dynamic allocation from vn3.3.1 onwards, hence PE configuration 
+details must be set in the NEMO namelist.
+
+When switching between NEMO releases please check the corresponding NEMO 
+FCM and NEMO executable panels to ensure consistency of code branches and
+compiler and fpp key configuration files with the version you are running. 
+
+NEMO Namelist
+-------------
+At present there are no proper Science panels for NEMO. Scientific
+parameters are configured by specifying a NEMO namelist in the "NEMO Model
+control namelist" field. The path and filename supplied should exist on the
+remote run platform.  A LIM namelist can also be specified if running NEMO-LIM
+rather than NEMO-only or NEMO-CICE (note that this option is non-standard and
+may not necessarily have been rigourously tested).
+
+For advice on which namelist to use please see a relevant sample job for
+an example or consult the Ocean and Sea Ice Modelling Team.
+
+
+Symbolic Links to NEMO input files
+----------------------------------
+During a run, NEMO requires various input NetCDF (.nc) files to be available.
+These are held in a central area and linked into the run directory according
+to what is specified in this table. The "NEMO input file name" column is used
+to specify the link that is to be created in the run directory. It is not
+necessary to add the run directory path variable (e.g. $DATAM) as if it is
+not present it will be added on by the UMUI. The "Actual full path and file
+name" column is used to specify the file that is to be linked. What is required
+in this table may vary depending on whether you are running NEMO standalone
+or coupled to the UM Atmosphere so consult a standard job or the Ocean and
+Sea Ice Modelling Team if you are not sure.
+
+
+NEMO Start Dump
+---------------
+If a start dump is specified then an NRUN will use this for the NEMO initial
+conditions.  If a dump is not specified than the initial NEMO state will be an
+at-rest ocean with temperature and salinity taken from the appropriate month
+of the linked data_1m_potential_temperature_nomask.nc and
+data_1m_salinity_nomask.nc files (the files are instead specified in the NEMO
+namelist for vn3.3.1 onwards).
+
+
+NEMO Restart Dump Naming
+------------------------
+For ease of cross-checking of dates between model components there is now an
+option to name the NEMO restart dumps using the date rather than the NEMO
+time-step number.  This option is most likely to be used in climate runs
+but requires a NEMO branch (e.g. fcm:nemo_br/dev/hadci/VN3.0_restart_date at
+NEMO vn3) to work correctly at present.  Consult a member of the Ocean and
+Sea Ice Modelling Team for more details if necessary.
+
+NEMO Output Options
+-------------------
+NEMO has an option to write out diagnostics using the 'iomput' code rather than
+the older 'diawri' code.  This new option can be activated in this panel.
+If 'iomput' is switched on then NEMO will expect to find the iodef.xml and 
+xmlio_server.def files at run time in order to control
+the diagnostics. These files should therefore be included in the list of 
+"Symbolic links to NEMO files" (see a standard job using iomput for examples).  
+
+Activating 'iomput' automatically causes the NEMO XMLIO and XMLIO_SERVER 
+source code to be included in the NEMO build.
+
+The 'iomput' option is at present only used with the NEMO IO server  in 
+'attached' mode i.e. running on the same processors as NEMO.  
+It is not recommended for use with NEMO vn3.2. See the help panel on the NEMO 
+FCM window for more details. 

@@ -1,0 +1,7 @@
+Top-level control panel for assimilation and temporal filtering schemes in
+section 18 of the code. Any combination of schemes may be run.
+
+The nominal analysis time, required for both AC and IAU, is the number
+of minutes after the start of the run at which the data time should be
+reset to the current validity time. The value chosen should be a
+multiple of the timestep.

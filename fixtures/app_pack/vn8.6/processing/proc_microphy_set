@@ -1,0 +1,9 @@
+%TCL
+proc microphy_set { } {
+ if { %SWMCR == "Y"  && ( %ES_RAD == 1  || %ES_RAD == 3 ) } {
+   return ".TRUE."
+ } else {
+   return ".FALSE."
+ }
+}  
+%ENDTCL  

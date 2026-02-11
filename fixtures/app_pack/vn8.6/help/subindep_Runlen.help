@@ -1,0 +1,22 @@
+This window allows users to specify the start date of the run and the target run
+length.
+
+%I start_date
+
+The Target run length defines the total length of the run. Users at UKMO can
+specify that the job runs in smaller chunks with automatic resubmission. This 
+needs to be defined in window [subindep_JobRes].
+Users of the climate model post-processing system need to set a value slightly
+longer than the required to ensure that the final output files are dealt with. 1
+hour will do.
+
+
+A Note About Run Length for NEMO, CICE and NEMO-CICE models
+-----------------------------------------------------------
+NEMO-only, CICE-only and NEMO-CICE-only runs not using the 360-day 
+calendar will use a 365-day calendar which does not account for 
+leap years. 
+
+Coupled atmosphere-NEMO-CICE models not using the 360-day calendar
+will use the Gregorian calendar.
+

@@ -1,0 +1,27 @@
+This panel allows the user to specify which STASH macros should be used to
+generate the fieldsfile(s) which will form the input into Makebc to create
+LBCs
+
+The Makebc fields are written to unit 164 (PPMBC).
+
+There is currently only one macro.
+
+Makebc Macro
+---------------
+
+The Makebc macro is used to generate a set of fieldsfiles 
+containing those fields required for create of LBCs in Makebc. The
+LBCs are then obtained from the fieldsfiles by using Makebc with a
+namelist specifying the requirements for LBCs.
+
+WGDOS packing is recommended and should be used where possible.
+
+The optional LBCs can be selected but only if available in STASH.
+
+If makebc STASHmacros are enabled the column "Required for makebc" 
+can be used to select which tracers are output in the STASHmacro 
+for makebc.
+
+Thomas Green (10/07/2013)
+
+%I macros

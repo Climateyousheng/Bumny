@@ -1,0 +1,133 @@
+%C---------------------------------------------------------------------
+%C  File:  nds_build_vars
+%C---------------------------------------------------------------------
+%C
+%C  Purpose: Generates COMP_SWITCHES, which sets up submodel extract 
+%C           and compile switches (UM, FLUME, JULES FLAKE, NEMO, CICE, umscripts, 
+%C           umrecon, umatmos, nemo, cice, nemo_cice, um_nemo_cice)
+%C
+%C  Arrays:  models_compile, models_extract 
+%C             These are set up via processing/proc_switches
+%C---------------------------------------------------------------------
+%TCL
+
+   set atm  [get_variable_value ATMOS] 
+   set nemo [get_variable_value NEMO] 
+   set cice [get_variable_value CICE]  
+   set mask $atm$nemo$cice   
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Initialise all model switches to false 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   foreach item $models_compile {
+      set comp($item) "false"
+   }
+
+   foreach item $models_extract {
+      set extr($item) "false"
+   }
+   
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Atmosphere and Reconfiguration
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   if {%ATMOS=="T"} {
+      # Model build
+      if { %COMP_ATM=="Y" } {
+         set comp(umatmos) "true"
+      }
+
+      # Reconfiguration build
+      if { %COMP_RCF=="Y" } {
+         set comp(umrecon) "true"
+      }          
+   } 
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# NEMO and CICE Compile options
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       
+
+   if {($mask=="TTT")&&(%NEMOC!=1)} {
+      # Fully coupled
+      set comp(um_nemo_cice) "true"
+
+   } elseif {($mask=="FTT")&&(%NEMOC!=1)} {
+      # NEMO and CICE build
+      set comp(nemo_cice) "true"
+        
+   } elseif {($mask=="FTF")&&(%NEMOC!=1)} {
+      # NEMO only build
+      set comp(nemo) "true"
+       
+   } elseif {($mask=="FFT")&&(%CICEC!=1)} {
+      # CICE only build
+      set comp(cice) "true"
+         
+   } else {
+      # No NEMO or CICE build
+   }
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Repository Extract switches
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# UMATMOS Extract
+# ~~~~~~~~~~~~~~~
+   foreach item $models_compile {
+      if { %LBLDUMSCR=="Y" || $comp($item) == "true" } {
+         set comp(umscripts) "true"  
+         if { %LFCM_PREBUILD != "Y" } { 
+            # Check for ATMOS pre-build 
+            set extr(umatmos) "true"
+         }
+         break
+      }
+   }
+
+
+# JULES Extract
+# ~~~~~~~~~~~~~      
+   if { %JULES=="T" } {
+      if { ($comp(umatmos)=="true" || $comp(umrecon)=="true") && %LFCM_PREBUILD != "Y" } {
+         set extr(jules) "true"
+      }
+   }
+
+
+# FLAKE Extract
+# ~~~~~~~~~~~~~      
+   if { [inactive_var JL_FLAKE]==0 && %JL_FLAKE=="T" && $comp(umatmos)=="true" } {
+      set extr(flake) "true"
+   }
+
+
+# NEMO Extract
+# ~~~~~~~~~~~~ 
+   if { $comp(um_nemo_cice)=="true" || $comp(nemo_cice)=="true" || $comp(nemo)=="true" } {
+      set extr(nemo) "true"
+   }
+
+
+# CICE Extract
+# ~~~~~~~~~~~~ 
+   if { $comp(um_nemo_cice)=="true" || $comp(nemo_cice)=="true" || $comp(cice)=="true" } {
+      set extr(cice) "true"
+   }   
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Print build switches
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   putl "# Repository Extract switches"
+   foreach item $models_extract {
+      set item_cap [string toupper $item]
+      putl "EXTR_$item_cap=$extr($item)"
+   }
+
+   putl ""  
+   putl "# Model build switches"
+   foreach item $models_compile {
+      set item_cap [string toupper $item]
+      putl "COMP_$item_cap=$comp($item)"
+   }   
+
+%ENDTCL 

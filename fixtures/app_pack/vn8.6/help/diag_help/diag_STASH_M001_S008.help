@@ -1,0 +1,186 @@
+<M001_S008_I023>
+Item: (1:8:023)
+
+Snow mass after hydrology (kg/m2).
+Available on land points only.
+</M001_S008_I023>
+#
+<M001_S008_I202>
+STASH item specific help for
+(1, 8, 202) LAND SNOW MELT HEAT FLUX
+   
+Flux of heat required to melt the snow calculated on the timestep (W/m2).
+
+Available on land points only.
+
+</M001_S008_I202>
+#
+<M001_S008_I204>
+STASH item specific help for 
+(1, 8, 204) SFC RUNOFF AMOUNT:LAND MEAN KG/M2/TS
+
+This item is the surface runoff, meaned over the land portion of the gridbox.
+
+ 
+</M001_S008_I204>
+#
+<M001_S008_I205>
+STASH item specific help for 
+(1, 8, 205) SUB-SFC RUNOFF AMT:LAND MN  KG/M2/TS
+
+This item is the sub-surface runoff, meaned over the land portion of
+the gridbox.
+
+ 
+</M001_S008_I205>
+#
+<M001_S008_I208>
+Item: (1:8:208) Available soil moisture content (kg/m2).
+
+Available on land points only.
+
+SMC = VEG_FRAC*SMC_AV_VEG + (1-VEG_FRAC)*SMC_AV(1)
+
+where VEG_FRAC is the vegetated fraction of the gridbox,
+SMC_AV_VEG is the soil moisture available to plants (i.e.
+within the rootdepth), and SMC_AV(1) is the available soil
+moisture in the top soil layer. In both cases, only the 
+unfrozen soil moisture above the "wilting point" value
+is "available". 
+
+</M001_S008_I208>
+#
+<M001_S008_I223>
+Item: (1:8:223)
+Total (frozen+unfrozen) soil moisture content in a soil layer (kg/m2).
+
+Available on land points only.
+
+
+Note: Includes the "wilting point" soil moisture.
+                
+</M001_S008_I223>
+#
+<M001_S008_I225>
+Item: (1:8:225) Soil/land-ice temperature in a layer (K).
+
+Available on land points only.
+
+</M001_S008_I225>
+#
+<M001_S008_I229>
+STASH item specific help for
+(1, 8, 229) FROZEN SOIL MOISTURE FRACTION
+
+The amount of frozen soil water in each soil layer as a fraction of saturation
+
+Available on land points only.
+
+</M001_S008_I229>
+#
+<M001_S008_I230>
+Item: (1:8:230) Frozen soil moisture content in a 
+      layer as a fraction of saturation.
+
+Available on land points only.
+
+</M001_S008_I230>
+#
+<M001_S008_I231>
+STASH item specific help for
+(1, 8, 231) LAND SNOW MELT RATE
+
+Rate of snow melt on land (kg/m2/s).
+
+Available on land points only.
+
+</M001_S008_I231>
+#
+<M001_S008_I233>
+Item: (1:8:233)
+
+Rate of throughfall of precipitation through canopy (kg/m2/s).
+"Rate-equivalent" of item 1:8:203
+Available on land points only.
+</M001_S008_I233>
+#
+<M001_S008_I234>
+Item: (1:8:234)
+
+Rate of surface runoff (kg/m2/s).
+"Rate-equivalent" of item 1:8:204
+Available on land points only.
+</M001_S008_I234>
+#
+<M001_S008_I235>
+Item: (1:8:235)
+
+Rate of sub-surface runoff (kg/m2/s).
+"Rate-equivalent" of item 1:8:205
+Available on land points only.
+</M001_S008_I235>
+#
+<M001_S008_I236>
+STASH item specific help for
+(1, 8, 236) SNOW AMOUNT ON TILES
+
+Amount of snow (Kg/m2) of each surface tile
+
+Available on land points only.
+
+</M001_S008_I236>
+#
+<M001_S008_I237>
+STASH item specific help for
+(1, 8, 237) SNOW MELT RATE ON TILES
+
+Rate of snow melt (Kg/m2/s) on each surface tile
+
+Available on land points only.
+
+</M001_S008_I237>
+#
+<M001_S008_I238>
+STASH item specific help for
+(1, 8, 238) SNOW GRAIN SIZE ON TILES
+
+Size of snow grains (microns) for each surface tile
+
+Available on land points only.
+
+</M001_S008_I238>
+#
+<M001_S008_I245>
+Item: (1:8:245)
+
+Inland basin outflow on atmosphere grid (diagnostic), kg/m2/s. 
+Only applies to global TRIP river routing scheme - outflow from inland
+basins is re-routed to the soil moisture store.Calculated each river routing
+timestep.
+
+</M001_S008_I245>
+#
+<M001_S008_I258>
+ACCUM SURFACE RUNOFF RATE KG/M2/S
+
+This is the gridbox mean accumulated surface runoff rate, accumulated over 
+the global river routing timestep (usually 1 day/86400 seconds, but see 
+Panel Atmosphere->Scientific Parameters and Sections->Section by Section 
+choices->Section 26: River Routing).
+
+This is a diagnostic field on atmosphere grid points, and is only included if 
+the global river-routing scheme is used. The prognostic equivalent is 0,155. 
+</M001_S008_I258>
+#
+<M001_S008_I259>
+ACCUM SUB-SURFACE RUNOFF RATEKG/M2/S
+
+This is the gridbox mean accumulated sub-surface runoff rate, accumulated over 
+the global river routing timestep (usually 1 day/86400 seconds, but see Panel 
+Atmosphere->Scientific Parameters and Sections->Section by Section 
+choices->Section 26: River Routing).
+
+This is a diagnostic field on atmosphere grid points, and is only included if 
+the global river-routing scheme is used. The prognostic equivalent is 0,156. 
+</M001_S008_I259>
+#

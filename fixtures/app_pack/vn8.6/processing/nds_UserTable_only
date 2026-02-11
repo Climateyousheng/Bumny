@@ -1,0 +1,122 @@
+%C ===========================================================
+%C module: nds_UserTable_only
+%C
+%C Includes machine specific variables from the table
+%C specified by user
+%C =========================================================== 
+%C
+###################################################
+#                               MACHINE SPECIFIC  #
+###################################################
+# TARGET_MC is used in path to small execs and scripts
+%T if {%LTRGMACH != "Y"} {
+export TARGET_MC=normal
+%T } else {
+export TARGET_MC=%USR_TARGET_MC
+%T }
+
+# Submission command and output file names
+export SUB_CMD="\n echo \"SUBMIT: Submission command not provided !!!\" \n"
+export SUB_OUT_RCF="\n echo \"SUBMIT: Output command not provided !!!\" \n"
+export SUB_OUT_RUN="\n echo \"SUBMIT: Output command not provided !!!\" \n"
+export SUB_OUT_CMP="\n echo \"SUBMIT: Output command not provided !!!\" \n"
+
+###################################################
+# Statements before headers          USER DEFINED #
+###################################################
+
+%TCL 
+   set use_lst %USR_OTHR_USE
+   set len [llength $use_lst]
+
+   for {set i 1} {$i <= $len} {incr i} {
+      if {%USR_OTHR_USE($i)=="Y" && (%USR_OTHR_WHERE($i)=="BFR" || \
+          %USR_OTHR_WHERE($i)=="bfr")} {
+         set str_left %USR_OTHR_LEFT($i)
+         putl "$str_left"
+      }   
+   }
+%ENDTCL 
+
+###################################################
+# Create compilation header          USER DEFINED #
+###################################################
+
+  cat >>$comp_header<<EOF
+#!/bin/ksh
+. /etc/profile
+
+%TCL 
+   set use_lst %USR_OTHR_USE
+   set len [llength $use_lst]
+
+   for {set i 1} {$i <= $len} {incr i} {
+      if {%USR_OTHR_USE($i)=="Y" && (%USR_OTHR_WHERE($i)=="CMP" || \
+          %USR_OTHR_WHERE($i)=="cmp")} {
+         set str_left %USR_OTHR_LEFT($i)
+         putl "$str_left"
+      }   
+   }
+%ENDTCL 
+EOF
+
+###################################################
+# Create reconfiguration header      USER DEFINED #
+###################################################
+
+  cat >>$rcf_header<<EOF
+#!/bin/ksh
+. /etc/profile
+
+%TCL 
+   set use_lst %USR_OTHR_USE
+   set len [llength $use_lst]
+
+   for {set i 1} {$i <= $len} {incr i} {
+      if {%USR_OTHR_USE($i)=="Y" && (%USR_OTHR_WHERE($i)=="RCF" || \
+          %USR_OTHR_WHERE($i)=="rcf")} {
+         set str_left %USR_OTHR_LEFT($i)
+         putl "$str_left"
+      }   
+   }
+%ENDTCL 
+EOF
+
+###################################################
+# Create run header                  USER DEFINED #
+###################################################
+
+  cat >>$run_header<<EOF
+#!/bin/ksh
+. /etc/profile
+
+%TCL 
+   set use_lst %USR_OTHR_USE
+   set len [llength $use_lst]
+
+   for {set i 1} {$i <= $len} {incr i} {
+      if {%USR_OTHR_USE($i)=="Y" && (%USR_OTHR_WHERE($i)=="RUN" || \
+          %USR_OTHR_WHERE($i)=="run")} {
+         set str_left %USR_OTHR_LEFT($i)
+         putl "$str_left"
+      }   
+   }
+%ENDTCL 
+EOF
+
+###################################################
+# After headers statements           USER DEFINED #
+###################################################
+
+%TCL 
+   set use_lst %USR_OTHR_USE
+   set len [llength $use_lst]
+
+   for {set i 1} {$i <= $len} {incr i} {
+      if {%USR_OTHR_USE($i)=="Y" && (%USR_OTHR_WHERE($i)=="AFT" || \
+          %USR_OTHR_WHERE($i)=="aft")} {
+         set str_left %USR_OTHR_LEFT($i)
+         putl "$str_left"
+      }   
+   }
+%ENDTCL  

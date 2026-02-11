@@ -1,0 +1,6 @@
+.comment This is a dummy skeleton for use with non GHUI windows.
+.comment Typically, it is used with "windows"  files that call their own Tcl.
+.comment They are defined as ".wintype dummy" and will be called
+.comment "something.tcl"
+.skeleton dummy
+.skelend

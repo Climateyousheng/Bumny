@@ -1,0 +1,23 @@
+This window allows users to specify parameters that exist on each of the
+model levels, or wet levels.
+
+Users should see standard experiments for the recommended setting for
+the standard configurations.
+
+Diffusion is defined in terms of K*DEL**(2N). So that N=2 gives
+fourth-order diffusion with coeffiecient K.
+
+Divergence damping is not used other than during assimilation in most
+standard runs. Set a zero coefficient to imply unused.
+
+Diffusion and divergence damping coefficients are resolution and
+timestep dependent and need careful tuning. Diffusion is applied on
+advection timesteps. See UMDP 10. 
+
+The critical relative humidity is used in the cloud scheme to define the
+ratio at which cloud starts to form. Different values are used in
+different  configurations and you are advised to look at standard jobs
+to see the settings.
+
+
+

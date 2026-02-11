@@ -1,0 +1,39 @@
+if test $RUN_COMPILE = "true"; then
+   submit_file=umuisubmit_compile
+elif test $RUN_MODEL = "true" ; then
+   submit_file=umuisubmit_run
+else
+  echo "Unable to Run STEP = $STEP. Exit"
+  exit
+fi
+
+%T if { %SUBMIT_METHOD == 0 } {
+# Do nothing: code for OASIS was deleted
+%T } elseif  { %SUBMIT_METHOD == 1 || %SUBMIT_METHOD == 2 } {
+# construct script for submission with at (SUBMIT_METHOD = 1)...
+# or batch when SUBMIT_METHOD == 2
+# set up redirection of output. Needs output directory $MY_OUTPUT to be defined.
+%T putl "  . \$HOME/um/vn%VERSION/normal/scripts/.umsetvars_%VERSION"
+# defines the job directory
+# Define output file.
+OUTPUT_FILE=$MY_OUTPUT/$CJOBN.$RUNID.d$OUTPUT_D.t$OUTPUT_T.comp.$OCO
+echo "Your output will be  sent to file:"
+echo "  $OUTPUT_FILE"
+echo "  "
+REDIRECTS="> $OUTPUT_FILE 2>&1"
+#
+# submit job at a specific time with at
+%T if { %SUBMIT_METHOD == 1 } {
+at %AT_WHEN <<EOF
+%T } else {
+batch %AT_WHEN <<EOF
+%T }
+  # run profiles to get things like UMDIR
+  # hopefully, they will not be interactive.
+  . /etc/profile $REDIRECTS
+%T putl "  . \$HOME/um/vn%VERSION/normal/scripts/.umsetvars_%VERSION \$REDIRECTS"
+  # set JOBDIR variable
+  JOBDIR=$HOME/umui_runs/$RUNID-$SUBMITID
+  export JOBDIR SUBMITID
+EOF
+%T }

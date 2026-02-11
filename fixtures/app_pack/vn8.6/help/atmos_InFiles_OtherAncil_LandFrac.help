@@ -1,0 +1,18 @@
+This window allows users to specify the use of the land fraction
+ancillary file.
+
+The land fraction is the field defining the fraction of land in 
+each point which contains land.  It is only needed if the coastal 
+tiling is switched on. It is not time-variant and so can only be 
+configured. This ancillary must be consistent with the land-sea-mask 
+ancillary, i.e. land fraction >0 where the land mask is true and 
+land fraction <1 where the land mask is false. Care should be taken 
+with the sea fields as coastal where the land mask is false. Care 
+should be taken with the sea fields as coastal adjustment will 
+currently only deal with points where there is NO land, so these 
+ancils should be produced for fields where the land fraction < 1.  
+
+You should include an ancillary file if changing resolution or land 
+mask."
+
+%I ancill_gen

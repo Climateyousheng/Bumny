@@ -1,0 +1,414 @@
+<M001_S031_I014>
+Items (1:31:014)		
+
+Lateral boundary data for prognostic cloud ice pristine 
+crystals (QCF2_LBC) (kg/kg), if the second cloud ice prognostic option 
+is active (i.e. logical L_mcr_qcf2=.True.) and the model has a limited 
+area domain.
+</M001_S031_I014>
+#
+<M001_S031_I015>
+Items (1:31:015)		
+
+Lateral boundary data for prognostic rain variable (QRAIN_LBC) 
+(kg/kg), if the prognostic rain option is active 
+(i.e. logical L_mcr_qrain=.True.) and the model has a limited area domain.
+</M001_S031_I015>
+#
+<M001_S031_I016>
+Items (1:31:016)		
+
+Lateral boundary data for prognostic graupel variable (QGRAUP_LBC) 
+(kg/kg), if the prognostic graupel option is active 
+(i.e. logical L_mcr_qgraup=.True.) and the model has a limited area domain.
+</M001_S031_I016>
+#
+<M001_S031_I017>
+Item (1:31:017)                
+
+Lateral boundary data for cloud volume fraction, if the generating model
+and the limited area model have active PC2 cloud schemes
+(i.e. logical l_pc2=.true.).
+</M001_S031_I017>
+#
+<M001_S031_I018>
+Item (1:31:018)                
+
+Lateral boundary data for liquid cloud fraction (this is a volume fraction),
+if the generating model and the limited area model have active PC2 cloud
+schemes (i.e. logical l_pc2=.true.).
+
+</M001_S031_I018>
+#
+<M001_S031_I019>
+Item (1:31:019)                
+
+Lateral boundary data for ice cloud fraction (this is a volume fraction),
+if the generating model and the limited area model have active PC2 cloud
+schemes (i.e. logical l_pc2=.true.).
+</M001_S031_I019>
+#
+<M001_S031_I020>
+Item: (1:31:20)
+
+Lateral boundary data for prognostic "murk" aerosol (MURK_LBC) (kg/kg),
+if the prognostic murk aerosol is in the lateral boundary file 
+(i.e. logical L_murk_lbc=.True.) and the model has a limited area domain.
+</M001_S031_I020>
+#
+<M001_S031_I023>
+(1:31:23) DUST DIV 1 BOUNDARY VALUE
+
+Lateral boundary data for Dust Division 1, if the mineral dust scheme
+is active and the model has a limited area domain.
+</M001_S031_I023>
+#
+<M001_S031_I024>
+(1:31:24) DUST DIV 2 BOUNDARY VALUE
+
+Lateral boundary data for Dust Division 2, if the mineral dust scheme
+is active and the model has a limited area domain.
+</M001_S031_I024>
+#
+<M001_S031_I025>
+(1:31:25) DUST DIV 3 BOUNDARY VALUE
+
+Lateral boundary data for Dust Division 3, if the mineral dust scheme
+is active and the model has a limited area domain.
+</M001_S031_I025>
+#
+<M001_S031_I026>
+(1:31:26) DUST DIV 4 BOUNDARY VALUE
+
+Lateral boundary data for Dust Division 4, if the mineral dust scheme
+is active and the model has a limited area domain.
+</M001_S031_I026>
+#
+<M001_S031_I027>
+(1:31:27) DUST DIV 5 BOUNDARY VALUE
+
+Lateral boundary data for Dust Division 5, if the mineral dust scheme
+is active and the model has a limited area domain.
+</M001_S031_I027>
+#
+<M001_S031_I028>
+(1:31:28) DUST DIV 6 BOUNDARY VALUE
+
+Lateral boundary data for Dust Division 6, if the mineral dust scheme
+is active and the model has a limited area domain.
+</M001_S031_I028>
+#
+<M001_S031_I029>
+(1:31:29) SO2 BOUNDARY VALUE
+
+Lateral boundary data for Sulphur Dioxide (SO2), if the the Sulphur Cycle
+aerosol scheme is active and the model has a limited area domain.
+</M001_S031_I029>
+#
+<M001_S031_I030>
+(1:31:30) DMS BOUNDARY VALUE
+
+Lateral boundary data for Dimethyl Sulphide (DMS), if the Sulphur Cycle
+aerosol scheme is active and the model has a limited area domain.
+</M001_S031_I030>
+#
+<M001_S031_I031>
+(1:31:31) SO4_AITKEN BOUNDARY VALUE
+
+Lateral boundary data for SO4 Aitken mode aerosol, if the Sulphur Cycle
+aerosol scheme is active and the model has a limited area domain.
+</M001_S031_I031>
+#
+<M001_S031_I032>
+(1:31:32) S04_ACCU BOUNDARY VALUE
+
+Lateral boundary data for SO4 Accum mode aerosol, if the Sulphur Cycle
+aerosol scheme is active and the model has a limited area domain.
+</M001_S031_I032>
+#
+<M001_S031_I033>
+(1:31:33) SO4_DISS BOUNDARY VALUE
+
+Lateral boundary data for SO4 Dissolved mode aerosol, if the Sulphur Cycle
+aerosol scheme is active and the model has a limited area domain.
+</M001_S031_I033>
+#
+<M001_S031_I035>
+(1:31:35) NH3 BOUNDARY VALUE
+
+Lateral boundary data for ammonia (NH3), if the Sulphur Cycle
+aerosol scheme is active and the model has a limited area domain.
+</M001_S031_I035>
+#
+<M001_S031_I036>
+(1:31:36) SOOT_NEW BOUNDARY VALUE
+
+Lateral boundary data for SOOT_NEW aerosol, if the Soot Scheme is active
+and the model has a limited area domain.
+</M001_S031_I036>
+#
+<M001_S031_I037>
+(1:31:37) SOOT_AGD BOUNDARY VALUE
+
+Lateral boundary data for SOOT_AGD aerosol, if the Soot Scheme is active
+and the model has a limited area domain.
+</M001_S031_I037>
+#
+<M001_S031_I038>
+(1:31:38) SOOT_CLD BOUNDARY VALUE
+
+Lateral boundary data for SOOT_CLD aerosol, if the Soot Scheme is active
+and the model has a limited area domain.
+</M001_S031_I038>
+#
+<M001_S031_I039>
+(1:31:39) BMASS_NEW BOUNDARY VALUE
+
+Lateral boundary data for BMASS_NEW aerosol, if the Biomass Aerosol Scheme is active
+and the model has a limited area domain.
+</M001_S031_I039>
+#
+<M001_S031_I040>
+(1:31:40) BMASS_AGD BOUNDARY VALUE
+
+Lateral boundary data for BMASS_AGD aerosol, if the Biomass Aerosol Scheme is active
+and the model has a limited area domain.
+</M001_S031_I040>
+#
+<M001_S031_I041>
+(1:31:41) BMASS_CLD BOUNDARY VALUE
+
+Lateral boundary data for BMASS_CLD aerosol, if the Biomass Aerosol Scheme is active
+and the model has a limited area domain.
+</M001_S031_I041>
+#
+<M001_S031_I042>
+(1:31:42) OCFF_NEW BOUNDARY VALUE
+
+Lateral boundary data for OCFF_NEW aerosol, if the Fossil Fuel Organic Carbon Scheme
+is active and the model has a limited area domain.
+</M001_S031_I042>
+#
+<M001_S031_I043>
+(1:31:43) OCFF_AGD BOUNDARY VALUE
+
+Lateral boundary data for OCFF_AGD aerosol, if the Fossil Fuel Organic Carbon Scheme
+is active and the model has a limited area domain.
+</M001_S031_I043>
+#
+<M001_S031_I044>
+(1:31:44) OCFF_CLD BOUNDARY VALUE
+
+Lateral boundary data for OCFF_CLD aerosol, if the Fossil Fuel Organic Carbon Scheme
+is active and the model has a limited area domain.
+</M001_S031_I044>
+#
+<M001_S031_I269>
+Items (1:31:269)		
+
+Lateral boundary tendency data for prognostic cloud ice pristine 
+crystals (QCF2_LBC_TEND) (kg/kg), if the second cloud ice prognostic option 
+is active (i.e. logical L_mcr_qcf2=.True.) and the model has a limited 
+area domain.
+</M001_S031_I269>
+#
+<M001_S031_I270>
+Items (1:31:270)		
+
+Lateral boundary tendency data for prognostic rain variable (QRAIN_LBC_TEND)
+(kg/kg), if the prognostic rain option is active 
+(i.e. logical L_mcr_qrain=.True.)and the model has a limited area domain.
+</M001_S031_I270>
+#
+<M001_S031_I271>
+Item (1:31:271) 
+
+Boundary tendency value for graupe
+ 
+
+
+</M001_S031_I271>
+#
+<M001_S031_I272>
+Item (1:31:272)                
+
+Lateral boundary tendency data for cloud volume fraction, if the
+generating model and the limited area model have active PC2 cloud
+schemes
+(i.e. logical l_pc2=.true.).
+</M001_S031_I272>
+#
+<M001_S031_I273>
+
+Item (1:31:273)                
+
+Lateral boundary tendency data for liquid cloud fraction (this is a
+volume
+fraction), if the generating model and the limited area model have
+active
+PC2 cloud schemes (i.e. logical l_pc2=.true.).
+</M001_S031_I273>
+#
+<M001_S031_I274>
+Item (1:31:274)                
+
+Lateral boundary tendency data for ice cloud fraction (this is a volume
+fraction), if the generating model and the limited area model have active
+PC2 cloud schemes (i.e. logical l_pc2=.true.).
+</M001_S031_I274>
+#
+<M001_S031_I275>
+Item: (1:31:275)
+ 
+Lateral boundary data for prognostic "murk" aerosol (MURK_LBC) (kg/kg),
+if the prognostic murk aerosol is in the lateral boundary file 
+(i.e. logical L_murk_lbc=.True.) and the model has a limited area domain.
+</M001_S031_I275>
+#
+<M001_S031_I276>
+(1:31:276) DUST DIV 1 BOUNDARY TENDENCY
+
+Lateral boundary tendency data for Dust Division 1, if the mineral dust scheme
+is active and the model has a limited area domain.
+</M001_S031_I276>
+#
+<M001_S031_I277>
+(1:31:277) DUST DIV 2 BOUNDARY TENDENCY
+
+Lateral boundary tendency data for Dust Division 2, if the mineral dust scheme
+is active and the model has a limited area domain.
+</M001_S031_I277>
+#
+<M001_S031_I278>
+(1:31:278) DUST DIV 3 BOUNDARY TENDENCY
+
+Lateral boundary tendency data for Dust Division 3, if the mineral dust scheme
+is active and the model has a limited area domain.
+</M001_S031_I278>
+#
+<M001_S031_I279>
+(1:31:279) DUST DIV 4 BOUNDARY TENDENCY
+
+Lateral boundary tendency data for Dust Division 4, if the mineral dust scheme
+is active and the model has a limited area domain.
+</M001_S031_I279>
+#
+<M001_S031_I280>
+(1:31:280) DUST DIV 5 BOUNDARY TENDENCY
+
+Lateral boundary tendency data for Dust Division 5, if the mineral dust scheme
+is active and the model has a limited area domain.
+</M001_S031_I280>
+#
+<M001_S031_I281>
+(1:31:281) DUST DIV 6 BOUNDARY TENDENCY
+
+Lateral boundary tendency data for Dust Division 6, if the mineral dust scheme
+is active and the model has a limited area domain.
+</M001_S031_I281>
+#
+<M001_S031_I282>
+(1:31:282) SO2 BOUNDARY TENDENCY
+
+Lateral boundary tendency data for Sulphur Dioxide (SO2), if the the Sulphur Cycle
+aerosol scheme is active, and the model has a limited area domain.
+</M001_S031_I282>
+#
+<M001_S031_I283>
+(1:31:283) DMS BOUNDARY TENDENCY
+
+Lateral boundary tendency data for Dimethyl Sulphide (DMS), if the Sulphur Cycle
+aerosol scheme is active, and the model has a limited area domain.
+</M001_S031_I283>
+#
+<M001_S031_I284>
+(1:31:284) SO4_AITKEN BOUNDARY TENDENCY
+
+Lateral boundary tendency data for SO4 Aitken mode aerosol, if the Sulphur Cycle
+aerosol scheme is active, and the model has a limited area domain.
+</M001_S031_I284>
+#
+<M001_S031_I285>
+(1:31:285) SO4_ACCU BOUNDARY TENDENCY
+
+Lateral boundary tendency data for SO4 Accum mode aerosol, if the Sulphur Cycle
+aerosol scheme is active, and the model has a limited area domain.
+</M001_S031_I285>
+#
+<M001_S031_I286>
+(1:31:286) SO4_DISS BOUNDARY TENDENCY
+
+Lateral boundary tendency data for SO4 Dissolved mode aerosol, if the Sulphur Cycle
+aerosol scheme is active, and the model has a limited area domain.
+</M001_S031_I286>
+#
+<M001_S031_I288>
+(1:31:288) NH3 BOUNDARY TENDENCY
+
+Lateral boundary tendency data for ammonia (NH3), if the Sulphur Cycle
+aerosol scheme is active, and the model has a limited area domain.
+</M001_S031_I288>
+#
+<M001_S031_I289>
+(1:31:289) SOOT_NEW BOUNDARY TENDENCY
+
+Lateral boundary tendency data for SOOT_NEW aerosol, if the Soot Scheme is active
+and the model has a limited area domain.
+</M001_S031_I289>
+#
+<M001_S031_I290>
+(1:31:290) SOOT_AGD BOUNDARY TENDENCY
+
+Lateral boundary tendency data for SOOT_AGD aerosol, if the Soot Scheme is active
+and the model has a limited area domain.
+</M001_S031_I290>
+#
+<M001_S031_I291>
+(1:31:291) SOOT_CLD BOUNDARY TENDENCY
+
+Lateral boundary tendency data for SOOT_CLD aerosol, if the Soot Scheme is active
+and the model has a limited area domain.
+</M001_S031_I291>
+#
+<M001_S031_I292>
+(1:31:292) BMASS_NEW BOUNDARY TENDENCY
+
+Lateral boundary tendency data for BMASS_NEW aerosol, if the Biomass Aerosol Scheme is active
+and the model has a limited area domain.
+</M001_S031_I292>
+#
+<M001_S031_I293>
+(1:31:293) BMASS_AGD BOUNDARY TENDENCY
+
+Lateral boundary tendency data for BMASS_AGD aerosol, if the Biomass Aerosol Scheme is active
+and the model has a limited area domain.
+</M001_S031_I293>
+#
+<M001_S031_I294>
+(1:31:294) BMASS_CLD BOUNDARY TENDENCY
+
+Lateral boundary tendency data for BMASS_CLD aerosol, if the Biomass Aerosol Scheme is active
+and the model has a limited area domain.
+</M001_S031_I294>
+#
+<M001_S031_I295>
+(1:31:295) OCFF_NEW BOUNDARY TENDENCY
+
+Lateral boundary tendency data for OCFF_NEW aerosol, if the Fossil Fuel Organic Carbon Scheme
+is active and the model has a limited area domain.
+</M001_S031_I295>
+#
+<M001_S031_I296>
+(1:31:296) OCFF_AGD BOUNDARY TENDENCY
+
+Lateral boundary tendency data for OCFF_AGD aerosol, if the Fossil Fuel Organic Carbon Scheme
+is active and the model has a limited area domain.
+</M001_S031_I296>
+#
+<M001_S031_I297>
+(1:31:297) OCFF_CLD BOUNDARY TENDENCY
+
+Lateral boundary tendency data for OCFF_CLD aerosol, if the Fossil Fuel Organic Carbon Scheme
+is active and the model has a limited area domain.
+</M001_S031_I297>
+#

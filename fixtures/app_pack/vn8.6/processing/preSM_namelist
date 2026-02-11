@@ -1,0 +1,23 @@
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C Atmos user-preSTASHmaster NAMELIST:
+%C user_a/o/s_count set to 0 in top and incremented in preSM_a/o/s.
+%C model_count set in top.
+%TCL
+ set total_sm 0
+ for { set i 1 } { $i <= %NINT } {incr i} { incr total_sm $array_user_count($i) }
+%ENDTCL
+ &USTSNUM 
+ N_USTASH=%TCL put $model_count %ENDTCL, 
+ NRECS_USTASH=%TCL put $total_sm %ENDTCL,
+%TCL
+ set list {}
+ for { set i 1 } { $i <= %NINT } {incr i} { 
+    if { [ set_model_logical $i ] == "T" } {
+      lappend list PRESM_%MODEL_ID($i)
+    } 
+ }
+%ENDTCL
+ USTSFILS= %TCL tdelimit $list {,} {"} %ENDTCL,
+ /
+%T unset list total_sm    
+

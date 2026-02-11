@@ -1,0 +1,272 @@
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C used "procedures"
+%C totime
+%C imbedded files: asmoddef arch_system
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C Control variables used across all sub-models.
+%T set arch_sys [ arch_system ]
+ &NLSTCALL
+%T  if { %PRODRUN=="Y" } {
+ EXPT_ID='%RUN_NAME',
+%T  } elseif { [string index "%EXPT_ID" 0 ] == "q" } {
+%T    if { %ATMOS=="T" } {
+%T      if { %OCAAA==1 } {
+ EXPT_ID='umgl',
+%T      } elseif { (%OCAAA == 2) && ( %MESO == "N") } {
+ EXPT_ID='umla',
+%T      } else {
+ EXPT_ID='umms',
+%T      }
+%T    }
+%T  } else { 
+ EXPT_ID='%EXPT_ID',
+%T  }
+ JOB_ID='%JOB_ID',
+%T if {  [inactive_var IRYR] == 0  } {
+ RUN_RESUBMIT_INC= %IRYR, %IRMO, %IRDA, %IRHR, %IRMI, %IRSE,
+%T } else {
+ RUN_RESUBMIT_INC= 0, 0, 0, 0, 0, 0,
+%T }
+%TCL  if { [string index "%EXPT_ID" 0 ] == "q" } { 
+          set mstat {'Operational   ',} 
+      } elseif { %GEN_SUITE == 1 } { 
+          set mstat {'SCS           ',} 
+      } else { 
+          set mstat {'NonOperational',}
+      } 
+%ENDTCL
+ MODEL_STATUS=%T putl $mstat
+%T if { %GEN_SUITE == 0 } {
+ MODEL_BASIS_TIME= %SRYR , %SRMO , %SRDA , %SRHR , %SRMI , %SRSE ,
+%T } else {
+ MODEL_BASIS_TIME= 0 , 0 , 0 , 0 , 0 , 0 ,
+%T }
+ ANCIL_REFTIME= %ANRYR , %ANRMO , %ANRDA , %ANRHR , %ANRMI , %ANRSE ,
+ RUN_TARGET_END= %ERYR , %ERMO , %ERDA , %ERHR , %ERMI , %ERSE , 
+ LCLIMREALYR=%TCL put [clim_real_year] %ENDTCL,
+%T if { %INDEP_SR(97) !=  "4A" } {
+ LTIMER=%TCL replacep TIMER Y .TRUE. N .FALSE. %ENDTCL, 
+%T } else {
+ LTIMER=.FALSE., 
+%T }
+ TIME_CONVENTION=%TCL replacep OCATC \
+                               1 {'Relative         ',} \
+                               2 {'Timestep         ',} \
+                               7 {'Absolute_Dstamp  ',} \
+                               6 {'Sub-hourly       ',} %ENDTCL 
+%C---------------------------------------------------------------------------- 
+%C $asdef  $rasmode and $masmode obtained from embedded procedure, unset at end of file
+%I asmoddef
+ MODEL_ANALYSIS_MINS=%TCL put $asdef %ENDTCL,
+ MODEL_ASSIM_MODE=%TCL put $masmode %ENDTCL,
+%T if { $op_no_assim } {
+ RUN_ASSIM_MODE='None      ',
+%T } else { 
+ RUN_ASSIM_MODE=%TCL put $rasmode %ENDTCL,
+%T }  
+%T if { [inactive_var JRESUB] == 0  } {
+ CONTROL_RESUBMIT='%JRESUB',
+%T } else {
+ CONTROL_RESUBMIT='N',
+%T } 
+%C-----------------------------------------------------------------------------
+%C----------------------------------------------------------------------------- 
+%TCL  set pp_pack {}
+      for {set i 20} {$i <= 164} {incr i} {
+        if { $i >= 60 &&  $i <= 69 }  {
+           set j [expr $i - 59]
+           if {%PPG($j) == "Y" } { 
+             set addon 100
+           } else { 
+             set addon 0
+           }      
+           lappend pp_pack [expr %PPX($j) + $addon]
+        } elseif { $i == 27 } {
+           if {%PPXG == "Y"} { 
+             set addon 100
+           } else { 
+             set addon 0
+           }      
+           lappend pp_pack [expr %PPXM + $addon]
+        } elseif {$i == 84} {
+             lappend pp_pack 0 
+        } elseif {$i == 103} {
+             lappend pp_pack 0 	            
+        } elseif { $i == 150 } {
+           if {%PACKVAR == "Y" } {
+             lappend pp_pack 1
+           } else {
+             lappend pp_pack 0
+           }
+        } elseif {$i == 151} {
+             if {%PPG(11) == "Y" } { 
+                set addon 100
+              } else { 
+                set addon 0
+              }   
+              lappend pp_pack [expr %PPX(11) + $addon]             
+        } elseif {$i == 164} {
+             if {%IMKBC == "1" && %PACKVARBC == "Y" } { 
+                lappend pp_pack 1
+              } else { 
+                lappend pp_pack 0
+              }   
+        } else {
+           lappend pp_pack 1
+        } 
+      }
+%ENDTCL
+ PP_PACK_CODE=%TCL tdelimit $pp_pack {,} { } %ENDTCL, 
+%C----------------------------------------------------------------------------- 
+%TCL  set pp_len2 {}
+      for {set i 20} {$i <=164} {incr i} {
+         if { $i >= 60 &&  $i <= 69 }  {
+            set j [expr $i - 59]
+            lappend pp_len2 %PPOS($j)
+	 } elseif { $i == 102 } {
+	    lappend pp_len2 12288
+         } elseif { $i == 103 } {
+	    lappend pp_len2 8192            
+         } elseif {$i == 151} {
+            lappend pp_len2 %PPOS(11)
+         } else {
+            lappend pp_len2 0
+         } 
+      }
+%ENDTCL
+ PP_LEN2_LOOK=%TCL tdelimit $pp_len2 {,} { } %ENDTCL, 
+%C-----------------------------------------------------------------------------
+%C----------------------------------------------------------------------------- 
+%C----------------------------------------------------------------------------- 
+%C 
+%TCL  
+      set ft_steps {}
+      set ft_first {}
+      set ft_last {}
+      set tl2 {}
+      set ft_select {}
+      set ft_arch {}
+      for {set i 20} {$i <=164} {incr i} {
+        set steps 0
+        set first 0
+        set last 0
+        set tlset { }
+        set ftsel N
+        set ftarch N
+        if { $i == 22 ||  $i == 42 } {
+             if { %AUTOPP == "Y" && %GDDEL == "Y" } {
+               set ftsel Y;      # dumps
+             } 
+        } elseif { $i == 27 }  {
+             if { %AUTOPP == "Y" && %GCMDEL == "Y" } {
+               set ftsel Y;     #dumps
+             }
+        } elseif { ($i >= 60 &&  $i <= 69) || $i == 151 }  {
+             if {$i == 151} {
+                set j 11
+             } else {
+                set j [expr $i-59]
+             }
+             if {%PPI($j) == "Y" } {
+               if { %AUTOPP == "Y" && %GPDEL == "Y" } {
+                 set ftsel Y;       # PP files
+               } 
+               if { (%PPA($j) == "Y") && ($arch_sys != 0) } {
+                 set ftarch Y 
+               } 
+               if {%PPM($j) == "A" && %ATMOS == "T"} { 
+                 set tlset a
+               } 
+               if { %PPIU($j) != "RM" } {
+               # Normal case. Note real months.
+                 if {%PPM($j) == "A" && %ATMOS == "T"} { 
+                   set steps [ totime %PPIF($j) %PPIU($j) A ]
+                   set first [ totime %PPIS($j) %PPIU($j) A ]
+                   set last  [ totime %PPIE($j) %PPIU($j) A ]
+                 } 
+               } else {
+                 # Real month case. Set to negative setting.
+                 set steps  [ expr 0 - %PPIF($j) ]
+                 set first %PPIS($j)
+                 set last %PPIE($j)
+               } 
+             }  
+        } elseif { $i == 150 }  {
+          # If 4DVAR
+            if { %VARINTM!=0 && %VARINTFC==4 } {
+              set ftsel N;       # PP files
+              set tlset a
+              if {%VARUNITS == "H"} {
+                set varunit "H"
+              } else {
+                set varunit "T"
+              }
+                set steps [ totime %VARINTVL $varunit A ]
+                set first [ totime %VARSTART $varunit A ]
+                set last  [ totime %VAREND   $varunit A ]
+                # Fudge values one step earlier unless end time is -1
+                set first [expr $first - 1]
+                if {$last != -1} {
+                  set last [expr $last - 1]
+                }
+            }
+        } elseif { $i == 164 }  {
+          # Makebc fields
+            if { %IMKBC!=0 } {
+              set tlset a
+              if {%MBC_UNT == "H"} {
+                set mbcunit "H"
+              } else {
+                set mbcunit "T"
+              }
+                set steps [ totime %MBC_FREQ $mbcunit A ]
+                set first [ totime %MBC_STRT $mbcunit A ]
+                set last  [ totime %MBC_END  $mbcunit A ]
+                # Fudge virst value one step earlier
+                set first [expr $first - 1]
+            }
+	}
+        lappend ft_steps $steps
+        lappend ft_first $first
+        lappend ft_last $last
+        lappend ft_select $ftsel
+        lappend ft_arch $ftarch
+        lappend tl2 $tlset
+      } 
+%ENDTCL
+ FT_STEPS=%TCL tdelimit $ft_steps {,} { } %ENDTCL ,  
+ FT_SELECT=%TCL tdelimit $ft_select {,} {'}  %ENDTCL , 
+ FT_ARCHSEL=%TCL tdelimit $ft_arch {,} {'}  %ENDTCL ,  
+ FT_FIRSTSTEP=%TCL tdelimit $ft_first {,} { }  %ENDTCL ,  
+ FT_LASTSTEP=%TCL tdelimit $ft_last {,} { }  %ENDTCL , 
+ TYPE_LETTER_2=%TCL tdelimit $tl2 {,} {'}  %ENDTCL , 
+%T if {[inactive_var LBTENCY] == 0} {
+ Num_ALBCs=%TCL put %LBTENCY %ENDTCL,
+%T } else {
+ Num_ALBCs=0,
+%T }
+%T if { %LBTENCY=="2" } {
+%T    if {%SEC_LBC_MIN=="EXTERNAL"} {
+ ALBC2_StartTime_mins=${UM_ALBC2_StartTime_mins},
+%T    } elseif { [string is integer %SEC_LBC_MIN]==1 } {
+ ALBC2_StartTime_mins=%TCL put %SEC_LBC_MIN %ENDTCL,
+%T    } else {
+ ALBC2_StartTime_mins=0,
+%T    } 
+%T }
+ / 
+%C-------------------------------------------------------------------------
+%TCL
+unset mstat
+unset masmode rasmode asdef
+unset pp_pack
+unset addon  
+unset ft_steps  steps
+unset ft_first first  
+unset ft_last last
+unset ft_select ftsel  
+unset ft_arch ftarch  
+unset tl2 tlset
+unset arch_sys
+unset pp_len2
+%ENDTCL

@@ -1,0 +1,242 @@
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C STASH-atmos control NAMELISTS
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C used procedures
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%TCL 
+putl " ### Start of user STASH requests for %MODEL_NAME($nsubm) ### " 
+%ENDTCL
+%C-------------------------------------------------------------------------------
+%T set count 0
+%T set tagList [get_variable_array D_TAG]
+%T set tagF [get_variable_array D_TAGF_$model_letter]
+%T set tagFlag() "Y" ; # If tag not set, then include diagnostic
+%T for {set i 0} {$i < [llength $tagList]} {incr i} {
+%T   set tagFlag([lindex $tagList $i]) [lindex $tagF $i]
+%T }
+%T unset tagF tagList
+%T for { set i 1 } { $i <= %NDIAG_$model_letter } { incr i } {
+%T  if { %ISEC_$model_letter\($i) != {} && %ISEC_$model_letter\($i) != -1 } {
+%T    if { %IINC_$model_letter\($i) == "Y" && $tagFlag(%ITAG_$model_letter\($i\)) == "Y"} {
+%T        incr count
+%T    }
+%T  }  
+%T }
+ &STASHNUM NUM_REQ= %TCL put $count %ENDTCL, NUM_DOM=%NDPROF_$model_letter,  NUM_TIM=%NTPROF_$model_letter, NUM_USE=%NUPROF_$model_letter /   
+
+%C-------------------------------------------------------------------------------
+%T for { set i 1 } { $i <= %NDIAG_$model_letter } { incr i } {
+%T  if { %ISEC_$model_letter\($i) != {} && %ISEC_$model_letter\($i) != -1 } {
+%T    set dom 0; set tim 0; set use 0
+%T    if { %IINC_$model_letter\($i) == "Y" && $tagFlag(%ITAG_$model_letter\($i\)) == "Y"} {
+%T      for { set j 1 } { $j <= %NDPROF_$model_letter } { incr j } {
+%T        if { %IDOM_$model_letter\($i) == %DOMPRO_$model_letter\($j) && %IDOM_$model_letter\($i) != {} } { set dom $j ; break }
+%T      }
+%T      for { set j 1 } { $j <= %NTPROF_$model_letter } { incr j } {
+%T        if { %ITIM_$model_letter\($i) == %TIMPRO_$model_letter\($j) && %ITIM_$model_letter\($i) != {} } { set tim $j ; break }
+%T      }
+%T      for { set j 1 } { $j <= %NUPROF_$model_letter } { incr j } {
+%T        if { %IUSE_$model_letter\($i) == %USEPRO_$model_letter\($j) && %IUSE_$model_letter\($i) != {} } { set use $j ; break }
+%T      }
+%T      set model_number [modletter_to_number $model_letter]
+ &STREQ IMOD= %TCL put $model_number %ENDTCL, ISEC=%ISEC_$model_letter\($i), ITEM=%ITEM_$model_letter\($i), IDOM=%TCL put $dom %ENDTCL, ITIM=%TCL put $tim %ENDTCL, IUSE=%TCL put $use %ENDTCL /  
+%T    } elseif { %IINC_$model_letter\($i) != "N" && %IINC_$model_letter\($i) != "Y"} {
+%T      error "Error in STASH. The include column contains an invalid value <%IINC_$model_letter\($i)>. Look at STASH window for model $model_letter"
+%T    }
+%T  }  
+%T }
+%T unset tagFlag
+
+%C------------------------------------------------------------------------------
+%T for { set i 1 } { $i <= %NTPROF_$model_letter } {incr i } {
+ &TIME NAME="%TIMPRO_$model_letter\($i)", ITYP=%ITYP_$model_letter\($i)
+%T   if { %ITYP_$model_letter\($i) != 1 } {
+ INTV=%INTV_$model_letter\($i),UNT1=%TCL padpq UNT1_$model_letter\($i) %ENDTCL,IOFF=%IOFF_$model_letter\($i),ISAM=%ISAM_$model_letter\($i),UNT2=%TCL padpq UNT2_$model_letter\($i)  %ENDTCL,
+%T   }
+ IOPT=%IOPT_$model_letter\($i),
+%T   if { %IOPT_$model_letter\($i) == 1 } {
+ ISTR=%ISTR_$model_letter\($i),IEND=%IEND_$model_letter\($i),IFRE=%IFRE_$model_letter\($i),UNT3=%TCL padpq UNT3_$model_letter\($i) %ENDTCL,
+%T   } elseif  { %IOPT_$model_letter\($i) == 2 } {
+ ITIMES=%ITIMES_$model_letter\($i),UNT3=%TCL padpq UNT3_$model_letter\($i) %ENDTCL,
+ ISER=%TCL tdelimit %ISER_$model_letter\(*,$i) {,} {} %ENDTCL,
+%T   } elseif  { %IOPT_$model_letter\($i) == 3 } {
+ ISDT=%ISDTY_$model_letter\($i),%ISDTM_$model_letter\($i),%ISDTD_$model_letter\($i),%ISDTH_$model_letter\($i),0,0,IEDT=%IEDTY_$model_letter\($i),%IEDTM_$model_letter\($i),%IEDTD_$model_letter\($i),%IEDTH_$model_letter\($i),0,0,
+ IFRE=%IFRE_$model_letter\($i),UNT3=%TCL padpq UNT3_$model_letter\($i) %ENDTCL,
+%T   }
+ /
+
+%T }
+%C------------------------------------------------------------------------------
+%T for { set i 1 } { $i <= %NDPROF_$model_letter } {incr i } {
+ &DOMAIN NAME="%DOMPRO_$model_letter\($i)", IOPL=%IOPL_$model_letter\($i)
+%T   if { %IOPL_$model_letter\($i) == 1 || %IOPL_$model_letter\($i) == 2 || %IOPL_$model_letter\($i) == 6 } {
+ ILEVS=%ILEVS_$model_letter\($i),
+%T     if { %ILEVS_$model_letter\($i) == 1 } {
+ LEVB=%TCL putl [lnConvertInput %LEVB_$model_letter\($i)], %ENDTCL
+ LEVT=%TCL putl [lnConvertInput %LEVT_$model_letter\($i)], %ENDTCL
+%T     } elseif { %ILEVS_$model_letter\($i) == 2 }  {
+ LEVLST=%TCL tdelimit %LEVLST_$model_letter\(*,$i) {,} {} %ENDTCL,
+%T     } 
+%T   } elseif { %IOPL_$model_letter\($i) == 4 || %IOPL_$model_letter\($i) == 7 || %IOPL_$model_letter\($i) == 8 || %IOPL_$model_letter\($i) == 9 } {
+ RLEVLST=%TCL tdelimit %RLEVLST_$model_letter\(*,$i) {,} {} %ENDTCL,
+%T   } elseif { %IOPL_$model_letter\($i) == 3 } {
+%T if {%ISCCP_$model_letter\($i) == 1} {
+%C If the length of the following list is changed, then update the number of ISCCP levels
+%C  in the UM/count_ppfields.tcl file.
+ RLEVLST=%TCL tdelimit %PLEVLST_$model_letter\(*,$i) {,} {} %ENDTCL,
+%T   } elseif {%ISCCP_$model_letter\($i) == 2} {
+ RLEVLST=900.000, 740.000, 620.000, 500.000, 375.000, 245.000, 115.000,
+%T   } 
+%T }
+ PLT=%PLT_$model_letter\($i),
+%T   if { %PLT_$model_letter\($i) != 0 } {  
+ PSLIST=%TCL tdelimit %PSLIST_$model_letter\(*,$i) {,} {} %ENDTCL,
+%T   }
+ IOPA=%IOPA_$model_letter\($i),
+%T   if { %IOPA_$model_letter\($i) == 9 } {
+ INTH=%INTH_$model_letter\($i),ISTH=%ISTH_$model_letter\($i),IEST=%IEST_$model_letter\($i),IWST=%IWST_$model_letter\($i),
+%T   } elseif { %IOPA_$model_letter\($i) == 10 } {
+ INTH=%GNTH_$model_letter\($i),ISTH=%GSTH_$model_letter\($i),IEST=%GEST_$model_letter\($i),IWST=%GWST_$model_letter\($i),
+%T   }
+ IMSK=%IMSK_$model_letter\($i), IMN=%IMN_$model_letter\($i), IWT=%IWT_$model_letter\($i),
+%T   if { %DDOMTS_$model_letter\($i) == "Y" } {
+%T    if { %TDOMTS_$model_letter\($i) != "2" } {
+ TS="Y", TSNUM=%NDOMTS_$model_letter\($i),
+%C Method 1 of setting up timeseries
+%T     if { (%IMN_$model_letter\($i) != 1) && (%IOPL_$model_letter\($i) == 3 || %IOPL_$model_letter\($i) == 4 || %IOPL_$model_letter\($i) == 7 || %IOPL_$model_letter\($i) == 8 || %IOPL_$model_letter\($i) == 9) } {
+ TBLIMR=%TCL tdelimit %DOMTS_RF_$model_letter\(*,$i) {,} {} %ENDTCL,
+ TTLIMR=%TCL tdelimit %DOMTS_RL_$model_letter\(*,$i) {,} {} %ENDTCL,
+%T     }   
+%T     if { (%IMN_$model_letter\($i) != 1) && (%IOPL_$model_letter\($i) == 1 || %IOPL_$model_letter\($i) == 2 || %IOPL_$model_letter\($i) == 6 || %IOPL_$model_letter\($i) == 10) } {
+ TBLIM=%TCL tdelimit %DOMTS_LF_$model_letter\(*,$i) {,} {} %ENDTCL,
+ TTLIM=%TCL tdelimit %DOMTS_LL_$model_letter\(*,$i) {,} {} %ENDTCL,
+%T     }   
+%T     if { %IMN_$model_letter\($i) == 0 || %IMN_$model_letter\($i) == 1 || %IMN_$model_letter\($i) == 2 } {
+ TNLIM=%TCL tdelimit %DOMTS_N_$model_letter\(*,$i) {,} {} %ENDTCL,
+ TSLIM=%TCL tdelimit %DOMTS_S_$model_letter\(*,$i) {,} {} %ENDTCL,
+%T     }   
+%T     if { %IMN_$model_letter\($i) == 0 || %IMN_$model_letter\($i) == 1 || %IMN_$model_letter\($i) == 3 } {
+ TWLIM=%TCL tdelimit %DOMTS_W_$model_letter\(*,$i) {,} {} %ENDTCL,
+ TELIM=%TCL tdelimit %DOMTS_E_$model_letter\(*,$i) {,} {} %ENDTCL,
+%T     }   
+%T    } else {
+%C TDOMTS==2 - Method 2 of setting up timeseries
+%T     if { %IMN_$model_letter\($i\) == 1 || ( %IOPL_$model_letter\($i\) == 5 || %IOPL_$model_letter\($i\) == 10 )} {
+%C Timeseries on a single or unspecified level
+%T       if { %IMN_$model_letter\($i\) == 0 || %IMN_$model_letter\($i\) == 1 || %IMN_$model_letter\($i\) == 2 } {
+ TNLIM=%TCL tdelimit %DOMTSR_NS_$model_letter\(*,$i\) {,} {} %ENDTCL,
+ TSLIM=%TCL tdelimit %DOMTSR_NS_$model_letter\(*,$i\) {,} {} %ENDTCL,
+%T       }   
+%T       if { %IMN_$model_letter\($i\) == 0 || %IMN_$model_letter\($i\) == 1 || %IMN_$model_letter\($i\) == 3 } {
+ TWLIM=%TCL tdelimit %DOMTSR_EW_$model_letter\(*,$i\) {,} {} %ENDTCL,
+ TELIM=%TCL tdelimit %DOMTSR_EW_$model_letter\(*,$i\) {,} {} %ENDTCL,
+%T       }   
+ TS="Y", TSNUM=%NDOMTS_$model_letter\($i),
+%T     } else {
+%TCL
+# Timeseries defined by one or more specified levels
+       set tsnum   0
+       set tblim   ""
+       set ttlim   ""
+       set tnslim  ""
+       set tewlim  ""
+       set lvar ""
+       if {%IOPL_$model_letter\($i\) == 3} {
+         set lvar PLEVLST_$model_letter\(*,$i\)
+         set lpref DOMTSR_R
+       } elseif { %IOPL_$model_letter\($i\) == 4 || %IOPL_$model_letter\($i\) == 7 || %IOPL_$model_letter\($i\) == 8 || %IOPL_$model_letter\($i\) == 9 } {
+         set lvar RLEVLST_$model_letter\(*,$i\)
+         set lpref DOMTSR_R
+       } elseif {%IOPL_$model_letter\($i\) == 1 || %IOPL_$model_letter\($i\) == 2 || %IOPL_$model_letter\($i\) == 6} {
+         # Either list of levels or range of levels in 1st domain panel
+         if {%ILEVS_$model_letter\($i\) == 2} {
+           # List of selected model levels
+           set lvar LEVLST_$model_letter\(*,$i\)
+         }
+         set lpref DOMTSR_L
+       }
+       for {set j 1} {$j <= %NDOMTS_$model_letter\($i\)} {incr j} {
+         set start %$lpref\F_$model_letter\($j,$i\)
+         set end %$lpref\L_$model_letter\($j,$i\)
+         # Swap around if end above start
+         if {$end < $start} {
+           set temp $end
+           set end $start
+           set start $temp
+           unset temp
+         }
+         if {$lvar == ""} {
+           # Range of model levels selected so add element for each integer within range
+           for {set k $start} {$k <= $end} {incr k} {
+             incr tsnum
+             lappend tblim $k
+             lappend ttlim $k
+             lappend tnslim %DOMTSR_NS_$model_letter\($j,$i\)
+             lappend tewlim %DOMTSR_EW_$model_letter\($j,$i\)
+           }
+         } else {
+             set vlist %$lvar
+             # List of model levels selected so add element for each level within range
+             for {set k [lsearch $vlist $start]} {$k <= [lsearch $vlist $end]} {incr k} {
+               incr tsnum
+               lappend tblim [lindex $vlist $k]
+               lappend ttlim [lindex $vlist $k]
+               lappend tnslim %DOMTSR_NS_$model_letter\($j,$i\)
+               lappend tewlim %DOMTSR_EW_$model_letter\($j,$i\)
+             }
+             unset vlist
+         }
+       }
+       unset lpref lvar end start
+%ENDTCL
+ TS="Y", TSNUM=%TCL putl $tsnum, %ENDTCL
+%T     if { (%IMN_$model_letter\($i\) != 1) && (%IOPL_$model_letter\($i\) == 3 || %IOPL_$model_letter\($i\) == 4 || %IOPL_$model_letter\($i\) == 7 || %IOPL_$model_letter\($i\) == 8 || %IOPL_$model_letter\($i\) == 9) } {
+ TBLIMR=%TCL tdelimit $tblim {,} {} %ENDTCL,
+ TTLIMR=%TCL tdelimit $ttlim {,} {} %ENDTCL,
+%T     }   
+%T     if { (%IMN_$model_letter\($i\) != 1) && (%IOPL_$model_letter\($i\) == 1 || %IOPL_$model_letter\($i\) == 2 || %IOPL_$model_letter\($i\) == 6 || %IOPL_$model_letter\($i\) == 10) } {
+ TBLIM=%TCL tdelimit $tblim {,} {} %ENDTCL,
+ TTLIM=%TCL tdelimit $ttlim {,} {} %ENDTCL,
+%T     }   
+%T     if { %IMN_$model_letter\($i\) == 0 || %IMN_$model_letter\($i\) == 1 || %IMN_$model_letter\($i\) == 2 } {
+ TNLIM=%TCL tdelimit $tnslim {,} {} %ENDTCL,
+ TSLIM=%TCL tdelimit $tnslim {,} {} %ENDTCL,
+%T     }   
+%T     if { %IMN_$model_letter\($i\) == 0 || %IMN_$model_letter\($i\) == 1 || %IMN_$model_letter\($i\) == 3 } {
+ TWLIM=%TCL tdelimit $tewlim {,} {} %ENDTCL,
+ TELIM=%TCL tdelimit $tewlim {,} {} %ENDTCL,
+%T     }
+%T    unset tblim ttlim tnslim tewlim tsnum
+%T    } ;# End of domain on one or more specified levels
+%T    } ;# End of TDOMTS==2
+%T   } else {
+ TS="N",TSNUM=0,
+%T   } 
+ /
+
+%T }
+%C------------------------------------------------------------------------------
+%T for { set i 1 } { $i <= %NUPROF_$model_letter } {incr i } {
+ &USE NAME="%USEPRO_$model_letter\($i)", LOCN=%LOCN_$model_letter\($i)
+%T   if { %LOCN_$model_letter\($i) == 1  || %LOCN_$model_letter\($i) == 6 } {
+ IUNT=%TAG_$model_letter\($i),
+%T   } elseif { %LOCN_$model_letter\($i) == 2 } {
+%T     set tag 0
+%T     if { %TAGCM1_$model_letter\($i) == "T" } { incr tag 1 }
+%T     if { %TAGCM2_$model_letter\($i) == "T" } { incr tag 2 }
+%T     if { %TAGCM3_$model_letter\($i) == "T" } { incr tag 4 }
+%T     if { %TAGCM4_$model_letter\($i) == "T" } { incr tag 8 }
+ IUNT=%TCL put $tag %ENDTCL,
+%T     unset tag
+%T   } elseif { %LOCN_$model_letter\($i) == 3 } {
+ IUNT=%IUNT_$model_letter\($i),
+%T   } elseif { %LOCN_$model_letter\($i) == 5 } {
+ IUNT=27,
+%T   }
+ /
+
+%T }
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%TCL 
+putl " ### End of user STASH requests for %MODEL_NAME($nsubm) ### " 
+%ENDTCL

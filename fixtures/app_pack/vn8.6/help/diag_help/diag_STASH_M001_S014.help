@@ -1,0 +1,12 @@
+<M001_S014_I181>
+STASH item specific help for 
+(1, 14, 181) "TEMPERATURE INCR: En cor K/Timestep"
+
+Temperature increment from the energy correction.
+
+At present the energy correction increment applied to temperature
+is the same at all model levels and at all gridpoints. The diagnostic
+is avialable at all model levels mainly for checking purposes.
+The units are kelvins per model timestep.
+</M001_S014_I181>
+#

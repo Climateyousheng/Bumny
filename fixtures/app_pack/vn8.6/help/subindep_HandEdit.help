@@ -1,0 +1,41 @@
+This window allows you to run user-specified scripts ("hand edits") on the
+processed UMUI output.  Each field in the table can be a maximum of 99 
+characters and should contain either:
+
+    *   An executable script (full path)
+    *   A command (with any necessary arguments)
+
+The scripts/commands are run in the directory housing the UMUI output
+(normally $HOME/umui_jobs/jobid) and are run in the order in which they
+appear in the table.
+
+These scripts will be applied after all processing is complete, bar the
+external suite set-up commands.  Errors will not be reported in the UMUI
+and interactive scripts are unlikely to work.  Full output from each command
+is echoed to the EXT_SCRIPT_LOG in the UMUI output directory.  
+
+N.B.
+~~~~
+If the include field is set to "U" then this means the hand edit has been turned 
+off on upgrade - equivalent to "N". 
+
+Only use tried and tested scripts here.  Test them by hand on your job directory
+before committing them to the list.  Whilst errors will be reported in the 
+EXT_SCRIPT_LOG file, a script that hangs will also hang the UMUI.
+
+
+EXAMPLE
+~~~~~~~
+
+                       Hand edits
+Script   Full path name                      Include Y/N
+1        /usr/bin/echo "This is an example"  Y
+2        ls -lrt >mydirlist                  Y
+3        ~/runme.sh                          Y
+.
+.
+
+This trite example adds a message to the log file, creates a file in
+the job output directory called "mydirlist" containing the current
+directory listing and finally calls an executable script in the user's
+home directory called "runme.sh"

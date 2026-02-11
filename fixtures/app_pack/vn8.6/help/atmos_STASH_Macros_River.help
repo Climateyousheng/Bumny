@@ -1,0 +1,11 @@
+This window allows users to specify a STASHmacro to use to drive
+the Centre of Ecology and Hydrology's (CEH's) River Flow Model (RFM).
+
+The macro writes surface and sub-surface runoff meaned over the RFM's
+timestep to unit 103 (RFMOUT).
+
+Because of this, the RFM timestep must be a multiple of the MetUM
+timestep. If this is not the case, post-processing of the output
+fields will be required.
+
+%I macros

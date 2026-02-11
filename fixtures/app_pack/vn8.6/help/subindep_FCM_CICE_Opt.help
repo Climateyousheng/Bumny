@@ -1,0 +1,79 @@
+This window allows users to specify options which determine the CICE source code
+base that will be built and also enables them to use their own modifications
+on top of this.
+
+
+Repository Definitions
+----------------------
+
+From UMUI vn7.9 onwards the FCM repository definitions for the CICE 
+baseline code including URL and code revision number or keyword are supplied 
+via this panel instead of through a "Job Configuration File".
+
+NEMO Compiler Flags File
+------------------------
+
+Specify a path / filename of a 'base' .cfg file for CICE. 
+
+This file should normally contain any machine specific build tool overrides,
+compiler flag overrides.  Build exclude dependency declarations etc. could
+also be included.
+
+
+FPP keys Configuration File
+---------------------------
+
+Specify a path / filename of a .cfg file which contains a bld::tool::fppkeys::cice
+declaration followed by a list of keys for the CICE configuration you wish to
+build.
+
+Fppkeys which are configured via UMUI panels and automatically added are:
+   NICECAT (vn7.9 UMUI onwards)
+   NXGLOB
+   NYGLOB
+   BLCKX
+   BLCKY
+   MXBLCK
+
+It is probably better to seek out existing samples of the above two files and
+modify them accordingly rather than creating from scratch.
+	     
+
+User branches
+-------------
+
+If you have made code modifications and/or wish to use other developers'
+modifications you need to enable the option "Include modifications from branches".
+The branch location can be entered using any valid FCM URL syntax. For example:
+
+fcm:cice_br/dev/[userid]/[branch name]
+
+or
+
+svn://fcm3/CICE_svn/CICE/branches/dev/[userid]/[branch name]
+
+Note that '/src' is NOT required on the end of branches (as it is for
+the UM Atmosphere) as the repository structure is different.
+
+Generally, the revision column of this table is left blank as this ensures that
+the 'HEAD'(latest version) of the branch is used. If you are using other developers'
+branches, however,you may need to use a revision. This is a way of allowing you to
+use a stable version of the branch while the author continues to make changes.
+
+
+Using a working copy instead of branches to apply changes
+---------------------------------------------------------
+
+If you wish to experiment with temporary changes (e.g debugging print statements)
+and therefore do not wish to commit them to the repository straight away you can
+point directly at your working copy.(i.e. where you checked out your CICE
+source code to and made your changes).
+
+Enable the
+
+"Include modifications from CICE working copy"
+
+option and enter the path to your working copy directory.
+
+Again, '/src' on the end is not required for CICE.
+

@@ -1,0 +1,10 @@
+%C  This function defines the archiving system in use.
+%TCL
+proc arch_system { } {
+  if { (%AUTOPP == "Y") } {
+    return %SYSTM
+  } else {
+    return 0
+  }
+}
+%ENDTCL

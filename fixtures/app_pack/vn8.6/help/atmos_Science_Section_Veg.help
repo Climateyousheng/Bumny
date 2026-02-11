@@ -1,0 +1,8 @@
+Version <8A> for JULES
+----------------------
+Including the JULES sub-model affects
+the selection of some Atmosphere code sections.
+The code sections are converted (MOSES -> JULES) as follows:
+Section 3, Boundary layer: 8B -> 9B, 8C -> 9C, 1A not mirrored
+Section 8, Hydrology: 7A -> 8A
+Section 19, Vegetation: 1A -> 1B, 2A -> 2B

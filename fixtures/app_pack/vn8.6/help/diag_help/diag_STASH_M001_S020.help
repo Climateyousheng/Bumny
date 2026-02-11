@@ -1,0 +1,246 @@
+<M001_S020_I001>
+THICKNESS : 1000-500 MB   
+%I diag_STASH_M001_S020-general
+
+</M001_S020_I001>
+#
+<M001_S020_I002>
+THICKNESS : 1000-850 MB 
+%I diag_STASH_M001_S020-general
+
+</M001_S020_I002>
+#
+<M001_S020_I003>
+WIND SPEEDS : 10 METRES
+%I diag_STASH_M001_S020-general
+
+</M001_S020_I003>
+#
+<M001_S020_I004>
+WIND SPEEDS : PRESSURE LEVEL 
+%I diag_STASH_M001_S020-general
+
+</M001_S020_I004>
+#
+<M001_S020_I043>
+Item: (1:20:043)
+
+WAFC Mean icing potential (units: index). This gives a measure of the 
+likelihood of encountering icing conditions. The value given is the 
+mean value within a gridbox. The larger the value, the more likely that 
+icing will occur. Typical values from 0 to 1.
+
+
+</M001_S020_I043>
+#
+<M001_S020_I044>
+Item: (1:20:044)
+
+WAFC Maximum icing potential (units: index). This gives a measure of the 
+likelihood of encountering icing conditions. The value given is the 
+maximum value within a gridbox. The larger the value, the more likely that 
+icing will occur. Typical values from 0 to 1.
+
+
+
+</M001_S020_I044>
+#
+<M001_S020_I045>
+Item: (1:20:045)
+
+WAFC Mean in-cloud turbulence potential (units: index). This gives a
+measure of the likelihood of encountering turbulence in layer cloud. 
+The value given is the mean value within a gridbox. The larger the value, 
+the more likely that in-cloud turbulence will be encountered. 
+Typical values from 0 to 0.1. 
+
+
+
+</M001_S020_I045>
+#
+<M001_S020_I046>
+Item: (1:20:046)
+
+WAFC Maximum in-cloud turbulence potential (units: index). This gives a
+measure of the likelihood of encountering turbulence in layer cloud. The 
+value given is the maximum value within a gridbox. The larger the value, 
+the more likely that in-cloud turbulence will be encountered. 
+Typical values from 0 to 0.1. 
+
+
+
+</M001_S020_I046>
+#
+<M001_S020_I047>
+Item: (1:20:047)
+
+WAFC Mean CAT potential (units: percentage index). This gives a
+measure of the likelihood of encountering clear air turbulence (turbulence 
+resulting from wind shear or mountain waves). The value given is the mean 
+value within a gridbox. Typical values from 0 to 25% for shear generated
+CAT and 0-60% for mountain wave generated CAT. 
+
+
+
+</M001_S020_I047>
+#
+<M001_S020_I048>
+Item: (1:20:048)
+
+WAFC Maximum CAT potential (units: percentage index). This gives a
+measure of the likelihood of encountering clear air turbulence (turbulence 
+resulting from wind shear or mountain waves). The value given is the maximum 
+value within a gridbox. Typical values from 0 to 25% for shear generated 
+CAT and 0-60% for mountain wave generated CAT. 
+
+
+
+</M001_S020_I048>
+#
+<M001_S020_I049>
+Item: (1:20:049)
+
+WAFC CB horizontal extent (units: percentage cloud cover)
+This gives the horizontal extent of CBs. 
+Typical values from 0-3%. 
+
+
+
+</M001_S020_I049>
+#
+<M001_S020_I050>
+Item: (1:20:050)
+
+WAFC Pressure at CB base (units: Pa)
+This gives the pressure of the base of CBs which aren't embedded.
+Typical values from 20000-100000 Pa.
+
+
+
+</M001_S020_I050>
+#
+<M001_S020_I051>
+Item: (1:20:051)
+
+WAFC Pressure at CB top (units: Pa)
+This gives the pressure of the top of CBs which aren't embedded.
+Typical values from 20000-100000 Pa.
+
+
+
+</M001_S020_I051>
+#
+<M001_S020_I052>
+Item: (1:20:052)
+
+WAFC Pressure at embedded CB base (units: Pa)
+This gives the pressure at the base of embedded CBs.
+Typical values from 20000-100000 Pa.
+
+
+
+</M001_S020_I052>
+#
+<M001_S020_I053>
+Item: (1:20:053)
+
+WAFC Pressure at embedded CB top (units: Pa)
+This gives the pressure of the top of embedded CBs.
+Typical values from 20000-100000 Pa.
+
+
+
+</M001_S020_I053>
+#
+<M001_S020_I054>
+Item: (1:20:054)
+
+WAFC ICAO height at CB base (units: kft)
+This gives the height at the base of CBs which aren't embedded.
+Typical values from 0-40 kft.
+
+
+
+</M001_S020_I054>
+#
+<M001_S020_I055>
+Item: (1:20:055)
+
+WAFC ICAO height at CB top (units: kft)
+This gives the height of the top of CBs which aren't embedded.
+Typical values from 0-40 kft.
+
+
+
+</M001_S020_I055>
+#
+<M001_S020_I056>
+Item: (1:20:056)
+
+WAFC ICAO height at embedded  CB base (units: kft)  
+This gives the height at the base of embedded CBs.
+Typical values from 0-40 kft.
+
+
+
+</M001_S020_I056>
+#
+<M001_S020_I057>
+Item: (1:20:057)
+
+WAFC ICAO height at embedded CB top (units: kft)
+This gives the height of the top of embedded CBs.
+Typical values from 0-40 kft.
+
+
+
+</M001_S020_I057>
+#
+<M001_S020_I064>
+%I diag_STASH_M001_S020_I064-67
+</M001_S020_I064>
+#
+<M001_S020_I065>
+%I diag_STASH_M001_S020_I064-67
+</M001_S020_I065>
+#
+<M001_S020_I066>
+%I diag_STASH_M001_S020_I064-67
+</M001_S020_I066>
+#
+<M001_S020_I067>
+%I diag_STASH_M001_S020_I064-67
+</M001_S020_I067>
+#
+<M001_S020_I068>
+THINNED LARGE SCALE RAINFALL RATE   KG/M2/S
+
+This is the mass per metre squared of rain (liquid precipitation) 
+which falls on the surface per second as diagnosed by the 
+large scale precipitation scheme. It does not include a 
+convective contribution (see diagnostic 1 5 205). 
+
+Multiply by 3600 to convert this value to mm/hour.
+
+</M001_S020_I068>
+#
+<M001_S020_I069>
+THINNED TOTAL PRECIPITATION RATE   KG/M2/S
+
+Total precipitation rate at the surface in kg/m2/s.
+This is the sum of the large scale and convective rainfall 
+and snowfall at the surface.
+
+</M001_S020_I069>
+#
+<M001_S020_I070>
+VIS AT 1.5M  (incl ppn and dust)   M 
+%I diag_STASH_M001_S020-general
+
+</M001_S020_I070>
+#
+<M001_S020_I071>
+VIS IN DUST ONLY AT 1.5M           M
+%I diag_STASH_M001_S020-general
+
+</M001_S020_I071>

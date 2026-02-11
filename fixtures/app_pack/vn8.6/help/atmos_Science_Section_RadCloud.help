@@ -1,0 +1,85 @@
+Help for window : atmos_Science_Section_Rad_Cloud
+This window deals with the treatment of clouds in both SW and LW radiation.
+
+Select representation of clouds
+-------------------------------
+Mixed-phase clouds contain both ice crystals and water droplets. These
+may be represented as forming a homogeneous mixture or as being
+segregated into separate sub-clouds placed side by side. The latter is
+recommended as being more realistic (and is the only option available for
+a single cloud type, i.e. when there is no convective cloud).
+
+Select option for overlapping clouds
+------------------------------------
+The options for treating the vertical overlap between different cloud 
+layers as as follows:
+    * maximum-random: clouds in adjacent layers are maximally overlapped, 
+     clouds separated by clear-sky are randomly overlapped
+    * random: all clouds are random ly overlapped
+    * exponential-random: for clouds in adjacent layers the overlap is 
+      a linear combination of maximum and random. The parameter controlling 
+      the proportion of each depends on the decorrelation pressure scale(s).
+
+Select method for representing horizontal water content variability
+-------------------------------------------------------------------
+cloud water content exhibits sugrid-scale variability the options for 
+reperesenting the radiative effects of this variability are as follows:
+    * homogeneous: horizontal water content variability is ignored
+    * scaling factor: The mean water content in each gridbox is multiplied b 
+      scaling factor
+    * McICA: A stochastic cloud generator is used to produce sub-columns 
+      containing different water content values, which are randomly sampled.
+
+The select water content variability switch becomes active if either scaling 
+factor or McICA are selected. The options are:
+  0)   Use fixed value. If this is combined with the scaling factor switch 
+       then separate scaling factors for each cloud type must be input. 
+       The table below contains recommended values.
+  1)   Use cloud fraction & resolution parametrization described in Hill et al (2012, QJ)
+  2)   Use cca from convection scheme for regime dependent param 
+  3)   Use deep and mid-level (not shallow) cca from conv scheme for regime dependence 
+  4)   Use parametrization described in Boutle et al 2013 
+  5)   Use regime dependent parametrization with smoothed cca field 
+  6)   Use deep and mid-level cca parametrization with smoothed cca field.
+
+No  Condensate              Recommended range (SW)   Recommended range (LW)
+--  ----------              ----------------------   ----------------------
+1.  Stratiform cloud water  0.7 - 1.0                0.7 - 1.0
+2.  Stratiform cloud ice    0.9 - 1.0                0.9 - 1.0
+3.  Convective cloud water  0.3 - 0.6                0.3 - 0.6
+4.  Convective cloud ice    0.5 - 0.8                0.5 - 0.8
+
+Types of droplets and ice crystals
+----------------------------------
+Cloud in the model may be divided into convective and layer cloud. The
+spectral data file may contain data for a number of different
+populations of droplets or ice crystals, described as types. Appropriate
+types must be selected for all components within a cloud. Information on
+which types are available in the standard spectral files may be found in
+the supporting documentation. For the current HadGEM spectral files
+(hadgem1_3 to hadgem1_6) we recommend type 5 droplets (Pade fits with
+thick averaging) and type 8 crystals (ice aggregates with thin averaging).
+
+Using Microphysics in the shortwave/longwave
+--------------------------------------------
+Selecting cloud microphysics invokes code to relate the effective radius of
+cloud droplets to the liquid water content and the concentration of
+cloud condensation nuclei.
+The microphysical parameterization is of more importance in the
+shortwave, but it has been made available in the longwave to enable
+consistency in the  treatment of clouds in both spectral regions to be
+maintained.
+ISCCP simulator
+---------------
+The ISCCP simulator produces diagnostics from the model to mimic the
+cloud observational products from the International Satellite
+Cloud Climatology Project (ISCCP). It is switched on by selecting   
+diagnostics 2,269-2,277 (if you are not selecting these diagnostics
+for output, the field requesting the number of columns to be sub-sampled
+in this window may be left blank). The simulator uses an internal sampling
+rate, which needs to be different depending on the amount of time
+averaging you are doing.  For monthly and longer means this should be set
+to 25. For daily means, it should be set to at least 300 (although note
+that the higher it is set, the slower the model will run). Setting this
+value below 10 is not recommended for any meaning period since it may
+cause a systematic bias in the results.

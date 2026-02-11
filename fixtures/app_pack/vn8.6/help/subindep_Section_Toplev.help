@@ -1,0 +1,13 @@
+Sub-model independent Sections.
+The top level control routines: section 0.
+see below for a description of sections.
+
+As yet the section zero routines that define the top level control routines, are
+not pre-compiled. There is no choice of section as yet.
+This window includes choices relating to  sub-model independent sections that
+set *DEF switches in those sections.
+
+Dump read and write diagnostics are useful for finding problems associated with
+dump IO and the reconfiguration. Not normally used unless there is a problem.
+
+-------------

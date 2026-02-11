@@ -1,0 +1,72 @@
+# Format files describe format of certain UM control files such as
+# ANCILmasters For a given record type EXAMPLErecords, the format file
+# should be called:
+#   "EXAMPLErecordsFormat".
+# Each set of records is subdivided into submodels identified by a
+# letter
+
+#   When editing this file, precede comments with the "#" character;
+# in the first column. Lines with only whitespace or comments are
+# ignored.
+#
+# Format of ANCILFILESmaster follows:
+# First line should state number of lines per record:
+
+1
+
+# The standard record format is of the form:
+#
+#  "1| elementA1 [elA2 [elAn]] | elB1 [elB2 [elBn]] |... eln1|"
+#  "2| element [element2 [elementn]] | element1 [element2 [elementn]] |"
+#  "...
+#  "n| element [element2 [elementn]] | element1 [element2 [elementn]] |"
+#
+# That is, each line starts with a line number 0-9 followed by a "|" and
+# ends with a |. In between there are one or more fields delimited by "|"
+# characters. Each field contains 1 or more elements.
+
+# The purpose of the first part of the format definition is purely to
+# define the positions of the "|" characters. To do this, include
+# below an example of a well-formed entry in which the bars are
+# positioned as required and in which the line numbers are
+# correct. The fields between the bars can contain anything, but using
+# a real example is a good reminder of what each field means
+
+1|    1 |   1 |OZONE   |Ozone                                    |
+
+# The purpose of the second part of the format is to define unique
+# identities for each of the elements in each of the fields. One line
+# is required for each line in the record. The line contains one item
+# for each field.  Where a field requires more than one element, the
+# item will consist of a list of sub-items surrounded by {}. For
+# example, if a line from an example record comprises the following:
+#
+# 1| 1 | 2  | 121 | 111 112 113 | title of record |
+#
+#   the following set of identities would be suitable
+#
+# main1 main2 field1 {subField1 subField2 subField3} title
+#
+# The field identities for the UMUI ANCILFILESmaster follow
+  
+fileNo modelNumber envVar title
+  
+# Each record should have a unique key comprising one or more of the
+# above listed fields. The value of a key is required to obtain other
+# fields in the record. For example, in the example above, if the key
+# were "main1 main2" then each record for each submodel will have a
+# unique "main1 main2" combination. If main1=1 and main2=2 and
+# submodel is "A", then to access the value of subField2 for this
+# record, something like the following will do:
+#
+# set sf2 [getRecordElement "EXAMPLErecords" "A" 1,2 subField2]
+        
+fileNo
+
+# Define the key for the end of file marker. This is a list of values
+# of the key items in the line above that define the final record of
+# the file. Typically, if the key were "main1 main2", the EOF marker
+# might be "-1 -1". The last record in each and every record file must
+# have these values set in the key fields
+
+-1

@@ -1,0 +1,58 @@
+%C =============================================================
+%C module: nds_prog_env
+%C this part of code needs to be included in nds_bld_gencmd and
+%C in the headers for Linux, Other methods. 
+%C =============================================================
+%C
+%TCL
+  if {%SUBMIT_METHOD == "3"} {
+     set nm_method "LoadLeveler"
+     set d_prgenv ". prg_13_1_0_8"
+  }
+  if {%SUBMIT_METHOD == "1"} {
+     putl ". /etc/profile"
+     if { $progenv == "bld" } {
+       set d_prgenv ". /usr/local/bin/prg_ifort-12.0"
+     } else {
+       set d_prgenv ". /usr/local/bin/prg_ifort-12.0 >/dev/null 2>&1"
+     }
+     set nm_method "Linux"
+  } 
+  if {%SUBMIT_METHOD == 6} {
+     putl ". /etc/profile"
+     putl ". /etc/bash.bashrc"
+     putl " "
+     putl ". /work/n02/n02/hum/bin/loadcomp"
+
+     set nm_method "ARCHER"
+     set d_prgenv "loadcomp \${TARGET_MC}"
+  }
+  putl ""
+  if {%SUBMIT_METHOD == "0"} {
+     set nm_method "Other"
+     set d_prgenv "# No default environment specified"
+  }
+  putl ""
+  if {%LPRGENV != "Y"} {
+     putl "# Load default programming environment for $nm_method"
+     putl $d_prgenv
+  } else {
+     if {%USR_PRG_ENV != ""} {
+        if { $progenv == "bld" } {
+           putl "# Load user specified programming environment for $nm_method machine"
+           putl ". %USR_PRG_ENV"
+        } else {
+           putl ". %USR_PRG_ENV >/dev/null 2>&1"
+        }
+     } elseif {$progenv == "bld"} {
+        putl "echo \"Using user default programming environment\" "         
+     }
+  }
+  if {%SUBMIT_METHOD == 6} {
+     putl "module load netcdf"
+     putl "module list"
+     putl " "
+     putl "export PATH=/work/n02/n02/hum/fcm/bin:\$PATH"
+     putl " "
+  }
+%ENDTCL

@@ -1,0 +1,31 @@
+%C---------------------------------------------------------------------
+%C  File:  fcm_nemoextract
+%C---------------------------------------------------------------------
+%C
+%C  Purpose: Generates CM_NEMOEXTRACT, which provides the NEMO base repository
+%C           extract with additional information to that in the UM repository
+%C
+%C  Include files:
+%C   * nds_um_machine ()
+%C
+%C---------------------------------------------------------------------
+#---------------------------------------------------------------------
+# Script: FCM_EXTRACT_NEMO_CFG
+# Purpose: Provides additional source information for NEMO base extract
+#         
+# Created from UMUI vn%VERSION
+#---------------------------------------------------------------------  
+
+%I fcm_extract_config
+
+# Additional NEMO Source Directories
+# ----------------------------------
+%TCL
+   if { %LFCM_SOURCE_NEMO=="Y"} {
+      for {set j 1} {$j <= %NEMOFL_CNT} {incr j} {
+         if { %FCM_SOURCEDIR_NEMO($j)!="" && %FCM_SOURCEUSE_NEMO($j)=="Y" } {
+            putl "src::nemo::base    %FCM_SOURCEDIR_NEMO($j)"
+         }
+      }
+   } 
+%ENDTCL

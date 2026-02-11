@@ -1,0 +1,77 @@
+# This file defines the navigation buttons/menubuttons for the navigation window.
+# Navigation buttons trigger navigation actions to be perfomed, such as
+# display help or process the job. 
+#
+# Each record should be of the form:
+#
+#   <name> <text> <show logic> <disable logic> <command> <command arg>
+#
+# where:
+#
+#   <name>          -- A single word that will be used to name the button.
+#                      If the name is prefixed with 1 or 2 ">"'s it is a
+#                      menubutton (see NOTE 3).
+#   <text>          -- A single word with the text displayed on the button or 
+#                      a number of words with the field delimited by "%".
+#   <show logic>    -- Logic describing when the button is visable. If this entry
+#                      is set to "ALWAYS" then the button is always displayed.
+#                      This tag is not required for menu buttons and items.
+#   <disable logic> -- Logic describing when the button is visable but disabled.
+#                      If this is set to "NEVER" the button is never disabled.
+#                      This tag is not required for menu buttons and items.
+#   <command>       -- Tcl procedure to execute when the button is pushed.
+#                      This tag is ignored, but should still be set for
+#                      menubuttons. The Tcl proceedure should reside in the
+#		       version specific tcl directory. It should be in the
+#                      generic level if the action is a generic action, or in
+#		       the application level if the action is application
+#                      specific. Seek advice from the GHUI team if you think
+#                      that an proceedure should be put into the generic level.
+#   <command arg>   -- A single argument to the Tcl command. This should be set
+#                      to "NONE" if no argument is required.
+#  <accelerator key>-- A single letter for binding keyboard to button or menu 
+#                      option. The letter should be one of the letters in 
+#                      <text> in the same case as it appears in <text>. 
+#                      When Alt then <accelerator> is pressed in lower case
+#                      this will invoke button. For Menu buttons, Alt keypress 
+#                      posts menu and further keypress selects item. All main 
+#                      buttons should have different accelerators from other 
+#                      main buttons. Menu options within a menu should also 
+#                      have different accelerators from other options in same 
+#                      menu. The appropriate letter will be underlined on the 
+#                      button. 
+#                      NONE may be specified if no accelerator is required
+#
+# NOTE 1: All entries must be set.
+# NOTE 2: Fields with spaces (ie logic or text fields) can be delimited by a "%"
+#         a "%" can be included in the field only if it is not followed by a
+#         space. In general, it is simpler to try and avoid "%" signs in fields.
+# NOTE 3: The name tag can be prefixed by 1 or 2 ">" signs. This indicates that
+#         the button is a menubutton. ">" means that it is a menubutton. ">>"
+#         means that the it is a menu item. Menubuttons and items do not require
+#         <show> or <disable> tags. Menubuttons require 
+#
+#<name>     <text>        <show>        <disable>    <command>         <args>        <accelerator key>
+>help       Help                                     NONE               NONE                    H
+>>help      Help..                                   nav_help           navigation_Help        H
+>>about     Navigation..                             nav_help           navigation_Nav         N
+>>keyboard  Keyboard..                               nav_help           navigation_Keyboard    K
+>>verify    %Check Setup..%                          nav_help           navigation_CheckSetup  C
+>>save      Save..                                   nav_help           navigation_Save        S
+>>process   Process..                                nav_help           navigation_Process     P
+>>submit    Submit..                                 nav_help           navigation_Submit      b
+>>upload    Import..                                 nav_help           navigation_Upload      U
+>>download  Export..                                 nav_help           navigation_Download    D
+>>edithist  %Edit History..%                         nav_help           navigation_EditHistory E
+>>quit      Quit..                                   nav_help           navigation_Quit        Q
+>>windows   %Entry windows..%                        nav_help           navigation_Windows     w
+#latest      %README NOW%  ALWAYS        NEVER        nav_help           news  R
+verify      %Check Setup% ALWAYS        NEVER        nav_full_verify    NONE  C 
+save        Save	  ALWAYS	!$read_write nav_save           NONE  S 
+#jobsheet    Jobsheet	 ALWAYS	NEVER	     start_jobsheet     NONE  J 
+process     Process	  ALWAYS	NEVER	     um_nav_process     NONE  P 
+submit      Submit	  ALWAYS	NEVER	     um_nav_submit      NONE  b 
+upload      Import	  ALWAYS	NEVER	     nav_upload         NONE  U 
+download    Export    ALWAYS	NEVER	     um_nav_download    NONE  D 
+jobhist     %Edit History%	  ALWAYS	NEVER	     um_job_hist    NONE  J 
+quit        Quit	  ALWAYS	NEVER	     nav_quit   	NONE  Q 

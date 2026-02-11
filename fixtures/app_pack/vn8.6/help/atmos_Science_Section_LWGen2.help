@@ -1,0 +1,44 @@
+This window is specific to version 3Z of the radiation scheme.
+Users should check carefully the consistency of their choices as it is
+not possible to perform extensive cross-checking in the UMUI.
+
+Spectral data for this scheme are produced by a preprocessor and are
+stored in a spectral file (users will not normally generate their own
+spectral files but will use pre-existing ones). Standard spectral files
+are located in the directory ctldata, but users may provide their own.
+You may wish to use the standard directory name $UM_CONTROL specified in
+[ sub-model independent ] -> [ File and directory naming ]
+(see the help panel for that window).
+
+A particular form of the two-stream approximation must be selected. In
+the longwave the recommended choice is PIFM85 with a diffusivity factor of
+1.66, instead of the factor of 2 used in the standard form of PIFM85.
+
+Theoretically, the appropriate treatment of overlapping gaseous
+absorption should be "Random Overlap", but this is very expensive. The
+approximate method of "Equivalent Extinction" is normally recommended.
+As a modification to the method of Equivalent Extinction for the LW, it
+is possible to use the modulus of the fluxes to weight the minor gas
+k-terms. This may reduce the bias associated with this method. A further
+correction is required where the scaling is different for each k-term in
+the spectral file.
+
+To calculate internal sources of infra-red radiation in the atmosphere,
+an assumption about the variation of the temperature across atmospheric
+layers must be made. Assuming a linear variation is slightly cheaper,
+but is unsuitable for longer runs such as climate integrations since it
+fails to provide adequate damping for two grid-length fluctuations in
+the upper atmosphere on such time-scales. 
+
+The infra-red tail of the solar flux extends into the LW region of the
+spectrum and may be treated as incoming diffuse LW radiation. This is
+only possible with certain spectral files (the SES2 spectral files with
+names beginning "ses"). For other spectral files this flux is generally
+included with the SW direct flux.
+
+Absorption by a number of trace gases may be included in the
+calculation,  provided that appropriate spectral data are contained in
+the spectral file. Note that spectral files cannot be checked in the
+UMUI and users should consult the supporting documentation to select a
+spectral file containing the gases they wish to include. Mixing ratios
+must be provided for gases included. See the windows for this.

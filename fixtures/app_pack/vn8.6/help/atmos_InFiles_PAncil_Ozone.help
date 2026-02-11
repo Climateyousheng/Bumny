@@ -1,0 +1,40 @@
+This window allows users to specify the use of the ozone ancillary
+file.
+
+Standard files hold time-variant fields (monthly, annually-cyclic),
+Long runs  should use updating, the frequency depends on
+requirements.
+
+Ozone is a multi-level variable. The number of levels of ozone is a
+user choice as tropospheric ozone is not well known. Essentially,
+the choice will depend on the availability of ozone ancillary files.
+Ozone is not zonally varying in standard ancillary files but can also
+be zonally averaged.
+
+Ozone is a multi-level variable. The number of levels of ozone is a 
+user choice as tropospheric ozone is not well known. Essentially, 
+the choice will depend on the availability of ozone ancillary files.
+Ozone is not zonally varying in standard ancillary files but can be 
+zonally averaged to save space. The choice will depend on:
+	1. the availability of full 3-D ancillary files.
+	2. the requirement to save space.
+	3. The length of the run. The improvements from full 3D are 
+           probably not significant in most short runs.
+	4. Domain. 3-D fields are advised for models using rotated grids.
+The internal dimensions of the field in D1 must agree with the ancillary 
+file. That is, the setting of the "zonally averaged ozone option" must 
+agree with the dimensions available in any ancillary file used and the 
+number of levels of specified ozone must also agree with the ancillary file.
+The same rules apply when getting ozone from the input dump. Output 
+dimensions in the vertical and horizontal must agree with the input dump.
+
+The internal dimensions of the field in D1 must agree with the
+ancillary file. That is, the setting of the "zonally averaged ozone
+option" must agree with the dimensions available in any ancillary
+file used and the number of levels of specified ozone must also
+agree with the ancillary file. 
+The same rules apply when getting ozone from the input dump. Output
+dimensions in the vertical and horizontal must agree with the input
+dump.   
+
+%I ancill_gen

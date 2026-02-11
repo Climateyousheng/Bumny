@@ -1,0 +1,57 @@
+# parameter.register
+#
+# The parameters in this register are used typically for setting array sizes 
+# in the other registers.
+# They are set to the values listed in the parameter.database when a job is 
+# opened and are not saved as part of a job. Changing the value of any of 
+# these parameters in a given release should therefore be done with 
+# care; if the variable is used to define the length of lists of a 2D array 
+# (column 4 of the registers) it will corrupt the existing arrays.
+# To get round this, special code will need to be added to the function that
+# converts one version of an application to another to pad out the array.
+# 
+N_OPFILES      0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+ETASCALE       0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+N_A_STASHAN    0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+NUM_A_SECT     0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+NUM_I_SECT     0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+NUM_J_SECT     0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+NDUMPT         0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+NMEANS         0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+NMLAP          0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+NAOBS          0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+NOASFLDS       0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+NOOBS          0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+N_STASH_R      0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+N_ATRACERS     0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+N_UKCATRAC     0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+N_UKCATRG      0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+NINT           0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+# When NINT reduced from 4 to 1, this broke a lot of the UMUI due to
+# arrays dimensioned by 4 becoming variables. So re-dimension the 
+# arrays to NINTALT (which will be set to 2), though elements above 
+# the first are not used.
+NINTALT        0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+N_AFILES       0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+N_USRP         0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+N_UANCS        0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+NMODS          0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+N_ENVARS       0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+MAX_TS         0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+N_GENSVARS     0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+N_SLADVPAR     0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+N_TAGS         0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+N_CXOT         0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+N_STRT         0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+N_KSTRT        0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+N_STRTIJ       0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+FCM_BRN_COUNT  0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+FCM_CMS_COUNT  0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+NEMOFL_CNT     0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+USR_OTHR_CNT   0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+SCM_OD_CNT     0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+JULES_PFT      0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL 
+JULES_NVT      0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL 
+NLBCRW         0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+NEMSFL         0 1 0 0 INT 0 0 none SYSTEM NEVER NONE NULL
+

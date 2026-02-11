@@ -1,0 +1,61 @@
+This window allows users to specify the use of Free Tracer items 
+as a tool for model development. 150 "free tracer prognostics" are
+available in section 33, items 1-150. These tracers are in addition
+to UKCA tracers which are now in section 34.
+
+Most users will not require any free tracer items to be used at all.
+
+Tracers are "prognostic" items that are advected using the tracer
+advection scheme, and are transported by the convection scheme.
+These items can be used for any purpose, and are typically chemical
+compounds or aerosols, with concentrations in units of mass mixing
+ratio. The tracers are also treated by the boundary layer mixing code,
+but this is made optional in this panel.
+
+The selection of a tracer makes space in the model dump and in the D1
+array, but the user must arrange for the intialisation of each tracer in
+the dump (see below), and add code for any emission or transformation.
+Tracers are defined on the theta grid, and are advected in a similar way
+to water vapour. Atmospheric tracer advection must be selected via the
+panel: atmos_Science_Section_Atradv, and details of the advection scheme
+are specified in Primary field advection in the panel:
+atmos_Science_Section_Advec.  It is recommended that "more acurate" 
+moisture conservation is selected.
+
+In all cases the free tracers are identified by STASH ITEM NUMBER.
+Unless the tracers are already included in the selected start dump,
+they are introduced and initialised by the reconfiguration.
+This is done by introducing STASHmaster records using a
+user-STASHmaster file which is specified in the panel:
+atmos_STASH_UserDiags, then initialisation can be done using
+the options in the panel: atmos_STASH_UserProgs. These include setting
+the field to be zero or a constant number, or initialisation via a
+specified ancillary file.
+
+The option codes of your STASH records must be made identical to the
+records from STASHmaster_A, section 33, e.g. the last three digits of
+option code n3n2n1 are the same as the item number. See example below:
+
+Item number - first row, third item is 117 and
+Option code - third row, first item is 000000000000000000000000000117
+too.
+Space code  - second row, first item is 2 "primary field available to stash"
+#
+1|    1 |   33 |  117 |ATM TRACER117               AFTER TS|
+2|    2 |    0 |    1 |    1 |    2 |   10 |   11 |    0 |    0 |    0 |    0 |
+3| 000000000000000000000000000117 | 00000000000000000001 |    1 |
+4|    1 |    0 | -99  -99  -99  -99  -99  -99  -99  -99  -99  -99 |
+5|    0 |  501 |    1 |   65 |    0 |    0 |    0 |    0 |    0 |
+#
+
+
+Lateral boundary conditions (LBCs) for the  free tracers may be input
+using a file as for physical variables such as temperature. The file
+is specified in the panel: atmos_InFiles_OtherAnc_LBC.
+To use tracer LBCs check the box "Turn on free tracer LBCs".
+Then in the right hand column of the table, for every tracer for which
+there is an LBC in the input file, select 0 for not present and 1 for LBC 
+data present. Even if this tracer is not used in the model run you are 
+doing, this is needed if a tracer exists in the driving model. It is 
+still possible to run without LBCs and to use a mixture of tracers with 
+and without LBCs.

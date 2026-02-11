@@ -1,0 +1,170 @@
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C JULES  NAMELIST:    
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ &JULES_SWITCHES
+  !!! OTHERS LEFT AS DEFAULTS !!!
+%C
+%C Section 1: Surface Exchange
+%T if { [inactive_var CORMOITR]==0 } {
+ COR_MO_ITER=%CORMOITR,
+%T } else {
+ COR_MO_ITER=3,
+%T }
+ I_MODISCOPT=%MODISCOPT,
+%C
+%C Section 1a: Land Surface
+ L_AGGREGATE=%TCL replacep JL_AGGREGATE Y .TRUE. * .FALSE. %ENDTCL,
+%T if {[inactive_var IAGGREGATE] == 0} {
+ I_AGGREGATE_OPT=%IAGGREGATE,
+%T }
+ BUDDY_SEA=%TCL replacep BUDDYSEA Y 1 N 0 %ENDTCL, 
+ FRAC_SNOW_SUBL_MELT=%FRSNSBMLT,
+ CAN_MODEL=%BLCANOPY,
+ L_EPOT_CORR=%TCL replacep JL_EPOTCORR Y .TRUE. * .FALSE. %ENDTCL,
+ CAN_RAD_MOD=%CANRADMOD,
+ ALL_TILES=%TCL replacep ALLTILES Y 1 N 0 %ENDTCL,
+%T if { [inactive_var JL_FLAKE]==0 } {
+ L_FLAKE_MODEL=%TCL replacep JL_FLAKE T .TRUE. * .FALSE. %ENDTCL,
+%T } else {
+ L_FLAKE_MODEL=.FALSE.,
+%T }
+%C
+%C Section 1b: Sea Surface
+ ISeaZ0T=%TCL replacep L_SRFDIVZ Y 1 N 0 %ENDTCL,
+ i_sea_alb_method=%SEA_ALBMTH,
+ l_spec_sea_alb=%TCL replacep LSPEC_SALB Y .TRUE. * .FALSE. %ENDTCL,
+ l_sea_alb_var_chl=%TCL replacep LSEA_ALBCHL Y .TRUE. * .FALSE. %ENDTCL,
+%C
+%C Section 4: Soil Processes
+ L_VG_SOIL=%TCL replacep VGSOIL 1 .FALSE. 2 .TRUE. %ENDTCL,
+ SOILHC_METHOD=%SOILHC,
+%C
+%C Section 5: Plant Physiology
+%T if { [inactive_var JL_SNOWDEPS]==0 } {
+ L_SNOWDEP_SURF=%TCL replacep JL_SNOWDEPS Y .TRUE. N .FALSE. %ENDTCL,
+%T }
+%C
+%C Section 19: Hyrdrology
+%T if { %L_HYDROLOGY!="Y" && %LPDM=="Y" } {
+ B_PDM=%BPDM,
+ DZ_PDM=%DZPDM,
+%C
+%T }
+%C Other Variables
+ ISCRNTDIAG=%SCRNTDIAG,
+%T if {[inactive_var LTSTARSICEN]==0} {
+ L_TSTAR_SICE_NEW=%TCL replacep LTSTARSICEN Y .TRUE. * .FALSE. %ENDTCL,
+%T }
+ L_LAND_ICE_IMP=%TCL replacep L_LAND_ICE_IMP Y .TRUE. N .FALSE. %ENDTCL,
+%T if { [inactive_var LGRDSOILS]==0 } {
+ L_DPSIDS_DSDZ=%TCL replacep LGRDSOILS Y .TRUE. * .FALSE. %ENDTCL,
+%T }
+%T if {[inactive_var LGL4]==0} {
+ L_DOLR_LAND_BLACK=%TCL replacep LGL4 Y .FALSE. * .TRUE. %ENDTCL,
+%T } else {
+ L_DOLR_LAND_BLACK=.TRUE.,
+%T }
+%T if {[inactive_var SNOWALB] == 0} {
+ l_snow_albedo=%TCL replacep SNOWALB Y .TRUE. * .FALSE. %ENDTCL,
+ l_spec_alb_bs=%TCL replacep LSPECALBBS Y .TRUE. * .FALSE. %ENDTCL,
+%T }
+%T if { [inactive_var SSICEALBEDO] == 0 } {
+ l_ssice_albedo=%TCL replacep SSICEALBEDO Y .TRUE. N .FALSE. %ENDTCL,
+%T    if { %SSICEALBEDO=="Y" } { 
+ l_sice_meltponds=%TCL replacep L_SIMELTP Y .TRUE. N .FALSE. %ENDTCL,
+ l_sice_scattering=%TCL replacep L_SISCATTER Y .TRUE. N .FALSE. %ENDTCL, 
+%T    } else {
+ l_sice_meltponds=.FALSE.,
+ l_sice_scattering=.FALSE.,
+%T    }
+%T    if {%L_SIMELTP=="Y"} {
+ l_sice_hadgem1a=%TCL replacep L_SIHADGEM1A Y .TRUE. N .FALSE. %ENDTCL,
+%T    } else {
+ l_sice_hadgem1a=.FALSE.,
+%T    } 
+%T } else {
+ l_ssice_albedo=.FALSE.,
+ l_sice_meltponds=.FALSE.,
+ l_sice_scattering=.FALSE.,
+ l_sice_hadgem1a=.FALSE.,
+%T }
+%T if {%ATMOS_SR(1) != "0A"} {
+ l_sice_heatflux=%TCL replacep LSICEHTFLUX T .TRUE. F .FALSE. %ENDTCL,
+%T } else {
+ l_sice_heatflux=.FALSE.,
+%T }
+%T if { %ATMOS_SR(8)!="0A" && %L_HYDROLOGY!="Y" } {
+ l_top=%TCL replacep LTOP Y .TRUE. * .FALSE.  %ENDTCL,
+ l_pdm=%TCL replacep LPDM Y .TRUE. * .FALSE.  %ENDTCL,
+%T } else {
+ l_top=.FALSE.,
+ l_pdm=.FALSE.,
+%T }
+%T if { [inactive_var LSOILSATDN] == 0  } {
+ l_soil_sat_down=%TCL replacep LSOILSATDN Y .TRUE. N .FALSE.  %ENDTCL,
+%T } else {
+ l_soil_sat_down=.FALSE.,
+%T } 
+ l_anthrop_heat_src=%TCL replacep LAHEATSRC Y .TRUE. N .FALSE.  %ENDTCL,
+%T if { ([inactive_var CTILE] == 0)&&(%ATMOS_SR(3)!="0A")} {
+ l_ctile=%TCL replacep CTILE Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ l_ctile=.FALSE.,
+%T }
+%T if {[inactive_var SPECALB] == 0} {
+ l_spec_albedo=%TCL replacep SPECALB Y .TRUE. * .FALSE. %ENDTCL,
+%T }
+%T if {[inactive_var OBSALB] == 0} {
+ l_albedo_obs=%TCL replacep OBSALB Y .TRUE. * .FALSE. %ENDTCL,
+%T }
+ ILAYERS=%ILAYERS,
+ /
+  
+ &URBAN_SWITCHES
+%T if { %JULES_SR(2) != "3M" } {
+ l_moruses_albedo       = .FALSE.,
+ l_moruses_emissivity   = .FALSE.,
+ l_moruses_rough        = .FALSE.,
+ l_moruses_storage      = .FALSE.,
+ l_moruses_storage_thin = .FALSE.,
+ l_moruses_macdonald    = .FALSE.,
+%T } elseif { %LMORUSES_DEFS == "N" } {
+ l_moruses_albedo       = %TCL replacep LMORUSES_ALB Y .TRUE. N .FALSE. %ENDTCL,
+ l_moruses_emissivity   = .FALSE.,
+ l_moruses_rough        = %TCL replacep LMORUSES_RGH Y .TRUE. N .FALSE. %ENDTCL,
+ l_moruses_storage      = %TCL replacep LMORUSES_STOR Y .TRUE. N .FALSE. %ENDTCL,
+%T   if { %LMORUSES_STOR == "Y" } {
+ l_moruses_storage_thin = %TCL replacep LMORUSES_THIN Y .TRUE. N .FALSE. %ENDTCL,
+%T   } else {
+ l_moruses_storage_thin = .FALSE.,
+%T   }
+%T   if { %LURBEMP=="Y" } {
+ l_moruses_macdonald    = .TRUE.,
+%T   } else {
+ l_moruses_macdonald    = %TCL replacep LMORUSES_MACD Y .TRUE. N .FALSE. %ENDTCL,
+%T   }
+%T } else {
+ l_moruses_albedo       = .TRUE.,
+ l_moruses_emissivity   = .FALSE.,
+ l_moruses_rough        = .TRUE.,
+ l_moruses_storage      = .TRUE.,
+ l_moruses_storage_thin = .TRUE.,
+ l_moruses_macdonald    = .TRUE.,   
+%T }
+%T if { %JULES_SR(2) != "1T" } {
+ l_urban_empirical      = %TCL replacep LURBEMP Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ l_urban_empirical      = .FALSE.,
+%T }
+%T if { %JULES=="T" } {
+%T   if { %JULES_SR(2) != "1T" } {
+ l_urban2t=.TRUE.,
+%T   } else {
+ l_urban2t=.FALSE.,
+%T   }
+%T } else {
+ l_urban2t=.FALSE.,
+%T }
+ /
+

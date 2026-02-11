@@ -1,0 +1,177 @@
+%C---------------------------------------------------------------------
+%C  File: nds_nemocice_cfg
+%C
+%C  Purpose: Generates FCM_BLD_COMMAND, which calls extract, build or run
+%C
+%C  Include files:
+%C   * nds_um_machine   (machine config file location)
+%C   * fcm_nemo_cfg     (NEMO build options)
+%C   * cplflags_nemo    (NEMO coupling flags)
+%C   * fcm_cice_cfg     (CICE build options)
+%C   * cplflags_hadgem3 (HadGEM3 coupling flags)
+%C   * ldflags_oasis    (OASIS flags)
+%C---------------------------------------------------------------------
+%TCL
+   set subm "NEMOCICE"
+
+   # Define directory extention 
+   set atm  [get_variable_value ATMOS] 
+   set nemo [get_variable_value NEMO] 
+   set cice [get_variable_value CICE]  
+   set mask $atm$nemo$cice
+
+   if {[inactive_var OASIS]==0 && %OASIS=="T"} {
+     set use_oasis Y
+   } else {
+     set use_oasis N
+   }
+
+   if {$mask=="TTT" || $use_oasis=="Y"} {
+      set dirname_ext "um_nemo_cice"
+   } elseif {$mask=="FTT"} {
+      set dirname_ext "nemo_cice"
+   } elseif {$mask=="FTF"} {
+      set dirname_ext "nemo"
+   } elseif {$mask=="FFT"} {
+      set dirname_ext "cice"
+   } else {
+      return
+   }
+
+   set envars ""
+   if {$mask=="TTT" || $use_oasis=="Y"} {
+      append envars "\n# Define PRISM_HOME directory"
+      if {%OASISWHICH==3} {
+         set prismhome %PRISMHOME3
+      } else {
+         set prismhome %PRISMHOME4
+      }
+      append envars "\n\%%prism_home          $prismhome"
+   }
+
+
+
+
+# Initialise model specific variables
+   set nemo_pt1 ""; set nemo_pt2a ""; set nemo_pt2b ""; set nemo_pt2b2 ""; set nemo_pt3a ""; set nemo_pt3b ""
+   set cice_pt1 ""; set cice_pt2a ""; set cice_pt2b ""; set cice_pt2b2 ""; set cice_pt3a ""
+   set nemo_type 0; set nemo_wc 0
+   set cice_type 0; set cice_wc 0
+
+%ENDTCL
+%T   if { %NEMO=="T" } {
+%I fcm_nemo_cfg
+%T   }
+%T   if { %CICE=="T" } {
+%I fcm_cice_cfg
+%T   }
+%TCL
+
+# Header - Version and userID
+# ===========================
+   set header \
+"#---------------------------------------------------------------------
+# Script: FCM_NEMOCICE_CFG
+#---------------------------------------------------------------------
+#
+# Purpose: Build command(s) for the NEMO and CICE submodels 
+#
+# Created from umui vn%VERSION
+#---------------------------------------------------------------------
+$envars
+"
+
+# Part 1 - Inherit from a Precompiled Build
+# =========================================
+   set part1 $nemo_pt1
+   append part1 $cice_pt1
+
+
+# Part 2 - Script build declarations (MANDATORY)
+# ==============================================
+   # Exclusions
+   set part2a $nemo_pt2a
+   append part2a $cice_pt2a   
+
+   # Sub-package declarations
+   set part2b $nemo_pt2b
+   append part2b $cice_pt2b
+
+   # Additional build declarations
+   append part2b $nemo_pt2b2
+   append part2b $cice_pt2b2
+
+
+# Part 3a - Model Specific Sections
+# =================================
+   set part3a $nemo_pt3a\n
+   append part3a $cice_pt3a
+
+
+# Part 3b - Executable definition
+# ===============================
+   set part3b $nemo_pt3b
+
+
+# Part 3c - Optional Flags
+# ========================
+   set part3c ""
+%ENDTCL
+%T if { $mask=="TTT" } {
+%I cplflags_nemo 
+%I cplflags_hadgem3
+%T }
+%T if { $use_oasis=="Y" } {
+%I ldflags_oasis
+%T }
+%TCL
+
+
+# Part 4 - Branches (OPTIONAL)
+# ============================   
+   set type [expr $nemo_type + $cice_type]
+   if { %NEMO != "T" && %CICE == "T" } {
+      set branches $branches1
+      for {set i 1} {$i <= %FCM_BRN_COUNT} {incr i} {
+         set repos($i) $repos1($i)
+         set branch_name($i) $branch_name1($i)
+         set branch_ver($i) $branch_ver1($i)
+         set branch_use($i) $branch_use1($i)
+      }
+   }
+
+
+# Part 4b - Central Scripts mods (OPTIONAL)
+# ========================================
+   # N/A
+
+
+# Part 5 - Working copy (OPTIONAL)
+# ================================
+   set type_wc [expr $nemo_wc + $cice_wc]
+   if { %NEMO != "T" & %CICE == "T" } {
+      set workingcopy $workingcopy2
+      set repos_wc $repos_wc2
+      set wkcpy_name $wkcpy_name2
+   }
+
+
+# Part 6a - Pre-bindings UMUI controlled Libraries (OPTIONAL)
+# ===========================================================
+   # N/A
+   set part6a ""
+
+
+# Part 6b - Bind File
+# ===================
+   # N/A
+   set part6b ""
+
+
+# Part 6c - Post-bindings UMUI controlled Libraries (OPTIONAL)
+# ============================================================
+   # N/A
+   set part6c ""
+
+%ENDTCL
+%I fcm_config

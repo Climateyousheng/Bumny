@@ -1,0 +1,12 @@
+This window allows users to specify which STASHmacro to use to drive an external
+Ocean model.  
+
+The macro writes the standard coupling fields to Unit 85 called WFOUT.
+
+The unit number is not recycled.
+This macro is designed for tests purposes only.
+This is NOT the FOAM macro, which has all the fields required for FOAM.
+
+Most users will not require such output.
+
+%I macros

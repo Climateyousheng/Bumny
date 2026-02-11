@@ -1,0 +1,210 @@
+Explanation of the new urban schemes
+--------------------------------------
+
+* URBAN-1T (Default option)
+The original JULES urban scheme with one urban tile. The properties of the
+urban tile are not currently set through the UMUI. If you wish to change
+these a hand edit is required to alter &JULES_NVEGPARM. Possibly other
+namelists that might want to be altered would include &JULES_Z0H_Z0M and
+&JULES_ELEVATE.
+
+Selecting this option sets all the switches in &URBAN_SWITCHES to .FALSE.
+ensuring that the new urban schemes are not in use.
+
+
+* URBAN-2T
+Essentially the same as the original one tile urban scheme (URBAN-1T), but
+instead of one urban tile there are now two; urban_canyon & urban_roof. The
+urban_canyon and urban_roof land fractions are calculated using the urban
+geometry variable wrr or "w/r ratio", where:
+w = width of the canyon
+r = width of the canyon + roof
+
+For 2D canyon geometry this is equivalent to the fraction of the urban tile
+that is canyon.
+
+There is no extra physics for this scheme just different parameters, which are
+set via the table. The parameters are not spatially variant. The suggested
+parameters are the same as the nvegparm urban parameters with a lower roof heat
+capacity. These parameters have still to be evaluated so are likely to change
+in the future.
+
+There are a number of switches, which belong to &URBAN_SWITCHES, that are set
+by using this option:
+l_urban2t   = T
+l_moruses_* = F
+
+
+* MORUSES
+Builds on URBAN-2T and has four new physical processes parametrised. MORUSES
+has the advantage that parameters are derived from values measurable from urban
+fabric and geometry, allowing it to more accurately represent the urban
+surface. The new parameterisations are briefly described as follows:
+
+1. Shortwave radiative exchange in the form of an effective canyon albedo
+   (l_moruses_albedo)
+
+   Includes shading and multiple reflections, which depends on building
+   materials, geometry and zenith angle.
+
+2. Long-wave radiative exchange in the form of an effective canyon emissivity
+   (l_moruses_emissivity)
+
+   !!!NB: This has been DISABLED until the radiation scheme has caught up with
+      variable tile emissivity!!!
+
+   Includes multiple reflections, which depends on building materials and
+   geometry.
+
+3. Transfer of heat in the form of effective roughness length for heat and
+   momentum (l_moruses_rough)
+
+   * Effective roughness lengths for momentum and displacement heights can
+     either be provided as an ancillary, if the empirical relationships are not
+     used (see below), or can be calculated using the MacDonald et al. (1998)
+     formulation, which makes use of urban geometry (l_moruses_macdonald).
+
+   * Effective roughness length for heat has a physical basis and is not
+     calculated as a fraction of momentum. It depends on the geometry of the
+     canyon, which affects the recirculation of the jet within the canyon. Flow
+     within the canyon can be broken down into two regions; the recirculation
+     and ventilation regions, where the recirculation region forms in the wake
+     of each building. Three different flow regimes are represented:
+
+     1. Isolated roughness - Canyon has separate recirculation and a
+        ventilation regions
+
+     2. Wake interference - Recirculation region begins to impinge on the
+        downstream building
+
+     3. Skimming flow - Recirculation region fills the entire canyon
+
+     The effective roughness length for heat is calculated using a resistance
+     network within these regions.
+
+4. Thermal inertia and coupling with underlying soil (l_moruses_storage)
+
+   The road only is conductively coupled to the underlying soil, whereas the
+   walls and roof are uncoupled and have a zero-flux boundary condition. As
+   MORUSES only has two tiles, this is parametrised using a canyon scaling
+   factor. The roof has a lower thermal inertia and can respond more rapidly to
+   changes in forcing. The heat capacities of the canyon and roof are
+   calculated using the properties of the urban fabric and the geometry of the
+   canyon.
+
+Urban parameters that are not parameterised by MORUSES can either be specified
+by the user or defaults, which are the same as the default URBAN-2T values, can
+be used. The user specified values are set via the table and entry boxes below
+the table.
+
+A number of switches can be set to enable MORUSES. Each of the four
+parameterisations above are associated with an individual switch to allow them
+to be selected individually. If the four main parameter switches are disabled
+the user has essentially chosen to run URBAN-2T and it is suggested that this
+option should be chosen instead.
+
+The default switches are:
+l_urban2t   = T
+l_moruses_* = T, except for emissivity, which for the time being is disabled
+
+When any switch is not used the model needs to be provided with suitable
+alternatives in the entry boxes provided as follows:
+
+Switch                    Set                         Variable names
+l_moruses_albedo     = F  Snow covered albedo         albsnc_c   albsnc_rf
+                          Snow-free albedo            albsnf_c
+l_moruses_emissivity = F  Emissivity                  emis_c
+l_moruses_rough      = F  Roughness length            z0_c       z0_rf
+                          Ratio of roughness lengths  z0h_z0m_c  z0h_z0m_rf
+l_moruses_storage    = F  Canopy heat capacity        ch_c       ch_rf
+                          Fractional canopy coverage  vf_c       vf_rf
+
+albsnf_rf and emis_rf do not require setting here as they are not parameterised
+by MORUSES and are therefore entered with the previous parameter table.
+
+
+Further reading on MORUSES:
+
+Porson A, Clark PA, Harman IN, Best MJ, Belcher SE. 2009. Implementation of a
+New Urban Scheme in the MetUM. Part I: Description and Idealized Simulations.
+Quarterly Journal of the Royal Meteorological Society, submitted
+
+Porson A, Clark PA, Harman IN, Best MJ, Belcher SE. 2009. Implementation of a
+New Urban Scheme in the MetUM. Part II: Validation against Observations and
+Model. Quarterly Journal of the Royal Meteorological Society, submitted
+
+
+
+Empirical relationships (l_urban_empirical)
+------------------------------------------
+This enables empirical relationships between urban fraction and urban geometry
+giving wrr "w/r ratio", hwr "h/w ratio" & hgt where:
+      w = width of the canyon
+      r = width of the canyon + roof
+hgt = h = height of buildings
+
+If this option is not enabled then the user must prescribe their own values and
+provide ancillary data instead.
+
+URBAN-2T requires wrr (= fraction of urban tile that is canyon)
+MORUSES  requires wrr, hwr & hgt
+
+These empirical relationships were derived from correlating CEH urban fraction
+and LUCID urban geometry data for London. Obtained from collaboration with the
+University of Reading. See:
+    Bohnenstengel, S.I., Evans, S., Clark, P., Belcher, S.E. (2010);
+    Simulations of the London urban heat island, Q.J.R.Meteorol. Soc., to
+    be submitted.
+for more information
+
+WARNINGS:
+
+* For MORUSES if the empirical relationships are used then so must the
+  MacDonald (1998) formulation for roughness length for momentum and
+  displacement height
+
+* These relationships are resolution dependent as they are based on urban
+  fraction. They are therefore only valid for high resolution i.e. UKV.
+
+
+
+Anthropogenic heat source (l_anthrop_heat_src)
+---------------------------------------------
+Adds a seasonal dependent amount to the surface heat fluxes (Wm-2) in urban
+tiles. Values are derived for Northern Hemisphere mid latitude cities, so its
+scope is limited to these regions.
+
+* URBAN-2T / MORUSES
+The anthropogenic heat flux (anthrop_heat) is spread between the urban_canyon
+and urban_roof tiles depending on a distribution scale factor
+(anthrop_heat_scale) where:
+
+                 H_roof                 = anthrop_heat_scale * H_canyon
+
+H_canyon * wrr + H_roof * ( 1.0 - wrr ) = anthrop_heat
+
+anthrop_heat_scale has a value 0.0 - 1.0 where the extremes correspond to:
+
+0.0 = all released within the canyon
+1.0 = evenly spread between canyon and roof
+
+There is a check in place to ensure that the anthropogenic heat flux is
+conserved. The default is 1.0 to be consistent with the original urban scheme.
+
+
+
+Note on emissivity
+------------------
+
+Currently as most of the JULES parameters are not able to be changed through
+the UMUI, the user must be careful when changing the emissivity. If the
+emissivity chosen in atmos_Science_Section_LSurf is changed from 0.97 i.e.
+
+L_EMIS_LAND_GEN  = .TRUE.
+EMIS_LAND_GEN   !=  0.97
+
+in &NLSTCATM, then this does not carry through to the JULES land surface
+model; JULES has 0.97 as default. To make JULES consistent a hand edit
+is required to modify &JULES_NVEGPARM and &JULES_PFTPARM. If URBAN-2T or
+non default MORUSES is chosen then &URBAN2T_PARAM should also be edited.
+

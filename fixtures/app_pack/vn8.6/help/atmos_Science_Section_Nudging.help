@@ -1,0 +1,92 @@
+General Information on Nudging in the Unified Model
+=====================================================
+
+Nudging, or Newtonian relaxation, is a simple form of data assimilation that 
+adjusts dynamical variables of free running GCMs using meteorological re-analysis 
+data to give a realistic represention of the atmosphere at a given time.
+
+The Nudged model was developed originally at the University of Cambridge under
+the Met Office - NCAS collaboration. A detailed description can be found in:
+  Telford, P. J., Braesicke, P., Morgenstern, O., and Pyle, J. A.:
+  Technical Note: Description and assessment of a nudged version of
+  the new dynamics Unified Model, Atmos. Chem. Phys., 8, 1701-1712, 2008.
+
+
+The variables in UM that can be currently nudged are horizontal winds (u and v)
+and potential temperature (Theta) by using the ECMWF ERA-40 or operational data, 
+UM Analyses and the Japanese (JRA-25) Analyses.
+
+The analysis files are loaded as NetCDF in a specific format, derived from the 
+original analysis files.
+
+Note: Since most operational/ analysis datasets are produced according to the 
+Gregorian (365 day) Calendar, it is advisable to run any UM model configuration 
+that uses Nudging, with a Gregorian calendar (See the User Guide for the changes 
+required in model setup to enable this). The 360 day calendar may be used only 
+for short term runs as the discontinuities in the data, such as the exclusion of
+the 31st of different months can cause instabilities.
+
+===================================================================
+Help with the panel:
+
+Choice of Section:
+<0A> Nudging not included. This is the default setting
+<1A> Nudging included.     On selecting this option, the following parameters
+     have to be specified :
+
+1) Relaxation parameters: 
+   These parameters control the amount by which the model variable is nudged 
+   towards analysis data. Specify a relaxation parameter for each of the 
+   nudged variables (U,V,theta). The recommended value for this parameter is 
+   1/(time interval between analyses in sec). A too small value may be ineffective, 
+   while a too large value may lead to model instability. 
+
+2) Lowermost level to start nudging: 
+   This is the bottom level from which the nudging will be applied. The lowermost
+   levels should be excluded due to errors in interpolating from the analysis
+   levels to the UM levels. In general, it is advisable not to apply nudging in 
+   the boundary layer. 
+
+3) Topmost level to apply nudging: 
+   This is the topmost level upto which the variables will be nudged. These are to
+   be chosen carefully to avoid using the topmost 'sponge' layers of the analyses
+   to nudge towards.
+
+4) Number of levels to go from none to full-strength nudging: 
+   These specify the span of layers, starting from the lowermost (and topmost) 
+   nudged levels selected, over which the relaxation parameter is gradually applied 
+   from 0 to full strength, while nudging each variable.
+
+5) Stratospheric Relaxation factor:
+   This factor can be used to reduce the strength of Nudging in the stratosphere.
+   The base relaxation parameter (see 1) is gradually tuned from the tropopause
+   upwards by the value of this factor. The factor needs to be between 0.0 and 1.0, 
+   with 1.0 signifying no reduction in strength of nudging.
+
+6) Analysis Data source: 
+   The source and type of analysis being used for nudging. Four data sources can be 
+   used for nudging the UM model: 
+   ECMWF analyses on hybrid levels, 
+   ECMWF analyses on fixed pressure levels, 
+   UM analyses (on the same levels as the current one) and 
+   Japanese JRA-25 analysis on fixed pressure levels.
+
+   Note that currently the UM has not been tested extensively with ECMWF pressure
+   level data or UM analyses.
+
+7) Time Interval (in hours) between analysis datafiles:
+   This has to be uniform throughout the simulation period and each file must 
+   contain only a single data record.
+
+8) Directory pathname for Analysis files:
+   The location of the analysis datafiles on the executing node. All the files
+   corresponding to the simulation period have to be present in this folder.
+
+IMPORTANT NOTE: The Nudging code requires certain diagnostics to be requested in 
+                STASH by switching on a macro. 
+                Go to Atmosphere-->STASH-->STASH macros-->Nudging macro via the 
+                "STASH" button and select the option Nudging Diagnostic macro. 
+                If the diagnostics are not in STASH when nudging is ON, the model 
+                will stop with error: 'Nudging diagnostics not requested'. 
+ 
+===============================================================================       

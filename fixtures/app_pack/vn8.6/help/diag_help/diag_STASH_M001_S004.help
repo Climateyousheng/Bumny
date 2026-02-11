@@ -1,0 +1,781 @@
+<M001_S004_I004>
+Item 1 4 004
+Temperature after large scale precip
+This is the dry bulb air temperature in Kelvin on model full levels on
+completion of the large scale precipitation scheme.
+
+----------------------------------
+The new one listed here..I've kept the old one for the start of this exercise
+
+Item 1 4 004
+Temperature after large scale precip
+This is the dry bulb air temperature in Kelvin on model full levels on
+completion of the large scale precipitation scheme.
+BE ADVISED THAT THIS DIAGNOSTIC DOES NOT REPRESENT VALUES AT THE END OF A
+TIMESTEP.
+</M001_S004_I004>
+#
+<M001_S004_I010>
+Item 1 4 010
+Specific humidity after ls precip
+This is the water vapour content of the air expressed as the ratio
+of the mass of water vapour per unit volume to the mass of moist air
+(plus any condensate) per unit volume. The value has no units and is
+output on model full levels on completion of the large scale
+precipitation scheme.
+--------------------------------------------------------
+new version from damian
+Item 1 4 010
+Specific humidity after ls precip
+This is the water vapour content of the air expressed as the ratio
+of the mass of water vapour per unit volume to the mass of moist air
+(plus any condensate) per unit volume. The value has no units and is
+output on model full levels on completion of the large scale
+precipitation scheme.
+BE ADVISED THAT THIS DIAGNOSTIC DOES NOT REPRESENT VALUES AT THE END OF A
+TIMESTEP.
+</M001_S004_I010>
+#
+<M001_S004_I100>
+
+Ice aggregate fraction
+
+Within the microphysics scheme, ice is treated in one of two forms:
+crystals or aggregates. These are diagnosed at the start of the
+microphysics based on the temperature of the grid box when compared
+to the temperature of cloud top (see UMDP26 for further details).
+This diagnostic outputs the value of the diagnosed aggregate fraction
+and can range from 0 to 1. A value of 0 indicates that all the ice is
+assumed to be crystals whilst a value of 1 indicates that all the ice
+is assumed to be aggregates. A value of 0.5 would indicates that the
+ice mass is separated equally between crystals and aggregates.
+</M001_S004_I100>
+#
+<M001_S004_I101>
+
+Microphysics grid box flag
+
+For numerical efficiency, the microphysics code is only performed in
+grid boxes where there is either a) cloud or rain present in this grid
+box or b) cloud or rain present in any grid box in the column above.
+This diagnostic outputs a flag for each grid box to say whether it has
+been used or not. A value of 0 indicates that the grid box has not been
+used whilst a value of 1 indicates that the grid box has been used.
+</M001_S004_I101>#
+#
+<M001_S004_I102>
+The mass-weighted mean fallspeed of ice if the crystal fallspeed-diameter
+relation is used
+</M001_S004_I102>
+#
+<M001_S004_I103>
+The mass-weighted mean fallspeed of ice if the aggregate fallspeed-diameter
+relation is used
+</M001_S004_I103>
+#
+<M001_S004_I104>
+Binary flag specifying which fallspeed relation (0=crystal/1=aggregate)
+was used in each gridbox
+</M001_S004_I104>
+#
+<M001_S004_I105>
+The value of the mass-weighted mean fallspeed of ice that was
+actually used to compute the ice sedimentation rate
+</M001_S004_I105>
+#
+<M001_S004_I130>
+Item (1:4:130) QCL INCR: pc2 checks positive 
+
+%I pc2_diags 
+
+</M001_S004_I130>
+#
+<M001_S004_I131>
+Item (1:4:131) QCL INCR: pc2 checks negative
+
+%I pc2_diags 
+
+</M001_S004_I131>
+#
+<M001_S004_I132>
+Item (1:4:132) QCF INCR: pc2 checks positive
+
+%I pc2_diags 
+
+</M001_S004_I132>
+#
+<M001_S004_I133>
+Item (1:4:133) QCF INCR: pc2 checks negative
+
+%I pc2_diags 
+
+</M001_S004_I133>
+#
+<M001_S004_I136>
+Item (1:4:136) LIQ CLOUD VOL INCR: pc2 checks positive
+
+%I pc2_diags 
+
+</M001_S004_I136>
+#
+<M001_S004_I137>
+Item (1:4:137) LIQ CLOUD VOL INCR: pc2 checks negative
+
+%I pc2_diags 
+
+</M001_S004_I137>
+#
+<M001_S004_I138>
+Item (1:4:138) ICE CLOUD VOL INCR: pc2 checks positive
+
+%I pc2_diags 
+
+</M001_S004_I138>
+#
+<M001_S004_I139>
+Item (1:4:139) ICE CLOUD VOL INCR: pc2 checks negative
+
+%I pc2_diags 
+
+</M001_S004_I139>
+#
+<M001_S004_I141>
+Item (1:4:141) TEMPERATURE INCR: pc2 checks
+
+%I pc2_diags 
+
+</M001_S004_I141>
+#
+<M001_S004_I142>
+Item (1:4:142) SPECIFIC HUMIDITY INCR: pc2 checks
+
+%I pc2_diags 
+
+</M001_S004_I142>
+#
+<M001_S004_I143>
+Item (1:4:143) QCL INCR: pc2 checks 
+
+%I pc2_diags 
+
+</M001_S004_I143>
+#
+<M001_S004_I144>
+Item (1:4:144) QCF INCR: pc2 checks
+
+%I pc2_diags 
+
+</M001_S004_I144>
+#
+<M001_S004_I152>
+Item (1:4:152) BULK CLOUD VOL INCR: pc2 checks
+
+%I pc2_diags 
+
+</M001_S004_I152>
+#
+<M001_S004_I153>
+Item (1:4:153) LIQ CLOUD VOL INCR: pc2 checks
+
+%I pc2_diags 
+
+</M001_S004_I153>
+#
+<M001_S004_I154>
+Item (1:4:154) ICE CLOUD VOL INCR: pc2 checks
+
+%I pc2_diags 
+
+</M001_S004_I154>
+#
+<M001_S004_I170>
+Item (1:4:170) QCL INCR: ls rain positive 
+
+%I pc2_diags 
+
+</M001_S004_I170>
+#
+<M001_S004_I171>
+Item (1:4:171) QCL INCR: ls rain negative
+
+%I pc2_diags 
+
+</M001_S004_I171>
+#
+<M001_S004_I172>
+Item (1:4:172) QCF INCR: ls rain positive
+
+%I pc2_diags 
+
+</M001_S004_I172>
+#
+<M001_S004_I173>
+Item (1:4:173) QCF INCR: ls rain negative
+
+%I pc2_diags 
+
+</M001_S004_I173>
+#
+<M001_S004_I176>
+Item (1:4:176) LIQ CLOUD VOL INCR: ls rain positive
+
+%I pc2_diags 
+
+</M001_S004_I176>
+#
+<M001_S004_I177>
+Item (1:4:177) LIQ CLOUD VOL INCR: ls rain negative
+
+%I pc2_diags 
+
+</M001_S004_I177>
+#
+<M001_S004_I178>
+Item (1:4:178) ICE CLOUD VOL INCR: ls rain positive
+
+%I pc2_diags 
+
+</M001_S004_I178>
+#
+<M001_S004_I179>
+Item (1:4:179) ICE CLOUD VOL INCR: ls rain negative
+
+%I pc2_diags 
+
+</M001_S004_I179>
+#
+<M001_S004_I181>
+STASH item specific help for 
+(1, 4, 181) TEMPERATURE       INCR: ls rain     
+
+Temperature increment from the large-scale precipitation scheme
+and the balancing cloud scheme call.
+This is the gridbox mean change in temperature (in Kelvin) in 
+each gridbox solely as a result of the large-scale precipitation 
+scheme.
+</M001_S004_I181>
+#
+<M001_S004_I182>
+STASH item specific help for 
+(1, 4, 182)  SPECIFIC HUMIDITY INCR: ls rain     
+
+Vapour increment from the large-scale precipitation scheme and the
+balancing cloud scheme call.
+This is the gridbox mean change in specific humidity (in kg of vapour
+per kg of air) in each gridbox solely as a result of the large-scale
+precipitation scheme.
+</M001_S004_I182>
+#
+<M001_S004_I183>
+STASH item specific help for 
+(1, 4, 183) QCL               INCR: ls rain     
+
+Liquid increment from the large-scale precipitation scheme and the
+balancing cloud scheme call.
+This is the gridbox mean change in specific liquid content (in kg of
+liquid per kg of air) in each gridbox solely as a result of the 
+large-scale precipitation scheme.
+</M001_S004_I183>
+#
+<M001_S004_I184>
+STASH item specific help for 
+(1, 4, 184) QCF               INCR: ls rain     
+
+Ice increment from the large-scale precipitation scheme and the
+balancing cloud scheme call.
+This is the gridbox mean change in specific ice content (in kg of ice
+per kg of air) in each gridbox solely as a result of the large-scale
+precipitation scheme.
+</M001_S004_I184>
+#
+<M001_S004_I189>
+RAIN   INCR: ls rain kg/kg/timestep
+
+Increment to prognostic rain from micro-physics. Units kq/kq/timestep.
+</M001_S004_I189>
+#
+<M001_S004_I190>
+GRAUPEL INCR: ls rain kg/kg/timestep
+
+Increment to prognostic graupel from micro-physics. Units kq/kq/timestep.
+</M001_S004_I190>
+#
+<M001_S004_I191>
+QCF2   INCR: ls rain kg/kg/timestep
+
+Increment to prognostic qcf2 (second ice type) from micro-physics.
+Units kq/kq/timestep.
+</M001_S004_I191>
+#
+<M001_S004_I192>
+Stash Diagnostic Help for Section 4 Item 192
+
+STASH item specific help for
+(1, 4, 192)  BULK CLOUD VOL    INCR: ls rain
+
+This is the increment across the ls precipitation scheme to the gridbox mean
+total cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S004_I192>
+#
+<M001_S004_I193>
+Stash Diagnostic Help for Section 4 Item 193
+
+STASH item specific help for
+(1, 4, 193)  LIQUID CLOUD VOL  INCR: ls rain
+
+This is the increment across the ls precipitation scheme to the gridbox mean
+liquid (including mixed phase) cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S004_I193>
+#
+<M001_S004_I194>
+Stash Diagnostic Help for Section 4 Item 194
+
+STASH item specific help for
+(1, 4, 194)  FROZEN CLOUD VOL  INCR: ls rain
+
+This is the increment across the ls precipitation scheme to the gridbox mean
+frozen (including mixed phase) cloud volume fraction.
+
+Available on all timesteps.
+
+</M001_S004_I194>
+#
+<M001_S004_I201>
+Item 1 4 201
+Large scale rain amount kg/m2/ts
+This is the mass per metre squared of rain (liquid precipitation) which
+falls on the surface during a single timestep as diagnosed by the large
+scale precipitation scheme. It does not include a convective
+contribution (see diagnostic 1 5 201).
+</M001_S004_I201>
+#
+<M001_S004_I202>
+Item 1 4 202
+Large scale snow amount kg/m2/ts
+This is the mass per metre squared of snow (frozen precipitation) which
+falls on the surface during a single timestep as diagnosed by the large
+scale precipitation scheme. It does not include a convective
+contribution (see diagnostic 1 5 202).
+</M001_S004_I202>
+#
+<M001_S004_I203>
+Item 1 4 203
+Large scale rainfall rate kg/m2/s
+This is the mass per metre squared of rain (liquid precipitation) which
+falls on the surface per second as diagnosed by the large scale
+precipitation scheme. It does not include a convective contribution (see
+diagnostic 1 5 205). Multiply by 3600 to convert this value to mm/hour.
+</M001_S004_I203>
+#
+<M001_S004_I204>
+Item 1 4 204
+Large scale snowfall rate kg/m2/s
+This is the mass per metre squared of snow (frozen precipitation) which
+falls on the surface per second as diagnosed by the large scale
+precipitation scheme. It does not include a convective contribution (see
+diagnostic 1 5 206).  Multiply by 3600 to convert this value to mm/hour.
+------------------------------------------------
+Item 1 4 204
+Large scale snowfall rate kg/m2/s
+This is the mass per metre squared of snow (frozen precipitation) which
+falls on the surface per second as diagnosed by the large scale
+precipitation scheme. It does not include a convective contribution (see
+diagnostic 1 5 206).  Multiply by 3600 to convert this value to mm/hour of
+rain equivalent.
+
+
+</M001_S004_I204>
+#
+<M001_S004_I205>
+Item 1 4 205
+Cloud liquid water after LS precip
+For versions 3A and 3B this is the liquid water content of the air
+expressed as the ratio of the mass of liquid per unit volume to the mass
+of moist air (plus any condensate) per unit volume. The value has no
+units and is output on model full levels on completion of the large
+scale precipitation scheme. For versions 2B,2C,2D and 2E this value
+instead represents the total condensate content when the temperature is
+above 0 degrees C and is zero when the temperature is below 0 degrees C.
+-----------------------------------------------------
+Item 1 4 205
+Cloud liquid water after LS precip
+This is the liquid water content of the air expressed as the ratio of the
+mass of liquid per unit volume to the mass of moist air (plus any condensate)
+per unit volume. The value has no units and is output on model full levels on
+completion of the large scale precipitation scheme.
+BE ADVISED THAT THIS DIAGNOSTIC DOES NOT REPRESENT VALUES AT THE COMPLETION
+OF A TIMESTEP.
+
+
+</M001_S004_I205>
+#
+<M001_S004_I206>
+Item 1 4 206
+Cloud ice water after LS precip
+For versions 3A and 3B this is the ice water content of the air
+expressed as the ratio of the mass of ice per unit volume to the mass of
+moist air (plus any condensate) per unit volume. The value has no units
+and is output on model full levels on completion of the large scale
+precipitation scheme. For versions 2B,2C,2D and 2E this value instead
+represents the total condensate content when the temperature is below 0
+degrees C and is zero when the temperature is above 0 degrees C.
+---------------------------------------------------
+Item 1 4 206
+Cloud ice water after LS precip
+This is the ice water content of the air expressed as the ratio of the mass
+of ice per unit volume to the mass of moist air (plus any condensate) per
+unit volume. The value has no units and is output on model full levels on
+completion of the large scale precipitation scheme.
+BE ADVISED THAT THIS DIAGNOSTIC DOES NOT REPRESENT VALUES AT THE END OF A
+TIMESTEP.
+</M001_S004_I206>
+#
+<M001_S004_I207>
+Item 1 4 207
+Relative humidity after large scale precipitation
+This is the ratio of the water vapour content of the air to the
+saturated water vapour content of the air at the same temperature and
+pressure, multiplied by a factor 100. The saturated water vapour content
+is calculated with respect to a flat ice surface at temperatures below 0
+degrees C, and with respect to a flat liquid water surface at
+temperatures above 0 degrees C. Values are calculated after the large
+scale precipitation scheme has been completed.
+
+</M001_S004_I207>
+#
+<M001_S004_I210>
+Cloud drop number concentration (/m3)
+
+This is the cloud drop number concentration that is calculated
+within the autoconversion scheme in large-scale precipitation. 
+It is usually a function of the aerosol present or a fixed value 
+dependent on whether the grid point is a sea or a land point. 
+Where there is no cloud, the droplet number concentration is zero. 
+Divide by 1.0E6 to get the drop number in units of 
+number per cubic cm (this unit is often used in cloud physics 
+literature). The cloud droplet number concentration is important
+for radiation calculations and to determine whether it will rain
+or not.  
+
+</M001_S004_I210>
+#
+<M001_S004_I211>
+Potential Cloud drop number concentration (/m3)
+
+This is the cloud drop number concentration that is calculated
+from the model's aerosol fields. Where no aerosol is present the
+values will be fixed value dependent on whether the grid point 
+is a sea or a land point. This diagnostic ignores cloud amounts
+and will still produce a droplet number when cloud fraction is
+zero (hence 'potential cloud drop number concentration). 
+Divide by 1.0E6 to get the drop number in units of number per cubic 
+cm (this unit is often used in cloud physics literature). The 
+cloud droplet number concentration is important for radiation 
+calculations and to determine whether it will rain or not.  
+
+</M001_S004_I211>
+#
+<M001_S004_I213>
+DISS NITR RNOUT BY LS PPN (1:4:213) 
+
+Available only if nitrate aerosol is on. 
+
+Flux of ammonium nitrate aerosol dissolved in water droplets 
+transported to the surface by large scale rain and snow. Given 
+in kg of nitrogen per square metre per second. Multiply by 5.714 
+to convert to kg of ammonium nitrate (NH4NO3) per square metre 
+per second.
+</M001_S004_I213>
+#
+<M001_S004_I214>
+ACC NITR WSOUT BY LS PPN (1:4:214) 
+
+Available only if nitrate aerosol is on. 
+Flux of accumulation-mode ammonium nitrate aerosol deposited to the 
+surface by washout, i.e. capture by falling precipitation. 
+Note that this process is currently neglected, and so this diagnostic 
+is zero at all points.
+</M001_S004_I214>
+#
+<M001_S004_I215>
+STASH item specific help for 
+(1, 4, 215)  NH3 SCAVENGED BY LS PPN KG/M2/S   
+
+Available only if Sulphur Cycle with ozone oxidation and NH3 as buffer included,
+and supporting large scale ppn version selected. 
+
+Column integrated flux per sec of NH3 removed by large scale rainfall.
+
+%I gen_prognostic
+</M001_S004_I215>
+#
+<M001_S004_I216>
+STASH item specific help for 
+(1, 4, 216)  SO2 SCAVENGED BY LS PPN KG/M2/S   
+
+Available only if Sulphur Cycle on and supporting large scale ppn 
+version selected. 
+
+Column integrated flux per sec of SO2 removed by large scale rainfall.
+
+%I gen_prognostic
+</M001_S004_I216>
+#
+<M001_S004_I219>
+STASH item specific help for 
+(1, 4, 219)  SO4 DIS SCAVNGD BY LS PPN KG/M2/S
+
+Available only if Sulphur Cycle on and supporting large scale ppn 
+version selected. 
+
+Column flux per sec of dissolved SO4 removed by 'rain-out' in large scale ppn.
+
+%I gen_prognostic
+</M001_S004_I219>
+#
+<M001_S004_I220>
+STASH item specific help for 
+Item: (1:4:220)
+Text: The flux of cloud soot transported to the surface by large scale
+      rain and snow (kg/m2/s)
+
+%I gen_prognostic
+</M001_S004_I220>
+#
+<M001_S004_I221>
+STASH item specific help for 
+Item: (1:4:221)
+Text: The flux of aged soot deposited to the surface by washout, ie.
+      capture by falling precipitation (kg/m2/s). Note that this
+      process is currently neglected, and so this diagnostic is zero
+      at all points.
+
+%I gen_prognostic
+</M001_S004_I221>
+#
+<M001_S004_I222>
+Item: 1 4 222
+Rainfall rate out of model levels. 
+This provides a three dimensional field of the large scale rainfall rate
+(kg/m2/s) falling out of each model level. The rainfall rate out of the
+lowest layer is equal to the surface large scale rainfall rate provided
+by diagnostic 1 4 203
+</M001_S004_I222>
+#
+<M001_S004_I223>
+Item: 1 4 223
+Snowfall rate out of model levels. 
+This provides a three dimensional field of the large scale snowfall rate
+(kg/m2/s) falling out of each model level. The snowfall rate out of the
+lowest layer is equal to the surface large scale snowfall rate provided
+by diagnostic 1 4 204
+</M001_S004_I223>
+#
+<M001_S004_I224>
+Item: 1 4 224
+Supercooled liquid water content. 
+This is equal to the liquid water content on model levels (diagnostic 1
+4 205) if the temperature is below 0 degrees C and equal to zero if the
+temperature is above (or equal) to 0 degrees C.
+</M001_S004_I224>
+#
+<M001_S004_I225>
+Item: 1 4 225
+Supercooled rain out of model levels. 
+This is equal to the rainfall rate out of each level (diagnostic 1 4
+222) if the temperature is below 0 degrees C and equal to zero if the
+temperature is above (or equal) to 0 degrees C.
+</M001_S004_I225>
+#
+<M001_S004_I227>
+STASH item specific help for 
+(1, 4, 227) RAIN FRACTION OUT OF MODEL LEVELS
+
+Rain fraction on model levels
+The meaning of this diagnostic depends upon the large-scale 
+precipitation scheme.
+3B: This diagnostic is 1 if the model grid point contains rain, 0 if otherwise.
+3C: This represents the fraction of the gridbox covered by rain after the
+microphysical transfers have been calculated.
+</M001_S004_I227>
+#
+<M001_S004_I231>
+Item (1:4:231) 
+
+Dust wet dep flux ls precip  div 1 
+Flux of mineral dust (division 1) deposited to ground due to large scale
+precipitation. (kg m-2 s-1)
+
+
+</M001_S004_I231>
+#
+<M001_S004_I232>
+Item (1:4:232) 
+
+Dust wet dep flux ls precip  div 2 
+Flux of mineral dust (division 2) deposited to ground due to large scale
+precipitation. (kg m-2 s-1)
+
+
+</M001_S004_I232>
+#
+<M001_S004_I233>
+Item (1:4:233) 
+
+Dust wet dep flux ls precip  div 3 
+Flux of mineral dust (division 3) deposited to ground due to large scale
+precipitation. (kg m-2 s-1)
+
+
+</M001_S004_I233>
+#
+<M001_S004_I234>
+Item (1:4:234) 
+
+Dust wet dep flux ls precip  div 4 
+Flux of mineral dust (division 4) deposited to ground due to large scale
+precipitation. (kg m-2 s-1)
+
+
+
+</M001_S004_I234>
+#
+<M001_S004_I235>
+Item (1:4:235) 
+
+Dust wet dep flux ls precip  div 5 
+Flux of mineral dust (division 5) deposited to ground due to large scale
+precipitation. (kg m-2 s-1)
+
+
+
+</M001_S004_I235>
+#
+<M001_S004_I236>
+Item (1:4:236) 
+
+Dust wet dep flux ls precip  div 6 
+Flux of mineral dust (division 6) deposited to ground due to large scale
+precipitation. (kg m-2 s-1)
+
+
+</M001_S004_I236>
+#
+<M001_S004_I237>
+Item (1:4:237)
+
+The flux of biomass smoke in cloud transported to the surface by
+large scale rain and snow (kg/m2/s).
+</M001_S004_I237>
+#
+<M001_S004_I238>
+Item (1:4:238)
+
+The flux of aged biomass smoke deposited to the surface by
+washout, ie. capture by falling precipitation (kg/m2/s). Note 
+that this process is currently neglected, and so this diagnostic 
+is zero at all points.
+</M001_S004_I238>
+#
+<M001_S004_I240>
+Items: (1:4:240) to (1:4:270)
+
+Microphysical process transfer rate in the "LS precipitation" microphysics 
+scheme to allow a full budget calculation. Units are kg/kg/s.
+
+</M001_S004_I240>
+#
+<M001_S004_I250>
+Items: (1:4:240) to (1:4:270)
+
+Microphysical process transfer rate in the "LS precipitation" microphysics 
+scheme to allow a full budget calculation. Units are kg/kg/s.
+
+</M001_S004_I250>
+#
+<M001_S004_I260>
+Items: (1:4:240) to (1:4:270)
+
+Microphysical process transfer rate in the "LS precipitation" microphysics 
+scheme to allow a full budget calculation. Units are kg/kg/s.
+
+</M001_S004_I260>
+#
+<M001_S004_I270>
+Items: (1:4:240) to (1:4:270)
+
+Microphysical process transfer rate in the "LS precipitation" microphysics 
+scheme to allow a full budget calculation. Units are kg/kg/s.
+
+</M001_S004_I270>
+#
+<M001_S004_I271>
+Homogeneous Nucleation of rain (kg/ks/s)
+
+This is the homogeneous nucleation rate for rain (otherwise known as the 
+rate at which rain drops freeze to become ice). This is assumed to happen 
+when the temperature reaches a very low value, typically around -40 C.
+
+
+</M001_S004_I271>
+#
+<M001_S004_I281>
+TEMPERATURE INCR: pc2 erosion
+
+The is the temperature increment from PC2 erosion when the erosion parametrization 
+is called as part of the microphysics scheme, i.e. "Include Erosion Prior to 
+Microphysics" is selected in "Section 9: Large Scale Cloud".
+
+
+</M001_S004_I281>
+#
+<M001_S004_I282>
+SPECIFIC HUMIDITY INCR: pc2 erosion
+
+The is the specific humidity increment from PC2 erosion when the erosion parametrization 
+is called as part of the microphysics scheme, i.e. "Include Erosion Prior to 
+Microphysics" is selected in "Section 9: Large Scale Cloud"
+
+
+</M001_S004_I282>
+#
+<M001_S004_I283>
+QCL INCR: pc2 erosion
+
+The is the qcl increment from PC2 erosion when the erosion parametrization is 
+called as part of the microphysics scheme, i.e. "Include Erosion Prior to Microphysics" 
+is selected in "Section 9: Large Scale Cloud"
+
+
+</M001_S004_I283>
+#
+<M001_S004_I292>
+BULK CLOUD VOL INCR: pc2 erosion
+
+The is the bulk cloud volume fraction increment from PC2 erosion when the erosion 
+parametrization is called as part of the microphysics scheme, i.e. "Include Erosion 
+Prior to Microphysics" is selected in "Section 9: Large Scale Cloud"
+
+
+</M001_S004_I292>
+#
+<M001_S004_I293>
+LIQ CLOUD VOL INCR: pc2 erosion
+
+The is the liquid cloud volume fraction increment from PC2 erosion when the erosion 
+parametrization is called as part of the microphysics scheme, i.e. "Include Erosion 
+Prior to Microphysics" is selected in "Section 9: Large Scale Cloud"
+
+
+</M001_S004_I293>
+#

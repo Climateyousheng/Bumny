@@ -1,0 +1,58 @@
+Plant Functional Type Surface Parameters:
+-----------------------------------------
+   ALBSNC_MAX = Snow convered albedo for large LAI
+      Default values: 0.15, 0.15, 0.60, 0.60, 0.40
+
+   ALBSNC_MIN = Snow colvered albedo for zero LAI
+      Default values: 0.30, 0.30, 0.80, 0.80, 0.80
+
+   ALBSNF_MAX = Snow free albedo for large LAI
+      Default values: 0.10, 0.10, 0.20, 0.20, 0.20
+
+   DZ0V_DH    = d/dt Vegetation roughness length with ht
+      Default values: 0.05, 0.05, 0.10, 0.10, 0.10
+
+   CATCH0     = Minimum canopy capacity (kg/m^2)
+      Default values: 0.50, 0.50, 0.50, 0.50, 0.50
+
+   DCATCH_DLAI= Rate of change of canopy capacity with LAI
+      Default values: 0.05, 0.05, 0.05, 0.05, 0.05
+
+   INFIL_F    = Infiltration enhancement factor
+      Default values: 4.00, 4.00, 2.00, 2.00, 2.00
+
+   KEXT       = Light extinction factor
+      Default values: 0.50, 0.50, 0.50, 0.50, 0.50
+
+   ROOTD_FT   = Rootdepth (m)
+      Default values: 3.00, 1.00, 0.50, 0.50, 0.50
+
+
+Non_Vegetation Surface Type Parameters:
+---------------------------------------
+   ALBSNC_NVG = Snow-covered albedo
+      Default values: 0.40, 0.80, 0.80, 0.80
+
+   ALBSNF_NVG = Snow-free albedo
+      Default values: 0.18, 0.06, -1.00, 0.75
+
+   CATCH_NVG  = Canopy capacity for water (kg/m^2)
+      Default values: 0.50, 0.00, 0.00, 0.00
+
+   GS_NVG     = Surface conductance (m/s) 
+      Default values: 0.00, 0.00, 1.0e-2,  1.0e6
+
+   INFIL_NVG  = Soil infiltration enhancement factor
+      Default values: 0.10, 0.00, 0.50, 0.00
+
+   ROOTD_NVG  = Rootdepth (m)
+      Default values: 0.50, 1.00, 0.10, 0.00
+
+   Z0_NVG     = Roughness length (m)
+      Default values: 1.00, 3.0e-4, 3.0e-4, 1.0e-4
+
+   CH_NVG     = Canopy heat capacity (J/K/m^2)
+      Default values: 0.28e6, 0.00, 0.00, 0.00
+
+   VF_NVG     = Fractional canopy coverage
+      Default values: 1.00, 0.00, 0.00, 0.00

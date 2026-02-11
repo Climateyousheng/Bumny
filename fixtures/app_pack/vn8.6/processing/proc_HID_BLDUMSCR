@@ -1,0 +1,4 @@
+# Call /UM process to set HID_BLDUMSCR when PROCESS button is hit,
+# whether or not subindep_BldUMScr panel has been opened
+
+set_HID_BLDUMSCR

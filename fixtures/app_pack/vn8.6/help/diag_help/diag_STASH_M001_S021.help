@@ -1,0 +1,53 @@
+<M001_S021_I100>
+STASH item 	21/100
+
+This is a 2D field designed to represent the number of total lightning flashes
+per second in the grid column. This will include intracloud and cloud-to-ground
+lightning discharges
+</M001_S021_I100>
+#
+<M001_S021_I101>
+STASH item 	21/101
+
+This is a 2D field. It is a binary (1/0) flag to define where 'electric storms' 
+exist in the model. A value of 1 output means a storm has been diagnosed at this
+point.
+</M001_S021_I101>
+#
+<M001_S021_I102>
+STASH item 	21/102
+
+This is a 2D field which represents the graupel water path (integral of graupel 
+water content through the model grid column). 
+</M001_S021_I102>
+#
+<M001_S021_I103>
+STASH item 	21/103
+
+This is a 2D field which represents the total ice water path (integral of ice 
+water content through the model grid column). It includes contributions from
+both ice crystals (where available) and ice aggregates.  
+</M001_S021_I103>
+#
+<M001_S021_I104>
+STASH item 	21/104
+
+This is a 2D field measuring the total number of lightning flashes over a 
+given time period. It includes both intracloud and cloud-to-ground forms
+of lightning. It is intended to be output as a STASH accumulation. 
+</M001_S021_I104>
+#
+<M001_S021_I105>
+STASH item 	21/105
+
+This is the 2D field measuring the flash rate due to upward flux of graupel 
+diagnosed as part of the McCaul et al (2009) scheme. The units are s^-1.  
+</M001_S021_I105>
+#
+<M001_S021_I106>
+STASH item 	21/106
+
+This is the 2D field measuring the flash rate due to the total ice present, 
+diagnosed as part of the McCaul et al (2009) scheme. The units are s^-1.  
+</M001_S021_I106>
+#

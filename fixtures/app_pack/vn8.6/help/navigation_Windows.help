@@ -1,0 +1,198 @@
+  Basic help for UMUI Entry windows.
+  ==================================
+  
+  This help is here to give you advice on how to interact with UMUI entry
+  windows in general. There is specific help on the options within windows
+  that  can be read by pushing the help button on the window.
+  The STASH windows are sufficiently different to other windows to require
+  their own description. Read the help associated with the STASH windows for
+  more information on how these windows work.
+
+    
+  The Function of the Entry Windows.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  On entry into a job, the UMUI takes a copy of the job description from the
+  UMUI central data-base and puts this copy into memory. The entry windows
+  allow you to edit that memory copy of the job definition. Normally you will
+  want to save this back to the database on exit.  
+
+
+  Basic Window Layout.
+  ~~~~~~~~~~~~~~~~~~~~
+  The main purpose of the window is to provide a method of editing the
+  database. This interaction goes on in the centre of the window by means of
+  what are called "edit items.". Before these are described,  I will describe
+  the framework that sits around the "edit" part of the window.
+  
+  The window is a standard X-windows item. The window can be iconified in the
+  normal way, but the size is fixed. You should not use close from the [-]
+  icon in the top left hand corner unless the window has locked. In this
+  case report the fault to the UMUI team.  
+  
+  Along the top bar of the window is the "window title" followed by the
+  "experiment-id" and "job-id" and the "job description".
+  This text may be truncated if the window is not wide enough.
+
+  Within the border is the body of the window containing the edit items and
+  some other items. We will first look at the other items.
+  
+  At the very bottom of this is the window name. If you have a problem in a
+  window, report the problem and THE WINDOW NAME.
+
+  Above the window name are a series of buttons that dictate actions. The
+  buttons are in the following order:
+  
+  Help. 
+  The help button brings up help text for that window. If the button is grey
+  (not black), no help exists. Report this fact to the UMUI team.
+  	
+  Abandon Changes.
+  The abandon changes button will exit the window forgetting any settings you
+  have made IN THAT WINDOW ONLY. No verification of values is done if you exit
+  a window using abandon changes.
+  
+  Close.
+  The close button verifies all responses that you have made and brings up any
+  messages to correct the responses. If there are no corrections to be made
+  you will exit the window and the responses will replace the values held in
+  the memory copy of the information that defines your job. Such information
+  IS NOT SAVED BACK to the central database until you press the navigation
+  action button "SAVE." 
+  If you want to junk the changes that you have made in one session you can
+  use the navigation action button "QUIT" and confirm that you want to quit
+  without saving. This will undo any changes made since the last save.
+  
+  You may see other buttons here, often called "NEXT". The function of these
+  buttons is to:
+  	1. Allow you to go to a follow-on window. This technique is used
+  	when the information on one logical window is too large to fit onto
+  	one window. The button should be called "NEXT". The current window is
+  	exited as if by pressing "close" first, verification is done.
+  	2. The system can provide a cross link to a related window that would 
+  	normally be viewed from another position in the navigation system. 
+  	Again the responses are checked and the window closed first. The 
+  	wording on the button will be an abbreviation of the subject matter on 
+  	the cross linked window (rather than "NEXT"). There will be text
+  	telling you where the link takes you just above the buttons.
+  	On closing the second window you will not have changed position in the
+  	navigation tree.
+  	3. The third type of link button throws up another window WITHOUT
+  	CLOSING THE FIRST. This method is used when it is useful to allow the
+  	user to see what is set in another window before completing the
+  	setting in the present window.
+  	On closing the second window you can change the settings in the
+  	"calling" window, based on information you have seen in the second
+  	window.
+  Entries from the current window are saved if the current window is closed
+  on pressing such buttons.
+
+
+
+  Edit Items.
+  -----------
+  	 
+  There now follows a general description of the various "edit items" on each
+  window. These are in the centre of the window and are identified by text
+  describing the individual responses that are on this window.
+  
+  The first thing to note is that it is possible for responses to be repeated
+  on several windows. Change a response in one place and it changes in all
+  places. The text often says something like "Elsewhere you have specified,"
+  in this case, the variable is more tightly linked to variables on another
+  window and it is best to change the value there to ensure that things are
+  consistent. Use these items more as information.   
+  
+  The following types of "edit items" may be seen:
+  
+  Check Boxes.
+  This is a square box that appears to be cut out of the screen with text to
+  the right and no text to the left. The box interior is either the same
+  colour as the background colour of the window or another colour (for me this
+  is red). If it is "lit" (different colour) then the choice is assumed to be
+  on or logically TRUE depending on the context. If the box is un-coloured it
+  may be off, or it may be unset. If unset, the whole text and the box will be
+  highlit to signify this. This will not happen if the variable is greyed-out.
+  Click, with the left mouse button, on the box or wording to change the
+  setting. For unset check boxes you will need to set them on and then set them
+  off if you want them off.
+  
+  Radio Button.
+  This is a piece of text followed by a series of diamond shaped boxes each
+  with their own text. Only one of the boxes can be lit at one time. If no
+  boxes are lit them the response is either unset or has an invalid setting.
+  You will be warned on exit.
+  Lighting one of the radio buttons defines the option that you have requested
+  from the list.
+  The list can be displayed vertically or horizontally.
+  The text related to the option is to the right of the diamond.
+  
+  Entry Boxes.
+  Entry boxes are a piece of text followed by a box into which you can type.
+  Remember that you must conform to the type of the variable (integer, real
+  etc).
+  Entry boxes are always case sensitive. USE THE SHIFT KEY to get upper case
+  letters etc.
+  If the entry box is dealing with a real number, you can enter the number in
+  any of the following formats:
+      simple real, eg    1.5     -2.000003    .00000001   etc
+      exponent format    1.0e5, -4.1e-6  (Note, lower case "e" and no gaps)
+  However, each real number has a format specified, and your real number will
+  be converted to that format. To see what conversion has occurred you should
+  re-enter the window.  If the "real value" of the number is changes you will be
+  told (as if this was an error).  Contact the UMUI team if the specified
+  format is unsuitable.
+  Just click on the box and type.
+  For text that is wider than the box, click the middle mouse button with
+  the pointer over the entry box and move from left to right to scroll
+  the text.
+
+  Tables.
+  Tables are just arrays of entry boxes that can be scrolled through. Some
+  tables can be re-ordered if the data in them needs to be in order.
+  Re-ordering puts blank lines down to the end of the table. Avoid using the
+  tab character in tables as this moves within a field rather than between
+  elements. Also, remember that the elements are case sensitive. Do not use
+  the CAPS key as it interferes with the internals of the UMUI; you will not
+  be able to scroll.
+  You can cut and paste between boxes in a table.
+  For text that is wider than the box, click the middle mouse button with
+  the pointer over the entry box and move from left to right to scroll
+  the text.
+
+  Text.
+  There may be simple text on the window to help you fill the window in or
+  make the context of the edit items more obvious.
+  
+  
+  
+  Logic Within Windows.
+  ~~~~~~~~~~~~~~~~~~~~~
+  Some "edit items" on windows are not always relevant. Typically, there may be
+  an radio button, or check box, that makes one or more other entry items
+  redundant. 
+  That is, there are edit items whose responses are only used when other edit
+  items take a particular value.
+  In this case the UMUI uses one of two methods of indicating this:
+  
+  Greyed out.
+  Blocks of questions can appear "greyed out." These are inactive because of
+  some other response, usually on the same window.
+  You cannot interact with items that are greyed out.
+  Tables cannot be greyed out, but it is usually obvious that they are
+  inactive as surrounding text is greyed out.
+  
+  Invisible.
+  Some windows contain bits that are invisible under certain conditions.
+  
+  Variables that are not "active" are not verified, you should NOT get
+  a message about an edit item that is either invisible or greyed out. 
+  Similarly, all variables that are not greyed out should be "active".
+  There is an in-built consistency check in the UMUI which will produce a
+  warning if this is not the case. If you receive such a warning, please 
+  report it to the UMUI team.
+
+  
+  
+      
+  
+  

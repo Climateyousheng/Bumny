@@ -1,0 +1,254 @@
+General Information about UKCA:
+===============================
+The United Kingdom Chemistry and Aerosols (UKCA) model is developed as a
+community model in a collaboration between NCAS and The Met Office, with
+components provided by contributors from The University of Cambridge,
+University of Leeds and University of Oxford.
+Please see UMDP 84 and http:\\www.ukca.ac.uk for further information.
+The model consists of schemes for tropospheric and stratospheric
+chemistry together with aerosols.  Tracer transport is provided
+by the UM tracer transport scheme for section 34. Tracers are selected
+automatically by the UMUI for the selected scheme, but may be checked by
+using the UKCA-TRA button. If reconfiguring the model from a dump without
+some or all of these tracers, or if you wish to intialise them to different
+values this can be done via user-STASHmaster files specified in panel:
+Atmosphere=> STASH=> Initialisation of user prognostics.
+The Tracer advection scheme must be turned on via the panel: Atmosphere=>
+Scientific parameters and sections=> Section by section choices=> Section 11.
+The tracer advection is also influenced by parameters set in section 12
+(primary field advection), make sure the "more accurate" moisture
+conservation is set, and select Monotone Scheme=1 and High Order Scheme=6
+for moisture/tracers.
+The UKCA model requires some standard UM diagnostics to be placed into
+secondary store. These have to be selected by switching ON the UKCA STASH macro
+on the panel atmos_STASH_Macros_UKCA.
+(Atmosphere => STASH => STASH macros => UKCA Coupling macro)
+Emissions are input using the single and multi-level user ancillary files
+(see: atmosphere=> climatologies and potential climatologies=>
+user single/multi level ancillary file and fields).
+Ancillary emissions files are available for commonly used model resolutions,
+please seek advice from the UKCA Code owner on these.
+
+Options on this Panel
+=====================
+To switch ON UKCA, select "<1A> UKCA included"
+
+Select Chemical Scheme:
+========================
+The UKCA chemistry schemes are principally based around two solvers :
+Backward-Euler and Newton-Raphson.
+The Backward-Euler solver is explicit iterative and supports two chemistry
+schemes (see below) while the Newton-Raphson solver is used through the ASAD
+(Carver, Brown and Wild, 1997) framework and supports three chemistry schemes.
+UKCA can also be used in a "Age of Air Only" configuration.
+The schemes and their essential/ dependant settings are described below:
+
+Age of Air:
+-----------
+The age of air is available as a passive tracer (150). This tracer is
+active by default for UKCA Stratospheric configurations, while the age
+of air calculation is not valid for tropospheric configurations. This
+option turns on the age of air calculation alone.
+
+Standard Tropospheric Chemistry
+-------------------------------
+This scheme is integrated using an explicit Backward-Euler solver.
+It requires tracers 1-26 to be defined, and intialised using a user
+STASHmaster file, together with some files to initialise the
+concentrations of the longer-lived trace gases.
+Emissions of 8 species (NOx, CO, CH4, C2H6, C3H8, HCHO, CH3CHO, and
+CH3COCH3) are input via the user single-level ancillary file
+Emissions of aircraft NOx are input via the user multi-level ancillary file
+The "2-D Photolysis Scheme" needs to be selected, See Photolysis panel.
+Make sure interactive dry deposition is selected, see Coupling panel.
+
+Regional Air Quality Chemistry
+------------------------------
+It requires tracers 1-12,14-18,20,22,25-29,34,39-40,60,69,90-100 to be
+initialised. Note that for this scheme the tracers are arranged differently
+to the STASHmaster and an userSTASHmaster is necessary to redefine these.
+Emissions of 16 species (NOx, CO, CH4, C2H6, C3H8, HCHO, CH3CHO, CH3COCH3,
+C5H8, C4H10, C2H4, C3H6, TOLUENE, o-XYLENE, CH3OH and H2) are input via
+user single-level ancillary, with NOx aircraft emissions read from a user
+multi-level ancillary.
+This scheme can be used with the FAST-J or FASTJ-X photolysis scheme.
+
+Tropospheric and Isoprene Chemistry
+-----------------------------------
+This scheme is integrated using the ASAD-Newton-Raphson solver.
+This is an extension of the Tropospheric Chemistry to include the isoprene
+mechanism.
+It requires tracers 1-25, 27-38, 40, 60, 81-90 to be initialised.
+It uses the same emissions as Std Tropospheric Chemistry with additional C5H8
+surface emissions.
+The FastJ-X photolysis scheme is recommended to be used with this Scheme.
+Tropospheric Heterogenous chemistry is available with this scheme.
+
+Standard Stratospheric Chemistry
+--------------------------------
+This scheme is integrated using the ASAD-Newton-Raphson solver.
+The scheme is recommended with a high-top model configuration e.g. L85
+It requires tracers 1-12, 41-59, 70, 80-83, 149 and 150 to be defined and
+initialised using an user STASHmaster file
+Emissions of 3 species (NOx, CO, and HCHO) are input via the user
+single-level ancillary file.
+Emissions of aircraft NOx are input via the user multi-level ancillary file.
+The FastJ-X photolysis scheme is recommended with this Scheme and there
+are different choices for photolysis rates above a cut-off. 'Use Lookup
+Tables' above a cut-off of 20 hPa is recommended (UKCA Chemistry Settings
+Panel/PHOT).
+An option is available to prescribe Lower boundary conditions including CH4,
+CFCs and other trace gases for the simulation (See UKCA Lower boundary and
+Trace Gases Panel/ LOWBC button)
+
+Stratospheric + Tropospheric Chemistry
+--------------------------------------
+This scheme is integrated using the ASAD-Newton-Raphson solver.
+The scheme is an whole-atmosphere scheme recommended with a high-top model
+configuration e.g. L85
+It requires tracers 1-25, 27-38, 41-59, 70, 80-90, 94, 95, 149 and 150 to be
+defined and initialised using an user STASHmaster file.
+It requires the same emissions as Std. Tropospheric Chemistry through user
+ancillary files.
+The FastJ-X photolysis scheme is recommended with this Scheme and there
+are different choices for photolysis rates above a cut-off. 'Use Lookup
+Tables' above a cut-off of 20 hPa is recommended (UKCA Chemistry Settings
+Panel/PHOT).
+An option is available to prescribe Lower boundary conditions including CH4,
+CFCs and other trace gases for the simulation (See UKCA Lower boundary and
+Trace Gases Panel/ LOWBC button)
+The Scheme combines options from the Tropospheric as well as Stratospheric 
+Chemistry schemes above.
+
+Backward Euler Solver Settings:
+===============================
+By default, appropriate values are set for the solver setting for the BE solver.
+If you wish to change from these default values, please select
+"Set Backward Euler Solver Settings to non-default values?" and set values
+for the BE timestep and number of iterations of the solver in the boxes.
+
+Aerosol Chemistry:
+==================
+The aerosol chemistry in UKCA includes reactions for SO2, DMS, and monoTerpene 
+in the troposphere and additional H2S, COS reactions for the stratospheric 
+configurations. Aerosol Chemistry can be switched ON with all the Chemistry 
+schemes except Regional Air Quality.
+This requires defining and initialising tracers between 71-79, 91-94 depending
+on the basic Chemistry Scheme used.
+Emissions of 9 species (NOx, CO, CH4, C2H6, C3H8, HCHO, CH3CHO, and
+CH3COCH3, and monoTerpene) are input via the user single-level ancillary file,
+while SO2, DMS and NH3 emissions are accessed through the CLASSIC aerosol scheme
+in section 17, which implies that CLASSIC sulphur cycle needs to be switched ON
+for the scheme to work.
+The settings to be used in the CLASSIC scheme are :
+1) Atmos_Science_Section_Aero_Sulphur :
+   Select "Include oxidation of SO2 by ozone with buffering by NH3".
+2) In panel: atmos_InFiles_PAncil_SulpEmis make ammonia emissions to be
+"Updated" every 5 days.
+
+The Aerosol Chemistry Scheme is a pre-requisite to use the MODE aerosol scheme
+with UKCA.
+Note: The Aerosol Chemistry has not been extensively tested with stratospheric
+configurations at UM8x. Please seek advice from the relevant code (sub-section)
+owner before using this option with Stratospheric or Strat+Tropospheric 
+Chemistry.
+
+It is also possible to feedback oxidants to the CLASSIC sulphur scheme by 
+enabling it to use oxidants from UKCA instead of (default) ancillaries.
+(See atmos_Science_Section_Aero_Sulphur Panel)
+
+
+MODE Aerosol Scheme:
+====================
+This is a modal aerosol scheme considering sulphate, seasalt, organic and
+black carbon species.
+This requires the UKCA Aerosol chemistry as well as CLASSIC aerosol scheme
+to be switched ON.
+The CLASSIC aerosol scheme provides the S-cycle emissions, while BC fossil-fuel,
+BC bio-fuel, OC fossil-fuel, and OC bio-fuel are input via the user single-level
+ancillary file and BC and OC from biomass burning are input through the multi-
+level ancillary file.
+In addition to the tracers for aerosol chemistry above, this scheme requires
+tracers 101-131 to be switched ON.
+The settings for this Scheme are selected on the MODE panel.
+The MODE aerosol scheme can be coupled to the UM radiation schemes through the
+Coupling panel and RADAER panel.
+While the MODE aerosol scheme is currently not coupled to the UM cloud/
+precipitation schemes, it can provide the Cloud Droplet number concentration
+using the Abdul-Razzak and Ghan method (See MODE panel).
+
+Interactive wetland CH4 emissions
+=================================
+Interactive CH4 emissions from wetlands are provided by the Gedney et al
+2004 scheme, with emission diagnostics available in section 8 (item 242).
+This scheme should give around 180 Tg/yr of CH4 in present-day
+conditions. It is only available if not presribing methane concentrations
+at the surface (on follow panel LOWBC).
+Please seek latest advice before using this selection, as this has
+not been tested in recent UM versions.
+
+
+
+Tropospheric Options 
+====================
+Top Boundary Conditions:
+------------------------
+By default, the concentration of ozone at top boundary is set from the
+UM's ozone ancillary and the model uses a fixed O3 to HNO3 ratio in the
+top model levels. Methane is not set.
+To set the concentrations of O3, NOy and CH4 at the top boundary from
+2-D input data when running the tropospheric model, select the box
+"Use 2D top boundary data?" and set the path to the 2D files in the box
+"directory path for the 2D top boundary data". This folder is expected
+to contain: ch4_topbound.dat, o3_topbound.dat and noy_topbound.dat.
+The standard top_boundary fields are in the UM repository and extracted to
+'$UMDIR/$VN/ctldata/UKCA/tropdata' on the computing node.
+
+Tropospheric Heterogenous Chemistry:
+------------------------------------
+This option is only available for tropospheric schemes based on the
+Newton-Raphson solver.
+Currently two heterogenous reactions (for N2O5 and HO2) on aerosol
+surfaces are considered.
+The scheme uses the MODE aerosols for determining aerosol surface area
+and wet radius and hence is only available when UKCA-MODE is selected
+
+Stratospheric Options
+=====================
+Switch on water feedback from chemistry:
+----------------------------------------
+This option sets the logical L_UKCA_H2O_FEEDBACK.  When this option is set,
+water produced from the chemistry is fed back into the specific humidity
+tracer of the UM.
+
+Switch on Heterogenous/PSC chemistry:
+-------------------------------------
+This option sets the logical L_UKCA_HET_PSC. The chemistry defined in the
+rath_defs_strat_psc array (UKCA_CHEM_STRAT) for Strat Chem or the
+rath_defs_strattrop_psc array (UKCA_CHEM_STRATTROP) for Strat+Trop Chem,
+will be used if this logical is set.
+The scheme can use either reference aerosol data from files or aerosols from
+the CLASSIC scheme for the surface areas.
+
+Use Climatological Aerosol for Surface Area:
+--------------------------------------------
+This option is only active when Het/PSC chemistry is selected for
+stratospheric configurations and allows the model to read in reference
+or climatological aerosol fields to compute the surface area.
+On selecting this option, the user has to specify the directory and
+filename for the file containing the climatological data.
+The model currently expects the aerosol data as used by the SPARC experiments:
+Latitude (5deg interval) x height (500m interval) x time, ASCII files with
+values in micrometer^2/cm^3.
+The standard datafiles are part of the UM repository and extracted to :
+'$UMDIR/$VN/ctldata/UKCA/strat' on the computing node.
+
+Use a cyclic (monthly-varying) aerosol field:
+---------------------------------------------
+This option controls the L_UKCA_USE_BACKGROUND_AEROSOL logical, which instructs
+the model to read in a cyclic, or fixed monthly-varying aerosol field from the
+climatological aerosol file, instead of a timeseries covering the simulation
+period.
+If the timeseries (1850-2100) file is specified with this option, the
+UKCA_READ_AEROSOL routine will only read in monthly data for 2100 and use it
+for the whole simulation.

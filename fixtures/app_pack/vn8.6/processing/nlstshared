@@ -1,0 +1,1285 @@
+%C---------------------------------------------------------------------
+%C  File:  nlstshared
+%C---------------------------------------------------------------------
+%C
+%C  Purpose: Generates control file named SHARED which contains shared
+%C  namelists: 
+%C                                    - RUN_MURK
+%C     Section 3  : Boundary Layer    - RUN_BL
+%C     Section 4  : Large-Scale Precip- RUN_Precip
+%C     Section 5  : Convection        - RUN_Convection
+%C     Section 6  : Gravity Wave Drag - RUN_GWD
+%C     Section 9  : Large-Scale Cloud - RUN_Cloud, RUN_Aerosl
+%C     Section 21 : Thunderstorm Electrification - &Run_Electric
+%C     Section 26 : River Routing     - RUN_RIVERS
+%C  Include files:
+%C   * preSM_namelist - Atmos user-preSTASHmaster NAMELIST
+%C   * nlstcatm    - Control namelist: NLSTCATM 
+%C   * cntljules   - JULES Namelists: 
+%C---------------------------------------------------------------------
+%C 
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ &temp_fixes
+ /
+
+%I cntljulesswitches
+%I preSM_namelist
+%I nlstcatm
+
+ &RUN_Dust
+ i_dust=%I_DUST,
+%T if { %ATMOS_SR(17)!="0A" && %I_DUST!=0 } {
+ us_am=%DUSTUSAM,
+ sm_corr=%SMCORR,
+ horiz_d=%HORIZD,
+ l_fix_size_dist= %TCL replacep SIZEDIST 1 .FALSE. * .TRUE. %ENDTCL,
+ dust_veg_emiss= %DUSTVEG,
+%T   if { %JULES!="T" } {
+ dust_veg_sc_nojules= 0.0, 0.0, 1.0, 1.0, 0.5, 
+%T   }
+%T }
+%T if { [inactive_var SIZEDIST]==0 } {
+ L_TWOBIN_DUST=%TCL replacep SIZEDIST 3 .TRUE. * .FALSE. %ENDTCL,
+%T } else {
+ L_TWOBIN_DUST=.FALSE.,
+%T }
+ /
+
+ &RUN_UKCA
+ L_UKCA=%TCL replacep ATMOS_SR(34) "1A" .TRUE. * .FALSE. %ENDTCL,
+%T if {[inactive_var LUKCAMODE]==0 && %LUKCAMODE=="Y"} {
+ L_UKCA_RADAER=%TCL replacep LUKCA_RADAER "Y" .TRUE. * .FALSE. %ENDTCL,
+ L_UKCA_AIE1=%TCL replacep LUKCA_AE1 Y .TRUE. * .FALSE. %ENDTCL,
+ L_UKCA_AIE2=%TCL replacep LUKCA_AE2 Y .TRUE. * .FALSE. %ENDTCL,
+%T } else {
+ L_UKCA_RADAER=.FALSE.,
+ L_UKCA_AIE1=.FALSE.,
+ L_UKCA_AIE2=.FALSE.,
+%T }
+ i_ukca_chem=%I_UKCA_CHEM,
+%T if { [inactive_var L_UKCA_AERCHEM] == 0 } {
+ l_ukca_chem_aero=%TCL replacep L_UKCA_AERCHEM  Y .TRUE. * .FALSE. %ENDTCL,
+%T }
+%T if {[inactive_var BESOLVE] == 0 && %BESOLVE=="Y"} {
+ DTS0             = %DTS0,
+ NIT              = %NIT,
+%T }
+%T if {[inactive_var STRAT2DDIR] == 0} { 
+ STRAT2D_DIR      = '%STRAT2DDIR', 
+%T }
+%T if {[inactive_var LUSE2DTOP] == 0} {
+ L_ukca_use_2dtop = %TCL replacep LUSE2DTOP Y .TRUE. * .FALSE. %ENDTCL,
+%T } 
+%T if {[inactive_var LUKCA_QCH4I] == 0} {
+ L_UKCA_QCH4INTER = %TCL replacep LUKCA_QCH4I Y .TRUE. * .FALSE. %ENDTCL,
+%T }
+%T if {[inactive_var LUKCA_TROPHET] == 0} {
+ L_UKCA_TROPHET   = %TCL replacep LUKCA_TROPHET Y .TRUE. N .FALSE. %ENDTCL, 
+%T }
+%T if {[inactive_var LUKCA_PCH4] == 0} {
+ L_UKCA_PRESCRIBECH4= %TCL replacep LUKCA_PCH4 Y .TRUE. N .FALSE. %ENDTCL, 
+%T }
+%T if {[inactive_var LH2O_FEEDBACK] == 0} {
+ L_UKCA_H2O_FEEDBACK= %TCL replacep LH2O_FEEDBACK Y .TRUE. * .FALSE. %ENDTCL,
+ L_UKCA_HET_PSC   = %TCL replacep LHET_PSC Y .TRUE. N .FALSE. %ENDTCL,
+%T } 
+%T if { [inactive_var LUKCA_SACLIM] == 0 } {
+ L_UKCA_SA_CLIM    = %TCL replacep LUKCA_SACLIM Y .TRUE. * .FALSE. %ENDTCL,
+%T   if { %LUKCA_SACLIM=="Y" } {
+ DIR_STRAT_AER    = '%STRATAERDIR',
+ FILE_STRAT_AER   = '%STRATAERFIL',
+ L_UKCA_USE_BACKGROUND_AEROSOL = %TCL replacep LUKCA_BCGAER Y .TRUE. * .FALSE. %ENDTCL,
+%T   }
+%T }
+%C *** Photolysis Scheme ***
+%T if { %I_UKCA_CHEM!=0 && %I_UKCA_CHEM!=1} {
+ i_ukca_photol=%LUKCAPHOTO,
+%T   if { %LUKCAPHOTO == 1 } {
+ PHOT2D_DIR       = '%PHOT2DDIR', 
+%T   } elseif { %LUKCAPHOTO == 3 } {
+ JVSCAT_FILE      = '%JVSCATFILE',
+ FASTJX_NUMWL     = %FASTJXWAVEL,
+ FASTJX_PRESCUTOFF= %FASTJXCUTOFF,
+ FASTJX_MODE      = %FASTJXMODE,
+%T   }
+%T   if { %LUKCAPHOTO != 1 } {
+ JVSPEC_DIR       = '%JVSPECDIR', 
+ JVSPEC_FILE      = '%JVSPECFILE',
+%T   }
+%T }
+%C *** Chemistry Coupling ***
+%T if { %I_UKCA_CHEM!=0 && %I_UKCA_CHEM!=1} {
+ L_UKCA_RADO3   = %TCL replacep LUKCA_RADO3 Y .TRUE. * .FALSE. %ENDTCL,
+ L_UKCA_RADCH4  = %TCL replacep LUKCA_RADCH4 Y .TRUE. * .FALSE. %ENDTCL,
+ L_UKCA_INTDD   = %TCL replacep LUKCA_INTDD Y .TRUE. * .FALSE. %ENDTCL,
+%T   if { %I_UKCA_CHEM==51 || %I_UKCA_CHEM==52 } {
+ L_UKCA_RADN2O  = %TCL replacep LUKCA_RADN2O Y .TRUE. * .FALSE. %ENDTCL,
+ L_UKCA_RADF11  = %TCL replacep LUKCA_RADF11 Y .TRUE. * .FALSE. %ENDTCL,
+ L_UKCA_RADF12  = %TCL replacep LUKCA_RADF12 Y .TRUE. * .FALSE. %ENDTCL,
+ L_UKCA_RADF113 = %TCL replacep LUKCA_RADF113 Y .TRUE. * .FALSE. %ENDTCL,
+ L_UKCA_RADF22  = %TCL replacep LUKCA_RADF22 Y .TRUE. * .FALSE. %ENDTCL,
+%T   }
+%T }
+%T if {[inactive_var UKCARDRSUST] == 0} {
+ L_UKCA_RADAER_SUSTRAT = %TCL replacep UKCARDRSUST Y .TRUE. * .FALSE. %ENDTCL,
+%T }
+%C *** MODE Aerosol ***
+%T if {[inactive_var LUKCAMODE] == 0 } {
+ L_UKCA_MODE=%TCL replacep LUKCAMODE Y .TRUE. * .FALSE. %ENDTCL,
+%T   if { %LUKCAMODE=="Y" } {
+ I_MODE_SETUP   = %IMODESET,
+ I_MODE_NZTS    = %IMDNZTS,
+ L_UKCA_PRIMSU  = %TCL replacep LUKCAPSU Y .TRUE. * .FALSE. %ENDTCL,
+%T     if { %LUKCAPSU == "Y" } {
+ MODE_PARFRAC   = %MDPARFRAC,
+%T     } 
+ L_UKCA_PRIMSS  = %TCL replacep LUKCAPSS Y .TRUE. * .FALSE. %ENDTCL,
+ L_UKCA_PRIMBCOC= %TCL replacep LUKCAPBCOC Y .TRUE. * .FALSE. %ENDTCL,
+%T     if {%LUKCAPBCOC=="Y"} {
+ L_BCOC_FF      = %TCL replacep LBCOC_FF Y .TRUE. * .FALSE. %ENDTCL,
+ L_BCOC_BF      = %TCL replacep LBCOC_BF Y .TRUE. * .FALSE. %ENDTCL,
+ L_BCOC_BM      = %TCL replacep LBCOC_BM Y .TRUE. * .FALSE. %ENDTCL,
+%T     } 
+ L_UKCA_ARG_ACT = %TCL replacep LMDACT_ARG Y .TRUE. * .FALSE. %ENDTCL,
+%T     if { %LMDACT_ARG == "Y" } {
+ L_UKCA_SFIX    = %TCL replacep LMDARG_SFIX Y .TRUE. * .FALSE. %ENDTCL,
+%T     }
+ L_MODE_BHN_ON  = %TCL replacep MDNUCLBHN Y .TRUE. * .FALSE. %ENDTCL,
+ L_MODE_BLN_ON  = %TCL replacep MDNUCLBLN Y .TRUE. * .FALSE. %ENDTCL,
+%T     if { [inactive_var MDNUCLBLN] == 0 &&  %MDNUCLBLN == "Y"} {
+ I_MODE_BLN_PARAM_METHOD = %IMDBLN_PARAM,
+%T     }
+%T   } ; # End of former L_UKCA_MODE=TRUE
+%T } ; # End of MODE Aerosols
+%C *** Lower Boundary Conditions and Trace Gases ***
+%T if {[inactive_var LUKCA_SETTRG] == 0} {
+ L_UKCA_SET_TRACE_GASES = %TCL replacep LUKCA_SETTRG Y .TRUE. * .FALSE. %ENDTCL,
+%T   if { %LUKCA_SETTRG=="Y" } {
+ UKCA_H2MMR = %UKCA_H2MMR,
+ UKCA_N2MMR = %UKCA_N2MMR,
+%T   }
+%T }
+%T if {[inactive_var UKCA_SCEN] == 0} {
+ I_UKCA_SCENARIO=%UKCA_SCEN,
+%T   if { %UKCA_SCEN==0 } {
+%T     set cfc_list [get_variable_array UKCA_CFC_NM]
+%T     set cfc_val [get_variable_array UKCA_CFC_VAL]
+%T     set index 0
+%T     foreach item $cfc_list {
+%T       set wordend_pos [expr [string wordend $item 0] - 1]
+%T       putl " ukca_[string range $item 0 $wordend_pos]MMR = [lindex $cfc_val $index],"
+%T       incr index
+%T     }
+%T   }
+%T   if {%UKCA_SCEN==2} {
+ UKCA_RCPDIR = '%UKCA_RCPDIR',
+ UKCA_RCPFILE = '%UKCA_RCPFILE',
+%T   }
+%T }
+%C ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C    New Emissions
+%T if {[inactive_var LNEW_EMISS] == 0} {
+ L_UKCA_NEW_EMISS=%TCL replacep LNEW_EMISS Y .TRUE. * .FALSE. %ENDTCL,
+%T   if {%LNEW_EMISS=="Y"} { 
+%T      set file_list ""
+%T      set j 0
+%T      set sqt " '"
+%T      set sqtc "',"
+%T      set dqtc " '',"
+%T      set dir_name %NEMS_DIR
+%T      for {set i 1} {$i <= %NEMSFL} { incr i} {
+%T        set item %EMISSFILE($i)
+%T        if {%USE_EMISSFILE($i)=="Y" && $item !=""} {
+%T          append file_list $sqt$item$sqtc
+%T          incr j
+%T        } 
+%T      }
+%T      for {set i $j} {$i < %NEMSFL} {incr i} {
+%T        append file_list $dqtc
+%T      }
+%T      if {$j > 0} {
+%T      putl " UKCA_EM_DIR=$sqt$dir_name$sqtc"
+%T      putl " UKCA_EM_FILES=$file_list"
+%T      }
+%T   }
+%T }
+%T if {[inactive_var MAITSOL] == 0} {
+ MODE_AITSOL_CVSCAV=%MAITSOL,
+%T }
+ /
+
+ &RUN_GWD
+%T if {%ATMOS_SR(6) == "4A"} { 
+%T    putl " i_gwd_vn = 4," 
+%T } elseif {%ATMOS_SR(6) == "5A"} { 
+%T    putl " i_gwd_vn = 5," 
+%T } 
+%T if {%ATMOS_SR(6) != "0A" } {
+%T   if { [inactive_var SGWCON]==0 } {
+ KAY_GWAVE= %SGWCON,
+%T   }
+%T   if { [inactive_var CFNUM]==0 } {
+ GWD_FRC=%CFNUM,
+%T   }
+%T   if { [inactive_var GWDFSAT]==0 } {
+ GWD_FSAT=%GWDFSAT,
+%T   }
+%T   if {%LFBLOK=="T" } {
+ L_USSP_OPAQUE=%TCL replacep LOPAQUE T .TRUE. * .FALSE. %ENDTCL,
+ USSP_LAUNCH_FACTOR=%USSP_LNCHF,
+%T   } 
+%T   if {%ATMOS_SR(6)=="5A"} {
+ l_smooth=%TCL replacep LSMOOTH Y .TRUE. * .FALSE. %ENDTCL,
+ Gsharp=%GSHARP,
+ fbcd=%FBCDRAG,
+%T     if {%LGWDHEAT=="Y"} {
+ l_gw_heating(1)=.TRUE.,
+ l_gw_heating(2)=.TRUE.,
+ l_gw_heating(3)=.TRUE.,
+%T     } 
+%T   }
+%T }
+%T if { %ATMOS_SR(6) != "0A" } {
+ L_GWD=%TCL replacep LORODS T .TRUE. * .FALSE. %ENDTCL,
+ L_USE_USSP=%TCL replacep LFBLOK F .FALSE. T .TRUE. %ENDTCL,
+%T } else {
+ L_GWD=.FALSE.,
+ L_USE_USSP=.FALSE.,
+%T }
+ /
+ 
+ &RUN_MURK
+ L_MURK=%TCL replacep TOTAE   Y .TRUE. N .FALSE. %ENDTCL,
+%T if { [inactive_var TOTAA] == 0 } {
+ L_MURK_ADVECT=%TCL replacep TOTAA Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_MURK_ADVECT=.FALSE.,
+%T }
+%T if { %TOTAE == "Y" } {
+ L_MURK_SOURCE=%TCL  replacep TOTEM Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_MURK_SOURCE=.FALSE.,
+%T }
+%T if {(%OCAAA==2)&&(%UPD97=="Y")} {
+ L_MURK_LBC=%TCL replacep L_MURK_LBC Y .TRUE. * .FALSE.  %ENDTCL,  
+%T } else {
+ L_MURK_LBC=.FALSE., 
+%T } 
+ /
+
+ &RUN_Convection
+%T if {%ATMOS_SR(5) == "0A"} { 
+%T    putl " i_convection_vn = 0," 
+%T } elseif {%ATMOS_SR(5) == "4A"} { 
+%T    putl " i_convection_vn = 4," 
+%T } elseif {%ATMOS_SR(5) == "5A"} { 
+%T    putl " i_convection_vn = 5," 
+%T } elseif {%ATMOS_SR(5) == "6A"} { 
+%T    putl " i_convection_vn = 6," 
+%T } 
+%T if { [inactive_var LSAFECONV ] == 0 } {
+ l_safe_conv=%TCL replacep LSAFECONV  Y .TRUE. N .FALSE. %ENDTCL,
+%T }
+%T if { [inactive_var CON_MOM ] == 0 } {
+ L_MOM=%TCL replacep CON_MOM  Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_MOM=.FALSE.,
+%T }
+ icvdiag=%ICVDIAG,
+ tv1_sd_opt=%TV1SDOPT,
+%T if {%ATMOS_SR(5)!="4A"} {
+ plume_water_load=%WATLOAD,
+ dil_plume_water_load=%DILWATLOAD,
+ cvdiag_sh_wtest=%CVD_SHWTEST,
+ cvdiag_inv=%CVD_INV,
+%T }
+%T if { [inactive_var REDIAGNOS ] == 0 } {
+ l_rediagnosis=%TCL replacep REDIAGNOS  Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ l_rediagnosis=.FALSE.,
+%T }
+%T if {%ATMOS_SR(5)=="0A"} {
+ deep_cmt_opt=0,
+ mid_cmt_opt=0,
+ DD_opt=0,
+ mid_cnv_pmin=0.0,
+ bl_cnv_mix=0,
+%T } else {
+ deep_cmt_opt=%DPCMTOPT,
+ mid_cmt_opt=%MIDCMTOPT,
+ DD_opt=%DDOPT,
+ mid_cnv_pmin=%MDCNVPMIN,
+ bl_cnv_mix=%BLCNVMIX,
+%T }
+%T if {%ATMOS_SR(5)=="4A"} {
+ l4a_kterm=%TCL replacep L4A_KTERM Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ l4a_kterm=.FALSE.,
+%T }
+%C----
+%T if { [inactive_var CCW_PRECIP] == 0  } {
+ CCW_FOR_PRECIP_OPT=%CCW_PRECIP,
+%T } else {
+ CCW_FOR_PRECIP_OPT=0,
+%T }
+ qlmin=%QLMIN,
+ fac_qsat=%FACQSAT,
+%T if { [inactive_var ANVIL_DEEP] == 0  } {
+ L_CLOUD_DEEP=%TCL replacep ANVIL_DEEP Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_CLOUD_DEEP=.FALSE.,
+%T }
+%T if {%CSOPT=="0"} {
+ A_CONVECT_SEGMENTS=%CONSEG, 
+ A_CONVECT_SEG_SIZE=-99,
+%T } else {
+ A_CONVECT_SEGMENTS=-99, 
+ A_CONVECT_SEG_SIZE=%CONSEGSZ,
+%T } 
+%C---- 
+%T if { [inactive_var MPARWTR] == 0  } {
+ MPARWTR=%MPARWTR,
+%T }
+%T if { [inactive_var LANVIL] == 0 } { 
+ L_anvil=%TCL replacep LANVIL Y .TRUE. * .FALSE. %ENDTCL, 
+%T } else { 
+ L_anvil=.FALSE., 
+%T } 
+ ANVIL_FACTOR=%TCL if_active ANVIL_FACTOR VALUE 0.0  %ENDTCL, 
+ TOWER_FACTOR=%TCL if_active TOWER_FACTOR VALUE 0.0  %ENDTCL, 
+ UD_FACTOR=%TCL if_active UD_FACTOR VALUE 0.0  %ENDTCL, 
+ N_CONV_CALLS=%TCL if_active CONFRE VALUE 0 %ENDTCL,
+ CAPE_TIMESCALE=%TCL if_active CAPETSCALE VALUE 0 %ENDTCL,
+ CAPE_OPT=%TCL if_active CAPE_OPT %CAPE_OPT 0 %ENDTCL,
+ ADAPT=%TCL if_active ADAPT %ADAPT 0 %ENDTCL,
+ R_DET=%TCL if_active R_DET VALUE 0.75 %ENDTCL,
+ amdet_fac=%TCL if_active AMDET_FAC %AMDET_FAC 1.0 %ENDTCL,
+ ENT_FAC=%TCL if_active ENT_FAC %ENT_FAC 1.0 %ENDTCL,
+ CAPE_MIN=%TCL if_active CAPE_MIN %CAPE_MIN 0.5 %ENDTCL,
+ W_CAPE_LIMIT=%TCL if_active W_CAPE_LIMIT %W_CAPE_LIMIT 10000.0 %ENDTCL,
+ CAPE_BOTTOM=%TCL if_active CAPE_BOTTOM %CAPE_BOTTOM 5 %ENDTCL,
+ CAPE_TOP=%TCL if_active CAPE_TOP %CAPE_TOP 30 %ENDTCL,
+%T if { %ATMOS_SR(5) != "0A" } { 
+%T   if {%LOTHERT=="Y"} {
+ TICE=%TICE,
+ QSTICE=%QSTICE,
+%T   } else {
+ TICE=273.15,
+ QSTICE=3.5E-3,
+%T   }
+%T }
+%T if {%ATMOS_SR(5)!="0A"} {
+ L_EMAN_DD=%TCL replacep LEMAN_DD Y .TRUE. N .FALSE. %ENDTCL,
+%T   if { [inactive_var LFIXUDF] == 0 } {
+ L_fix_udfactor=%TCL replacep LFIXUDF Y .TRUE. * .FALSE. %ENDTCL,
+%T   } else { 
+ L_fix_udfactor=.FALSE., 
+%T   } 
+ Rad_cloud_decay_opt=%RCLDDECAY,
+ Sh_pert_Opt=%SHPERT,
+ termconv=%TERMCONV,
+ fixed_cld_life=%FIXCLDLIFE,
+ cca_min= %CCA_MIN,
+ anv_opt= %ANV_OPT,
+ limit_pert_opt=%LIMPERTOPT,
+ cnv_wat_load_opt=%WATLDOPT,
+%T   if {%LCCRAD=="Y"} {
+ cca2d_sh_opt= %CCA2D_SH_OPT,
+ cca2d_dp_opt= %CCA2D_DP_OPT,
+ cca2d_md_opt= %CCA2D_MD_OPT,
+ cca_sh_knob= %CCA_SH_KNOB,
+ cca_dp_knob= %CCA_DP_KNOB,
+ cca_md_knob= %CCA_MD_KNOB,
+ ccw_sh_knob= %CCW_SH_KNOB,
+ ccw_dp_knob= %CCW_DP_KNOB,
+ ccw_md_knob= %CCW_MD_KNOB,
+ cld_life_opt= %CLDLIFEOPT,
+%T   } else {
+ cca2d_sh_opt= 1,
+ cca2d_dp_opt= 1,
+ cca2d_md_opt= 1,
+ cca_sh_knob= 1.0,
+ cca_dp_knob= 1.0,
+ cca_md_knob= 1.0,
+ ccw_sh_knob= 1.0,
+ ccw_dp_knob= 1.0,
+ ccw_md_knob= 1.0,
+ cld_life_opt= 0,
+%T   }
+%T } else {
+ L_EMAN_DD=.FALSE.,
+ L_fix_udfactor=.FALSE.,
+ Rad_cloud_decay_opt=0,
+ Sh_pert_Opt=0,
+ termconv=0,
+ limit_pert_opt=0,
+%C fixed_cld_life= 7200.00,
+%C cca_min= 2.000E-2,
+%C anv_opt= 2, 
+%T }
+%T if {%ATMOS_SR(5)=="5A"||%ATMOS_SR(5)=="6A"} {
+ ICONV_SHALLOW=%CONV_SHLW,
+ ICONV_CONGESTUS=%CONV_CNGS,
+ ICONV_DEEP=%CONV_DEEP,
+ ICONV_MID=%CONV_MID,
+ ent_opt_dp=%ENTOPTDP,
+%T if { %ENTOPTDP=="3" } {
+ ent_dp_power=%ENTDPPOWER,
+%T }
+ ent_fac_dp=%ENTFACDP,
+ ent_opt_md=%ENTOPTMID,
+%T if { %ENTOPTMID=="3" } {
+ ent_md_power=%ENTMDPOWER,
+%T }
+ ent_fac_md=%ENTFACMID, 
+%T } else {
+ ICONV_SHALLOW=1,
+ ICONV_CONGESTUS=0,
+ ICONV_DEEP=1,
+ ICONV_MID=1,  
+%T }
+%T if { [inactive_var LMURKCONV]==0 } {
+ l_murk_conv= %TCL replacep LMURKCONV Y .TRUE. N .FALSE. %ENDTCL,
+%T }
+%T if { [inactive_var LCVCONSERVE]==0 } {
+ l_cv_conserve_check= %TCL replacep LCVCONSERVE Y .TRUE. * .FALSE. %ENDTCL,
+%T }
+%T if { %ATMOS_SR(5)=="6A" } {
+ eff_dcfl=%EFF_DCFL
+ eff_dcff=%EFF_DCFF
+%T }
+%T if {%ATMOS_SR(5)=="4A"||%ATMOS_SR(5)=="5A"||%ATMOS_SR(5)=="6A"} {
+ L_CCRad= %TCL replacep LCCRAD Y .TRUE. * .FALSE. %ENDTCL,
+%T } else {
+ L_CCRad= .FALSE.,
+%T }  
+%T if { [inactive_var L3DCCA] == 0  } {
+ L_3D_CCA=%TCL replacep L3DCCA Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_3D_CCA=.FALSE.,
+%T }
+%T if { [ inactive_var LCONVHIST ] == 0  } {
+ L_CONV_HIST=%TCL replacep LCONVHIST Y .TRUE. * .FALSE. %ENDTCL,
+%T } else {
+ L_CONV_HIST=.FALSE.,
+%T }
+%T if {[inactive_var CONVOPT] == 0} {
+ L_PARAM_CONV=%TCL replacep CONVOPT T .TRUE. * .FALSE. %ENDTCL,
+%T } else {
+ L_PARAM_CONV=.FALSE.,
+%T }
+ l_snow_rain=%TCL replacep LSNOW_RAIN Y .TRUE. * .FALSE. %ENDTCL,
+%T if {[inactive_var LSNOW_RAIN] == 0 && %LSNOW_RAIN=="Y"} {
+ t_melt_snow=%TMELT_SNOW,
+%T }
+%T if {[inactive_var LCMTHEAT] == 0} {
+ l_cmt_heating=%TCL replacep LCMTHEAT Y .TRUE. * .FALSE. %ENDTCL,
+%T }
+%T if {[inactive_var FDET_OPT] == 0} {
+ fdet_opt=%FDET_OPT,
+%T }
+ /
+
+%C Output number of batches, length of batches and values in each of them
+%TCL
+   set bl_items {}
+   set bl_vals {}
+   set bl_noinbatch {}
+   set bl_value {}
+   set bl_startLevs [get_variable_array STARTLEV_BL]
+   set bl_endLevs [get_variable_array ENDLEV_BL]
+   set bl_alpha [get_variable_array ALPHACD_BL]
+   set bl_len [llength $bl_startLevs]
+   for {set i 0} {$i < $bl_len} {incr i} {
+     set bl_noinbatch [expr [lindex $bl_endLevs $i] - [lindex $bl_startLevs $i] + 1]
+     set bl_value [lindex $bl_alpha $i]
+     set bl_items [lappend bl_items $bl_noinbatch]
+     set bl_vals  [lappend bl_vals $bl_value]
+    }
+%ENDTCL 
+%TCL
+%C Setup complex inactive logic for variables under version <1A>
+   set availBL YES
+   if { %ATMOS_SR(3)=="1A" } { 
+      if { %LCOMBI!="0" || %HDIFFOPT!="3" || (%LSUBFILHRZ=="F" && %LSUBFILVER=="F") } { 
+         if { (%SETTKELEVS=="N" || %TKE_LEVS==%NBLLV  || %LOCALABVTKE=="N")} {
+	    set availBL NO
+	 }
+      }
+   }
+%ENDTCL 
+ &RUN_BL
+%T if {%ATMOS_SR(3)=="0A"} {
+ i_bl_vn=0,
+%T } elseif {%ATMOS_SR(3)=="1A"} {
+ i_bl_vn=1,
+%T } elseif {%ATMOS_SR(3)=="9B"} {
+ i_bl_vn=2,
+%T } elseif {%ATMOS_SR(3)=="9C"} {
+ i_bl_vn=3,
+%T }
+ FORMDRAG=%OROGR,
+ ALPHA_CD_BATCHES=%TCL putl $bl_len, %ENDTCL
+ ALPHA_CD_ITEMS=%TCL tdelimit $bl_items {,} {} %ENDTCL,
+ ALPHA_CD_VALS=%TCL tdelimit $bl_vals {,} {} %ENDTCL,
+%T unset bl_startLevs bl_endLevs bl_alpha bl_len 
+%T unset bl_noinbatch bl_value bl_vals bl_items
+%T if { $availBL == "YES" } {
+%T if { %LSBLEQ=="Y"} { 
+ SBL_OP=9,
+%T } else {
+ SBL_OP=%LSBLEQ,
+%T } 
+%T if {%LSBLEQ=="8"} {
+ WeightLouisToLong=%WLOUISTL,
+%T }
+%T }
+ Charnock=%CHARNOCK,
+%T if {%ATMOS_SR(3)!="0A"} {
+ SeaSalinityFactor= %TCL replacep SEASALFAC Y 0.98 N 1.00 %ENDTCL,
+ ISeaZ0T= %TCL replacep L_SRFDIVZ Y 1 N 0 %ENDTCL,
+ IDynDiag= %DYNDIAGIN,
+%T if {[inactive_var ZHLOC_DF] == 0 && %DYNDIAGIN=="4"} {
+ zhloc_depth_fac=%ZHLOC_DF,
+%T }   
+%T   if { [inactive_var SUBSCOUPLE] == 0 } {
+ subs_couple_fix=%TCL replacep SUBSCOUPLE Y 1 N 0 %ENDTCL,
+%T   } else {
+ subs_couple_fix=0,
+%T   }
+ TRWEIGHTS1= %TCL replacep LTRWEIGHTS1 Y 1 * 0 %ENDTCL, 
+%T   if { $availBL == "YES" } {
+ L_LAMBDAM2= %TCL replacep LLAMBDAM2 Y .TRUE. * .FALSE. %ENDTCL,
+ L_FULL_LAMBDAS= %TCL replacep LFULL_LAMBDAS Y .TRUE. * .FALSE. %ENDTCL,
+%T   } else {
+ L_LAMBDAM2=.FALSE.,
+ L_FULL_LAMBDAS=.FALSE.,
+%T   }
+%T } else {
+ SeaSalinityFactor=1.00,
+ ISeaZ0T= 0,
+ IDynDiag= 0,
+ subs_couple_fix=0,
+ COR_UST= 1,
+ TRWEIGHTS1= 0,
+ L_LAMBDAM2= .FALSE.,
+ L_FULL_LAMBDAS= .FALSE.,
+%T } 
+%T if { %ATMOS_SR(3)=="8C" || %ATMOS_SR(3)=="9C" } {
+ FLUX_GRAD= %FLUXGRAD,
+ Entr_enhance_by_Cu= %ENHANENTR,
+ entr_smooth_dec=%ENTR_SMOOTH_DEC,
+ relax_sc_over_cu=%RELAXSC,
+ Dec_Thres_Cloud=%DECTHRESCLD,
+%T }
+%T if {%ATMOS_SR(3)!="0A"} { 
+ Pstb = %PSTB,
+ Puns = %PUNS, 
+%T }
+%T if { $availBL == "YES" } {
+ LOCAL_FA=%LOCALFA,
+%T }
+ calc_prob_of_vis=%VISPROB,
+ BUDDY_SEA=%TCL replacep BUDDYSEA Y 1 N 0 %ENDTCL, 
+%T if {[inactive_var FDSTABDP] == 0} {
+ OROG_DRAG_PARAM=%OROGDRAGP,
+ FD_stab_dep=%TCL replacep FDSTABDP Y 1 N 0 %ENDTCL,
+%T } else {
+ OROG_DRAG_PARAM=0.30,
+ FD_stab_dep=1,
+%T }
+ NL_BL_LEVELS=%NLBLLEV,
+%T if { %ATMOS_SR(3) != "0A" } {
+%T    if {[inactive_var CORMOITR] == 0} {
+ COR_MO_ITER=%CORMOITR,
+%T    } else {
+ COR_MO_ITER=3,
+%T    }
+%T } 
+%T if { $availBL=="YES" && (%LSBLEQ=="1" || %LSBLEQ=="2" || %LSBLEQ=="6" || %LSBLEQ=="8") } {
+ Variable_RiC=%TCL replacep VAR_RICIN Y 1 N 0 %ENDTCL,
+%T }
+%T if { $availBL=="YES" } {
+ cbl_op=%CBLOPIN,
+%T }
+%T if { [inactive_var SGOROGMIX]==0 } {
+ sg_orog_mixing=%SGOROGMIX,
+%T }
+%T if {%ATMOS=="T" && %ATMOS_SR(3)!="0A"} { 
+ ISrfExCnvGust=%TCL replacep CONVGUST Y 1 N 0 %ENDTCL, 
+%T } else { 
+ ISrfExCnvGust=0, 
+%T }
+%T if {[inactive_var FRICHEAT] == 0} {
+ Fric_heating=%FRICHEAT,
+%T } else {
+ Fric_heating=0,
+%T }
+%C TKE closure model settings
+%T if { %ATMOS_SR(3)=="1A" } {
+ bdy_tke           = %TKE_MOD,
+ tke_levels        = %TCL if_active TKE_LEVS VALUE -1 %ENDTCL,
+%T    if { [inactive_var LOCALABVTKE] == 0 } {
+ l_local_above_tkelvs = %TCL replacep LOCALABVTKE Y .TRUE. N .FALSE. %ENDTCL,
+%T    }
+ l_my_initialize   = %TCL replacep LINITPROG Y .TRUE. N .FALSE. %ENDTCL,
+ l_my_ini_zero     = %TCL replacep LINITZERO Y .TRUE. N .FALSE. %ENDTCL, 
+ my_ini_dbdz_min   = %INIDBDZLIM, 
+ l_adv_turb_field  = %TCL replacep ADVTKEPROG Y .TRUE. N .FALSE. %ENDTCL,
+ l_my_condense     = %TCL replacep BUOYPARAM 1 .TRUE. 2 .FALSE. %ENDTCL,
+ l_shcu_buoy       = %TCL replacep LBUOYSKEW Y .TRUE. N .FALSE. %ENDTCL,
+%T    if { %LBUOYSKEW=="Y" } {
+ shcu_levels       = %SHCULEVS,
+ wb_ng_max         = %WBNGMAX,
+%T    }
+ my_lowest_pd_surf = %LOWPDSURF,
+%T    if { [inactive_var LADJPROD] == 0 } { 
+ l_my_prod_adj     = %TCL replacep LADJPROD Y .TRUE. N .FALSE. %ENDTCL,
+%T    }  
+%T    if { [inactive_var ADJPRODFAC] == 0 } { 
+%TCL
+         set tke_full {}
+         set noinbatch {}
+         set value {}
+         set startLevs [get_variable_array STARTLEV_TKE]
+         set endLevs [get_variable_array ENDLEV_TKE]
+         set adjfac [get_variable_array ADJPRODFAC]
+         set len [llength $startLevs]
+         for {set i 0} {$i < $len} {incr i} {
+             set noinbatch [expr [lindex $endLevs $i] - [lindex $startLevs $i] + 1]
+             set value [lindex $adjfac $i]
+             for {set j 0} {$j < $noinbatch} {incr j} {
+                 lappend tke_full $value
+             }
+         }
+%ENDTCL
+ my_prod_adj_fact  =%TCL tdelimit $tke_full {,} {} %ENDTCL,
+%T       unset startLevs endLevs adjfac len 
+%T       unset noinbatch value tke_full
+%T    }  
+ my_z_limit_elb    = %ZLIMELB,
+ l_print_max_tke   = %TCL replacep LPRINTMAX Y .TRUE. N .FALSE. %ENDTCL,
+%T   if { %TKE_MOD=="1" } {
+ tke_cm_mx  = %TKE_CMMIX,
+ tke_cm_fa = %TKE_CMFA,
+ tke_dlen = %TKE_DLEN,
+%T   }
+%T }
+%T if {([inactive_var PRAND] == 0)&&(%PRAND=="1")} {
+ Prandtl=%PRAND, 
+%T } 
+ /
+
+ &RUN_RIVERS
+%T if { %ATMOS_SR(26) == "1A" } {
+ RIVER_VEL=%ATMOS_RV_EVEL,
+ RIVER_MCOEF=%ATMOS_RV_MRAT,
+ L_RIVERS=.TRUE.,
+ L_INLAND=%TCL replacep LINLAND Y .TRUE. N .FALSE. %ENDTCL, 
+ RIVER_STEP=%ATMOS_RV_DAYS,
+%T }
+%T if {%ATMOS_SR(26) == "1A"} {
+%T    putl "i_river_vn=1"
+%T } elseif {%ATMOS_SR(26) == "2A"} {
+%T    putl "i_river_vn=2"
+%T }
+ /
+
+ &RUN_Precip
+%T if {%ATMOS_SR(4)=="0A"} {
+ L_IT_MELTING=.FALSE.,
+ l_warm_new=.FALSE.,
+%T } else {
+ L_IT_MELTING=%TCL replacep L_ITMELT T .TRUE. * .FALSE. %ENDTCL,
+ l_warm_new=%TCL replacep LMICRO_KK Y .TRUE. * .FALSE. %ENDTCL,
+%T   if { [inactive_var LMICRO_KK] == 0 &&  %LMICRO_KK=="Y"} {
+ c_r_correl=%ALPHA_Q,
+ l_fsd_generator=%TCL replacep LFSD_GEN Y .TRUE. * .FALSE. %ENDTCL,
+%T   }
+%T }
+%T if {%ATMOS_SR(4)=="3D"} {
+ L_AUTOC_3B=%TCL replacep L_AUTOC3B T .TRUE. * .FALSE. %ENDTCL, 
+%T } else {
+ L_AUTOC_3B=.FALSE.,
+%T }
+%T if {[inactive_var L_AUTOCMURK] == 0} {
+ L_AUTOCONV_MURK=%TCL replacep L_AUTOCMURK T .TRUE. * .FALSE. %ENDTCL,
+%T } else {
+ L_AUTOCONV_MURK=.FALSE.,
+%T }
+%T if {[inactive_var L_MCRARCL] == 0} {
+ L_MCR_ARCL=%TCL replacep L_MCRARCL T .TRUE. * .FALSE. %ENDTCL,
+%T } else {
+ L_MCR_ARCL=.FALSE.,
+%T }
+%T if {%ATMOS_SR(4)!="0A"} {
+%T    if { %DRREP!="3"} {
+ X1R=26.2,
+ X2R=1.57,
+%T    } else {
+ X1R=%X1R,
+ X2R=%X2R,
+%T    } 
+%T    if { [inactive_var L_PSD ] == 0 } {
+ l_psd=%TCL replacep L_PSD T .TRUE. * .FALSE. %ENDTCL,
+%T    } else {
+ l_psd=.FALSE.,
+%T    } 
+%T    if { [inactive_var PSDGLOBAL ] == 0 } {
+ l_psd_global=%TCL replacep PSDGLOBAL 1 .TRUE. 0 .FALSE. %ENDTCL,
+%T    } else {
+ l_psd_global=.FALSE., 
+%T    }
+ l_hallett_mossop=%TCL replacep L_HLTMOSS T .TRUE. * .FALSE. %ENDTCL,
+%T    if {%IPMSDR=="1"&&%ATMOS_SR(4)=="3D"} {
+ AI=0.0444,
+ BI=2.1,
+ AIC=0.587,
+ BIC=2.45,
+%T    } 
+%T    if {%IPMSDR=="2"&&%ATMOS_SR(4)!="0A"} {
+ AI=%AI, 
+ BI=%BI, 
+ AIC=%AIC,
+ BIC=%BIC,
+%T    }
+ l_mcr_iter=%TCL replacep LMCRITER Y .TRUE. * .FALSE. %ENDTCL,
+%T    if { %LMCRITER=="Y" } {
+ lsiter=%MCRITS,
+ NITER_BS=%NITER_BS, 
+%T    } else {
+ lsiter=1,
+%T    }
+%T    if {%IPBRE=="1"&&%ATMOS_SR(4)!="0A"} {
+ LSP_EIC=0.2072,
+ LSP_FIC=0.6380,
+%T    } 
+%T    if {%IPBRE=="2"&&%ATMOS_SR(4)!="0A"} {
+ LSP_EIC=%LSP_EIC,
+ LSP_FIC=%LSP_FIC,
+%T    }
+%T }
+%T if {%ATMOS_SR(4)=="3D"} {
+ L_CRY_AGG_DEP=%TCL replacep LCRYAGGDEP T .TRUE. * .FALSE. %ENDTCL,
+%T     if {[inactive_var LSR2GRAUP]==0} {
+ l_sr2graup=%TCL replacep LSR2GRAUP Y .TRUE. N .FALSE. %ENDTCL,
+%T    }
+ l_rainfall_as=%TCL replacep LRAINFALL T .TRUE. * .FALSE. %ENDTCL,  
+%T } else {
+ L_CRY_AGG_DEP=.FALSE.,
+ l_rainfall_as=.FALSE., 
+%T }
+%C %T if {%ATMOS_SR(4)!="0A"} {
+%C  l_rainfall_as=%TCL replacep LRAINFALL 0 .FALSE. 1 .TRUE. %ENDTCL,
+%C %T } else {
+%C  l_rainfall_as=.FALSE.,
+%C %T } 
+%T if { %ATMOS_SR(4)!="0A" } {
+ l_droplet_tpr=%TCL replacep LDROP_TPR Y .TRUE. * .FALSE. %ENDTCL,
+%T } else {
+ l_droplet_tpr=.FALSE.,
+%T }
+%T if { %ATMOS_SR(4)!="0A" && %LDROP_TPR=="Y" } {
+ z_peak_nd=%ZPEAK_ND,
+ ndrop_surf=%NDROP_SURF,
+ l_taper_new=%TCL replacep LTAPERNEW Y .TRUE. * .FALSE. %ENDTCL,
+%T } else {
+ z_peak_nd=500.0,
+ ndrop_surf=20.0E6,
+ l_taper_new=.FALSE.,
+%T }
+%T if { [inactive_var MAXDROP_SURF]==0 } {
+ max_drop_surf=%MAXDROP_SURF,
+%T } else {
+ max_drop_surf=10.0E7,
+%T }
+ tnuc=%TNUC,
+ ar=%AXIALR,
+ arc=%AXIALC,
+%T if { [inactive_var L_CLARKAERO]==0 } {
+ l_clark_aero=%TCL replacep L_CLARKAERO T .TRUE. F .FALSE. %ENDTCL,
+%T }
+%T if { [inactive_var ARCLINHSC]==0 } {
+ arcl_inhom_sc=%ARCLINHSC,
+%T }
+%T if {%ATMOS_SR(4) == "3D"} {
+ L_MCR_QRAIN=%TCL replacep MCRGRAIN F .FALSE. T .TRUE. %ENDTCL,
+ L_MCR_QGRAUP=%TCL replacep MCRGRPUP F .FALSE. T .TRUE. %ENDTCL,
+%T } else {
+ L_MCR_QRAIN=.FALSE.,
+ L_MCR_QGRAUP=.FALSE.,
+%T }
+%T if {(%OCAAA==2)&&(%UPD97=="Y")} {
+ L_MCR_QRAIN_LBC=%TCL replacep MCRGRAIN_LBC F .FALSE. T .TRUE. %ENDTCL,
+ L_MCR_QGRAUP_LBC=%TCL replacep MCRGRPUP_LBC F .FALSE. T .TRUE. %ENDTCL,
+%T } else {
+ L_MCR_QRAIN_LBC=.FALSE.,
+ L_MCR_QGRAUP_LBC=.FALSE., 
+%T }
+ L_RAIN=%TCL replacep L_RAIN N .TRUE. Y .FALSE. %ENDTCL,
+%T if { [inactive_var LDIF_ICEVT]==0 } {
+ l_diff_icevt=%TCL replacep LDIF_ICEVT Y .TRUE. * .FALSE. %ENDTCL,
+%T   if {%LDIF_ICEVT=="Y"} {
+ cic_input=%CIC_INPUT,
+ dic_input=%DIC_INPUT,
+ ci_input=%CI_INPUT,
+ di_input=%DI_INPUT,
+%T   }
+%T }
+ / 
+
+ &RUN_Radiation
+ CUSACK_AERO=%ESRAD_AERO,
+ sc=%SCONST,
+%T if {[inactive_var CSKCLIM] == 0 } {
+ aeroscl_csk_clim=%TCL tdelimit %CSKCLIM {,} {} %ENDTCL,
+%T }
+%T if { %ES_RAD != 0 } {
+%T   if {%ESRAD_AERO=="3"} {
+ CUSACK_AERO_HGT=%LCAHGT,
+%T   }
+%T   if {%ESRAD_AERO!="1" } {
+ L_RAD_USE_CLIM_VOLC=%TCL replacep LCLIMVOLC Y .TRUE. N .FALSE. %ENDTCL,
+%T     if {%LCLIMVOLC=="Y" } { 
+ CLIM_RAD_VOLC_ERUPTION_YEAR=%ERUPTYR
+ CLIM_RAD_VOLC_ERUPTION_MONTH=%ERUPTMTH
+ CLIM_RAD_VOLC_ERUPTION_WEIGHT=%ERUPTWT
+%T     }
+%T   } 
+%T } 
+%T if { [inactive_var ALPHAC] == 0 } {
+ ALPHAC= %ALPHAC , ALPHAM= %ALPHAM , DTICE= %DTICE ,
+%T }
+%T if { [inactive_var SSICEALBEDO] == 0 } {
+%T    if { [inactive_var SSALPHAB] == 0 } {
+ ALPHAB= %SSALPHAB , SSALPHAC= %SSALPHAC , SSALPHAM= %SSALPHAM , SSDTICE= %SSDTICE ,
+%T    }
+%T    if { %SSICEALBEDO=="Y" } {
+ DT_BARE=%TCL if_active DT_BARE VALUE 1.0  %ENDTCL,
+ DALB_BARE_WET=%TCL if_active DALB_BAREWET VALUE -0.075  %ENDTCL,
+ PEN_RAD_FRAC=%TCL if_active PEN_RAD_FRAC VALUE 0.17  %ENDTCL,
+ SW_BETA=%TCL if_active SW_BETA VALUE 0.4  %ENDTCL,
+%T    } 
+%T }
+%C--------------------
+ i_sw_radstep_perday_prog=%SWINC, 
+ i_lw_radstep_perday_prog=%LWINC,
+ i_sw_radstep_perday_diag=%ASWRADSTDIAG,
+ i_lw_radstep_perday_diag=%ALWRADSTDIAG,
+%C----
+%T if { %ATMOS_SR(1) != "0A" } {
+%T    set swstep [expr [ totime 1 DA A ] / %SWINC]
+%T    set swseg %SWSEG
+%T    } else {
+%T      set swstep 0 
+%T      set swseg 1
+%T    } 
+%C----
+%T if {%SWSOPT=="0"} {
+ A_SW_SEGMENTS=%TCL put $swseg %ENDTCL, 
+ A_SW_SEG_SIZE=-99,
+%T } elseif {%SWSOPT=="1"} {
+ A_SW_SEGMENTS=-99, 
+ A_SW_SEG_SIZE=%SWSEGSZ,
+%T } 
+%T unset swstep swseg
+%C---- 
+%T if { %ATMOS_SR(2) != "0A" } {
+%T    set lwstep [expr [ totime 1 DA A ] / %LWINC]
+%T    set lwseg %LWSEG
+%T } else {
+%T    set lwstep 0 
+%T    set lwseg 1
+%T } 
+%C----
+%T if {%LWSOPT=="0"} {
+ A_LW_SEGMENTS=%TCL put $lwseg %ENDTCL,   
+ A_LW_SEG_SIZE=-99,
+%T } elseif {%LWSOPT=="1"} {
+ A_LW_SEGMENTS=-99, 
+ A_LW_SEG_SIZE=%LWSEGSZ,
+%T } 
+%T unset lwstep lwseg
+%C---
+ L_EQT=%TCL replacep L_EQT T .TRUE. * .FALSE. %ENDTCL,
+ L_SEC_VAR=%TCL replacep LSECVAR T .TRUE. * .FALSE. %ENDTCL,
+%T if {[inactive_var LCAHGT] == 0} {
+ AERO_BL_LEVELS=%TCL replacep LCAHGT 3 %USRAEROBLEV * %NBLLV %ENDTCL,
+%T } else {
+ AERO_BL_LEVELS=%NBLLV,
+%T }
+ CO2_MMR= %CO2START ,
+%T  if { [ inactive_var SW2OXYMIX ] == 0 } {
+ O2MMR=%SW2OXYMIX,
+%T  }
+%T  if { [ inactive_var LW2NOXMIX  ] == 0 } {
+ N2OMMR=%LW2NOXMIX,
+%T  }
+%T  if { [ inactive_var LW2METHMIX ] == 0 } {
+ CH4MMR=%LW2METHMIX,
+%T  }
+%T  if { [ inactive_var LW2CFC11MIX ] == 0 } {
+ C11MMR=%LW2CFC11MIX,
+%T  }
+%T  if { [ inactive_var LW2CFC12MIX ] == 0 } {
+ C12MMR=%LW2CFC12MIX,
+%T  }
+%T  if { [ inactive_var LW2CFC113MIX ] == 0 } {
+ C113MMR=%LW2CFC113MIX,
+%T  }
+%T  if { [ inactive_var LW2CFC114MIX ] == 0 } {
+ C114MMR=%LW2CFC114MIX,
+%T  }
+%T  if { [ inactive_var LW2HCFC22MIX ] == 0 } {
+ HCFC22MMR=%LW2HCFC22MIX,
+%T  }
+%T  if { [ inactive_var LW2HFC125MIX ] == 0 } {
+ HFC125MMR=%LW2HFC125MIX,
+%T  }
+%T  if { [ inactive_var LW2HFC134AMIX ] == 0 } {
+ HFC134AMMR=%LW2HFC134AMIX,
+%T  }
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%T if {%LWISCCP == "Y"} {
+ IS_NCOL=%LWISNCOL,
+%T } else {
+ IS_NCOL=0,
+%T }
+%T if { [inactive_var LGL4]==0  && %LGL4=="Y"} {
+ L_RAD_SNOW_EMIS=.TRUE.,
+ L_T_LAND_NOSNOW=.TRUE.,
+ L_QUAD_T_COAST=.TRUE.,
+ L_T_RAD_SOLID=.TRUE.,
+%T } else {
+ L_RAD_SNOW_EMIS=.FALSE.,
+ L_T_LAND_NOSNOW=.FALSE.,
+ L_QUAD_T_COAST=.FALSE.,
+ L_T_RAD_SOLID=.FALSE.,
+%T }
+%C ~~~~~~~ changes for ticket #4165 ~~~~~~~
+%T if { [ inactive_var DPCRSTRAT ] == 0 } {
+ DP_CORR_STRAT=%DPCRSTRAT,
+%T }
+%T if {[ inactive_var DPCRCONV ] == 0} {
+ DP_CORR_CONV=%DPCRCONV,
+%T }
+%T    if { [ inactive_var SWCLDINHOM ] == 0 } {
+%T       set inh_sw {}
+%T       set inh_lw {}
+%T       for {set i 1} {$i < 5} {incr i} {
+%T          set one_sw [get_variable_value SWCLDINHOM($i)]
+%T          set one_lw [get_variable_value LWCLDINHOM($i)]
+%T          lappend inh_sw $one_sw
+%T          lappend inh_lw $one_lw
+%T       }
+ INHOM_CLOUD_SW= %TCL tdelimit $inh_sw {,} {} %ENDTCL,
+ INHOM_CLOUD_LW= %TCL tdelimit $inh_lw {,} {} %ENDTCL,
+%T       unset inh_sw inh_lw one_sw one_lw
+%T    }
+%T if {[ inactive_var MCICASIGMA ] == 0} {
+ RAD_MCICA_SIGMA=%MCICASIGMA,
+%T }
+ RAD_MCICA_SAMPLING=2,
+%T if {[ inactive_var LWISNCOL ] == 0} {
+ is_ncol=%LWISNCOL,
+%T } 
+ i_cloud_representation=%SW2CLOUD,
+ i_cloud_representation_2=%SW2CLOUD_2,
+ i_overlap=%SW2OLAPC,
+ i_overlap_2=%SW2OLAPC_2,
+ i_inhom=%I_INHOM,
+ i_inhom_2=%I_INHOM_2,
+%T if {[ inactive_var I_FSD ] == 0} {
+ I_FSD=%I_FSD,
+%T }
+%T if {[ inactive_var I_FSD_2 ] == 0} {
+ I_FSD_2=%I_FSD_2,
+%T } 
+ h_swbands= %TCL if_active SWBND %SWBND 0  %ENDTCL,
+ h_lwbands= %TCL if_active LWBND %LWBND 0  %ENDTCL,
+ l_radiation=%TCL replacep L_RADIATION N .TRUE. Y .FALSE. %ENDTCL,
+%T if { [inactive_var RADDEG] == 0  } {
+ l_rad_deg=%TCL replacep RADDEG T .TRUE. F .FALSE. %ENDTCL,
+%T } else {
+ l_rad_deg=.FALSE.,
+%T }
+%T if { [inactive_var RADSZACOR] == 0  } {
+ l_rad_szacor=%TCL replacep RADSZACOR T .TRUE. F .FALSE. %ENDTCL,
+%T } else {
+ l_rad_szacor=.FALSE.,
+%T }
+%T if { [inactive_var LSWUSE3C] == 0 }   { 
+ i_rad_extra_call=%LSWUSE3C,
+%T }
+ i_rad_topography=%IUSEORCORR,
+%T if {[ inactive_var LUCARIOLLE ] == 0} {
+ l_use_cariolle=%TCL replacep LUCARIOLLE  Y .TRUE. * .FALSE. %ENDTCL,
+%T } else {
+ l_use_cariolle=.FALSE.,
+%T }
+%T if {[ inactive_var LUOZNINRAD ] == 0} {
+ l_use_ozoneinrad=%TCL replacep LUOZNINRAD  Y .TRUE. * .FALSE. %ENDTCL,
+%T } else {
+ l_use_ozoneinrad=.FALSE.,
+%T }
+ i_ozone_int= %OZINT,
+ /
+
+ &RUN_Cloud
+%C Translate range of levels and their values into one value for
+%C each level.
+%TCL
+   set rhc_full {}
+   set noinbatch {}
+   set value {}
+   set startLevs [get_variable_array STARTLEV_RHC]
+   set endLevs [get_variable_array ENDLEV_RHC]
+   set rhc [get_variable_array RHC]
+   set len [llength $startLevs]
+   for {set i 0} {$i < $len} {incr i} {
+     set noinbatch [expr [lindex $endLevs $i] - [lindex $startLevs $i] + 1]
+     set value [lindex $rhc $i]
+     for {set j 0} {$j < $noinbatch} {incr j} {
+       lappend rhc_full $value
+     }
+   }
+%ENDTCL
+ RHCRIT= %TCL tdelimit $rhc_full {,} {} %ENDTCL,
+%T unset startLevs endLevs rhc len 
+%T unset noinbatch value rhc_full
+%T if {%ATMOS_SR(9)!="0A" } {
+%T    if {%P_CLD_PC2!="Y"} {
+ L_EACF=%TCL replacep LEACF Y .TRUE. * .FALSE. %ENDTCL,
+%T    }  else {
+ L_EACF=.FALSE.,
+%T    } 
+ CLOUD_FRACTION_METHOD=%CLDFRACM,
+%T    if { [inactive_var DTBSTURB] == 0} {
+ dbsdtbs_turb_0=%DTBSTURB, 
+%T    } else {
+ dbsdtbs_turb_0=-2.25E-5,
+%T    }
+%T    if { [inactive_var LMICROEROS] == 0 } {
+ l_micro_eros=%TCL replacep LMICROEROS Y .TRUE. N .FALSE. %ENDTCL,
+%T    }
+%T    if { [inactive_var IPC2ERSN] == 0} {
+ i_pc2_erosion_method=%IPC2ERSN, 
+%T    } else {
+ i_pc2_erosion_method=1,
+%T    }
+%T } 
+%T if {%ATMOS_SR(9)!="0A" && %P_CLD_PC2=="Y"} {
+ i_pc2_conv_coupling=%IPC2_CNVCPL,
+ l_ensure_min_in_cloud_qcf=%TCL replacep LEMINCLQCF Y .TRUE. * .FALSE. %ENDTCL,
+ l_fixbug_pc2_mixph=%TCL replacep LFIXPC2BL Y .TRUE. * .FALSE. %ENDTCL,
+ l_fixbug_pc2_qcl_incr=%TCL replacep LFIXPC2QCL Y .TRUE. * .FALSE. %ENDTCL,
+ i_fixbug_pc2_checks=%FIXPC2CHK,
+ pc2_falliceshear_method=%PC2FLCESH,
+%T } else {
+ i_pc2_conv_coupling=1,
+ l_ensure_min_in_cloud_qcf=.FALSE.,
+ l_fixbug_pc2_mixph=.FALSE.,
+ l_fixbug_pc2_qcl_incr=.FALSE.,
+ i_fixbug_pc2_checks=0,
+ pc2_falliceshear_method=1,
+%T }
+%T if {%ATMOS_SR(5)!="4A" && %P_CLD_PC2=="Y"} {
+ forced_cu=%TCL replacep FORCED_CU Y 1 N 0 %ENDTCL,
+%T } 
+%C %T if { [inactive_var LWBSDRHC] == 0} {
+%C  l_w_based_rhcrit=%TCL replacep LWBSDRHC Y .TRUE. * .FALSE. %ENDTCL, 
+%C %T } else {
+%C  l_w_based_rhcrit=.FALSE.,
+%C %T }
+%T if { [inactive_var CFFSPR_RATE] == 0 && (%FIXPC2CHK=="0"||%FIXPC2CHK=="2")} {
+ cff_spread_rate=%CFFSPR_RATE,
+%T } else {
+ cff_spread_rate=1.0E-3,
+%T }
+%T if { [inactive_var STKELVIN]==0 && (%IPC2_CNVCPL==3||%IPC2_CNVCPL==4||%IPC2_CNVCPL==5) } {
+ starticeTKelvin=%STKELVIN,
+ alliceTdegC=%ALTDEGC, 
+%T } else {
+ starticeTKelvin=273.15,
+ alliceTdegC=-20.0, 
+%T }
+%T    if { [inactive_var ICE_WIDTH] == 0} {
+ ice_width=%ICE_WIDTH, 
+%T    } else {
+ ice_width=0.04,
+%T    }
+%T if { [inactive_var CLD_AREA] == 0  } {
+ L_CLD_AREA=%TCL replacep CLD_AREA Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_CLD_AREA=.FALSE.,
+%T }
+ L_ACF_CUSACK=%TCL replacep CLDAREAPRM Y .TRUE. * .FALSE. %ENDTCL,
+%T if { [inactive_var P_CLD_PC2] == 0} {
+ L_PC2=%TCL replacep P_CLD_PC2 Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_PC2=.FALSE.,
+%T }
+%T if { [inactive_var RHCRIT_PARM] == 0 } {
+ L_RHCPT=%TCL replacep RHCRIT_PARM Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_RHCPT=.FALSE.,
+%T }
+ l_add_cca_to_mcica=%TCL replacep LCCA_MCICA Y .TRUE. N .FALSE. %ENDTCL,
+ l_pc2_lbc=%TCL replacep LPC2_LBC Y .TRUE. N .FALSE. %ENDTCL,
+ l_filter_cloud=%TCL replacep LFLT_CLOUD Y .TRUE. * .FALSE. %ENDTCL,
+%T if { [inactive_var TAU_THRSH] == 0 } {
+ tau_thresh=%TAU_THRSH,
+%T }
+ /
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ &RUN_Aerosol
+%T if {  [inactive_var CHEM_SULPC ] == 0} {
+ L_SULPC_SO2=%TCL  replacep CHEM_SULPC N .FALSE. Y .TRUE. %ENDTCL,
+%T   if {%CHEM_SULPC=="Y"} {
+ L_SULPC_OZONE=%TCL replacep SULOZONE  Y .TRUE. N .FALSE. %ENDTCL,
+ L_SULPC_NH3=%TCL replacep SULOZONE  Y .TRUE. N .FALSE. %ENDTCL,
+%T   }
+%T   if {[inactive_var CHEM_SOOT] == 0} {
+ L_SOOT=%TCL  replacep CHEM_SOOT N .FALSE. Y .TRUE. %ENDTCL,
+%T   }
+%T }
+%T if {  [inactive_var EMSO2 ] == 0} {
+ L_SO2_SURFEM=%TCL  replacep EMSO2  Y .TRUE. N .FALSE. %ENDTCL,
+ L_SO2_HILEM=%TCL  replacep EMSO2H Y .TRUE. N .FALSE. %ENDTCL,
+ L_SO2_NATEM=%TCL  replacep EMSO2N Y .TRUE. N .FALSE. %ENDTCL,
+ L_SULPC_DMS=%TCL replacep DMS    Y .TRUE. N .FALSE. %ENDTCL,
+%T   if { %DMS == "Y" } {
+ L_DMS_EM=%TCL     replacep EMDMS  Y .TRUE. N .FALSE. %ENDTCL,
+ L_DMS_EM_INTER=%TCL replacep IDMSE_SCH 1 .TRUE. * .FALSE. %ENDTCL,
+%T   } 
+%T }
+%T if { [ inactive_var EMSO2HL ] == 0 } {
+ SO2_HIGH_LEVEL=%EMSO2HL,
+%T } 
+%T if { [ inactive_var SIDMSE_SCH] == 0 && %IDMSE_SCH == 1 } {
+ I_DMS_FLUX=%SIDMSE_SCH,
+%T }
+%T if { [ inactive_var LSULPOXI ] == 0 } {
+ L_SULPC_ONLINE_OXIDANTS=%TCL replacep LSULPOXI Y .TRUE. N .FALSE. %ENDTCL,
+%T }
+%T if { [ inactive_var LOXIDEPL ] == 0 } {
+ L_SULPC_2_WAY_COUPLING=%TCL replacep LOXIDEPL Y .TRUE. N .FALSE. %ENDTCL,
+%T }
+%T if {[ inactive_var SULOZONE ] == 0 && %SULOZONE == "Y"} {
+ L_SULPC_SO2_O3_NONBUFFERED=%TCL  replacep OXIOZ2B  2 .TRUE. * .FALSE. %ENDTCL,
+%T    if { [inactive_var CHEM_NITR]==0 && %CHEM_NITR=="Y" } {
+ L_NH3_EM=%TCL  replacep OXIOZ2B  0 .FALSE. * .TRUE. %ENDTCL,
+%T    } else {
+ L_NH3_EM=%TCL  replacep OXIOZ2B  1 .TRUE. * .FALSE. %ENDTCL,
+%T    } 
+%T } else  {
+ L_NH3_EM=.FALSE.,
+%T }
+%T if {  [inactive_var EMSOOT ] == 0} {
+ L_SOOT_SUREM=%TCL  replacep EMSOOT  Y .TRUE. N .FALSE. %ENDTCL,
+ L_SOOT_HILEM=%TCL  replacep EMSOOTH Y .TRUE. N .FALSE. %ENDTCL,
+%T }
+%T if { [ inactive_var EMSOOTHL ] == 0 } {
+ SOOT_HIGH_LEVEL=%EMSOOTHL,
+%T } else {
+ SOOT_HIGH_LEVEL= 0,
+%T }
+%C Biomass Processing
+%T if {%ATMOS_SR(17)== "0A" || %CHEM_BIOM== "N" } {
+ L_BMASS_SUREM=.FALSE.,
+ L_BMASS_HILEM=.FALSE.,
+ L_USE_BMASS_SULPC=.FALSE.,
+%T } else {
+ L_BIOMASS=%TCL replacep CHEM_BIOM Y .TRUE. N .FALSE. %ENDTCL,
+ L_BMASS_SUREM=%TCL replacep EMBIOM Y .TRUE. N .FALSE. %ENDTCL,
+ L_BMASS_HILEM=%TCL replacep EMBIOMH Y .TRUE. N .FALSE. %ENDTCL,
+ L_USE_BMASS_SULPC=%TCL replacep BMASSSULPC Y .TRUE. N .FALSE. %ENDTCL,
+%T }
+%T if {%EMBIOMH=="Y"} {
+ BMASS_HIGH_LEVEL_1=%EMBIOMHL1,
+ BMASS_HIGH_LEVEL_2=%EMBIOMHL2,
+%T } else {
+ BMASS_HIGH_LEVEL_1= 0,
+ BMASS_HIGH_LEVEL_2= 0,
+%T }
+%T if {%ATMOS_SR(17)== "0A" || %CHEM_OCFF== "N" } {
+ L_OCFF=.FALSE.,
+ L_OCFF_SUREM=.FALSE.,
+ L_OCFF_HILEM=.FALSE.,  
+ L_USE_OCFF_SULPC=.FALSE., 
+%T } else {
+ L_OCFF=%TCL replacep CHEM_OCFF Y .TRUE. N .FALSE. %ENDTCL,
+ L_OCFF_SUREM=%TCL replacep LOCFFSUREM Y .TRUE. N .FALSE. %ENDTCL,
+ L_OCFF_HILEM=%TCL replacep LOCFFHILEM Y .TRUE. N .FALSE. %ENDTCL,  
+ L_USE_OCFF_SULPC=%TCL replacep OCFFSULPC Y .TRUE. N .FALSE. %ENDTCL, 
+%T }
+%T if {%ATMOS_SR(17)!="0A" && %CHEM_OCFF!="N" && %LOCFFHILEM!="N" } {
+ OCFF_HIGH_LEVEL=%OCFFHL,
+%T }
+%T if { [inactive_var CHEM_NITR] == 0 } {
+ L_NITRATE=%TCL replacep CHEM_NITR Y .TRUE. N .FALSE. %ENDTCL,
+%T }
+%T if { [inactive_var SULP_SULPC ] == 0 } {
+ L_USE_SULPHATE_SULPC=%TCL replacep SULP_SULPC Y .TRUE. N .FALSE. %ENDTCL,
+%T }
+%T if { [inactive_var NITRSULPC] == 0 } {
+ L_USE_NITRATE_SULPC=%TCL replacep NITRSULPC Y .TRUE. N .FALSE. %ENDTCL,
+%T }
+%T if { [inactive_var SEA_SULPC ] == 0 } {
+ L_USE_SEASALT_SULPC=%TCL replacep SEA_SULPC Y .TRUE. N .FALSE. %ENDTCL,
+%T }
+%T if { [inactive_var SEA_PMDIAGS ] == 0 } {
+ L_USE_SEASALT_PM=%TCL replacep SEA_PMDIAGS Y .TRUE. N .FALSE. %ENDTCL,
+%T }
+ /
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ &ANCILCTA
+ L_SSTANOM=%TCL replacep SSTAN Y .TRUE. N .FALSE. %ENDTCL,
+ LAMIPII=%TCL replacep AMIPII Y .TRUE. N .FALSE. %ENDTCL,
+ /
+
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ &RUN_ENG_CORR
+ L_EMCORR=%TCL replacep ATMOS_SR(14) 0A .FALSE. * .TRUE. %ENDTCL,
+%T if {%ATMOS_SR(14) != "0A"} {
+%T    set engstep [expr %ENGTS * [totime 1 H A]]
+ LMASS_CORR=%TCL replacep LMASS_CORR T .TRUE. * .FALSE. %ENDTCL,
+ LEMQ_PRINT=%TCL replacep LEMQ_PRINT T .TRUE. * .FALSE. %ENDTCL,
+%T } else {
+%T    set engstep 0 
+ LMASS_CORR=.FALSE.,
+ LEMQ_PRINT=.FALSE.,
+%T } 
+ A_ENERGYSTEPS=%TCL put $engstep %ENDTCL,
+ /
+
+
+ &JULES_SNOW_PARAM
+  !!! USE DEFAULTS FOR SCALARS !!!
+ DZSNOW_IO  = 0.1, 0.2, 0.2, ! Note that this will only be copied to
+                             ! the actual dzsnow if nsmax > 0 above
+ canSnowPft = .FALSE., .TRUE., .FALSE., .FALSE., .FALSE.,
+ /
+
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ &JULES_SOIL_PARAM
+%C When making additions or changes to the JULES_SOIL_PARAM namelist please 
+%C inform the reconfiguration owner to ensure this namelist is correctly 
+%C duplicated in the reconfiguration code. 
+ !!! USE DEFAULTS FOR SCALARS !!!
+ DZSOIL_IO =%TCL tdelimit %SOILLEVS {,} {} %ENDTCL,
+ /
+
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%I nlstelectr
+
+
+
+ 
+
+
+
+

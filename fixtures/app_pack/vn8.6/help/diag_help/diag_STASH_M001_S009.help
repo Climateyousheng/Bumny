@@ -1,0 +1,1386 @@
+<M001_S009_I181>
+Stash Diagnostic Help for Section 9 Item 181 
+
+STASH item specific help for 
+(1, 9, 181) TEMPERATURE INC: bdy layer + ls cld 
+
+This is the increment across the boundary layer and adjacent large scale cloud
+scheme to the gridbox mean temperature, in K.
+
+The boundary layer scheme advects liquid water temperature rather than
+temperature and therefore does not produce a direct increment in temperature.
+However, at UM Versions up to VN5.3 the boundary layer scheme is followed by an
+immediate call to the large-scale cloud scheme in order to partition liquid
+water and vapour in the gridbox and retrieve a temperature. Note that the
+increment to the gridbox mean liquid water temperature due to the large scale
+cloud scheme alone is defined to be zero.
+
+Available on all timesteps.
+</M001_S009_I181>
+#
+<M001_S009_I182>
+STASH item specific help for 
+(1, 9, 182) SPEC HUMIDITY INC: bdy layr + ls cld
+
+This is the increment across the boundary layer scheme and adjacent large scale
+cloud scheme to the gridbox mean specific humidity, in kg of water per kg of
+air.
+
+WARNING : May change to mass mixing ratio from UM VN5.4.
+
+The boundary layer scheme advects total water content rather than specific
+humidity and therefore does not produce a direct increment in specific
+humidity.
+However, at UM Versions up to VN5.3 the boundary layer scheme is followed by an 
+immediate call to the large-scale cloud scheme in order to partition liquid
+water and vapour in the gridbox and retrieve specific humidity. Note that the
+increment to the gridbox mean total specific water content due to the large
+scale cloud scheme alone is defined to be zero.
+
+Available on all timesteps.
+</M001_S009_I182>
+#
+<M001_S009_I183>
+STASH item specific help for 
+(1, 9, 183)  QCL         INC: bdy layer + ls cld 
+
+This is the increment across the boundary layer scheme and adjacent large scale
+cloud scheme to the gridbox mean specific liquid content (cloud condensate), in
+kg of water per kg of air.
+
+WARNING : May change to mass mixing ratio from UM VN5.4.
+
+The boundary layer scheme advects total water content and therefore does not
+produce a direct increment in specific liquid content.
+However, at UM Versions up to VN5.3 the boundary layer scheme is followed by an 
+immediate call to the large-scale cloud scheme in order to partition liquid
+water and vapour in the gridbox and retrieve specific liquid content. Note that
+the increment to the gridbox mean total specific water content due to the large
+scale cloud scheme alone is defined to be zero.
+
+Available on all timesteps.
+
+</M001_S009_I183>
+#
+<M001_S009_I208>
+Item: (01:09:208)
+
+CLOUD BASE ASL COVER.GT.N OCTA KFT
+
+where n=[0.1,1.5,2.5,3.5,4.5,5.5,6.5,7.9]
+
+These diagnostics provide the cloud base ABOVE SEA LEVEL for a range of 
+cloud cover thresholds.
+
+The algorithm searches from the bottom up until the required cloud cover 
+threshold is found. The diagnostic then reports the height at which this 
+threshold is first reached.
+
+WARNING: this diagnostic is NOT in SI units, it is in kft 
+(kilo-feet, i.e. 1.0e3 feet).
+
+WARNING: This diagnostic is calculated WITH RESPECT TO THE MEAN-SEA LEVEL. 
+For locations over land one needs to subtract the height of the orography 
+at that point in order to get a height ABOVE GROUND LEVEL. Note however 
+that one may want to subtract the actual height of a location rather than 
+the height of the model orography at that point depending on exactly what 
+kind of comparison one wishes to do. 
+</M001_S009_I208>
+#
+<M001_S009_I209>
+Item: (01:09:209)
+
+CLOUD BASE ASL COVER.GT.N OCTA KFT
+
+where n=[0.1,1.5,2.5,3.5,4.5,5.5,6.5,7.9]
+
+These diagnostics provide the cloud base ABOVE SEA LEVEL for a range of 
+cloud cover thresholds.
+
+The algorithm searches from the bottom up until the required cloud cover 
+threshold is found. The diagnostic then reports the height at which this 
+threshold is first reached.
+
+WARNING: this diagnostic is NOT in SI units, it is in kft 
+(kilo-feet, i.e. 1.0e3 feet).
+
+WARNING: This diagnostic is calculated WITH RESPECT TO THE MEAN-SEA LEVEL. 
+For locations over land one needs to subtract the height of the orography 
+at that point in order to get a height ABOVE GROUND LEVEL. Note however 
+that one may want to subtract the actual height of a location rather than 
+the height of the model orography at that point depending on exactly what 
+kind of comparison one wishes to do. 
+</M001_S009_I209>
+#
+<M001_S009_I210>
+Item: (01:09:210)
+
+CLOUD BASE ASL COVER.GT.N OCTA KFT
+
+where n=[0.1,1.5,2.5,3.5,4.5,5.5,6.5,7.9]
+
+These diagnostics provide the cloud base ABOVE SEA LEVEL for a range of 
+cloud cover thresholds.
+
+The algorithm searches from the bottom up until the required cloud cover 
+threshold is found. The diagnostic then reports the height at which this 
+threshold is first reached.
+
+WARNING: this diagnostic is NOT in SI units, it is in kft 
+(kilo-feet, i.e. 1.0e3 feet).
+
+WARNING: This diagnostic is calculated WITH RESPECT TO THE MEAN-SEA LEVEL. 
+For locations over land one needs to subtract the height of the orography 
+at that point in order to get a height ABOVE GROUND LEVEL. Note however 
+that one may want to subtract the actual height of a location rather than 
+the height of the model orography at that point depending on exactly what 
+kind of comparison one wishes to do. 
+</M001_S009_I210>
+#
+<M001_S009_I211>
+Item: (01:09:211)
+
+CLOUD BASE ASL COVER.GT.N OCTA KFT
+
+where n=[0.1,1.5,2.5,3.5,4.5,5.5,6.5,7.9]
+
+These diagnostics provide the cloud base ABOVE SEA LEVEL for a range of 
+cloud cover thresholds.
+
+The algorithm searches from the bottom up until the required cloud cover 
+threshold is found. The diagnostic then reports the height at which this 
+threshold is first reached.
+
+WARNING: this diagnostic is NOT in SI units, it is in kft 
+(kilo-feet, i.e. 1.0e3 feet).
+
+WARNING: This diagnostic is calculated WITH RESPECT TO THE MEAN-SEA LEVEL. 
+For locations over land one needs to subtract the height of the orography 
+at that point in order to get a height ABOVE GROUND LEVEL. Note however 
+that one may want to subtract the actual height of a location rather than 
+the height of the model orography at that point depending on exactly what 
+kind of comparison one wishes to do. 
+</M001_S009_I211>
+#
+<M001_S009_I212>
+Item: (01:09:212)
+
+CLOUD BASE ASL COVER.GT.N OCTA KFT
+
+where n=[0.1,1.5,2.5,3.5,4.5,5.5,6.5,7.9]
+
+These diagnostics provide the cloud base ABOVE SEA LEVEL for a range of 
+cloud cover thresholds.
+
+The algorithm searches from the bottom up until the required cloud cover 
+threshold is found. The diagnostic then reports the height at which this 
+threshold is first reached.
+
+WARNING: this diagnostic is NOT in SI units, it is in kft 
+(kilo-feet, i.e. 1.0e3 feet).
+
+WARNING: This diagnostic is calculated WITH RESPECT TO THE MEAN-SEA LEVEL. 
+For locations over land one needs to subtract the height of the orography 
+at that point in order to get a height ABOVE GROUND LEVEL. Note however 
+that one may want to subtract the actual height of a location rather than 
+the height of the model orography at that point depending on exactly what 
+kind of comparison one wishes to do. 
+</M001_S009_I212>
+#
+<M001_S009_I213>
+Item: (01:09:213)
+
+CLOUD BASE ASL COVER.GT.N OCTA KFT
+
+where n=[0.1,1.5,2.5,3.5,4.5,5.5,6.5,7.9]
+
+These diagnostics provide the cloud base ABOVE SEA LEVEL for a range of 
+cloud cover thresholds.
+
+The algorithm searches from the bottom up until the required cloud cover 
+threshold is found. The diagnostic then reports the height at which this 
+threshold is first reached.
+
+WARNING: this diagnostic is NOT in SI units, it is in kft 
+(kilo-feet, i.e. 1.0e3 feet).
+
+WARNING: This diagnostic is calculated WITH RESPECT TO THE MEAN-SEA LEVEL. 
+For locations over land one needs to subtract the height of the orography 
+at that point in order to get a height ABOVE GROUND LEVEL. Note however 
+that one may want to subtract the actual height of a location rather than 
+the height of the model orography at that point depending on exactly what 
+kind of comparison one wishes to do. 
+</M001_S009_I213>
+#
+<M001_S009_I214>
+Item: (01:09:214)
+
+CLOUD BASE ASL COVER.GT.N OCTA KFT
+
+where n=[0.1,1.5,2.5,3.5,4.5,5.5,6.5,7.9]
+
+These diagnostics provide the cloud base ABOVE SEA LEVEL for a range of 
+cloud cover thresholds.
+
+The algorithm searches from the bottom up until the required cloud cover 
+threshold is found. The diagnostic then reports the height at which this 
+threshold is first reached.
+
+WARNING: this diagnostic is NOT in SI units, it is in kft 
+(kilo-feet, i.e. 1.0e3 feet).
+
+WARNING: This diagnostic is calculated WITH RESPECT TO THE MEAN-SEA LEVEL. 
+For locations over land one needs to subtract the height of the orography 
+at that point in order to get a height ABOVE GROUND LEVEL. Note however 
+that one may want to subtract the actual height of a location rather than 
+the height of the model orography at that point depending on exactly what 
+kind of comparison one wishes to do. 
+</M001_S009_I214>
+#
+<M001_S009_I215>
+Item: (01:09:215)
+
+CLOUD BASE ASL COVER.GT.N OCTA KFT
+
+where n=[0.1,1.5,2.5,3.5,4.5,5.5,6.5,7.9]
+
+These diagnostics provide the cloud base ABOVE SEA LEVEL for a range of 
+cloud cover thresholds.
+
+The algorithm searches from the bottom up until the required cloud cover 
+threshold is found. The diagnostic then reports the height at which this 
+threshold is first reached.
+
+WARNING: this diagnostic is NOT in SI units, it is in kft 
+(kilo-feet, i.e. 1.0e3 feet).
+
+WARNING: This diagnostic is calculated WITH RESPECT TO THE MEAN-SEA LEVEL. 
+For locations over land one needs to subtract the height of the orography 
+at that point in order to get a height ABOVE GROUND LEVEL. Note however 
+that one may want to subtract the actual height of a location rather than 
+the height of the model orography at that point depending on exactly what 
+kind of comparison one wishes to do. 
+</M001_S009_I215>
+#
+<M001_S009_I216>
+TOTAL CLOUD AMOUNT - RANDOM OVERLAP
+
+This is the 2d total cloud amount calculated from the 3 dimensional
+combined cloud amount (STASHcode 9231) using the "random overlap" assumption.
+Note that when using the PC2 cloud scheme and l_filter_cloud=true, the 3d cloud
+has been processed remove layers of optically insignifant cloud.
+</M001_S009_I216>
+#
+<M001_S009_I217>
+TOTAL CLOUD AMOUNT MAX/RANDOM OVERLP
+
+This is the 2d total cloud amount calculated from the 3 dimensional
+combined cloud amount (STASHcode 9231) using the "maximum/random overlap" 
+assumption. 
+
+Note that when using the PC2 cloud scheme and l_filter_cloud=true, the 3d 
+cloud has been processed remove layers of optically insignifant cloud.
+</M001_S009_I217>
+#
+<M001_S009_I228>
+Item: (01:09:228)
+The critical relative humidity (RHcrit) is a measure of the variability
+of the total RH in a grid-box. A parametrization of RHcrit was introduced
+at 4.5 - previously the user defined values on each model level, to be
+used globally. RHcrit is limited to a minimum value of 0.3, and a maximum
+of 1.0. The standard deviation of total RH = (1.0-RHcrit)/SQRT(6)
+ 
+</M001_S009_I228>
+#
+<M001_S009_I231>
+COMBINED CLOUD AMOUNT IN EACH LAYER		
+
+This is the 3d combined cloud volume fraction calculated at each gridpoint 
+by combining the 3d area cloud fraction and convective cloud using the 
+expression: Combined_cloud = CCA + (1 - CCA)*area_cloud_fraction.
+
+If no area cloud fraction parametrization is used, then area_cloud_fraction 
+has the same value as the bulk_cloud_fraction.
+
+Note that when using the PC2 cloud scheme and l_filter_cloud=true, the 
+value of area_cloud_fraction used is filtered to remove layers of optically 
+insignificant cloud.
+
+Combined cloud amount is used in several diagnostic calculations, including 
+those of Total Cloud Amount with X Overlap and Precip Visibility.
+
+Available on all timesteps.
+</M001_S009_I231>
+#
+<M001_S009_I232>
+CEILOMETER CLD AMT - RANDOM OVERLAP
+
+This is the total cloud amount in a grid-box calculated from the 3 dimensional 
+ceilometer cloud amount (STASHcode 9234) using the "random overlap" assumption.
+See the help text for 9234 for details of the method for making the 3d cloud 
+consistent with ceilometers.
+
+Note that when using the PC2 cloud scheme and l_filter_cloud=true, the 3d cloud 
+has been processed to remove layers of optically insignificant cloud.
+</M001_S009_I232>
+#
+<M001_S009_I233>
+CEILOMETER CLD AMT MAX/RANDOM OVERLP
+
+This is the 2d total cloud amount in a grid-box calculated from the 3 dimensional 
+ceilometer cloud amount (STASHcode 9234) using the "maximum/random overlap" 
+assumption. See the help text for 9234 for details of the method for making the 
+3d cloud consistent with ceilometers.
+
+Note that when using the PC2 cloud scheme and l_filter_cloud=true, the 3d cloud 
+has been processed to remove layers of optically insignificant cloud.
+</M001_S009_I233>
+#
+<M001_S009_I234>
+CEILOMETER CLOUD AMT IN EACH LAYER
+
+This is the 3d combined cloud volume fraction calculated at each gridpoint by 
+blending layer cloud and convective cloud using the expression:
+Combined_cloud = CCA + (1 - CCA)*area_cloud_fraction and then removing cloud 
+on model levels higher than 6km above sea level. This is a crude way of 
+simulating cloud visible to standard ceilometers in the UK to be used for UK 
+model verification. It does not take into account the different range of some 
+ceilometers or the effect of the elevation of the ceilometer above sea level.
+
+Note that when using the PC2 cloud scheme and l_filter_cloud=true, the value 
+of area_cloud_fraction used is filtered to remove layers of optically 
+insignificant cloud.
+</M001_S009_I234>
+#
+<M001_S009_I310>
+Icing Index II(RH)
+
+In-flight icing potential for aviation. Index is zero outside of 0 to -20 deg C 
+temperature. Within that temperature range however, it is set equal to the 
+relative humidity (as a fraction from 0 to 1). This field is 3D.
+</M001_S009_I310>
+
+<M001_S009_I311>
+Icing Index II(RH)>0.1
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 310 
+is greater than 0.1 and zero otherwise. Item 310 is defined as zero outside of 
+0 to -20 deg C temperature. Within that temperature range however, it is set 
+equal to the relative humidity (as a fraction from 0 to 1). This field is 3D.
+</M001_S009_I311>
+
+<M001_S009_I312>
+Icing Index II(RH)>0.2
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 310 
+is greater than 0.2 and zero otherwise. Item 310 is defined as zero outside of 
+0 to -20 deg C temperature. Within that temperature range however, it is set 
+equal to the relative humidity (as a fraction from 0 to 1). This field is 3D.
+</M001_S009_I312>
+
+<M001_S009_I313>
+Icing Index II(RH)>0.3
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 310 
+is greater than 0.3 and zero otherwise. Item 310 is defined as zero outside of 
+0 to -20 deg C temperature. Within that temperature range however, it is set 
+equal to the relative humidity (as a fraction from 0 to 1). This field is 3D.
+</M001_S009_I313>
+
+<M001_S009_I314>
+Icing Index II(RH)>0.4
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 310 
+is greater than 0.4 and zero otherwise. Item 310 is defined as zero outside of 
+0 to -20 deg C temperature. Within that temperature range however, it is set 
+equal to the relative humidity (as a fraction from 0 to 1). This field is 3D.
+</M001_S009_I314>
+
+<M001_S009_I315>
+Icing Index II(RH)>0.5
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 310 
+is greater than 0.5 and zero other wise. Item 310 is defined as zero outside of 
+0 to -20 deg C temperature. Within that temperature range however, it is set 
+equal to the relative humidity (as a fraction from 0 to 1). This field is 3D.
+</M001_S009_I315>
+
+<M001_S009_I316>
+Icing Index II(RH)>0.6
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 310 
+is greater than 0.6 and zero otherwise. Item 310 is defined as zero outside of 
+0 to -20 deg C temperature. Within that temperature range however, it is set 
+equal to the relative humidity (as a fraction from 0 to 1). This field is 3D.
+</M001_S009_I316>
+
+<M001_S009_I317>
+Icing Index II(RH)>0.7
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 310 
+is greater than 0.7 and zero otherwise. Item 310 is defined as zero outside of 
+0 to -20 deg C temperature. Within that temperature range however, it is set 
+equal to the relative humidity (as a fraction from 0 to 1). This field is 3D.
+</M001_S009_I317>
+
+<M001_S009_I318>
+Icing Index II(RH)>0.8
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 
+310 is greater than 0.8 and zero otherwise. Item 310 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the relative humidity (as a fraction from 0 to 1). 
+This field is 3D.
+</M001_S009_I318>
+
+<M001_S009_I319>
+Icing Index II(RH)>0.9
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 
+310 is greater than 0.9 and zero otherwise. Item 310 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the relative humidity (as a fraction from 0 to 1). 
+This field is 3D.
+</M001_S009_I319>
+
+<M001_S009_I320>
+Icing Index II(RHCldPres)
+
+In-flight icing potential for aviation. Index is zero outside of 0 to -20 
+deg C temperature. Within that temperature range however, it is set equal 
+to the relative humidity (as a fraction from 0 to 1) if the cloud fraction 
+is greater than 0.0 and to 0.0 if there is no cloud present. This field is 3D.
+</M001_S009_I320>
+
+<M001_S009_I321>
+Icing Index II(RHCldPres)>0.1
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 
+320 is greater than 0.1 and zero otherwise. Item 320 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the relative humidity (as a fraction from 0 to 1) if the 
+cloud fraction is greater than 0.0 and to 0.0 if there is no cloud present. 
+This field is 3D.
+</M001_S009_I321>
+
+<M001_S009_I322>
+Icing Index II(RHCldPres)>0.2
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 
+320 is greater than 0.2 and zero otherwise. Item 320 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the relative humidity (as a fraction from 0 to 1) if the 
+cloud fraction is greater than 0.0 and to 0.0 if there is no cloud present. 
+This field is 3D.
+</M001_S009_I322>
+
+<M001_S009_I323>
+Icing Index II(RHCldPres)>0.3
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 
+320 is greater than 0.3 and zero otherwise. Item 320 is defined as zero outside 
+of 0 to -20 deg C temperature. Within that temperature range however, it is set 
+equal to the relative humidity (as a fraction from 0 to 1) if the cloud fraction 
+is greater than 0.0 and to 0.0 if there is no cloud present. This field is 3D.
+</M001_S009_I323>
+
+<M001_S009_I324>
+Icing Index II(RHCldPres)>0.4
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 320 
+is greater than 0.4 and zero otherwise. Item 320 is defined as zero outside of 
+0 to -20 deg C temperature. Within that temperature range however, it is set 
+equal to the relative humidity (as a fraction from 0 to 1) if the cloud fraction 
+is greater than 0.0 and to 0.0 if there is no cloud present. This field is 3D.
+</M001_S009_I324>
+
+<M001_S009_I325>
+Icing Index II(RHCldPres)>0.5
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 320 is 
+greater than 0.5 and zero otherwise. Item 320 is defined as zero outside of 0 to 
+-20 deg C temperature. Within that temperature range however, it is set equal to 
+the relative humidity (as a fraction from 0 to 1) if the cloud fraction is greater 
+than 0.0 and to 0.0 if there is no cloud present. This field is 3D.
+</M001_S009_I325>
+
+<M001_S009_I326>
+Icing Index II(RHCldPres)>0.6
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 320 is 
+greater than 0.6 and zero otherwise. Item 320 is defined as zero outside of 0 to 
+-20 deg C temperature. Within that temperature range however, it is set equal to 
+the relative humidity (as a fraction from 0 to 1) if the cloud fraction is greater 
+than 0.0 and to 0.0 if there is no cloud present. This field is 3D.
+</M001_S009_I326>
+
+<M001_S009_I327>
+Icing Index II(RHCldPres)>0.7
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 320 is 
+greater than 0.7 and zero otherwise. Item 320 is defined as zero outside of 0 to 
+-20 deg C temperature. Within that temperature range however, it is set equal to 
+the relative humidity (as a fraction from 0 to 1) if the cloud fraction is greater 
+than 0.0 and to 0.0 if there is no cloud present. This field is 3D.
+</M001_S009_I327>
+
+<M001_S009_I328>
+Icing Index II(RHCldPres)>0.8
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 320 is 
+greater than 0.8 and zero otherwise. Item 320 is defined as zero outside of 0 to 
+-20 deg C temperature. Within that temperature range however, it is set equal to 
+the relative humidity (as a fraction from 0 to 1) if the cloud fraction is greater 
+than 0.0 and to 0.0 if there is no cloud present. This field is 3D.
+</M001_S009_I328>
+
+<M001_S009_I329>
+Icing Index II(RHCldPres)>0.9
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 320 is 
+greater than 0.9 and zero otherwise. Item 320 is defined as zero outside of 0 to 
+-20 deg C temperature. Within that temperature range however, it is set equal to 
+the relative humidity (as a fraction from 0 to 1) if the cloud fraction is greater 
+than 0.0 and to 0.0 if there is no cloud present. This field is 3D.
+</M001_S009_I329>
+
+<M001_S009_I330>
+Icing Index II(CF)
+
+In-flight icing potential for aviation. Index is zero outside of 0 to -20 deg C 
+temperature. Within that temperature range however, it is set equal to the bulk 
+cloud fraction. This field is 3D.
+</M001_S009_I330>
+
+<M001_S009_I331>
+Icing Index II(CF)>0.1
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 330 
+is greater than 0.1 and zero otherwise. Item 330 is defined as zero outside of 0 to 
+-20 deg C temperature. Within that temperature range however, it is set equal to the 
+bulk cloud fraction. This field is 3D.
+</M001_S009_I331>
+
+<M001_S009_I332>
+Icing Index II(CF)>0.2
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 330 
+is greater than 0.2 and zero otherwise. Item 330 is defined as zero outside of 
+0 to -20 deg C temperature. Within that temperature range however, it is set 
+equal to the bulk cloud fraction. This field is 3D.
+</M001_S009_I332>
+
+<M001_S009_I333>
+Icing Index II(CF)>0.3
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 330 
+is greater than 0.3 and zero otherwise. Item 330 is defined as zero outside of 
+0 to -20 deg C temperature. Within that temperature range however, it is set 
+equal to the bulk cloud fraction. This field is 3D.
+</M001_S009_I333>
+
+<M001_S009_I334>
+Icing Index II(CF)>0.4
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 330 
+is greater than 0.4 and zero otherwise. Item 330 is defined as zero outside of 
+0 to -20 deg C temperature. Within that temperature range however, it is set 
+equal to the bulk cloud fraction. This field is 3D.
+</M001_S009_I334>
+
+<M001_S009_I335>
+Icing Index II(CF)>0.5
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 330 
+is greater than 0.5 and zero otherwise. Item 330 is defined as zero outside of 
+0 to -20 deg C temperature. Within that temperature range however, it is set 
+equal to the bulk cloud fraction. This field is 3D.
+</M001_S009_I335>
+
+<M001_S009_I336>
+Icing Index II(CF)>0.6
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 330 
+is greater than 0.6 and zero otherwise. Item 330 is defined as zero outside of 
+0 to -20 deg C temperature. Within that temperature range however, it is set 
+equal to the bulk cloud fraction. This field is 3D.
+</M001_S009_I336>
+
+<M001_S009_I337>
+Icing Index II(CF)>0.7
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 
+330 is greater than 0.7 and zero otherwise. Item 330 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the bulk cloud fraction. This field is 3D.
+</M001_S009_I337>
+
+<M001_S009_I338>
+Icing Index II(CF)>0.8
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 
+330 is greater than 0.8 and zero otherwise. Item 330 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the bulk cloud fraction. This field is 3D.
+</M001_S009_I338>
+
+<M001_S009_I339>
+Icing Index II(CF)>0.9
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 
+330 is greater than 0.9 and zero otherwise. Item 330 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the bulk cloud fraction. This field is 3D.
+</M001_S009_I339>
+
+<M001_S009_I340>
+Icing Index II(LCF)
+
+In-flight icing potential for aviation. Index is zero outside of 0 to 
+-20 deg C temperature. Within that temperature range however, it is set 
+equal to the liquid cloud fraction. This field is 3D.
+</M001_S009_I340>
+
+<M001_S009_I341>
+Icing Index II(LCF)>0.1
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 340 is greater than 0.1 and zero otherwise. Item 340 is defined 
+as zero outside of 0 to -20 deg C temperature. Within that temperature 
+range however, it is set equal to the liquid cloud fraction. 
+This field is 3D.
+</M001_S009_I341>
+
+<M001_S009_I342>
+Icing Index II(LCF)>0.2
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 340 is greater than 0.2 and zero otherwise. Item 340 is defined 
+as zero outside of 0 to -20 deg C temperature. Within that temperature 
+range however, it is set equal to the liquid cloud fraction. 
+This field is 3D.
+</M001_S009_I342>
+
+<M001_S009_I343>
+Icing Index II(LCF)>0.3
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 340 is greater than 0.3 and zero otherwise. Item 340 is defined 
+as zero outside of 0 to -20 deg C temperature. Within that temperature 
+range however, it is set equal to the liquid cloud fraction. 
+This field is 3D.
+</M001_S009_I343>
+
+<M001_S009_I344>
+Icing Index II(LCF)>0.4
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 340 is greater than 0.4 and zero otherwise. Item 340 is defined 
+as zero outside of 0 to -20 deg C temperature. Within that temperature 
+range however, it is set equal to the liquid cloud fraction. 
+This field is 3D.
+</M001_S009_I344>
+
+<M001_S009_I345>
+Icing Index II(LCF)>0.5
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 340 is greater than 0.5 and zero otherwise. Item 340 is defined 
+as zero outside of 0 to -20 deg C temperature. Within that temperature 
+range however, it is set equal to the liquid cloud fraction. 
+This field is 3D.
+</M001_S009_I345>
+
+<M001_S009_I346>
+Icing Index II(LCF)>0.6
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 340 is greater than 0.6 and zero otherwise. Item 340 is defined 
+as zero outside of 0 to -20 deg C temperature. Within that temperature 
+range however, it is set equal to the liquid cloud fraction. 
+This field is 3D.
+</M001_S009_I346>
+
+<M001_S009_I347>
+Icing Index II(LCF)>0.7
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 340 is greater than 0.7 and zero otherwise. Item 340 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the liquid cloud fraction. This field is 3D.
+</M001_S009_I347>
+
+<M001_S009_I348>
+Icing Index II(LCF)>0.8
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 340 is greater than 0.8 and zero otherwise. Item 340 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the liquid cloud fraction. This field is 3D.
+</M001_S009_I348>
+
+<M001_S009_I349>
+Icing Index II(LCF)>0.9
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 340 is greater than 0.9 and zero otherwise. Item 340 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the liquid cloud fraction. This field is 3D.
+</M001_S009_I349>
+
+<M001_S009_I350>
+Icing Index II(LWC)
+
+In-flight icing potential for aviation. Index is zero outside of 0 to 
+-20 deg C temperature. Within that temperature range however, it is set 
+equal to the grid-box mean liquid water content (normalised by dividing 
+it by 2.0e-4 kg/kg). This field is 3D.
+</M001_S009_I350>
+
+<M001_S009_I351>
+Icing Index II(LWC)>0.1
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 350 is greater than 0.1 and zero otherwise. Item 350 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the grid-box mean liquid water content 
+(normalised by dividing it by 2.0e-4 kg/kg). This field is 3D.
+</M001_S009_I351>
+
+<M001_S009_I352>
+Icing Index II(LWC)>0.2
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 350 is greater than 0.2 and zero otherwise. Item 350 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the grid-box mean liquid water content 
+(normalised by dividing it by 2.0e-4 kg/kg). This field is 3D.
+</M001_S009_I352>
+
+<M001_S009_I353>
+Icing Index II(LWC)>0.3
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 350 is greater than 0.3 and zero otherwise. Item 350 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the grid-box mean liquid water content 
+(normalised by dividing it by 2.0e-4 kg/kg). This field is 3D.
+</M001_S009_I353>
+
+<M001_S009_I354>
+Icing Index II(LWC)>0.4
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 350 is greater than 0.4 and zero otherwise. Item 350 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the grid-box mean liquid water content 
+(normalised by dividing it by 2.0e-4 kg/kg). This field is 3D.
+</M001_S009_I354>
+
+<M001_S009_I355>
+Icing Index II(LWC)>0.5
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 350 is greater than 0.5 and zero otherwise. Item 350 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the grid-box mean liquid water content 
+(normalised by dividing it by 2.0e-4 kg/kg). This field is 3D.
+</M001_S009_I355>
+
+<M001_S009_I356>
+Icing Index II(LWC)>0.6
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 350 is greater than 0.6 and zero otherwise. Item 350 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the grid-box mean liquid water content 
+(normalised by dividing it by 2.0e-4 kg/kg). This field is 3D.
+</M001_S009_I356>
+
+<M001_S009_I357>
+Icing Index II(LWC)>0.7
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 350 is greater than 0.7 and zero otherwise. Item 350 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range
+however, it is set equal to the grid-box mean liquid water content 
+(normalised by dividing it by 2.0e-4 kg/kg). This field is 3D.
+</M001_S009_I357>
+
+<M001_S009_I358>
+Icing Index II(LWC)>0.8
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 350 is greater than 0.8 and zero otherwise. Item 350 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the grid-box mean liquid water content 
+(normalised by dividing it by 2.0e-4 kg/kg). This field is 3D.
+</M001_S009_I358>
+
+<M001_S009_I359>
+Icing Index II(LWC)>0.9
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 350 is greater than 0.9 and zero otherwise. Item 350 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the grid-box mean liquid water content 
+(normalised by dividing it by 2.0e-4 kg/kg). This field is 3D.
+</M001_S009_I359>
+
+<M001_S009_I360>
+Icing Index II(icLWC)
+
+In-flight icing potential for aviation. Index is zero outside of 0 to 
+-20 deg C temperature. Within that temperature range however, it is set 
+equal to the in-cloud liquid water content (i.e. the grid-box mean 
+liquid water content divided by the liquid cloud fraction). It is then 
+normalised by dividing it by 2.0e-4 kg/kg. This field is 3D.
+</M001_S009_I360>
+
+<M001_S009_I361>
+Icing Index II(icLWC)>0.1
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 360 is greater than 0.1 and zero otherwise. Item 360 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature 
+range however, it is set equal to the in-cloud liquid water content 
+(i.e. the grid-box mean liquid water content divided by the liquid cloud 
+fraction). It is then normalised by dividing it by 2.0e-4 kg/kg. 
+This field is 3D.
+</M001_S009_I361>
+
+<M001_S009_I362>
+Icing Index II(icLWC)>0.2
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 360 is greater than 0.2 and zero otherwise. Item 360 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the in-cloud liquid water content (i.e. 
+the grid-box mean liquid water content divided by the liquid cloud fraction). 
+It is then normalised by dividing it by 2.0e-4 kg/kg. This field is 3D.
+</M001_S009_I362>
+
+<M001_S009_I363>
+Icing Index II(icLWC)>0.3
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 360 is greater than 0.3 and zero otherwise. Item 360 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the in-cloud liquid water content (i.e. the 
+grid-box mean liquid water content divided by the liquid cloud fraction). 
+It is then normalised by dividing it by 2.0e-4 kg/kg. This field is 3D.
+</M001_S009_I363>
+
+<M001_S009_I364>
+Icing Index II(icLWC)>0.4
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 360 is greater than 0.4 and zero otherwise. Item 360 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the in-cloud liquid water content (i.e. 
+the grid-box mean liquid water content divided by the liquid cloud fraction). 
+It is then normalised by dividing it by 2.0e-4 kg/kg. This field is 3D.
+</M001_S009_I364>
+
+<M001_S009_I365>
+Icing Index II(icLWC)>0.5
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 360 is greater than 0.5 and zero otherwise. Item 360 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the in-cloud liquid water content (i.e. the 
+grid-box mean liquid water content divided by the liquid cloud fraction). 
+It is then normalised by dividing it by 2.0e-4 kg/kg. This field is 3D.
+</M001_S009_I365>
+
+<M001_S009_I366>
+Icing Index II(icLWC)>0.6
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 360 is greater than 0.6 and zero otherwise. Item 360 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the in-cloud liquid water content (i.e. the 
+grid-box mean liquid water content divided by the liquid cloud fraction). 
+It is then normalised by dividing it by 2.0e-4 kg/kg. This field is 3D.
+</M001_S009_I366>
+
+<M001_S009_I367>
+Icing Index II(icLWC)>0.7
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 360 is greater than 0.7 and zero otherwise. Item 360 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the in-cloud liquid water content (i.e. 
+the grid-box mean liquid water content divided by the liquid cloud fraction). 
+It is then normalised by dividing it by 2.0e-4 kg/kg. This field is 3D.
+</M001_S009_I367>
+
+<M001_S009_I368>
+Icing Index II(icLWC)>0.8
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 360 is greater than 0.8 and zero otherwise. Item 360 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the in-cloud liquid water content (i.e. the 
+grid-box mean liquid water content divided by the liquid cloud fraction). 
+It is then normalised by dividing it by 2.0e-4 kg/kg. This field is 3D.
+</M001_S009_I368>
+
+<M001_S009_I369>
+Icing Index II(icLWC)>0.9
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 
+360 is greater than 0.9 and zero otherwise. Item 360 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the in-cloud liquid water content (i.e. the grid-box mean 
+liquid water content divided by the liquid cloud fraction). It is then 
+normalised by dividing it by 2.0e-4 kg/kg. This field is 3D.
+</M001_S009_I369>
+
+<M001_S009_I370>
+Icing Index II(FROST-LN)
+
+In-flight icing potential for aviation. Index is zero outside of 0 to 
+-20 deg C temperature. Within that temperature range however, it is set 
+equal to the FRaction Of Sky above a condensate Threshold (FROST). 
+The in-cloud liquid water content (LWC) is calculated by dividing the 
+grid-box mean liquid water content by the liquid cloud fraction. 
+The local variations in LWC are then assumed to be described by a log-normal 
+(LN) distribution whose mean is the mean in-cloud LWC and whose fractional 
+standard deviation is calculated from the grid-box size and the cloud 
+fraction (Boutle et al 2013). A value of 1.0e-4 kg/kg is deemed to be a 
+significant super-cooled liquid water content. Using the information 
+about the LWC PDF, the icing index then calculates what fraction of the 
+cloud has a LWC above the threshold and hence what fraction of the grid-box
+ contains super-cooled LWC above the threshold. Full details are given 
+in Morcrette et al (2013). This field is 3D.
+</M001_S009_I370>
+
+<M001_S009_I371>
+Icing Index II(FROST-LN)>0.1
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 370 is greater than 0.1 and zero otherwise. Item 370 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the FRaction Of Sky above a condensate Threshold 
+(FROST). The in-cloud liquid water content (LWC) is calculated by dividing 
+the grid-box mean liquid water content by the liquid cloud fraction. 
+The local variations in LWC are then assumed to be described by a 
+log-normal (LN) distribution whose mean is the mean in-cloud LWC and whose 
+fractional standard deviation is calculated from the grid-box size and the 
+cloud fraction (Boutle et al 2013). A value of 1.0e-4 kg/kg is deemed to be 
+a significant super-cooled liquid water content. Using the information about 
+the LWC PDF, the icing index then calculates what fraction of the cloud has 
+a LWC above the threshold and hence what fraction of the grid-box contains 
+super-cooled LWC above the threshold. Full details are given in Morcrette 
+et al (2013). This field is 3D.
+</M001_S009_I371>
+
+<M001_S009_I372>
+Icing Index II(FROST-LN)>0.2
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 370 is greater than 0.2 and zero otherwise. Item 370 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the FRaction Of Sky above a condensate T
+hreshold (FROST). The in-cloud liquid water content (LWC) is calculated by 
+dividing the grid-box mean liquid water content by the liquid cloud fraction. 
+The local variations in LWC are then assumed to be described by a log-normal 
+(LN) distribution whose mean is the mean in-cloud LWC and whose fractional 
+standard deviation is calculated from the grid-box size and the cloud 
+fraction (Boutle et al 2013). A value of 1.0e-4 kg/kg is deemed to be a 
+significant super-cooled liquid water content. Using the information about 
+the LWC PDF, the icing index then calculates what fraction of the cloud has 
+a LWC above the threshold and hence what fraction of the grid-box contains 
+super-cooled LWC above the threshold. Full details are given in Morcrette 
+et al (2013). This field is 3D.
+</M001_S009_I372>
+
+<M001_S009_I373>
+Icing Index II(FROST-LN)>0.3
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 370 is greater than 0.3 and zero otherwise. Item 370 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the FRaction Of Sky above a condensate 
+Threshold (FROST). The in-cloud liquid water content (LWC) is calculated 
+by dividing the grid-box mean liquid water content by the liquid cloud fraction. 
+The local variations in LWC are then assumed to be described by a log-normal 
+(LN) distribution whose mean is the mean in-cloud LWC and whose fractional 
+standard deviation is calculated from the grid-box size and the cloud 
+fraction (Boutle et al 2013). A value of 1.0e-4 kg/kg is deemed to be a 
+significant super-cooled liquid water content. Using the information 
+about the LWC PDF, the icing index then calculates what fraction of the 
+cloud has a LWC above the threshold and hence what fraction of the 
+grid-box contains super-cooled LWC above the threshold. Full details are 
+given in Morcrette et al (2013). This field is 3D.
+</M001_S009_I373>
+
+<M001_S009_I374>
+Icing Index II(FROST-LN)>0.4
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 370 is greater than 0.4 and zero otherwise. Item 370 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the FRaction Of Sky above a condensate Threshold (FROST). 
+The in-cloud liquid water content (LWC) is calculated by dividing the grid-box 
+mean liquid water content by the liquid cloud fraction. The local variations 
+in LWC are then assumed to be described by a log-normal (LN) distribution 
+whose mean is the mean in-cloud LWC and whose fractional standard deviation 
+is calculated from the grid-box size and the cloud fraction (Boutle et al 2013). 
+A value of 1.0e-4 kg/kg is deemed to be a significant super-cooled liquid water 
+content. Using the information about the LWC PDF, the icing index then calculates 
+what fraction of the cloud has a LWC above the threshold and hence what fraction 
+of the grid-box contains super-cooled LWC above the threshold. Full details are 
+given in Morcrette et al (2013). This field is 3D.
+</M001_S009_I374>
+
+<M001_S009_I375>
+Icing Index II(FROST-LN)>0.5
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 370 
+is greater than 0.5 and zero otherwise. Item 370 is defined as zero outside 
+of 0 to -20 deg C temperature. Within that temperature range however, it is set 
+equal to the FRaction Of Sky above a condensate Threshold (FROST). The in-cloud 
+liquid water content (LWC) is calculated by dividing the grid-box mean liquid 
+water content by the liquid cloud fraction. The local variations in LWC are 
+then assumed to be described by a log-normal (LN) distribution whose mean is 
+the mean in-cloud LWC and whose fractional standard deviation is calculated 
+from the grid-box size and the cloud fraction (Boutle et al 2013). A value of 
+1.0e-4 kg/kg is deemed to be a significant super-cooled liquid water content.
+ Using the information about the LWC PDF, the icing index then calculates what 
+fraction of the cloud has a LWC above the threshold and hence what fraction of 
+the grid-box contains super-cooled LWC above the threshold. Full details are 
+given in Morcrette et al (2013). This field is 3D.
+</M001_S009_I375>
+
+<M001_S009_I376>
+Icing Index II(FROST-LN)>0.6
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 370 
+is greater than 0.6 and zero otherwise. Item 370 is defined as zero outside of 
+0 to -20 deg C temperature. Within that temperature range however, it is set 
+equal to the FRaction Of Sky above a condensate Threshold (FROST). The in-cloud 
+liquid water content (LWC) is calculated by dividing the grid-box mean liquid 
+water content by the liquid cloud fraction. The local variations in LWC are then
+assumed to be described by a log-normal (LN) distribution whose mean is the mean 
+in-cloud LWC and whose fractional standard deviation is calculated from the 
+grid-box size and the cloud fraction (Boutle et al 2013). A value of 1.0e-4 kg/kg 
+is deemed to be a significant super-cooled liquid water content. Using the 
+information about the LWC PDF, the icing index then calculates what fraction 
+of the cloud has a LWC above the threshold and hence what fraction of the grid-box 
+contains super-cooled LWC above the threshold. Full details are given in Morcrette 
+et al (2013). This field is 3D.
+</M001_S009_I376>
+
+<M001_S009_I377>
+Icing Index II(FROST-LN)>0.7
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 370 
+is greater than 0.7 and zero otherwise. Item 370 is defined as zero outside of 0 
+to -20 deg C temperature. Within that temperature range however, it is set equal 
+to the FRaction Of Sky above a condensate Threshold (FROST). The in-cloud liquid 
+water content (LWC) is calculated by dividing the grid-box mean liquid water 
+content by the liquid cloud fraction. The local variations in LWC are then assumed 
+to be described by a log-normal (LN) distribution whose mean is the mean in-cloud 
+LWC and whose fractional standard deviation is calculated from the grid-box size 
+and the cloud fraction (Boutle et al 2013). A value of 1.0e-4 kg/kg is deemed to 
+be a significant super-cooled liquid water content. Using the information about 
+the LWC PDF, the icing index then calculates what fraction of the cloud has a LWC 
+above the threshold and hence what fraction of the grid-box contains super-cooled 
+LWC above the threshold. Full details are given in Morcrette et al (2013). 
+This field is 3D.
+</M001_S009_I377>
+
+<M001_S009_I378>
+Icing Index II(FROST-LN)>0.8
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if item 370 
+is greater than 0.8 and zero otherwise. Item 370 is defined as zero outside of 
+0 to -20 deg C temperature. Within that temperature range however, it is set equal 
+to the FRaction Of Sky above a condensate Threshold (FROST). The in-cloud liquid 
+water content (LWC) is calculated by dividing the grid-box mean liquid water 
+content by the liquid cloud fraction. The local variations in LWC are then 
+assumed to be described by a log-normal (LN) distribution whose mean is the 
+mean in-cloud LWC and whose fractional standard deviation is calculated from 
+the grid-box size and the cloud fraction (Boutle et al 2013). A value of 
+1.0e-4 kg/kg is deemed to be a significant super-cooled liquid water content. 
+Using the information about the LWC PDF, the icing index then calculates what 
+fraction of the cloud has a LWC above the threshold and hence what fraction of 
+the grid-box contains super-cooled LWC above the threshold. Full details are 
+given in Morcrette et al (2013). This field is 3D.
+</M001_S009_I378>
+
+<M001_S009_I379>
+Icing Index II(FROST-LN)>0.9
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 370 is greater than 0.9 and zero otherwise. Item 370 is defined as 
+zero outside of 0 to -20 deg C temperature. Within that temperature range 
+however, it is set equal to the FRaction Of Sky above a condensate 
+Threshold (FROST). The in-cloud liquid water content (LWC) is calculated by 
+dividing the grid-box mean liquid water content by the liquid cloud fraction. 
+The local variations in LWC are then assumed to be described by a log-normal 
+(LN) distribution whose mean is the mean in-cloud LWC and whose fractional 
+standard deviation is calculated from the grid-box size and the cloud 
+fraction (Boutle et al 2013). A value of 1.0e-4 kg/kg is deemed to be a 
+significant super-cooled liquid water content. Using the information about 
+the LWC PDF, the icing index then calculates what fraction of the cloud 
+has a LWC above the threshold and hence what fraction of the grid-box 
+contains super-cooled LWC above the threshold. Full details are given 
+in Morcrette et al (2013). This field is 3D.
+</M001_S009_I379>
+
+<M001_S009_I380>
+Icing Index II(FROST-Gamma)
+
+In-flight icing potential for aviation. Index is zero outside of 0 
+to -20 deg C temperature. Within that temperature range however, it is set 
+equal to the FRaction Of Sky above a condensate Threshold (FROST). 
+The in-cloud liquid water content (LWC) is calculated by dividing the 
+grid-box mean liquid water content by the liquid cloud fraction. The local 
+variations in LWC are then assumed to be described by a gamma distribution 
+whose mean is the mean in-cloud LWC and whose fractional standard deviation 
+is calculated from the grid-box size and the cloud fraction (Boutle et al 2013). 
+A value of 1.0e-4 kg/kg is deemed to be a significant super-cooled liquid water 
+content. Using the information about the LWC PDF, the icing index then 
+calculates what fraction of the cloud has a LWC above the threshold and hence 
+what fraction of the grid-box contains super-cooled LWC above the threshold.
+ Full details are given in Morcrette et al (2013). This field is 3D.
+</M001_S009_I380>
+
+<M001_S009_I381>
+Icing Index II(FROSTGamma)>0.1
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 380 is greater than 0.1 and zero otherwise. Item 380 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the FRaction Of Sky above a condensate Threshold (FROST). 
+The in-cloud liquid water content (LWC) is calculated by dividing the grid-box 
+mean liquid water content by the liquid cloud fraction. The local variations 
+in LWC are then assumed to be described by a gamma distribution whose mean is 
+the mean in-cloud LWC and whose fractional standard deviation is calculated 
+from the grid-box size and the cloud fraction (Boutle et al 2013). A value of 
+1.0e-4 kg/kg is deemed to be a significant super-cooled liquid water content. 
+Using the information about the LWC PDF, the icing index then calculates what 
+fraction of the cloud has a LWC above the threshold and hence what fraction of 
+the grid-box contains super-cooled LWC above the threshold. Full details are 
+given in Morcrette et al (2013). This field is 3D.
+</M001_S009_I381>
+
+<M001_S009_I382>
+Icing Index II(FROSTGamma)>0.2
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 380 is greater than 0.2 and zero otherwise. Item 380 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the FRaction Of Sky above a condensate Threshold (FROST). 
+The in-cloud liquid water content (LWC) is calculated by dividing the grid-box 
+mean liquid water content by the liquid cloud fraction. The local variations 
+in LWC are then assumed to be described by a gamma distribution whose mean is 
+the mean in-cloud LWC and whose fractional standard deviation is calculated 
+from the grid-box size and the cloud fraction (Boutle et al 2013). A value of 
+1.0e-4 kg/kg is deemed to be a significant super-cooled liquid water content. 
+Using the information about the LWC PDF, the icing index then calculates what 
+fraction of the cloud has a LWC above the threshold and hence what fraction 
+of the grid-box contains super-cooled LWC above the threshold. Full details 
+are given in Morcrette et al (2013). This field is 3D.
+</M001_S009_I382>
+
+<M001_S009_I383>
+Icing Index II(FROSTGamma)>0.3
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 380 is greater than 0.3 and zero otherwise. Item 380 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the FRaction Of Sky above a condensate Threshold (FROST). 
+The in-cloud liquid water content (LWC) is calculated by dividing the grid-box 
+mean liquid water content by the liquid cloud fraction. The local variations 
+in LWC are then assumed to be described by a gamma distribution whose mean is 
+the mean in-cloud LWC and whose fractional standard deviation is calculated 
+from the grid-box size and the cloud fraction (Boutle et al 2013). A value 
+of 1.0e-4 kg/kg is deemed to be a significant super-cooled liquid water content.
+Using the information about the LWC PDF, the icing index then calculates what 
+fraction of the cloud has a LWC above the threshold and hence what fraction of 
+the grid-box contains super-cooled LWC above the threshold. Full details are 
+given in Morcrette et al (2013). This field is 3D.
+</M001_S009_I383>
+
+<M001_S009_I384>
+Icing Index II(FROSTGamma)>0.4
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 380 is greater than 0.4 and zero otherwise. Item 380 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the FRaction Of Sky above a condensate Threshold (FROST). 
+The in-cloud liquid water content (LWC) is calculated by dividing the grid-box 
+mean liquid water content by the liquid cloud fraction. The local variations in
+LWC are then assumed to be described by a gamma distribution whose mean is the 
+mean in-cloud LWC and whose fractional standard deviation is calculated from 
+the grid-box size and the cloud fraction (Boutle et al 2013). A value of 
+1.0e-4 kg/kg is deemed to be a significant super-cooled liquid water content. 
+Using the information about the LWC PDF, the icing index then calculates what 
+fraction of the cloud has a LWC above the threshold and hence what fraction of 
+the grid-box contains super-cooled LWC above the threshold. Full details are 
+given in Morcrette et al (2013). This field is 3D.
+</M001_S009_I384>
+
+<M001_S009_I385>
+Icing Index II(FROSTGamma)>0.5
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 380 is greater than 0.5 and zero otherwise. Item 380 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the FRaction Of Sky above a condensate Threshold (FROST). 
+The in-cloud liquid water content (LWC) is calculated by dividing the grid-box 
+mean liquid water content by the liquid cloud fraction. The local variations 
+in LWC are then assumed to be described by a gamma distribution whose mean 
+is the mean in-cloud LWC and whose fractional standard deviation is calculated 
+from the grid-box size and the cloud fraction (Boutle et al 2013). A value of 
+1.0e-4 kg/kg is deemed to be a significant super-cooled liquid water content. 
+Using the information about the LWC PDF, the icing index then calculates what 
+fraction of the cloud has a LWC above the threshold and hence what fraction 
+of the grid-box contains super-cooled LWC above the threshold. Full details 
+are given in Morcrette et al (2013). This field is 3D.
+</M001_S009_I385>
+
+<M001_S009_I386>
+Icing Index II(FROSTGamma)>0.6
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 380 is greater than 0.6 and zero otherwise. Item 380 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the FRaction Of Sky above a condensate Threshold (FROST). 
+The in-cloud liquid water content (LWC) is calculated by dividing the grid-box 
+mean liquid water content by the liquid cloud fraction. The local variations 
+in LWC are then assumed to be described by a gamma distribution whose mean is 
+the mean in-cloud LWC and whose fractional standard deviation is calculated 
+from the grid-box size and the cloud fraction (Boutle et al 2013). A value of 
+1.0e-4 kg/kg is deemed to be a significant super-cooled liquid water content. 
+Using the information about the LWC PDF, the icing index then calculates what 
+fraction of the cloud has a LWC above the threshold and hence what fraction of 
+the grid-box contains super-cooled LWC above the threshold. Full details are 
+given in Morcrette et al (2013). This field is 3D.
+</M001_S009_I386>
+
+<M001_S009_I387>
+Icing Index II(FROSTGamma)>0.7
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 380 is greater than 0.7 and zero otherwise. Item 380 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the FRaction Of Sky above a condensate Threshold (FROST).
+The in-cloud liquid water content (LWC) is calculated by dividing the grid-box 
+mean liquid water content by the liquid cloud fraction. The local variations 
+in LWC are then assumed to be described by a gamma distribution whose mean is 
+the mean in-cloud LWC and whose fractional standard deviation is calculated 
+from the grid-box size and the cloud fraction (Boutle et al 2013). A value of 
+1.0e-4 kg/kg is deemed to be a significant super-cooled liquid water content. 
+Using the information about the LWC PDF, the icing index then calculates what 
+fraction of the cloud has a LWC above the threshold and hence what fraction of 
+the grid-box contains super-cooled LWC above the threshold. Full details are 
+given in Morcrette et al (2013). This field is 3D.
+</M001_S009_I387>
+
+<M001_S009_I388>
+Icing Index II(FROSTGamma)>0.8
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 380 is greater than 0.8 and zero otherwise. Item 380 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the FRaction Of Sky above a condensate Threshold (FROST). 
+The in-cloud liquid water content (LWC) is calculated by dividing the grid-box
+ mean liquid water content by the liquid cloud fraction. The local variations 
+in LWC are then assumed to be described by a gamma distribution whose mean is 
+the mean in-cloud LWC and whose fractional standard deviation is calculated 
+from the grid-box size and the cloud fraction (Boutle et al 2013). A value of 
+1.0e-4 kg/kg is deemed to be a significant super-cooled liquid water content. 
+Using the information about the LWC PDF, the icing index then calculates what 
+fraction of the cloud has a LWC above the threshold and hence what fraction of 
+the grid-box contains super-cooled LWC above the threshold. Full details are 
+given in Morcrette et al (2013). This field is 3D.
+</M001_S009_I388>
+
+<M001_S009_I389>
+Icing Index II(FROSTGamma)>0.9
+
+Flag relating to in-flight icing potential for aviation. Index is 1 if 
+item 380 is greater than 0.9 and zero otherwise. Item 380 is defined as zero 
+outside of 0 to -20 deg C temperature. Within that temperature range however, 
+it is set equal to the FRaction Of Sky above a condensate Threshold (FROST). 
+The in-cloud liquid water content (LWC) is calculated by dividing the grid-box
+mean liquid water content by the liquid cloud fraction. The local variations 
+in LWC are then assumed to be described by a gamma distribution whose mean is 
+the mean in-cloud LWC and whose fractional standard deviation is calculated 
+from the grid-box size and the cloud fraction (Boutle et al 2013). A value of 
+1.0e-4 kg/kg is deemed to be a significant super-cooled liquid water content. 
+Using the information about the LWC PDF, the icing index then calculates what 
+fraction of the cloud has a LWC above the threshold and hence what fraction of 
+the grid-box contains super-cooled LWC above the threshold. Full details are 
+given in Morcrette et al (2013). This field is 3D.
+</M001_S009_I389>
+
+<M001_S009_I391>
+Icing Index 2d MaxRan II(RH)
+
+In-flight icing potential for aviation calculated from the 3D II(RH) index 
+(stash 9 310) and then collapsed into a 2D field by using the maximum/random 
+overlap algorithm in the vertical. This field is 2D.
+</M001_S009_I391>
+
+<M001_S009_I392>
+Icing Index 2d MaxRan II(RHCldPres)
+
+In-flight icing potential for aviation calculated from the 3D II(RHCldPres) 
+index (stash 9 320) and then collapsed into a 2D field by using the maximum/random 
+overlap algorithm in the vertical. This field is 2D.
+</M001_S009_I392>
+
+<M001_S009_I393>
+Icing Index 2d MaxRan II(CF)
+
+In-flight icing potential for aviation calculated from the 3D II(CF) index 
+(stash 9 330) and then collapsed into a 2D field by using the maximum/random 
+overlap algorithm in the vertical. This field is 2D.
+</M001_S009_I393>
+
+<M001_S009_I394>
+Icing Index 2d MaxRan II(LCF)
+
+In-flight icing potential for aviation calculated from the 3D II(LCF) index 
+(stash 9 340) and then collapsed into a 2D field by using the maximum/random 
+overlap algorithm in the vertical. This field is 2D.
+</M001_S009_I394>
+
+<M001_S009_I395>
+Icing Index 2d MaxRan II(LWC)
+
+In-flight icing potential for aviation calculated from the 3D II(LWC) index 
+(stash 9 350) and then collapsed into a 2D field by using the maximum/random 
+overlap algorithm in the vertical. This field is 2D.
+</M001_S009_I395>
+
+<M001_S009_I396>
+Icing Index 2d MaxRan II(icLWC)
+
+In-flight icing potential for aviation calculated from the 3D II(icLWC) index 
+(stash 9 360) and then collapsed into a 2D field by using the maximum/random
+overlap algorithm in the vertical. This field is 2D.
+</M001_S009_I396>
+
+<M001_S009_I397>
+Icing Index 2d MaxRan II(FROST-LN)
+
+In-flight icing potential for aviation calculated from the 3D II(FORST-LN) 
+index (stash 9 370) and then collapsed into a 2D field by using the maximum/random 
+overlap algorithm in the vertical. This field is 2D.
+</M001_S009_I397>
+
+<M001_S009_I398>
+Icing Index 2d MaxRan II(FROST-Gamma)
+
+In-flight icing potential for aviation calculated from the 3D II(FORST-Gamma) 
+index (stash 9 380) and then collapsed into a 2D field by using the maximum/random 
+overlap algorithm in the vertical. This field is 2D.
+</M001_S009_I398>
+#

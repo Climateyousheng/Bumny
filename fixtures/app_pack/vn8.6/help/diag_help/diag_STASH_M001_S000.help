@@ -1,0 +1,1866 @@
+<M001_S000_I002>
+New text to be added WR 21/10/02
+</M001_S000_I002>
+#
+<M001_S000_I007>
+Item: (1:0:7) UNFILTERED OROGRAPHY 
+
+Unfiltered orographic heights (in metres) used for calculating 
+the horizon angles and skyview factor for the radiation scheme. 
+</M001_S000_I007>
+#
+<M001_S000_I008>
+Item: (1:0:8)
+
+The soil bulk density is available in some configurations of the MetUM's 
+soil properties ancillary files, but is not currently intended for use 
+directly in the model. For this reason, it is not possible to either read 
+this into the model dump or output it via STASH. 
+</M001_S000_I008>
+#
+<M001_S000_I012>
+STASH item specific help for 
+(1, 0, 12) ICE CONTENT AFTER TIMESTEP.
+
+This is the gridbox mean specific ice content (cloud condensate), in kg
+of ice per kg of air, at the end of the timestep.
+
+%I gen_prognostic
+</M001_S000_I012>
+#
+<M001_S000_I017>
+Item(1, 0, 017) Silhouette Orographic Roughness
+
+This prognostic is used if either the "effective roughness" or 
+"distributed form drag" options are chosen in the UMUI window
+for the boundary layer scheme. 
+
+This prognostic is NOT available here.
+
+However, it IS AVAILABLE in section 3 as item 251. 
+
+
+</M001_S000_I017>
+#
+<M001_S000_I018>
+Item(1, 0, 018) Half of (peak to trough ht of orog)
+
+This prognostic is used if either the "effective roughness" or 
+"distributed form drag" options are chosen in the UMUI window
+for the boundary layer scheme. 
+
+This prognostic is NOT available here.
+
+However, it IS AVAILABLE in section 3 as item 252. 
+
+
+</M001_S000_I018>
+#
+<M001_S000_I021>
+Item: (1:0:21)
+
+Text: Lowest convective cloud base level (theta) of cloud profiles
+passed to Radiation Scheme.
+</M001_S000_I021>
+#
+<M001_S000_I024>
+STASH item specific help for
+(0, 0, 24) SURFACE TEMPERATURE AFTER TIMESTEP
+
+Temperature of the land or sea/sea-ice surface after timestep.  On land
+points this is either the temperature of the top soil layer (versions of
+Boundary Layer & Hydrology BEFORE 5A) or the surface "skin" temperature
+(BL and Hydrol 5A and beyond).  On ice-free sea points it is the
+temperature of the sea surface (top ocean layer in coupled models), and
+on sea points with ice it is a gridbox mean given by:
+
+[(ice fraction)*(temperature of top ice layer computed by the atmosphere
+surface/boundary layer scheme)] +
+[(1 - ice fraction)*(freezing point of sea water)]
+
+%I gen_prognostic
+</M001_S000_I024>
+#
+<M001_S000_I030>
+STASH item specific help for 
+(1, 0, 030) LAND MASK (LOGICAL: LAND=TRUE)
+
+This item is the land mask. It is true if any land is in the gridbox.
+
+%I gen_prognostic
+</M001_S000_I030>
+#
+<M001_S000_I034>
+Item(1, 0, 034) STANDARD DEVIATION OF OROGRAPHY
+
+This prognostic is used if the flow blocking and gravity wave
+drag scheme is invoked. 
+
+It contains the standard deviation of the real high resolution 
+orography dataset about the model mean (resolved) orography. It 
+is used to determine the depth that the sub-grid orography affects
+the flow above the mean orography.
+
+This prognostic is NOT available here.
+
+However, it IS AVAILABLE in section 6 as item 203. 
+
+
+</M001_S000_I034>
+#
+<M001_S000_I035>
+Item(1, 0, 035) OROGRAPHIC GRADIENT XX COMPONENT
+
+This prognostic is used if the flow blocking and gravity wave
+drag scheme is invoked. 
+
+It contains the grid-box mean of the square of the local gradient 
+in x of the real high resolution orography dataset. It is used together
+with the XY and YY components to determine the shape of the real (sub-grid)
+orography within a model grid-box.
+
+This prognostic is NOT available here.
+
+However, it IS AVAILABLE in section 6 as item 204. 
+
+
+</M001_S000_I035>
+#
+<M001_S000_I036>
+Item(1, 0, 036) OROGRAPHIC GRADIENT XY COMPONENT
+
+This prognostic is used if the flow blocking and gravity wave
+drag scheme is invoked. 
+
+It contains the grid-box mean of the local gradient 
+in x (dh/dx) multiplied by the local gradient in y (dh/dy) of the real 
+high resolution orography dataset. It is used together
+with the XX and YY components to determine the shape of the real (sub-grid)
+orography within a model grid-box.
+
+This prognostic is NOT available here.
+
+However, it IS AVAILABLE in section 6 as item 205. 
+
+
+</M001_S000_I036>
+#
+<M001_S000_I037>
+Item(1, 0, 037) OROGRAPHIC GRADIENT YY COMPONENT
+
+This prognostic is used if the flow blocking and gravity wave
+drag scheme is invoked. 
+
+It contains the grid-box mean of the square of the local gradient 
+in y of the real high resolution orography dataset. It is used together
+with the XX and XY components to determine the shape of the real (sub-grid)
+orography within a model grid-box.
+
+This prognostic is NOT available here.
+
+However, it IS AVAILABLE in section 6 as item 206. 
+
+
+</M001_S000_I037>
+#
+<M001_S000_I058>
+STASH item specific help for 
+(1, 0, 58) SULPHUR DIOXIDE EMISSIONS    
+
+Available only if Sulphur Cycle on and surface SO2 emissions included. 
+
+Single level field  must be included in emissions ancillary file
+(units kg/m2/s).
+
+%I gen_prognostic
+</M001_S000_I058>
+#
+<M001_S000_I059>
+STASH item specific help for 
+(1, 0, 59) DIMETHYL SULPHIDE EMISSIONS    
+
+Diagnoses the DMS emissions specified in the ancillary file.
+Available only if Sulphur Cycle on and surface DMS emissions included. 
+
+Single level field  must be included in emissions ancillary file
+(units kg/m2/s).
+
+%I gen_prognostic
+</M001_S000_I059>
+#
+<M001_S000_I070>
+STASH item specific help for 
+(1, 0, 70) TURBULENT KINETIC ENERGY
+
+Turbulent kinetic energy predicted in the TKE based closure schemes (the 1A BL).
+Unit: m**2 s**-2
+Note that (:,:,K) denotes a theta level K-1.
+
+%I gen_prognostic
+</M001_S000_I070>
+#
+<M001_S000_I071>
+STASH item specific help for 
+(1, 0, 71) SELF COVARIANCE OF THETAL'
+
+Self covariance of thetal' (<theta'**2>) predicted (in the MY3) or 
+diagnosed (in the other schemes) in the TKE based closure schemes (the 1A BL).
+Unit: K**2
+
+%I gen_prognostic
+</M001_S000_I071>
+#
+<M001_S000_I072>
+STASH item specific help for 
+(1, 0, 72) SELF COVARIANCE OF QW'
+
+Self covariance of qw' (<qw'**2>)  predicted (in the MY3) or 
+diagnosed (in the other schemes) in the TKE based closure schemes (the 1A BL).
+Unit: kg**2 kg**-2
+Note that (:,:,K) denotes a theta level K-1.
+
+%I gen_prognostic
+</M001_S000_I072>
+#
+<M001_S000_I073>
+STASH item specific help for 
+(1, 0, 73) CORRELATION OF THETAL' AND QW'
+
+Correlation between thetal' and qw' (<thetal'qw'>)  
+predicted (in the MY3) or  diagnosed (in the other schemes) 
+in the TKE based closure schemes (the 1A BL).
+Unit: K kg kg**-1 
+Note that (:,:,K) denotes a theta level K-1.
+
+%I gen_prognostic
+</M001_S000_I073>
+#
+<M001_S000_I074>
+STASH item specific help for 
+(1, 0, 74) HEIGHT OF MIXED LAYER FOR SHCU BUOY
+
+Height of mixed layer used to evaluate the non-gradient buoyancy flux.
+
+Unit: m
+
+%I gen_prognostic
+</M001_S000_I074>
+#
+<M001_S000_I091>
+This field is the 3D prognostic lightning potential. Values of this field should
+range between 0 and 1. When integrated over the column, it shows how close the 
+model is to producing a lightning flash. Once the column-integral of this 
+field exceeds 1, the model discharges the potential as a single lightning flash.
+</M001_S000_I091>
+#
+<M001_S000_I096>
+Near surface (ie. observable by satellite) chlorophyll content of the ocean (kg m-3).
+</M001_S000_I096>
+#
+<M001_S000_I101>
+STASH item specific help for 
+(1, 0, 101) SO2 MASS MIXING RATIO  AFTER TSTEP
+
+Available only if Sulphur Cycle on.
+
+%I gen_prognostic
+</M001_S000_I101>
+#
+<M001_S000_I102>
+STASH item specific help for 
+(1, 0, 102) DIMETHYL SULPHIDE MIX RAT AFTER TS
+
+Available only if Sulphur Cycle on and DMS included.
+
+%I gen_prognostic
+</M001_S000_I102>
+#
+<M001_S000_I103>
+STASH item specific help for 
+(1, 0, 103) SO4 AITKEN MODE AEROSOL AFTER TSTEP
+
+Available only if Sulphur Cycle on.
+
+Mass mixing ratio of small Aitken mode sulphate aerosol particles 
+produced by SO2 chemistry.
+
+%I gen_prognostic
+</M001_S000_I103>
+#
+<M001_S000_I104>
+STASH item specific help for 
+(1, 0, 104) SO4 ACCUM. MODE AEROSOL AFTER TSTEP
+
+Available only if Sulphur Cycle on.
+
+Mass mixing ratio of large accumulation mode sulphate aerosol particles 
+produced by SO2 chemistry.
+
+%I gen_prognostic
+</M001_S000_I104>
+#
+<M001_S000_I105>
+STASH item specific help for 
+(1, 0, 105) SO4 DISSOLVED AEROSOL AFTER TSTEP
+
+Available only if Sulphur Cycle on.
+
+Mass mixing ratio of sulphate aerosol dissolved in water droplets.
+Produced in sulphur chemistry routine.
+
+%I gen_prognostic
+</M001_S000_I105>
+#
+<M001_S000_I106>
+STASH item specific help for 
+(1, 0, 106) H2O2 MASS MIXING RATIO AFTER TSTEP
+
+Available only if Sulphur Cycle on.
+
+Mass mixing ratio of H2O2, required as an oxidant for SO2 chemistry.
+(Depleted and replenished in chemistry routine but not advected.)
+
+%I gen_prognostic
+</M001_S000_I106>
+#
+<M001_S000_I107>
+STASH item specific help for 
+(1, 0, 107) NH3 MASS MIXING RATIO  AFTER TSTEP
+
+Available only if Sulphur Cycle on and ozone oxidation with ammonia as buffer
+included.
+
+%I gen_prognostic
+</M001_S000_I107>
+#
+<M001_S000_I108>
+STASH item specific help for 
+(1, 0, 108) FRESH SOOT MASS MIXING RATIO AFTER TIMESTEP
+
+Available only if soot turned on in Chemistry (section 17).
+
+%I gen_prognostic
+</M001_S000_I108>
+#
+<M001_S000_I109>
+STASH item specific help for 
+(1, 0, 109) AGED SOOT MASS MIXING RATIO AFTER TIMESTEP
+
+Available only if soot turned on in Chemistry (section 17).
+
+%I gen_prognostic
+</M001_S000_I109>
+#
+<M001_S000_I110>
+STASH item specific help for 
+(1, 0, 110) SOOT IN CLOUD WATER MASS MIXING RATIO AFTER TIMESTEP
+
+Available only if soot turned on in Chemistry (section 17).
+
+%I gen_prognostic
+</M001_S000_I110>
+#
+<M001_S000_I111>
+Item (1:0:111)
+
+The mass mixing ratio of fresh biomass smoke on model tracer
+levels.
+</M001_S000_I111>
+#
+<M001_S000_I112>
+Item (1:0:112)
+
+The mass mixing ratio of aged biomass smoke on model tracer
+levels.
+</M001_S000_I112>
+#
+<M001_S000_I113>
+Item (1:0:113)
+
+The mass mixing ratio of biomass smoke in cloud on model tracer
+levels.
+</M001_S000_I113>
+#
+<M001_S000_I114>
+Item (1:0:114)
+
+The mass mixing ratio of fresh ocff on model tracer levels.
+</M001_S000_I114>
+#
+<M001_S000_I115>
+Item (1:0:115)
+
+The mass mixing ratio of aged ocff on model tracer levels.
+</M001_S000_I115>
+#
+<M001_S000_I116>
+Item (1:0:116)
+
+The mass mixing ratio of ocff in cloud on model tracer levels.
+</M001_S000_I116>
+#
+<M001_S000_I117>
+ACC MITR MASS MIX RAT AFTER TSTEP (1:0:117)  
+Available only if nitrate aerosol on.
+
+Mass mixing ratio of accumulation-mode ammonium nitrate aerosol 
+particles. Produced by nitrate scheme. Given in kg of nitrogen 
+per kg of dry air. Multiply by 5.714 to convert to kg of ammonium 
+nitrate (NH4NO3) per kg of dry air. 
+</M001_S000_I117>
+#
+<M001_S000_I118>
+DISS NITR MASS MIX RAT AFTER TSTEP (1:0:118) 
+
+Available only if nitrate aerosol on.
+
+Mass mixing ratio of ammonium nitrate aerosol dissolved in water 
+droplets. Produced by nitrate scheme. Given in kg of nitrogen 
+per kg of dry air. Multiply by 5.714 to convert to kg of ammonium 
+nitrate (NH4NO3) per kg of dry air. 
+</M001_S000_I118>
+#
+<M001_S000_I121>
+STASH item specific help for 
+(1, 0, 121) 3D NATURAL SO2 EMISSIONS KG/M2/S 
+
+Available only if Sulphur Cycle on and 3D natural emissions included 
+as an ancillary file.
+
+%I gen_prognostic
+</M001_S000_I121>
+#
+<M001_S000_I122>
+STASH item specific help for 
+(1, 0, 122) 3D OH CONCENTRATIONS IN MCULES/CC 
+
+Available only if Sulphur Cycle on AND option to use oxidants from 
+UKCA instead of ancilliary is off. 
+
+OH is one of the oxidants required for SO2 chemistry and must be 
+included in the oxidant ancillary file.
+
+%I gen_prognostic
+</M001_S000_I122>
+#
+<M001_S000_I123>
+STASH item specific help for 
+(1, 0, 123) 3D HO2 CONCENTRATIONS IN MCULES/CC  
+
+Available only if Sulphur Cycle on AND option to use oxidants from 
+UKCA instead of ancilliary is off. 
+
+HO2 is required for replenishment of H2O2 for SO2 chemistry and must be 
+included in the oxidant ancillary file.
+
+%I gen_prognostic
+</M001_S000_I123>
+#
+<M001_S000_I124>
+STASH item specific help for 
+(1, 0, 124) 3D H2O2 MIX RATIO LIMIT FIELD  
+
+Available only if Sulphur Cycle on AND option to use oxidants from 
+UKCA instead of ancilliary is off. 
+
+This is a max limit field for H2O2 required by SO2 chemistry and must be 
+included in the oxidant ancillary file.
+
+%I gen_prognostic
+</M001_S000_I124>
+#
+<M001_S000_I125>
+STASH item specific help for 
+(1, 0, 125) 3D OZONE MIX RAT FOR SULPHUR CYCLE   
+
+Available only if Sulphur Cycle on  AND option to use oxidants from 
+UKCA instead of ancilliary is off. 
+
+%I gen_prognostic
+</M001_S000_I125>
+#
+<M001_S000_I126>
+STASH item specific help for 
+(1, 0, 126) HIGH LEVEL  SO2 EMISSIONS KG/M2/S    
+
+Available only if Sulphur Cycle on and high level SO2 emissions included. 
+
+Single level field must be included in emissions ancillary file.
+
+%I gen_prognostic
+</M001_S000_I126>
+#
+<M001_S000_I127>
+STASH item specific help for 
+(1, 0, 127) AMMONIA GAS EMISSIONS  KG/M2/S  
+
+Available only if Sulphur Cycle on with Ozone oxidation and surface NH3
+emissions included. 
+
+Single level field  must be included in emissions ancillary file
+(units kg/m2/s).
+
+%I gen_prognostic
+</M001_S000_I127>
+#
+<M001_S000_I128>
+STASH item specific help for 
+(1, 0, 128) FRESH SOOT SURFACE EMISSIONS    
+
+Available only if soot on and surface soot emissions have been selected. 
+
+Single level field must be included in emissions ancillary file
+(units kg/m2/s).
+
+%I gen_prognostic
+</M001_S000_I128>
+#
+<M001_S000_I129>
+STASH item specific help for 
+(1, 0, 129) FRESH SOOT HIGH LEVEL EMISSIONS.
+
+Available only if soot on and high level soot emissions have been selected. 
+
+Single level field must be included in emissions ancillary file
+(units kg/m2/s).
+
+%I gen_prognostic
+</M001_S000_I129>
+#
+<M001_S000_I130>
+Item (1:0:130)
+
+Surface emissions of biomass smoke (kg/m2/s).
+</M001_S000_I130>
+#
+<M001_S000_I131>
+Item (1:0:131)
+
+Elevated emissions of biomass smoke (kg/m2/s).
+</M001_S000_I131>
+#
+<M001_S000_I132>
+Item: (1:17:205)
+
+Diagnoses the DMS emissions produced by the interactive scheme from
+the seawater DMS concentrations. Available only if Sulphur Cycle on 
+and surface DMS emissions included.
+
+</M001_S000_I132>
+#
+<M001_S000_I133>
+Item: ( 1: 0:133)
+
+DMS OCEAN FLUX          KG[S]/M**2/S
+</M001_S000_I133>
+#
+<M001_S000_I134>
+Item (1:0:134)
+
+FRESH OCFF SURF EMISSIONS.
+
+Available only if ocff on and surface ocff emissions have been selected. 
+
+Single level field must be included in emissions ancillary file
+(units kg/m2/s).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This is a prognostic field. That is, it is a type of primary
+field that gets updated by the calculations performed
+during an integration. It must reside in D1 and the dump
+and be registered primarily in section 0. 
+
+The prognostic can be treated as a diagnostic if it is available
+and so can be output to PP files (standard and mean PP files).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Primary Items.
+~~~~~~~~~~~~~~
+A primary item is an item that is required as part of an integration. It
+could be a prognostic item, an ancillary item or some other boundary item
+(such as lateral boundary tendancies).
+They live in D1 and the Dump and are primarily referenced to STASH
+in section zero.
+
+It is possible to obtain available primary fields from section 0 (at
+the end of a timestep) or after other sections that later their values.
+
+Such items may not be available as diagnostics for one of two reasons:
+
+They may not be required for the configuration you have chosen
+(as defined by the option code, see UMDP C4)
+
+They may not be on a suitable grid to be input to STASH as a 
+diagnostic (as defined by the space code in UMDP C4). Some such
+items (eg LBCs) cannot ever be obtained as diagnostics. Others
+(eg fields compressed to land-only points) can be decompressed
+in scientific sections and passed to STASH.
+</M001_S000_I134>
+#
+<M001_S000_I135>
+Item (1:0:135)
+
+FRESH OCFF HIGH LEVEL EMISSIONS.
+
+Available only if ocff on and high level ocff emissions have been selected. 
+
+Single level field must be included in emissions ancillary file
+(units kg/m2/s).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This is a prognostic field. That is, it is a type of primary
+field that gets updated by the calculations performed
+during an integration. It must reside in D1 and the dump
+and be registered primarily in section 0. 
+
+The prognostic can be treated as a diagnostic if it is available
+and so can be output to PP files (standard and mean PP files).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Primary Items.
+~~~~~~~~~~~~~~
+A primary item is an item that is required as part of an integration. It
+could be a prognostic item, an ancillary item or some other boundary item
+(such as lateral boundary tendancies).
+They live in D1 and the Dump and are primarily referenced to STASH
+in section zero.
+
+It is possible to obtain available primary fields from section 0 (at
+the end of a timestep) or after other sections that later their values.
+
+Such items may not be available as diagnostics for one of two reasons:
+
+They may not be required for the configuration you have chosen
+(as defined by the option code, see UMDP C4)
+
+They may not be on a suitable grid to be input to STASH as a 
+diagnostic (as defined by the space code in UMDP C4). Some such
+items (eg LBCs) cannot ever be obtained as diagnostics. Others
+(eg fields compressed to land-only points) can be decompressed
+in scientific sections and passed to STASH.
+</M001_S000_I135>
+#
+<M001_S000_I155>
+ACCUMULATED SURFACE RUNOFF KG/M2
+
+This is the gridbox mean accumulated surface runoff amount, accumulated over 
+the global river routing timestep (usually 1 day/86400 seconds, but see Panel 
+Atmosphere->Scientific Parameters and Sections->Section by Section 
+choices->Section 26: River Routing).
+
+This is a prognostic field on atmosphere land points, and is only included if 
+the global river-routing scheme is used. The diagnostic equivalent is 8,258. 
+</M001_S000_I155>
+#
+<M001_S000_I156>
+ACCUMULATED SUBSURFACE RUNOFF KG/M2
+
+This is the gridbox mean accumulated sub-surface runoff amount, accumulated 
+over the global river routing timestep (usually 1 day/86400 seconds, but see 
+Panel Atmosphere->Scientific Parameters and Sections->Section by Section 
+choices->Section 26: River Routing).
+
+This is a prognostic field on atmosphere land points, and is only included if 
+the global river-routing scheme is used. The diagnostic equivalent is 8,258. 
+</M001_S000_I156>
+#
+<M001_S000_I157>
+GRIDBOX AREAS M2
+
+Atmosphere gridbox areas im m2 for global river routing and land water 
+conservation calculations. This is a prognostic field, and is only included if 
+the global river-routing scheme is used.
+
+</M001_S000_I157>
+#
+<M001_S000_I160>
+
+Item: (1:0:160) 
+Text: DTM-derived drainage area (integer values) for each grid-cell
+Units are number of pixels draining into a grid-cell.
+</M001_S000_I160>
+#
+<M001_S000_I161>
+Item: (1:0:161) 
+
+Text: DTM-derived slope data (real values) for each grid-cell
+</M001_S000_I161>
+#
+<M001_S000_I162>
+Item: (1:0:162) 
+
+Text: Initial data values of river flow (real values)(m3/s)
+</M001_S000_I162>
+#
+<M001_S000_I163>
+Item: (1:0:163) 
+
+Text: DTM-derived data (x-coordinate) for the grid-cell
+that the current cell flows into (inext, integer array)
+</M001_S000_I163>
+#
+<M001_S000_I164>
+Item: (1:0:164) 
+
+Text: DTM-derived data (y-coordinate) for the grid-cell
+that the current cell flows into (jnext, integer array)
+</M001_S000_I164>
+#
+<M001_S000_I165>
+Item: (1:0:165) 
+
+Text: Land-type data(integer values, land,river or sea). 
+Determined from the drainage area data according to a 
+(drainage area) threshold.
+</M001_S000_I165>
+#
+<M001_S000_I166>
+Item: (1:0:166)  
+
+Text: Surface storage (real values) of water in grid-to-grid
+routing model.
+</M001_S000_I166>
+#
+<M001_S000_I167>
+Item: (1:0:167) 
+
+Text: Sub-surface storage (real values) of water in grid-to-grid
+routing model.
+
+</M001_S000_I167>
+#
+<M001_S000_I168>
+Item: (1:0:168) 
+
+Text: Total inflow of surface runoff into a grid-cell (the sum 
+of the contributions from adjacent grid-cells.
+
+</M001_S000_I168>
+#
+<M001_S000_I169>
+Item: (1:0:169) 
+
+Text: Total inflow of sub-surface runoff into a grid-cell (the sum 
+of the contributions from adjacent grid-cells.
+
+</M001_S000_I169>
+#
+<M001_S000_I190>
+
+Iceberg calving is used in some coupled models to represent the flux 
+of freshwater from melting icebergs which would not otherwise be included.
+
+</M001_S000_I190>
+#
+<M001_S000_I212>
+Item: (1:0:212)
+
+Text: Convective cloud water profile (theta) passed to Radiation Scheme.
+</M001_S000_I212>
+#
+<M001_S000_I221>
+Item: (1:0:221)
+
+Soot content on snow for albedo calculation.
+</M001_S000_I221>
+#
+<M001_S000_I222>
+STASH item specific help for 
+(1, 0, 222) NET ENERGY CHANGE (ENG-CORR)  J/M**2
+
+Used by the energy adjustment Section 14. Accumulates net energy
+change in Joules per metre squared through the period as specified by
+the choice in Section 14. At end of the period the total energy change
+is calculated by summing over all points. This total figure is then
+used to calculate the flux adjustment during the next period.
+
+Since the field is accumulated, time processing is meaningless and
+hence the field has not been made available to STASH. To look at the
+field, override the space code (change from 3 to 2) with a user STASH
+file.
+
+%I gen_prognostic
+</M001_S000_I222>
+#
+<M001_S000_I224>
+STASH item specific help for 
+(1, 0, 224) ACCUMULATED NPP ON PLANT FUNC TYPES
+
+This item is used to accumulate leaf turnover rate on Plant Functional Types 
+(PFTs) output from boundary layer (section 3 version 5c) for use in the
+phenology (leaf fall) scheme in section 19 (versions 1a and 2a).  Accumulation
+is performed over the phenology timestep, and then used to calculate the mean
+leaf turnover rate and hence the phenological leaf turnover rate.
+
+This item is not available as a STASH diagnostic as it is of limited use prior
+to meaning.
+
+%I gen_prognostic
+</M001_S000_I224>
+#
+<M001_S000_I225>
+STASH item specific help for 
+(1, 0, 225) ACCUMULATED LEAF TURNOVER RATE PFTS 
+
+This item is used to accumulate leaf turnover rate on Plant Functional Types 
+(PFTs) output from boundary layer (section 3 version 5c) for use in the
+phenology (leaf fall) scheme in section 19 (versions 1a and 2a).  Accumulation
+is performed over the phenology timestep, and then used to calculate the mean
+leaf turnover rate and hence the phenological leaf turnover rate.
+
+This item is not available as a STASH diagnostic as it is of limited use prior
+to meaning.
+
+%I gen_prognostic
+</M001_S000_I225>
+#
+<M001_S000_I226>
+STASH item specific help for 
+(1, 0, 226) ACCUMULATED PHENOL LEAF TRNVR PFTS
+
+This item is used to accumulate the phenological leaf turnover rate on Plant
+Functional Types (PFTs) (item 1,19,3) calculated in section 19 (versions 1a 
+and 2a) for use in the vegetation model also in section 19 (version 2a).  
+Accumulation is performed over periods between calls to the vegetation model, 
+and is used to find the mean phenological leaf turnover rate on PFTs over 
+this calling period.  This is then used to update the leaf litter carbon 
+content.
+
+This item is not available as a STASH diagnostic as it is of limited use prior
+to meaning.
+
+%I gen_prognostic
+</M001_S000_I226>
+#
+<M001_S000_I227>
+STASH item specific help for 
+(1, 0, 227) ACCUMULATED WOOD RESPIRATION PFTS
+
+This item is used to accumulate the wood respiration on Plant Functional 
+Types (PFTs) output from boundary layer (section 3 version 5c) for use in the 
+vegetation model in section 19 (version 2a).  Accumulation is performed over 
+periods between calls to the vegetation model, and is used to find the mean 
+wood respiration rate over this calling period.  This is used to update the 
+vegetation carbon content on PFTs (item 1,19,1).
+
+This item is not available as a STASH diagnostic as it is of limited use prior
+to meaning.
+
+%I gen_prognostic
+</M001_S000_I227>
+#
+<M001_S000_I228>
+STASH item specific help for 
+(1, 0, 228) ACCUMULATED SOIL RESPIRATION
+
+This item is used to accumulate the soil respiration output from boundary 
+layer (section 3 version 5c) for use in the vegetation model in section 19 
+(version 2a).  Accumulation is performed over periods between calls to the 
+vegetation model, and is used to find the mean soil respiration over this 
+calling period.  This is used to update the soil carbon content (item 1,0,223).
+
+This item is not available as a STASH diagnostic as it is of limited use prior
+to meaning.
+
+%I gen_prognostic
+</M001_S000_I228>
+#
+<M001_S000_I229>
+STASH item specific help for
+(1, 0, 229) CANOPY WATER ON TILES  KG/M2
+
+Quantity of water held in the canopy for each land tile.
+NB: Tiles may not necessarily be the same as surface types.
+
+Used in version 8a of boundary layer (section 3) to
+calculate evaporation of canopy water from each tile (item 1, 3, 287).
+
+%I gen_prognostic
+</M001_S000_I229>
+#
+<M001_S000_I230>
+STASH item specific help for
+(1, 0, 230) CANOPY CAPACITY ON TILES       KG/M2
+
+Maximum quantity of water that can be held on the canopy for each land tile.
+NB. Tiles may not necessarily be the same as surface types.
+
+Used in version 8a of boundary layer (section 3) to place an upper limit on
+tile canopy water content (item 1,0,229).  Determined in section 19, using
+Leaf Area Index for plant functional and a fixed parameter for other surface
+types.  Therefore may vary throughout a run if the vegetation model (A19_2A)
+is in use.
+
+%I gen_prognostic
+</M001_S000_I230>
+#
+<M001_S000_I231>
+STASH item specific help for
+(1, 0, 231) SNOW GRAIN SIZE ON TILES     MICRONS
+
+Grain size for lying snow (in microns) on land tiles.
+NB: Tiles may not necessarily be the same as surface types.
+
+Used in prognostic snow albedo scheme.
+
+%I gen_prognostic
+</M001_S000_I231>
+#
+<M001_S000_I233>
+STASH item specific help for
+(1, 0, 233) SURFACE TEMPERATURE ON TILES       K
+
+Surface temperature on land tiles.
+NB: Tiles may not necessarily be the same as surface types.
+
+%I gen_prognostic
+</M001_S000_I233>
+#
+<M001_S000_I234>
+STASH item specific help for
+(1, 0, 234) ROUGHNESS LENGTH ON TILES          M
+
+Surface momentum roughness length for each tile.
+NB: If surface types have been aggregated, diagnostics on tiles 
+will not match surface types. (See l_aggregate in the namelist 
+JULES_SWITCHES.)
+
+%I gen_prognostic
+</M001_S000_I234>
+#
+<M001_S000_I236>
+STASH item specific help for
+(1, 0, 236) TILE MODIFIED INFILTRATION RATE
+
+Maximum surface infiltration rate on land tiles.
+NB. Tiles may not necessarily be the same as surface types.
+
+%I gen_prognostic
+</M001_S000_I236>
+#
+<M001_S000_I237>
+STASH item specific help for
+(1, 0, 237) DOWNWARD SW RADIATION ON TILES  W/M2|
+
+Downward shortwave radiation at the surface on tiles.
+NB. Tiles may not necessarily be the same as surface types.
+
+%I gen_prognostic
+</M001_S000_I237>
+#
+<M001_S000_I238>
+STASH item specific help for
+(1, 0, 238) SURFACE DOWNWARD LW RADIATION   W/M2|
+
+Gridbox mean downward longwave radiation at the surface.
+
+%I gen_prognostic
+
+</M001_S000_I238>
+#
+<M001_S000_I239>
+STASH item specific help for
+(1, 0, 239) TOA - SURF UPWARD LW RADIATION  W/M2
+
+Difference in upward LW radiation between TOA and the surface
+Used in version 8a of boundary layer (section 3).
+
+%I gen_prognostic
+
+</M001_S000_I239>
+#
+<M001_S000_I240>
+STASH item specific help for
+(1, 0, 240) SNOW AMOUNT ON TILES           KG/M2
+
+Snow amount on tiles.
+NB. Tiles may not necessarily be the same as surface types.
+
+%I gen_prognostic
+
+</M001_S000_I240>
+#
+<M001_S000_I241>
+Item: (241)
+Text:
+Canopy snow capacity of Needleleaf trees. Only used if CAN_MODEL=4.
+
+</M001_S000_I241>
+#
+<M001_S000_I242>
+Item:(242)
+
+Snow beneath canopy of Needleleaf trees. Only used if CAN_MODEL=4.
+
+</M001_S000_I242>
+#
+<M001_S000_I243>
+OBS/CLIM SNOW-FREE SURF SW ALBEDO:
+
+A SW albedo (for all SW bands) supplied from a climatology or other 
+observational product, which can be used to set the model albedos on tiles. 
+Used when L_ALBEDO_OBS_IO is TRUE and L_SPEC_ALBEDO_IO is FALSE.
+
+</M001_S000_I243>
+#
+<M001_S000_I244>
+OBS/CLIM SNOW-FREE SURF VIS ALBEDO:
+
+A VIS albedo (for SW bands with wavelengths below 690nm) supplied from 
+a climatology or other observational product, which can be used to set 
+the model albedos on tiles. Used when L_ALBEDO_OBS_IO and L_SPEC_ALBEDO_IO 
+are TRUE.
+
+</M001_S000_I244>
+#
+<M001_S000_I245>
+OBS/CLIM SNOW-FREE SURF NIR ALBEDO:
+
+A NIR albedo (for SW bands with wavelengths above 690nm) supplied from 
+a climatology or other observational product, which can be used to set the 
+model albedos on tiles. Used when L_ALBEDO_OBS_IO and L_SPEC_ALBEDO_IO 
+are TRUE.
+
+</M001_S000_I245>
+#
+<M001_S000_I246>
+
+Surface thermal roughness length for each tile.
+NB: If surface types have been aggregated, diagnostics on tiles will not 
+match surface types. (See l_aggregate in the namelist JULES_SWITCHES.)
+
+</M001_S000_I246>
+#
+<M001_S000_I250>
+Item: 1, 0, 250
+Text: CO2 OCEAN FLUX  
+     This diagnostic is only available for coupled models with interactive
+     carbon cycle switched on. It is the flux of CO2 from the ocean to the
+     atmosphere (in Kg Carbon per m2 per s) as calculated by the ocean
+     carbon cycle model.
+
+</M001_S000_I250>
+#
+<M001_S000_I251>
+Item: 1, 0, 251
+Text: CO2 SURFACE EMISSIONS 
+     This diagnostic is only available for coupled models with interactive
+     carbon cycle switched on. It is the flux of CO2 due to anthropogenic
+     emissions. It requires a CO2 emissions ancillary file.
+     See panel atmos_Science_Physics to set this.
+</M001_S000_I251>
+#
+<M001_S000_I252>
+Item: 1, 0, 252
+Text: CO2 3D TRACER
+     This diagnostic is only available for coupled models with interactive
+     carbon cycle switched on. It is a 3D prognostic variable containing
+     atmospheric CO2 concentrations as a mass mixing ratio.
+</M001_S000_I252>
+#
+<M001_S000_I254>
+STASH item specific help for
+(1, 0, 254) LIQUID CONTENT AFTER TIMESTEP
+
+This is the gridbox mean specific liquid content (cloud condensate), in
+kg of liquid per kg of air, at the end of the timestep.
+
+%I gen_prognostic
+</M001_S000_I254>
+#
+<M001_S000_I262>
+STASH item specific help for 
+(1, 0, 262) BOUNDARY LAYER CONVECTION FLAG
+
+This is a logical field indicating where boundary layer convection takes place. 
+
+It is not normally output as a diagnostic. As it is a logical field, do not 
+attempt to time-process this diagnostic.
+</M001_S000_I262>
+#
+<M001_S000_I265>
+STASH item specific help for 
+(1, 0, 265) AREA CLOUD FRACTION IN EACH LAYER
+
+This is the area fraction of a gridbox which is covered in cloud 
+when observed in isolation from above, at the end of the timestep. 
+It may be greater than the bulk (volume) cloud fraction (1 0 266) 
+since the cloud may not be uniformly spread in the vertical.
+
+%I gen_prognostic
+</M001_S000_I265>
+#
+<M001_S000_I266>
+STASH item specific help for 
+(1, 0, 266) BULK CLOUD FRACTION IN EACH LAYER   
+
+This is the volume fraction of a gridbox covered in cloud at 
+the end of a timestep. It may be less than the area cloud 
+fraction (1 0 265) if the cloud is not uniformly spread in 
+the vertical.
+
+%I gen_prognostic
+</M001_S000_I266>
+#
+<M001_S000_I267>
+STASH item specific help for 
+(1, 0, 267) LIQUID CLOUD FRACTION IN EACH LAYER 
+
+This is the volume fraction of a gridbox covered in liquid condensate at
+the end of a timestep. Note that the value of the liquid cloud fraction
+plus the ice cloud fraction (1 0 268) may be greater than the bulk cloud
+fraction (1 0 266) due to overlap between the liquid and ice clouds.
+
+%I gen_prognostic
+</M001_S000_I267>
+#
+<M001_S000_I268>
+STASH item specific help for 
+(1, 0, 268) FROZEN CLOUD FRACTION IN EACH LAYER 
+
+This is the volume fraction of a gridbox covered in ice condensate at
+the end of a timestep. Note that the value of the ice cloud fraction
+plus the liquid cloud fraction (1 0 267) may be greater than the bulk
+cloud fraction (1 0 266) due to overlap between the ice and liquid 
+clouds.
+
+%I gen_prognostic
+</M001_S000_I268>
+#
+<M001_S000_I271>
+Item (1:0:271) 
+
+Second prognostic cloud ice/snow variable currently representing cloud ice
+crystals (pristine) content (kg/kg). If this prognostic is in use, then the QCF
+prognostic represents cloud ice crystal aggregates.
+
+
+</M001_S000_I271>
+#
+<M001_S000_I272>
+Item (1:0:272) 
+
+Prognostic rain water content (kg/kg)
+
+
+</M001_S000_I272>
+#
+<M001_S000_I273>
+Item (1:0:273) 
+
+Prognostic graupel water content (kg/kg).  
+
+
+</M001_S000_I273>
+#
+<M001_S000_I281>
+Item: (01:00:281)
+
+The fraction of water in the additional deep soil layer relative to saturation
+when the large-scale hydrology model is run (L_TOP=TRUE).
+
+
+
+</M001_S000_I281>
+#
+<M001_S000_I282>
+Item: (01:00:282)
+
+Fitting parameter for L_TOP to allow for a quick calculation of the fraction
+of surface saturation in the grid box given the soil moisture conditions.
+
+
+
+</M001_S000_I282>
+#
+<M001_S000_I283>
+Item: (01:00:283)
+
+Fitting parameter for L_TOP to allow for a quick calculation of the fraction
+of surface saturation in the grid box given the soil moisture conditions.
+
+
+
+</M001_S000_I283>
+#
+<M001_S000_I284>
+Item: (01:00:284)
+
+Fitting parameter for L_TOP to allow for a quick calculation of the fraction
+of wetland area in the grid box given the soil moisture conditions.
+
+
+
+</M001_S000_I284>
+#
+<M001_S000_I285>
+Item: (01:00:285)
+
+Fitting parameter for L_TOP to allow for a quick calculation of the fraction
+of wetland area in the grid box given the soil moisture conditions.
+
+
+
+</M001_S000_I285>
+#
+<M001_S000_I290>
+DAILY ACCUMULATED LAKE FLUX KG/M2
+
+Daily accumulated lake flux in kg/m2 for global river routing/land water 
+conservation calculations. This is a prognostic field, and is only included 
+if the global river routing scheme is used. 
+</M001_S000_I290>
+#
+<M001_S000_I291>
+LAKE DEPTH (M)
+
+FLake lake scheme variable: lake depth (m) 
+
+</M001_S000_I291>
+#
+<M001_S000_I292>
+LAKE FETCH (M)
+
+FLake lake scheme variable: lake fetch (m) 
+
+</M001_S000_I292>
+#
+<M001_S000_I293>
+LAKE MEAN TEMPERATURE (K)
+
+FLake lake scheme variable: lake mean temperature (K)
+
+</M001_S000_I293>
+#
+<M001_S000_I294>
+LAKE MIXED-LAYER TEMPERATURE (K)
+
+FLake lake scheme variable: lake mixed-layer temperature (K)
+
+</M001_S000_I294>
+#
+<M001_S000_I295>
+LAKE ICE SURFACE TEMPERATURE (K)
+
+FLake lake scheme variable: temperature at upper boundary of 
+lake ice layer (K) 
+
+</M001_S000_I295>
+#
+<M001_S000_I296>
+LAKE MIXED-LAYER DEPTH (M)
+
+FLake lake scheme variable: lake mixed-layer depth (m)
+
+</M001_S000_I296>
+#
+<M001_S000_I297>
+LAKE ICE THICKNESS (M)
+
+FLake lake scheme variable: lake ice thickness (m)
+
+</M001_S000_I297>
+#
+<M001_S000_I298>
+LAKE T PROFILE SHAPE FACTOR 
+
+FLake lake scheme variable: thermocline shape integral 
+factor, in range 0-1
+
+</M001_S000_I298>
+#
+<M001_S000_I299>
+
+LAKE HEAT FLUX DIVIDED BY TEMPERATURE CHANGE
+
+FLake lake scheme implementation variable:
+Downward heat flux into the lake tile divided
+by the surface temperature change across the timestep
+as predicted by FLake. This is used to calculate the
+parametrized lake heat flux in terms of an effective
+subsurface heat conductivity.
+
+For more details see
+Rooney, G. G. & Jones, I. D. 2010:
+Coupling the 1-D lake model FLake to the community
+land-surface model JULES.
+Boreal Env. Res. 15: 501–512.
+</M001_S000_I299>
+#
+<M001_S000_I342>
+(1:0:342): DEEP CONVECTIVE FLAG 
+
+Holds a history of deep convection. Values between 0.0 and 1.0, where 1.0
+indicates deep convection on this timestep. A value < 1.0 indicates deep
+convection occurred on some previous timestep. The value is gradually reduced
+each time there is no deep convection.
+(Currently a test prognostic - not being used by code to determine evolution
+of the model.)
+</M001_S000_I342>
+#
+<M001_S000_I343>
+(1:0:343): PAST CONVECTIVE PRECIP
+
+Holds the past history of convective precipitation. At the end of the timestep
+this will either hold the total convective precipitation for the timestep OR
+a reduced value of the convective precipitation from the last convective event.
+The precipitation is reduced (decayed) each time no convection occurs.
+(Currently a test prognostic - exact use still to be decided.)
+</M001_S000_I343>
+#
+<M001_S000_I344>
+(1:0:344): PAST CONVECTIVE DEPTH
+
+Holds the depth of convection on the last timestep. At present this variable is
+not decayed.
+(Currently a test prognostic - exact use still to be decided.)
+</M001_S000_I344>
+#
+<M001_S000_I345>
+(1:0:345) CCA FROM DEEP CONVECTION
+
+Convective cloud fraction from deep convection scheme. Dimensionless.
+</M001_S000_I345>
+#
+<M001_S000_I346>
+(1:0:346) CCA 
+FROM MID-LEVEL CONVECTION
+
+Convective cloud fraction from mid-level convection scheme. Dimensionless.
+</M001_S000_I346>
+#
+<M001_S000_I347>
+(1:0:347) CCA FROM SHALLOW CONVECTION 
+
+Convective cloud fraction from shallow convection scheme. Dimensionless.
+</M001_S000_I347>
+#
+<M001_S000_I376>
+(1:0:376): SNOW DEPTH ON GROUND ON TILES (M)
+
+JULES snow scheme variable.
+
+</M001_S000_I376>
+#
+<M001_S000_I377>
+(1:0:377): SNOWPACK BULK DENSITY (KG M-3)
+
+JULES multilayer snow scheme variable. 
+
+The bulk density of the lying snow, based on the total depth and 
+mass per unit area.
+
+</M001_S000_I377>
+#
+<M001_S000_I378>
+(1:0:378): SNOW ON THE CANOPY (KG M-2)
+
+JULES snow scheme variable.
+
+This prognostic is no loger valid. 
+The version mask is now zero, and as such it will not be available to STASH.
+
+</M001_S000_I378>
+#
+<M001_S000_I379>
+(1:0:379): SURFACE HEAT FLUX UNDER SNOW (W M-2)
+
+JULES snow scheme variable.
+
+This prognostic is no loger valid. 
+The versioon mask is now zero, and as such it will not be available to STASH.
+
+</M001_S000_I379>
+#
+<M001_S000_I380>
+(1:0:380): NUMBER OF SNOW LAYERS ON TILES
+
+JULES multilayer snow scheme variable. 
+
+The number of snow layers (<=NSMAX) assigned by the multilayer scheme.
+
+
+</M001_S000_I380>
+#
+<M001_S000_I381>
+(1:0:381): SNOW LAYER THICKNESSES ON TILES (M)
+
+JULES snow scheme variable (multi layer scheme only).
+
+</M001_S000_I381>
+#
+<M001_S000_I382>
+(1:0:382): SNOW LYR ICE MASS ON TILES(KG M-2)
+
+JULES snow scheme variable (multi layer scheme only).
+
+</M001_S000_I382>
+#
+<M001_S000_I383>
+(1:0:383): SNOW LYR LIQUD MASS ON TILES(KG M-2)
+
+JULES snow scheme variable (multi layer scheme only).
+
+</M001_S000_I383>
+#
+<M001_S000_I384>
+(1:0:384): SNOW LAYER TEMPERATURE ON TILES (K)
+
+JULES snow scheme variable (multi layer scheme only).
+
+</M001_S000_I384>
+#
+<M001_S000_I385>
+(1:0:385): SNOW LAYER DENSITY ON TILES (KG M-3)
+
+JULES snow scheme variable (multi layer scheme only).
+
+</M001_S000_I385>
+#
+<M001_S000_I386>
+(1:0:386): SNOW LYR GRAIN SIZE ON TILES(MICRON)
+
+JULES snow scheme variable (multi layer scheme only).
+
+</M001_S000_I386>
+#
+<M001_S000_I413>
+Item (1:0:413) 
+
+Sea ice concentration on ice categories (fraction of gridbox)
+</M001_S000_I413>
+#
+<M001_S000_I414>
+Item (1:0:414) 
+
+Sea ice thickness on ice categories (m)
+</M001_S000_I414>
+#
+<M001_S000_I415>
+Item (1:0:415) 
+
+Sea ice surface temperature on ice categories (K)
+</M001_S000_I415>
+#
+<M001_S000_I416>
+Item (1:0:416) 
+
+Snow depth on sea ice on ice categories (m)
+</M001_S000_I416>
+#
+<M001_S000_I418>
+Item (1:0:418) Dust parent soil clay fraction
+
+Fraction of the grid-box's soil diagnsosed as clay (grain radius < 1 micron). 
+This is used in the mineral dust scheme in calculating the emission of
+dust from the surface.
+
+</M001_S000_I418>
+#
+<M001_S000_I419>
+Item (1:0:419) Dust parent soil silt fraction
+
+Fraction of the grid-box's soil diagnsosed as silt (grain radius 1-25 micron). 
+This is used in the mineral dust scheme in calculating the emission of
+dust from the surface.
+
+</M001_S000_I419>
+#
+<M001_S000_I420>
+Item (1:0:420) Dust parent soil sand fraction
+
+Fraction of the grid-box's soil diagnsosed as sand (grain radius > 25 micron). 
+This is used in the mineral dust scheme in calculating the emission of
+dust from the surface.
+
+</M001_S000_I420>
+#
+<M001_S000_I421>
+Item (1:0:421) Dust soil mass fraction div 1
+
+Fraction of the grid-box's soil in division 1 (radius 0.0316 - 0.1 microns).
+
+Note that this is normalised so that the sum of values in divisions
+1-6 is 1. The dust emissions calculation, however, uses an additional 3
+size divisions (radius 31.6-1000 microns) in calculation of the
+horizontal flux, but deals with the renormalisation over these 9 divisions
+internally.
+
+</M001_S000_I421>
+#
+<M001_S000_I422>
+Item (1:0:422) Dust soil mass fraction div 2
+
+Fraction of the grid-box's soil in division 2 (radius 0.1 - 0.316 microns).
+
+Note that this is normalised so that the sum of values in divisions
+1-6 is 1. The dust emissions calculation, however, uses an additional 3
+size divisions (radius 31.6-1000 microns) in calculation of the
+horizontal flux, but deals with the renormalisation over these 9 divisions
+internally.
+
+</M001_S000_I422>
+#
+<M001_S000_I423>
+Item (1:0:423) Dust soil mass fraction div 3
+
+Fraction of the grid-box's soil in division 3 (radius 0.316 - 1 microns).
+
+Note that this is normalised so that the sum of values in divisions
+1-6 is 1. The dust emissions calculation, however, uses an additional 3
+size divisions (radius 31.6-1000 microns) in calculation of the
+horizontal flux, but deals with the renormalisation over these 9 divisions
+internally.
+
+</M001_S000_I423>
+#
+<M001_S000_I424>
+Item (1:0:424) Dust soil mass fraction div 4
+
+Fraction of the grid-box's soil in division 4 (radius 1 - 3.16 microns).
+
+Note that this is normalised so that the sum of values in divisions
+1-6 is 1. The dust emissions calculation, however, uses an additional 3
+size divisions (radius 31.6-1000 microns) in calculation of the
+horizontal flux, but deals with the renormalisation over these 9 divisions
+internally.
+
+</M001_S000_I424>
+#
+<M001_S000_I425>
+Item (1:0:425) Dust soil mass fraction div 5
+
+Fraction of the grid-box's soil in division 5 (radius 3.16 - 10 microns).
+
+Note that this is normalised so that the sum of values in divisions
+1-6 is 1. The dust emissions calculation, however, uses an additional 3
+size divisions (radius 31.6-1000 microns) in calculation of the
+horizontal flux, but deals with the renormalisation over these 9 divisions
+internally.
+
+</M001_S000_I425>
+#
+<M001_S000_I426>
+Item (1:0:426) Dust soil mass fraction div 6
+
+Fraction of the grid-box's soil in division 6 (radius 10 - 31.6 microns).
+
+Note that this is normalised so that the sum of values in divisions
+1-6 is 1. The dust emissions calculation, however, uses an additional 3
+size divisions (radius 31.6-1000 microns) in calculation of the
+horizontal flux, but deals with the renormalisation over these 9 divisions
+internally.
+
+</M001_S000_I426>
+#
+<M001_S000_I460>
+Item (0:0:460)
+
+PAR increments after timestep
+
+
+</M001_S000_I460>
+#
+<M001_S000_I466>
+Item: (1:0:466-469)
+
+(1, 0, 466) DPM SOIL CARBON POOL      KG C / M2
+(1, 0, 467) RPM SOIL CARBON POOL      KG C / M2
+(1, 0, 468) BIO SOIL CARBON POOL      KG C / M2
+(1, 0, 469) HUM SOIL CARBON POOL      KG C / M2
+
+These items contain the amount of soil carbon stored in the 4 soil pools of the
+RothC soil carbon model. The total soil carbon is the sum of these 4 pools.
+</M001_S000_I466>
+#
+<M001_S000_I467>
+Item: (1:0:466-469)
+
+(1, 0, 466) DPM SOIL CARBON POOL      KG C / M2
+(1, 0, 467) RPM SOIL CARBON POOL      KG C / M2
+(1, 0, 468) BIO SOIL CARBON POOL      KG C / M2
+(1, 0, 469) HUM SOIL CARBON POOL      KG C / M2
+
+These items contain the amount of soil carbon stored in the 4 soil pools of the
+RothC soil carbon model. The total soil carbon is the sum of these 4 pools.
+</M001_S000_I467>
+#
+<M001_S000_I468>
+Item: (1:0:466-469)
+
+(1, 0, 466) DPM SOIL CARBON POOL      KG C / M2
+(1, 0, 467) RPM SOIL CARBON POOL      KG C / M2
+(1, 0, 468) BIO SOIL CARBON POOL      KG C / M2
+(1, 0, 469) HUM SOIL CARBON POOL      KG C / M2
+
+These items contain the amount of soil carbon stored in the 4 soil pools of the
+RothC soil carbon model. The total soil carbon is the sum of these 4 pools.
+</M001_S000_I468>
+#
+<M001_S000_I469>
+Item: (1:0:466-469)
+
+(1, 0, 466) DPM SOIL CARBON POOL      KG C / M2
+(1, 0, 467) RPM SOIL CARBON POOL      KG C / M2
+(1, 0, 468) BIO SOIL CARBON POOL      KG C / M2
+(1, 0, 469) HUM SOIL CARBON POOL      KG C / M2
+
+These items contain the amount of soil carbon stored in the 4 soil pools of the
+RothC soil carbon model. The total soil carbon is the sum of these 4 pools.
+</M001_S000_I469>
+#
+<M001_S000_I470>
+Item: (1:0:470-473)
+
+(1, 0, 470) ACCUMULATED DPM SOIL RESP
+(1, 0, 471) ACCUMULATED RPM SOIL RESP
+(1, 0, 472) ACCUMULATED BIO SOIL RESP
+(1, 0, 473) ACCUMULATED HUM SOIL RESP
+
+This item is used to accumulate the soil respiration output from boundary 
+layer (section 3 version 8a) for use in the vegetation model in section 19 
+(version 2a).  Accumulation is performed over periods between calls to the 
+vegetation model, and is used to find the mean soil respiration over this 
+calling period.  This is used to update the soil carbon content (item 1,0,466-469).
+
+These items are not available as a STASH diagnostic as it is of limited use
+prior to meaning.
+</M001_S000_I470>
+#
+<M001_S000_I471>
+Item: (1:0:470-473)
+
+(1, 0, 470) ACCUMULATED DPM SOIL RESP
+(1, 0, 471) ACCUMULATED RPM SOIL RESP
+(1, 0, 472) ACCUMULATED BIO SOIL RESP
+(1, 0, 473) ACCUMULATED HUM SOIL RESP
+
+This item is used to accumulate the soil respiration output from boundary 
+layer (section 3 version 8a) for use in the vegetation model in section 19 
+(version 2a).  Accumulation is performed over periods between calls to the 
+vegetation model, and is used to find the mean soil respiration over this 
+calling period.  This is used to update the soil carbon content (item 1,0,466-469).
+
+These items are not available as a STASH diagnostic as it is of limited use
+prior to meaning.
+</M001_S000_I471>
+#
+<M001_S000_I472>
+Item: (1:0:470-473)
+
+(1, 0, 470) ACCUMULATED DPM SOIL RESP
+(1, 0, 471) ACCUMULATED RPM SOIL RESP
+(1, 0, 472) ACCUMULATED BIO SOIL RESP
+(1, 0, 473) ACCUMULATED HUM SOIL RESP
+
+This item is used to accumulate the soil respiration output from boundary 
+layer (section 3 version 8a) for use in the vegetation model in section 19 
+(version 2a).  Accumulation is performed over periods between calls to the 
+vegetation model, and is used to find the mean soil respiration over this 
+calling period.  This is used to update the soil carbon content (item 1,0,466-469).
+
+These items are not available as a STASH diagnostic as it is of limited use
+prior to meaning.
+</M001_S000_I472>
+#
+<M001_S000_I473>
+Item: (1:0:470-473)
+
+(1, 0, 470) ACCUMULATED DPM SOIL RESP
+(1, 0, 471) ACCUMULATED RPM SOIL RESP
+(1, 0, 472) ACCUMULATED BIO SOIL RESP
+(1, 0, 473) ACCUMULATED HUM SOIL RESP
+
+This item is used to accumulate the soil respiration output from boundary 
+layer (section 3 version 8a) for use in the vegetation model in section 19 
+(version 2a).  Accumulation is performed over periods between calls to the 
+vegetation model, and is used to find the mean soil respiration over this 
+calling period.  This is used to update the soil carbon content (item 1,0,466-469).
+
+These items are not available as a STASH diagnostic as it is of limited use
+prior to meaning.
+</M001_S000_I473>
+#
+<M001_S000_I480>
+Item: ( 1: 0:480)
+
+Prognostic Ozone Tracer calculated using Cariolle scheme
+</M001_S000_I480>
+#
+<M001_S000_I481>
+Item: ( 1: 0:481)
+
+Cariolle Ozone Production - Loss (P-L) 2D zonal field
+</M001_S000_I481>
+#
+<M001_S000_I482>
+Item: ( 1: 0:482)
+
+Cariolle Ozone P-L wrt volume mixing ratio 2D zonal field
+</M001_S000_I482>
+#
+<M001_S000_I483>
+Item: ( 1: 0:483)
+
+Cariolle Ozone Volume mixing ratio 2D zonal field
+</M001_S000_I483>
+#
+<M001_S000_I484>
+Item: ( 1: 0:484)
+
+Cariolle Ozone P-L wrt temp 2D zonal field
+</M001_S000_I484>
+#
+<M001_S000_I485>
+Item: ( 1: 0:485)
+
+Cariolle Ozone temp climatology 2D zonal field
+</M001_S000_I485>
+#
+<M001_S000_I486>
+Item: ( 1: 0:486)
+
+Cariolle Ozone P-L wrt column ozone 2D zonal field
+</M001_S000_I486>
+#
+<M001_S000_I487>
+Item: ( 1: 0:487)
+
+Cariolle column ozone 2D zonal field
+</M001_S000_I487>
+#
+<M001_S000_I490>
+DECOUPLED SCREEN TEMP ON TILES
+
+Decoupled screen-level temperature on tiles. This is used in
+the calculation of the screen-level temperature if transient
+decoupling is selected (see STASH-realated choices), but has
+not been made available to STASH.
+</M001_S000_I490>
+#
+<M001_S000_I491>
+DECOUPLED SCREEN TEMP ON SEA/ICE
+
+Decoupled screen-level temperature on sea and sea-ice. This
+is used in the calculation of the screen-level temperature
+if transient decoupling is selected (see STASH-realated
+choices), but has not been made available to STASH.
+</M001_S000_I491>
+#
+<M001_S000_I492>
+TIME SINCE TRANSITION
+
+Time since the last transition of the surface stratification from
+unstable to stable conditions. This is used in the calculation of
+the screen-level temperature if transient decoupling is selected
+(see STASH-realated choices), but has not been made available to STASH.
+</M001_S000_I492>
+#
+<M001_S000_I493>
+"CONVECTIVE DOWNDRAUGHT AT CLD BASE"
+
+The convective downdraught mass-flux at cloud-base (Pa.s-1). 
+</M001_S000_I493>
+#
+<M001_S000_I494>
+Item: (1:0:494) URBAN BUILDING HEIGHT
+
+Height of buildings (m) 
+</M001_S000_I494>
+#
+<M001_S000_I495>
+Item: (1:0:495) URBAN HEIGHT TO WIDTH RATIO 
+
+Ratio of building height to canyon width.
+</M001_S000_I495>
+#
+<M001_S000_I496>
+Item: (1:0:496) URBAN WIDTH RATIO
+
+Ratio of canyon width to repeating width (canyon + roof).
+For 2D canyon geometry this is equivalent to the fraction of the urban 
+tile that is canyon.
+</M001_S000_I496>
+#
+<M001_S000_I497>
+Item: (1:0:497) URBAN DISPLACEMENT HEIGHT
+</M001_S000_I497>
+#
+<M001_S000_I498>
+Item: (1:0:498) URBAN ZTM
+
+Bulk or effective roughness length for momentum for urban surface (m).
+</M001_S000_I498>
+#
+<M001_S000_I499>
+Item: (1:0:499) URBAN WALL ALBEDO
+</M001_S000_I499>
+#
+<M001_S000_I500>
+Item: (1:0:500) URBAN ROAD ALBEDO
+</M001_S000_I500>
+#
+<M001_S000_I501>
+Item: (1:0:501) URBAN WALL EMISSIVITY
+</M001_S000_I501>
+#
+<M001_S000_I502>
+Item: (1:0:502) URBAN ROAD EMISSIVITY
+</M001_S000_I502>
+#
+<M001_S000_I506>
+STASH item specific help for 
+(1, 0, 506) LAND SURFACE TEMP AFTER TIMESTEP
+
+This item is mean surface temperature of the land part of the gridbox.
+
+%I gen_prognostic
+</M001_S000_I506>
+#
+<M001_S000_I507>
+STASH item specific help for 
+(1, 0, 507) OPEN SEA SURFACE TEMP AFTER TIMESTEP
+
+This item is surface temperature of the open sea part of the gridbox.
+
+%I gen_prognostic
+</M001_S000_I507>
+#
+<M001_S000_I508>
+STASH item specific help for 
+(1, 0, 508) SEA-ICE SURFACE TEMP AFTER TIMESTEP
+
+This item is surface temperature of the sea-ice part of the gridbox.
+
+%I gen_prognostic
+</M001_S000_I508>
+#
+<M001_S000_I509>
+STASH item specific help for 
+(1, 0, 509) MEAN SEA SURFACE TEMP AFTER TIMESTEP
+
+This item is mean surface temperature of the sea (ie open sea and
+sea-ice) part of the gridbox.
+
+%I gen_prognostic
+</M001_S000_I509>
+#
+<M001_S000_I510>
+STASH item specific help for 
+(1, 0, 510) |LAND MASK2 (IF FLAND>0.5 LAND=TRUE)
+
+This item is a logical land mask which is true if the land fraction is
+greater than 50%.
+
+%I gen_prognostic
+</M001_S000_I510>
+#
+<M001_S000_I511>
+Item: (1:0:511)
+
+Inland basin outflow on atmosphere grid (prognostic), kg/m2/s. 
+Only applies to global TRIP river routing scheme - outflow from inland
+basins is re-routed to the soil moisture store. Calculated each river routing
+timestep.
+</M001_S000_I511>
+#

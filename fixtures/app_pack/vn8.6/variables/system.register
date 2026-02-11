@@ -1,0 +1,155 @@
+# system.register
+# This register contains the variables used for controlling the user interface. 
+# The values of these variables are not saved as part of a user's job, but they 
+# can be set to permanent values in the system.database file in this directory.
+#
+# COMMENTING THIS FILE
+# Comments may be added anywhere within this file; use a # character in the 
+# first column of a comment line.
+#
+# VARIABLES:
+#
+# The check_variable_value routine incorporates a consistency check to compare 
+# the .case/.invisible logic in a window panel with the logic in the variable 
+# register. To use it, set the CONSISTENCY_CHECK to 'ON'. Then, if the logic is 
+# inconsistent, a warning is produced. Warnings will not be produced if 
+# CONSISTENCY_CHECK is not set to 'ON' or if this variable is not in the 
+# register.
+CONSISTENCY_CHECK   0    1    0              0    STRING    3    0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+#
+# The following is a pathname relative to the users home directory ($env(HOME)). It is used by the Jobsheet function to determine
+# where the output should be sent. It may also be used by the processing operation.
+JOB_OUTPUT          0    1    0              0    STRING   80    0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+# Set in system.database to list of default output filenames.
+OPFILES_DEF         0    1    N_OPFILES      0    STRING   82    0      subindep_OutFiles_Names        SYSTEM   NEVER     NONE NULL
+# Set in system.database to list of output filename types 
+# provides information to a table.
+OPFILE_TYPES        0    1    N_OPFILES      0    STRING    8    0      subindep_OutFiles_Names        SYSTEM   NEVER     NONE NULL
+###
+UNQ_SUB_ID          0    1    0              0    INT       0    0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+# Set by user on the window to select a stream to examine. LBCs A and O.
+OCBMLA              -1   1    0              0    INT       0    0      atmos_Control_OutputData_LBC1  SYSTEM   NEVER     RANGE 1 8
+OCBMLO              -1   1    0              0    INT       0    0      ocean_Control_OutputData_LBC1  SYSTEM   NEVER     RANGE 1 8
+OCBMLW              -1   1    0              0    INT       0    0      wave_Control_OutputData_LBC1   SYSTEM   NEVER     RANGE 1 8
+# Set to profile number when a profile is selected by user in STASH panel
+PROFILE             -1   1    0              0    INT       0    0      atmos_STASH                    SYSTEM   ALWAYS    RANGE 1 48
+# set on entry to STASH to indicate sub-model
+ISUBM               0    1    0              0    STRING    1    0      STASH                          SYSTEM   ALWAYS    LIST A O S
+# Set in system.database to maximum number of Time, Domain, Usage profiles in 
+# each of the 3 sub-models
+MAX_NTPROF_A        0    1    0              0    INT       0    0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+MAX_NDPROF_A        0    1    0              0    INT       0    0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+MAX_NUPROF_A        0    1    0              0    INT       0    0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+MAX_NTPROF_O        0    1    0              0    INT       0    0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+MAX_NDPROF_O        0    1    0              0    INT       0    0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+MAX_NUPROF_O        0    1    0              0    INT       0    0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+MAX_NTPROF_S        0    1    0              0    INT       0    0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+MAX_NDPROF_S        0    1    0              0    INT       0    0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+MAX_NUPROF_S        0    1    0              0    INT       0    0      no_home_panel                   SYSTEM   NEVER     NONE NULL
+MAX_NTPROF_W        0    1    0              0    INT       0    0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+MAX_NDPROF_W        0    1    0              0    INT       0    0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+MAX_NUPROF_W        0    1    0              0    INT       0    0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+###
+# Set in system.database, the *_SI variables relate to the various science 
+# sections. Column 1 determines whether section is used. Column 2 is section 
+# number. Unused sections require no more items. Used sections require a home 
+# window name and a LIST of valid values.
+# Column 1 is N for unused, Y for used and U for used but unmade. That is 
+# they are not part of the UM compile system and do not go
+# into the SECT_MODE file (but are in the UPDEFS file)
+ATMOS_SI            0    0    NUM_A_SECT     0    STRING    80   0      no_home_window                 SYSTEM   NEVER     NONE NULL
+INDEP_SI            0    0    NUM_I_SECT     0    STRING    80   0      no_home_window                 SYSTEM   NEVER     NONE NULL
+JULES_SI            0    0    NUM_J_SECT     0    STRING    80   0      no_home_window                 SYSTEM   NEVER     NONE NULL
+###
+IND                 0    1    6              0    STRING    10   0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+INDIND              0    1    6              0    INT       0    0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+# Set in system.database to list of tracer types
+TCA_DEF             0    1    150             0    STRING    16   0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+TCO_DEF             0    1    29              0    STRING    16   0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+UKCA_TRACER_DEF     0    1    150             0    STRING    23   0      no_home_panel                  SYSTEM   NEVER     NONE NULL
+
+# Lists of observation types and numbers
+OOBTYPE             -1   1    NOOBS          0    STRING    32   0      no_home_window                 SYSTEM   NEVER     NONE NULL
+OOBID               -1   1    NOOBS          0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+# Lists of assimilation fields and numbers
+OASFLD              -1   1    NOASFLDS       0    STRING    32   0      no_home_window                 SYSTEM   NEVER     NONE NULL
+OASFLDID            -1   1    NOASFLDS       0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+PPFU                0    1    11             0    STRING    6    0      subindep_PostProc_PPInit       SYSTEM   NEVER     NONE NULL
+MPPFU               0    1    10             0    STRING    6    0      subindep_PostProc_MInit        SYSTEM   NEVER     NONE NULL
+INT_MDI             0    1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+REAL_MDI            0    1    0              0    REAL      0    9.1f   no_home_window                 SYSTEM   NEVER     NONE NULL
+# set in system register. Relate to ACON (with ATUN and AFRE) and OCON (with 
+# OTUN and OFRE). Column 3 (specifically characters 7 and 8) in the system 
+# register provides a mapping system for when indices need to be set to 
+# identical values. eg if column 3 of row X is 3 it is the same as 
+# setting ACON(X) to ACON(3). Column 2 (characters 3,4 and 5) is the
+# ITEM number output into  the ITEMS name list relating to ancillary fields.
+# Last two columns are associated window name and description text.
+A_STASHAN           0    1    N_A_STASHAN    0    STRING    76   0      no_home_window                 SYSTEM   NEVER     NONE NULL
+# Set in system database to version number of unified model
+VERSION             0    1    0              0    STRING    5    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+###
+A_H_INT             -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+A_H_FIX             -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+A_H_REAL            -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+A_H_LEVDEP          -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+A_H_ROWDEP          -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+A_H_COLDEP          -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+A_H_FLDDEP          -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+A_H_EXTRA           -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+O_H_INT             -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+O_H_FIX             -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+O_H_REAL            -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+O_H_LEVDEP          -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+O_H_ROWDEP          -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+O_H_COLDEP          -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+O_H_FLDDEP          -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+O_H_EXTRA           -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+W_H_INT             -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+W_H_FIX             -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+W_H_REAL            -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+W_H_LEVDEP          -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+W_H_ROWDEP          -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+W_H_COLDEP          -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+W_H_FLDDEP          -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+W_H_EXTRA           -1   1    0              0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+# Names and letter and number codes for main model partitions
+MODEL_ID            0    1    NINT           0    STRING    1    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+MODEL_NAME          0    1    NINT           0    STRING    8    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+MODEL_PARTITION     0    1    NINT           0    INT       0    0      no_home_window                 SYSTEM   NEVER     NONE NULL
+# MODEL_TYPE is Global, LAM or Single column
+MODEL_TYPE          0    1    5              0    STRING    50   0      no_home_window                 SYSTEM   NEVER     NONE NULL
+# System variables ANCIL_LISTA and ANCIL_LISTO define which fields live in 
+# which files. Last item refers to associated window name.  
+ANCIL_LISTA         -1   1    N_AFILES       0    STRING    76   0      no_home_window                 SYSTEM   NEVER     NONE NULL
+###
+USRP_ITEM           -1   1    N_USRP         0    INT        0   0      no_home_window                 SYSTEM   NEVER     NONE NULL
+USRP_NAME           -1   1    N_USRP         0    STRING    36   0      no_home_window                 SYSTEM   NEVER     NONE NULL
+# Various link variables which describe classes of science section
+ES_RAD     -1  1  0  0 INT     0 0     no_home_window        SYSTEM   NEVER                LIST 0 1 2 3
+BL_TYPE    -1  1  0  0 INT     0 0     no_home_window        SYSTEM   NEVER                LIST 0 1 3 4
+BL_SPICE   -1  1  0  0 INT     0 0     no_home_window        SYSTEM   NEVER                LIST 0 1 
+BL_CHEM    -1  1  0  0 INT     0 0     no_home_window        SYSTEM   NEVER                LIST 0 1 
+CON_CHEM    -1  1  0  0 INT     0 0    no_home_window        SYSTEM   NEVER                LIST 0 1 
+LSP_CHEM    -1  1  0  0 INT     0 0    no_home_window        SYSTEM   NEVER                LIST 0 1 
+LSPICECOMP -1  1  0  0 INT     0 0     no_home_window        SYSTEM   NEVER                LIST 0 1
+HYD_TYPE   -1  1  0  0 INT     0 0     no_home_window        SYSTEM   NEVER                LIST 0 1 2 3 4
+LSPICE     -1  1  0  0 INT     0 0     no_home_window        SYSTEM   NEVER                LIST 0 1
+VEG_TYPE   -1  1  0  0 INT     0 0     no_home_window        SYSTEM   NEVER                LIST 0 1 2
+# To hold a list or time typos for Gregorian Calendar Meaning.
+GREGCPDS    0  1  3  0 STRING  7 0     no_home_window        SYSTEM   NEVER     NONE NULL
+# GEN_SUITE external variables.
+GENS_VARS   0  1  N_GENSVARS 0 STRING 80 0     no_home_window        SYSTEM   NEVER     NONE NULL
+# Groups of parameters (theta, wind, moisture etc) for primary field advection step - set in database
+SLADVPAR    0  1  N_SLADVPAR   0 STRING 30 0   no_home_window        SYSTEM   NEVER     NONE NULL
+SLADVPARIN -1  1  N_SLADVPAR   0 INT     0 0   no_home_window        SYSTEM   NEVER     NONE NULL
+# Parameter (theta, wind, q) for Vertical Diffusion
+VDTYPE     -1  1  3  0  STRING 10 0    no_home_window        SYSTEM   NEVER     NONE NULL
+# Tags for STASH Diagnostic lists
+D_TAG      -1  1  N_TAGS       0 STRING  1 0   no_home_window        SYSTEM   NEVER     NONE NULL
+# Contains version of MASS, used in processing/mass and um_nav_actions
+MASS_VN    -1  1  0            0 STRING 10 0   no_home_window        SYSTEM   NEVER     NONE NULL
+# arrays used in Strait Paramterisation - part of the ocean 
+COORDIJ     0    1    2     0    STRING    14    0      ocean_Science_Strait       SYSTEM   NEVER     NONE NULL
+# To make switch LBLDUMSCR available ot unavailable
+# HID_BLDUMSCR   -1  1  0          0 STRING  1 0   no_home_window      SYSTEM   NEVER     LIST Y N

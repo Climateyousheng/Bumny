@@ -1,0 +1,139 @@
+This window allows users to specify options which determine the UM
+source code base that will be built and also enables them to use their
+own modifications on top of this.
+
+Some of the questions in this table should not be changed without
+fully understanding the system, as mistakes can lead to unexpected
+effects.
+
+Users should not normally need to change the top 3 fields here as
+these supply information about the FCM UM repository, and the stable
+release branch (ie. the trunk) on which this job is based.
+
+Selecting a version from the trunk
+----------------------------------
+
+Each version of the UMUI relates to a particular version of the UM
+base code. For example UMUI versions 6.6 and 6.6.1 relate to UM
+version 6.6 on the FCM trunk.
+
+Most people will need to use the default version of the stable release
+branch.
+
+Users can opt to choose a different version of the base code from the
+stable release branch by turning on "Use different version of the UM
+code base from the default for this UMUI version".
+
+The alternative base code can be specified as a revision number which
+should be on the stable release branch defined above. It can also be
+specified as a standard keyword (for example, vn7.2). If it is
+specified as HEAD, or left blank, it will use the head of the stable
+release branch. Typically, though, this option is only used by the UM
+systems team for testing latest versions.
+
+Selecting anything other than the default base code may mean that the
+UMUI version is incompatible with the executable, and appropriate
+hand-edits may be required for it to work.
+
+Using Central Precompiled builds
+--------------------------------
+
+Using precompiled builds can speed up compile time considerably as source code
+subroutines will only be compiled if their code has been changed or different 
+section DEFs have been applied. Depending on the UM release there will be
+a range of central prebuilds available for standard model configurations
+as follows:
+
+UM 6.6
+
+global_atmos_high     -      suitable for Atmosphere only jobs with high optimisation
+HadGEM1_safe          -      suitable for couple Atmos/Ocean jobs with safe optimisation
+HadGEM1_debug         -      suitable for any job where you wish to do interactive debugging
+                             or disable optimisation.
+			     
+UM 7.0
+
+global_atmos_high     -      suitable for Atmosphere only jobs with high optimisation
+
+UM 7.1+
+
+global_atmos_high_reprod   -  Atmosphere only with high opt and REPROD ON (operational N320)
+
+global_atmos_high_noreprod -  Atmosphere only with high opt and REPROD OFF (research)
+
+lam_high_noreprod          -  Limited Area Atmosphere with high opt and REPROD OFF (operational NAE)
+
+If in doubt as to which one to use, check with the UM Systems Teams.
+
+To use a central prebuild, set the following:
+			     
+Local Prebuild location: /home/fr0400/umbuild/[vnx.x]/prebuilds (where [vx.x] is UM version)
+
+Remote Prebuild location: $UMDIR/[vnx.x]/[mach]/prebuilds(where [vx.x] is UM version and [mach]
+is the machine name, e.g. for the Met Office this would be either sx6 or ibm)
+
+Model name: Select from list above, e.g. lam_high_reprod.
+
+User Defined Precompiled builds
+-------------------------------
+
+It is also possible to use a previously built job of your own as a prebuild. In which case
+you need to set the following:
+
+Local Prebuild location: Location of extract on local machine (e.g. $LOCALDATA)
+
+Remote Prebuild location: Location of build on remote machine (e.g. /data/cr/crum/hadbc)
+
+Model name: The RUNID of the job (e.g. ahydc)
+
+
+User branches
+-------------
+
+If you have made code modifications on other branches and/or wish to
+use other developers' modifications you need to enable the option
+"Include modifications from branches". The branch location should be
+entered using any valid FCM URL syntax. For example:
+
+fcm:um_br/dev/[userid]/[branch name]/src
+
+or
+
+svn://fcm2/UM_svn/UM/branches/dev/[userid]/[branch name]/src
+
+If the revision column of this table is left blank it means that the
+'HEAD' (latest version) of the branch is used. This makes sense if you
+are developing a branch and want to avoid modifying the UMUI job each
+time you commit a new change to the branch. If you are using other
+developers' branches, however, then for safety you may need to use a
+revision number. This is a way of allowing you to use a stable version
+of the branch while the author continues to make changes.
+
+Usually, all branches listed in the table should have as their parent
+the default base code for this version of the UMUI. Using a branch
+that has not branched from this parent can have unexpected effects. If
+you want to do this, it is normally better to create a new branch from
+the parent, custom merge the branch containing the code you want to
+use, and use the newly created branch.
+
+Central script modifications
+----------------------------
+
+Branches containing modifications to scripts should be added to this table. 
+A new script can be added (and will be automatically extracted) by listing #
+the new script in script_targets.cfg within the branch.
+
+Using working copies instead of branches to apply changes
+---------------------------------------------------------
+
+If you wish to experiment with temporary changes (e.g debugging print
+statements) and therefore do not wish to commit them to the repository
+straight away you can point directly at your working copy.(i.e. where
+you checked out your UM source code to and made your changes).
+
+Enable the "Include modifications from user working copy" option and
+enter the path to your working copy up to and including the src/
+directory.
+
+Note that only one working copy is allowed: this is an FCM limitation!
+

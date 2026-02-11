@@ -1,0 +1,14 @@
+%TCL
+# Set up the Extract, Compile and Run switches set to loop over
+
+# Extract Switches
+set models_extract {umatmos jules flake nemo cice}
+
+# Compile Switches
+set models_compile {umscripts umatmos umrecon nemo cice nemo_cice um_nemo_cice}
+
+# Run Switches
+set models_run {atm rcf nemo cice nemo_cice um_nemo_cice}
+
+%ENDTCL
+

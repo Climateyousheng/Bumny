@@ -1,0 +1,47 @@
+%TCL
+        set gens_vars [ get_variable_array GENS_VARS ]
+        foreach list $gens_vars {
+           set ui_name      [lindex $list 0 ]
+           set gen_name     [lindex $list 1 ]
+           set c_or_d       [lindex $list 2 ]
+           set type         [lindex $list 3 ]
+           set format       [lindex $list 4 ]
+           if  { $ui_name != "#NONE"  && \
+                 [inactive_var $ui_name ] == 1  } { continue } 
+           if { $gen_name == "#SPECIAL#"  }  {
+             if {$ui_name == "OPFILES" } {
+                if {%USE_OPFILES=="Y"} {
+                  # Indexed array. Need to find this type
+                  set indexlist  [get_variable_array OPFILE_INDEX]
+                  set valuelist [get_variable_array OPFILES]
+                  for {set i 1} {$i <= %N_OPFILES} {incr i} {
+                    set external  [ lindex %OPFILES_DEF($i) 1 ]
+                    set type %OPFILE_TYPES($i) 
+                    # Is this type in the index
+                    set index [lsearch -exact $indexlist $type]
+                    if { $index!=-1 && ([lindex $valuelist $index]=="EXTERNAL") } {
+                      putl "needs UM_$type"
+                    }
+                  }
+                }
+             } else {
+               error "Error in processing file \"external\". Unknow special \"$ui_name\""
+             }
+           } elseif { $c_or_d == "driven"  }  {
+              putl "needs $gen_name"
+           } elseif { $type == "array" } {
+              set val_list [get_variable_array $ui_name]
+              set k 0
+              foreach val $val_list {
+                incr k
+                if {$val == "EXTERNAL"} {
+                   putl "needs $gen_name[format $format $k]"
+                }
+              }
+           } else { 
+               if { [get_variable_value $ui_name] == "EXTERNAL" } {
+                   putl "needs $gen_name"
+               }
+           }
+        }
+%ENDTCL 

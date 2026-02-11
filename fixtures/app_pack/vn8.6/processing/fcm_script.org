@@ -1,0 +1,712 @@
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C used "procedures"
+%C 
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C UMUI provided script.
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%T if {%START_MAIL=="Y" && %GEN_SUITE != 1} {
+UM_START_MAIL=true
+%T }
+%T if {%START_MAIL=="Y" || %END_MAIL=="Y"} {
+UM_MAIL_ID=%MAIL_ID
+%T }
+
+%T global version
+echo "*****************************************************************"
+echo "     Version %VERSION template, Unified Model ,  Non-Operational"
+%T putl "echo \"     Created by UMUI version $version                       \""
+echo "*****************************************************************"
+
+%T if { %GEN_SUITE == 1 } {
+export COMP_LINK_RUN=CLR
+%T   if {%LTRGMACH != "Y"} {
+%T      if { %SUBMIT_METHOD==3 } {
+export TARGET_MC=ibm
+%T       } elseif { %SUBMIT_METHOD==1 } {
+export TARGET_MC=linux
+%T       } else {
+export TARGET_MC=normal
+%T       }
+%T   } else {
+export TARGET_MC=%USR_TARGET_MC
+%T   }
+%T }
+# Model version number
+export VN=%VERSION   
+             
+%T if { %UMDIR_OPT == "Y" } {
+export UMDIR=%UMDIR_VAL
+%T }
+
+. $UMDIR/vn$VN/$TARGET_MC/scripts/.umsetvars_$VN
+if test -s $HOME/.umsetvars_$VN ; then
+  echo "Sourcing $HOME/.umsetvars_$VN"
+  . $HOME/.umsetvars_$VN
+fi
+. $UMDIR/vn$VN/$TARGET_MC/scripts/umprofile
+# set UI system variables
+. $UMDIR/vn$VN/$TARGET_MC/scripts/setglobalvars 
+
+export GEN_MACHINE=${GEN_MACHINE:-${UMMACHINE}}
+
+##############################################################
+# Set up UM environment variables for export to lower shells #
+##############################################################
+export MAILSYS="dummy"
+
+###################################################
+# Run Identifier and Temporary Dir details        #
+###################################################
+
+export EXPTID=%EXPT_ID
+EXPTALIAS="NONE"
+export JOBID=%JOB_ID
+export RUNID=$EXPTID$JOBID
+export JOB_LINE='%JOBDESC'
+
+this_hostname=`hostname`
+echo "Host is $this_hostname"
+%TCL
+ set um_tmpdir ""
+ if { %LOVERTMP == "Y" } {
+    set um_tmpdir %OVERTMPDIR
+ } elseif { %SUBMIT_METHOD == 3 } {
+    set um_tmpdir "\${UM_TMPDIR:-\$SCRATCH}/\$LOGNAME/\$RUNID"
+ } elseif { %SUBMIT_METHOD == 1 } {
+    set um_tmpdir "\${UM_TMPDIR:-/var/tmp}/\$LOGNAME/\$RUNID"
+ }
+%ENDTCL
+%T if { $um_tmpdir != "" } {
+export UM_TMPDIR=%TCL put "$um_tmpdir" %ENDTCL  
+export TMP=$UM_TMPDIR
+if test -d $UM_TMPDIR; then
+  rm -rf $UM_TMPDIR
+fi
+echo "Creating directory $UM_TMPDIR"
+mkdir -p $UM_TMPDIR
+%T } else {
+# On "OTHER" machines, except where UM_TMPDIR is overridden via the UMUI,
+# UM_TMPDIR is set via .umsetvars_$VN: UM_TMPDIR=${UM_TMPDIR:-${TMPDIR:-/tmp/$LOGNAME}}
+%T }
+%C
+
+###################################################
+# OASIS coupling flag                             #
+###################################################
+
+%T if {[inactive_var OASIS] == 0 } {
+export OASIS=%TCL replacep OASIS T true F false %ENDTCL 
+%T } else {
+export OASIS=false
+%T }
+%T if { %OASIS_MPI_TYPE  == 2 } { 
+export OASIS_MPI_TYPE=MPI2 
+%T } else {
+export OASIS_MPI_TYPE=MPI1
+%T }
+%T if { ![ inactive_var LCPLMASTER ] } { 
+export ATM_CPL_TYPE=%TCL replacep LCPLMASTER T M F P %ENDTCL   
+%T } else {
+export ATM_CPL_TYPE=P
+%T }
+%T if { ![ inactive_var LCPLNEMOMR ] } { 
+export NEMO_CPL_TYPE=%TCL replacep LCPLNEMOMR T M F P %ENDTCL
+%T } else {
+export NEMO_CPL_TYPE=P
+%T }
+
+if test $UMMACHINE = 'IBM'
+then
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+### START of non-portable block (UKMO ONLY)
+
+%T if { %SUBMIT_METHOD==3 } {
+# TBD-IBM This needs setting when IBM locations for opstoprun directories decided
+CPROD_ROOT=/u/m20/cprod
+%T   if { [string range %USERID 0 2] == "had" } {
+export AUTO_RESTART=true
+%T   } else {
+export AUTO_RESTART=false
+%T   }
+%T }
+OPSTOPRUN=$CPROD_ROOT/opstoprun
+
+# the following 4 could possibly be moved out 
+# if users never change these
+
+export OPSTARTDIR=$CPROD_ROOT/opstartinfo
+export OPSYSERR=$CPROD_ROOT/opsyserr
+export OPARCHERR=$CPROD_ROOT/oparcherr
+export CRERRDIR=$CPROD_ROOT/runerrmsg
+
+# allows retries of getibm and similar facilities.
+export IBM_RETRY=5   
+
+# Comment the following to run with streams off.
+# May be required if system is not stream safe.
+export SCACHE_D_STREAMS=1
+
+### END of non-portable block  (UKMO ONLY)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fi
+
+%T if { %SCIN == "T" } {
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+### START of Users top script insert           
+
+if test -f %SCINLIB/%SCINMEMT
+then
+. %SCINLIB/%SCINMEMT
+else
+  echo "ERROR: User top script insert %SCINLIB/%SCINMEMT not found"
+  exit 1
+fi
+### END of Users top script insert               
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%T }
+
+###################################################
+# CORE DUMP SAVING                                #
+###################################################
+
+export SAVECORE=true
+export COREDUMP=/tmp/$RUNID.core$$
+
+###################################################
+# Output Choices - Environment variables          #
+###################################################
+
+%TCL
+  set drhook 0
+  set drhook_prof ""
+  if { %DRH_PROF != "none" } {
+     set drhook_prof "%DRH_PROF,"
+  }
+  set drhook_opt "noself"
+  if { %LDRHOOK=="Y" } {
+    set drhook 1 
+    if { $drhook_prof != "" && %DRH_SELF=="Y" } {
+       set drhook_opt "self"
+    }       
+    set drhook_opt "$drhook_prof$drhook_opt"
+    if { %DRH_MEM=="Y" } {
+       set drhook_opt "$drhook_opt,memory"
+    }
+    if { %DRH_TIME=="Y" } {
+       set drhook_opt "$drhook_opt,time"
+    }
+  }
+  putl "export DR_HOOK=$drhook"
+  putl "export DR_HOOK_OPT=$drhook_opt"
+  if { %LDRHOOK=="Y" && %DATAW != "EXTERNAL" } {
+     set dataw %DATAW
+     putl "export DR_HOOK_PROFILE=$dataw\/drhook.prof.%%d"      
+  }
+%ENDTCL
+
+%T if { %SUBMIT_METHOD==3} {
+###############################################
+# Setup IBM runtime performance variables     #
+###############################################
+%T   if {%PW7_OPTSET=="1"} {
+# Standard set
+export MP_SHARED_MEMORY=${MP_SHARED_MEMORY:-YES} 
+%T     if { [inactive_var IOS_NPROC]==0 && %IOS_NPROC!="0" } { 
+export MP_SINGLE_THREAD=NO 
+%T     } else { 
+export MP_SINGLE_THREAD=${MP_SINGLE_THREAD:-YES} 
+%T     } 
+export MP_EAGER_LIMIT=${MP_EAGER_LIMIT:-65536}   
+%T   }
+
+%T   if {([inactive_var LR_OPENMP]==0)&&(%LR_OPENMP=="Y")} {
+export XLSMPOPTS=stack=1000000000
+%T   }
+
+%T   if {%PW7_OPTSET=="2"} { 
+# Optimised set 
+# Additional checking during execution for applications in development:
+# yes, no, deb (for "debug"), nor(for "normal"), min(for "minimal")
+export MP_EUIDEVELOP=${MP_EUIDEVELOP:-min}   # change for debugging
+
+# check if connection to remote nodes is available
+export MP_PULSE=${MP_PULSE:-0}   # change for debugging
+
+# Transport mechanism is user space
+export MP_EUILIB=${MP_EUILIB:-us}
+
+# The interconnect type is HFI (Torrent)
+export MP_DEVTYPE=${MP_DEVTYPE:-hfi}
+
+#S hared Memory Implementation of MPI 
+export MP_SHARED_MEMORY=${MP_SHARED_MEMORY:-yes}
+
+# Some threads can call MPI (-->no) 
+export MP_SINGLE_THREAD=no   # necessary for IO server
+ 
+# USE RDMA 
+export MP_USE_BULK_XFER=${MP_USE_BULK_XFER:-yes}
+
+# USE Polling
+export MP_WAIT_MODE=${MP_WAIT_MODE:-poll}
+
+# Routing mode : direct (vs indirect)
+export MP_RDMA_ROUTE_MODE=${MP_RDMA_ROUTE_MODE:-hw_direct_striped}
+export MP_FIFO_ROUTE_MODE=${MP_FIFO_ROUTE_MODE:-hw_direct_striped}
+
+# Binding Options
+# For a mixed MPI/OpenMP application MP_BINDPROC affinitises MPI tasks
+# If unset (default), threads are only affinitised when encountering the first OpenMP region
+export MP_BINDPROC=${MP_BINDPROC:-YES}
+
+# MEMORY_AFFINITY=MCM: A task will allocates memory in the memory local
+# to the chip (8 cores)
+export MEMORY_AFFINITY=${MEMORY_AFFINITY:-MCM} #status:recommended
+
+# Eager limit is an important tunable; impact will vary with application
+export MP_EAGER_LIMIT=${MP_EAGER_LIMIT:-64K}
+
+export MP_BULK_MIN_MSG_SIZE=${MP_BULK_MIN_MSG_SIZE:-64K}
+export MP_BULK_XFER_CHUNK_SIZE=${MP_BULK_XFER_CHUNK_SIZE:-1024k}
+export HFI_RDMA_BREAKOUT_COUNT=${HFI_RDMA_BREAKOUT_COUNT:-32}
+
+# Polling settings ( when waiting for messages ) 
+export MP_POLLING_INTERVAL=${MP_POLLING_INTERVAL:-1500000}
+ 
+# Size of Memory buffer for eager messages 
+export MP_BUFFER_MEM=${MP_BUFFER_MEM:-256M}
+export MP_SHM_ATTACH_THRESH=${MP_SHM_ATTACH_THRESH:-500000}
+export MP_RFIFO_SIZE=${MP_RFIFO_SIZE:-16777216}
+
+# Paging space ( OS )
+export LDR_CNTRL=DATAPSIZE=64K@TEXTPSIZE=4K@STACKPSIZE=64K
+%T   }
+%T } 
+
+###################################################
+# Standard directories for input files etc:       #
+#      Contents of table from subindep_FilDir     #
+###################################################
+
+%T for { set i 1 } { $i <= %N_ENVARS } {incr i } {
+%T   if { %ENVAR_NAME($i) != "" } {
+export %ENVAR_NAME($i)=%ENVAR_VAL($i)
+%T   } 
+%T }
+
+###################################################
+# User defined environment variables              #
+###################################################
+
+%T for { set i 1 } { $i <= %N_ENVARS } {incr i } {
+%T   if { %GENVAR_NAME($i) != "" } {
+export %GENVAR_NAME($i)=%GENVAR_VAL($i)
+%T   } 
+%T }
+
+###################################################
+# Spectral Files directory                        #
+###################################################
+%I nds_spect_files
+
+###################################################
+# User defined output directories                 #
+###################################################
+
+%T if { %DATAW != "EXTERNAL" } {
+UM_DATAW=%DATAW       # User-specific read/write data files
+%T }
+%T if { %DATAM != "EXTERNAL" } {
+UM_DATAM=%DATAM       # Output Dumps/PP/etc. Generated names
+%T }
+export DATAW=$UM_DATAW
+export DATAM=$UM_DATAM   
+
+# Ensure the following directories exist (o/w run-only jobs will fail)
+for dir in $UM_DATAW $UM_DATAM
+do
+  if test ! -d $dir; then
+   echo "Creating directory $dir"
+   mkdir -p $dir
+  fi
+done
+
+###################################################
+# Directory pointers in environment variables     #
+###################################################
+
+# For files required only during the run
+export TEMP=${UM_TMPDIR}      
+
+# For executable files
+EXEC=$UMDIR/vn$VN/$TARGET_MC/exec        
+
+%T if {%LFCM_PREBUILD=="Y"} {
+# Using precompiled build 
+export PREBLD_MODNAME=%UMFCM_MODNAME
+export UM_REM_PREBLD_PATH=%UMFCM_REM_PREBLD/$PREBLD_MODNAME/bin
+SCRIPT=$DATAW/bin:$UM_REM_PREBLD_PATH:$UMDIR/vn$VN/$TARGET_MC/scripts
+%T } else {
+# Using full or incremental build
+SCRIPT=$DATAW/bin:$UMDIR/vn$VN/$TARGET_MC/scripts
+%T }
+
+# Path for all platforms
+PATH=$PATH:$SCRIPT:$EXEC
+
+echo "PATH used = $PATH"
+%T    if {%SYSTM == 2} {
+ARCHMOOSE='true'
+%T    } else {
+ARCHMOOSE='false'
+%T    }
+export ARCHMOOSE 
+
+###################################################
+# Directories on TARGET_MC                        #
+###################################################
+
+# PROD_TARGET=$DATADIR
+# DATAW_TARGET=$PROD_TARGET/$RUNID
+# DATAM_TARGET=$PROD_TARGET/$RUNID
+# UCOMPDIR_TARGET=$PROD_TARGET/$RUNID/Compile
+# URECONDIR_TARGET=$PROD_TARGET/$RUNID/Recon
+
+# if test $PLATFORM = "TARGET"
+# then
+#  PROD=$PROD_TARGET
+#  DATAW=$DATAW_TARGET
+#  DATAM=$DATAM_TARGET
+#  UCOMPDIR=$UCOMPDIR_TARGET
+#  URECONDIR=$URECONDIR_TARGET
+# fi
+
+# Set false to always keep output from all PEs
+export UM_NAM_MAX_SECONDS=${UM_NAM_MAX_SECONDS:-300}
+UM_DEL_MPP_OUTPUT=%TCL replacep DELMPPO Y true  N false %ENDTCL  
+
+# Indicates whether operational model
+export OPERATIONAL=%TCL  if {[string index "%EXPT_ID" 0]=="q"} {put true } else {put false} %ENDTCL       
+
+# Switch for automatic output processing
+export AUTOMATIC_PP=%TCL replacep AUTOPP Y true N false %ENDTCL   
+
+%T if {%GEN_SUITE == 0} {
+# Output class for resubmitted jobs
+export OUT_CLASSR=leave    
+
+# Output class for start-run jobs   
+export OUT_CLASS=leave        
+%T }
+
+%T if {%GEN_SUITE==0 && %LUSRANCVN=="Y"} {
+###################################################
+# Ancillary version files                         #
+###################################################
+if test -f %USRANC_VN
+then
+  export UM_ANCIL_FILENAMES=%USRANC_VN
+else
+  echo "ERROR: the Ancil filenames version %USRANC_VN not found"
+  exit 1
+fi
+
+if test -f %USRANC_FLNM
+then
+. %USRANC_FLNM
+else
+  echo "ERROR: the Ancil versions file %USRANC_FLNM not found"
+  exit 1
+fi
+%T }
+
+###################################################
+# Variables relating to reconfiguration           #
+###################################################
+
+# Timer for reconfiguration       
+export RCF_TIMER=%TCL replacep RCF_TIMER Y true  * false %ENDTCL 
+
+# Delete recon output on success
+RCF_DEL_MPP_OUTPUT=%TCL replacep RCF_DELMPPO Y true  * false %ENDTCL 
+
+# Level of print output from reconfiguration
+export RCF_PRINTSTATUS=${RCF_PRINTSTATUS:-%RCF_PRINTSTATUS}
+
+# Flag to delete old histfile in NRUN
+export PURGEHIST=true          
+
+# Indicates whether OUTPUT2 is printed
+LONGOUTPUT=%TCL replacep LONGOUT Y true  N false %ENDTCL        
+
+# PrStatus_Min, PrStatus_Normal, PrStatus_Oper or PrStatus_Diag 
+export PRINT_STATUS=${PRINT_STATUS:-%PRINT_STATUS} 
+
+# load module, UM model
+%T if { %PATHEXEC != "EXTERNAL" } {
+export LOADMODULE=%PATHEXEC/%FILEEXEC    
+%T } else {
+export LOADMODULE=$UM_EXEC
+%T }
+
+%T if {(%ATMOS=="F")&&(%NEMO=="F")&&(%CICE=="T")} {
+# Load Sea Ice
+export OCNMODULE=%PATHCICE/%FILECICE
+%T } elseif {%NEMO=="T"} {
+# Load module, Ocean or Sea Ice
+export OCNMODULE=%PATHNEMO/%FILENEMO
+%T } 
+
+# load module, reconfiguration
+%T if { %PATHREC != "EXTERNAL" } {
+export LOADRECON=%PATHREC/%FILEREC  
+%T } else {
+export LOADRECON=$UM_RECON_PROG
+%T }
+
+###################################################
+#  Model control files                            #
+###################################################
+
+# Switch for printing files
+PRINT_INPUT=%TCL replacep UIPRINT Y true N false %ENDTCL 
+
+# Root for system STASHmaster files
+%T if { %L_SMDIR == "Y" } {
+export STASHMSTR=%SMDIR                       
+%T } else {
+export STASHMSTR=$UMDIR/vn$VN/ctldata/STASHmaster  
+%T }
+
+# Root for system ANCILmaster files
+export ANCILMSTR=$UMDIR/vn$VN/ctldata/ANCILmaster  
+
+# Destination of standard output files
+export UM_STDOUT_FILE=$DATAW/pe_output/$RUNID.fort6.pe  
+
+# Destination of recon atmos output files
+export RCF_STDOUT_FILE_A=$DATAW/pe_output/$RUNID.fort6.rcfa.pe  
+
+# Output from pe0 for model
+UM_MPP_OUTPUT="$UM_STDOUT_FILE"0          
+
+# Output from pe0 for recon (atm)
+RCF_MPP_OUTPUT_A="$RCF_STDOUT_FILE_A"0         
+
+# Output file for the job step
+PREFIXT=""
+export OUTPUT=$DATAW/$PREFIXT$RUNID.out       
+
+# Running submodels
+export UM_ATMOS=%TCL replacep ATMOS T true  * false %ENDTCL 
+
+# Set variables for NEMO / CICE standalone combinations
+
+%T if { (%NEMO == "T")&&(%ATMOS == "F") } {
+export NEMO=true                       
+%T } else {
+export NEMO=false  
+%T }
+%T if { (%CICE == "T")&&(%ATMOS == "F") } {
+export CICE=true                       
+%T } else {
+export CICE=false  
+%T }
+
+%T if { %GEN_SUITE == 1 } {
+# Flag to indicate fully coupled HadGEM3 run
+%T   if {(%ARECON=="N")&&(%ATMOS=="T")&&(%NEMO=="T")&&(%CICE=="T")} {
+export HADGEM3_COUPLED=true
+%T   } else {
+export HADGEM3_COUPLED=false
+%T   }
+%T }
+
+# Indicates automatic postprocessing
+UM_AUTOPP=%TCL replacep AUTOPP Y true  * false %ENDTCL 
+
+%T if {%OCAAA==5} {
+# Turn off MPP environment for SCM since it is a serial executable
+export LINUXMPP=false
+export MPP=false
+%T }
+
+# Indicates a suite run
+UM_SUITE=%TCL replacep GEN_SUITE 1 true  * false %ENDTCL 
+
+%T if { %END_MAIL == "Y" } {
+UM_END_MAIL=true
+%T }
+UM_LOUTPUT=%LOUTPUT
+
+%T if {%NEMO=="T" || %CICE=="T"} {
+###################################################
+# Variables relating to NEMO or CICE only         #
+# Set Run length information                      #
+###################################################
+
+RESUB_INC_YEARS=%IRYR
+RESUB_INC_MONTHS=%IRMO
+RESUB_INC_DAYS=%IRDA
+RESUB_INC_HOURS=%IRHR
+RESUB_INC_MINUTES=%IRMI
+RESUB_INC_SECONDS=%IRSE
+
+RUN_LEN_YEARS=%ERYR
+RUN_LEN_MONTHS=%ERMO
+RUN_LEN_DAYS=%ERDA
+RUN_LEN_HOURS=%ERHR
+RUN_LEN_MINUTES=%ERMI
+RUN_LEN_SECONDS=%ERSE
+
+START_DAY=%SRDA
+START_MONTH=%SRMO
+START_YEAR=%SRYR
+CAL360=%TCL replacep CAL360 Y true N false %ENDTCL 
+
+export RESUB_INC_SECONDS=$RESUB_INC_SECONDS
+export RESUB_INC_MINUTES=$RESUB_INC_MINUTES
+export RESUB_INC_HOURS=$RESUB_INC_HOURS
+export RESUB_INC_DAYS=$RESUB_INC_DAYS
+export RESUB_INC_MONTHS=$RESUB_INC_MONTHS
+export RESUB_INC_YEARS=$RESUB_INC_YEARS 
+export RUN_LEN_SECONDS=$RUN_LEN_SECONDS
+export RUN_LEN_MINUTES=$RUN_LEN_MINUTES
+export RUN_LEN_HOURS=$RUN_LEN_HOURS
+export RUN_LEN_DAYS=$RUN_LEN_DAYS
+export RUN_LEN_MONTHS=$RUN_LEN_MONTHS
+export RUN_LEN_YEARS=$RUN_LEN_YEARS
+export START_DAY=$START_DAY
+export START_MONTH=$START_MONTH
+export START_YEAR=$START_YEAR
+export CAL360=$CAL360
+
+%T }
+
+%T if {%NEMO=="T"} {
+###################################################
+# NEMO model Control Namelist and Start Dump      #
+###################################################
+
+export NEMO_VERSION=%NEMOVERSION
+export NEMO_NL=%NMLST_NEMO
+export NEMO_NL_ICE=%NEMONLICE
+export NEMO_START=%START_NEMO 
+export NEMO_RESTART_DATE=%TCL replacep NEMO_RESTRT Y Y * N %ENDTCL
+
+export NEMO_SEPARATE_MEANS=%TCL replacep NEMO_SEP_MEANS T true F false %ENDTCL
+
+###################################################
+# Created links to NEMO                           #
+###################################################
+
+%T    for {set i 1} {$i <= 25} {incr i} {
+%T       if {%LNK_NM_NEMO($i) != "" && %LNK_VAL_NEMO($i) != ""} {
+%T          set lnk %LNK_NM_NEMO($i)
+%T          set rc_n [string first "\$DATAM" $lnk ]
+%T          if { $rc_n == -1} {
+%T             set lnk [file join "\$DATAM" $lnk]
+%T          }
+%T          putl "ln -s -f %LNK_VAL_NEMO($i) $lnk"
+%T       }
+%T    }
+
+typeset -Z4 i=0
+while [ $i -lt $NEMO_NPROC ]
+do
+ln -s -f $DATAM/coordinates.nc $DATAM/coordinates_${i}.nc
+ln -s -f $DATAM/geothermal_heating.nc $DATAM/geothermal_heating_${i}.nc
+let i=$i+1
+done
+%T }
+
+%T if {%CICE=="T"} {
+###################################################
+# CICE model Control Namelist and Start Dump      #
+###################################################
+
+export CICE_NL=%NMLST_CICE
+export CICE_START=%START_CICE 
+export CICE_GRID=%CICEGRID
+export CICE_KMT=%CICEKMT
+%T if { %NEMO!="T" } {
+export CICE_ATM_DATA=%CICEATM
+export CICE_OCN_DATA=%CICEOCN
+%T }
+
+###################################################
+# Created links to CICE                           #
+###################################################
+
+%T    for {set i 1} {$i <= 25} {incr i} {
+%T       if {%LNK_NM_CICE($i) != "" && %LNK_VAL_CICE($i) != ""} {
+%T          set lnk %LNK_NM_CICE($i)  
+%T          set rc_c [string first "\$DATAM" $lnk ]
+%T          if { $rc_c == -1} {
+%T             set lnk [file join "\$DATAM" $lnk]
+%T          }
+%T          putl "ln -s -f %LNK_VAL_CICE($i) $lnk"
+%T       }
+%T    }
+%T }
+
+%T if { [inactive_var OASIS] == 0 } {
+%T if {%OASIS=="T"} {
+###################################################
+# Set up environment for OASIS coupler            #
+###################################################
+ 
+%T if {%OASISWHICH==3} {
+export PRISM_HOME=%PRISMHOME3
+export NAMCOUPLE_HOME=%XML_LCN3
+export NAMCOUPLE_STUB=%SCC3
+export USE_GRIDS_DIRECT=%TCL replacep UGRDSDIR T true * false %ENDTCL 
+%T    if {%UGRDSDIR=="T"} {
+export NC_GRIDS=%NCGRIDS
+export NC_MASKS=%NCMASKS
+export NC_AREAS=%NCAREAS
+export NC_ANGLES=%NCANGLES
+export RMP_DIR=%RMP_DIR
+%T    } 
+%T } elseif {%OASISWHICH==4} {
+export PRISM_HOME=%PRISMHOME4
+export NAMCOUPLE_HOME=%XML_LCN4
+export NAMCOUPLE_STUB=%SCC4
+export USE_GRIDS_DIRECT=%TCL replacep UGRDSDIR T true * false %ENDTCL 
+%T    if {%UGRDSDIR=="T"} {
+export NC_GRIDS=%NCGRIDS
+export NC_MASKS=%NCMASKS
+export NC_AREAS=%NCAREAS
+export NC_ANGLES=%NCANGLES
+export RMP_DIR=%RMP_DIR2
+%T } 
+%T }
+%T }
+%T }
+###################################################
+# Finally call the revised top level script       #
+# for the UM                                      #
+###################################################
+
+. UMScr_TopLevel
+RC=$?
+
+%T if { %SCIN == "T" } {
+###################################################
+# USERS bottom script insert       start          #
+###################################################
+if test -f %SCINLIB/%SCINMEMB
+then
+. %SCINLIB/%SCINMEMB
+else
+  echo "ERROR: User bottom script insert %SCINLIB/%SCINMEMB not found"
+  exit 1
+fi
+###################################################
+# USERS bottom script insert       end            #
+###################################################
+%T }
+%C
+%T if { %GEN_SUITE == 1 } {
+exit $RC
+%T }

@@ -1,0 +1,22 @@
+This window allows users to specify the use of the General land surface ancillary file. 
+
+This file contains a set of land sruface parameters that are created using the 
+General interpolation routines from the ANCIL system. 
+
+This can contain the fields:
+
+Roughness length - this is currently left over from an older version of the model
+   and is (mostly) only used for sea points, for a single timestep. 
+   The availability of this field as an ancillary field will soon be retired.
+
+Short wave snow free land surface albedo (when the albedos are scaled 
+   to observations and the albedo is not spectrally varying).
+
+Visible snow free land surface albedo (when the albedos are scaled to 
+   observations and the albedo is spectrally varying).
+
+Near-Infra-Red snow free land surface albedo (as Vis albedo, but for NIR band).
+
+Fields should be configured when changing resolution or moving to a new land-sea mask.
+
+%I ancill_gen

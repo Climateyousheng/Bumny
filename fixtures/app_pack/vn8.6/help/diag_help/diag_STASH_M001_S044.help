@@ -1,0 +1,137 @@
+<M001_S044_I001>
+(1:44:01) Karbou emiss. at 23.8 GHz
+
+This is to allow non-UM diagnostics for microwave land surface 
+emissivity to be merged into background file for OPS processing 
+of radiances. These parameters are never to be used by the UM, 
+only in the reconfiguration step in SCS that merges in ancillary 
+files.
+
+</M001_S044_I001>
+#
+<M001_S044_I002>
+(1:44:02) Karbou emiss. (stdev) at 23.8 GHz
+
+This is to allow non-UM diagnostics for microwave land surface 
+emissivity to be merged into background file for OPS processing 
+of radiances. These parameters are never to be used by the UM, 
+only in the reconfiguration step in SCS that merges in ancillary 
+files.
+
+</M001_S044_I002>
+#
+<M001_S044_I003>
+(1:44:03) Karbou emiss. at 31.4 GHz
+
+This is to allow non-UM diagnostics for microwave land surface 
+emissivity to be merged into background file for OPS processing 
+of radiances. These parameters are never to be used by the UM, 
+only in the reconfiguration step in SCS that merges in ancillary 
+files.
+
+</M001_S044_I003>
+#
+<M001_S044_I004>
+(1:44:04) Karbou emiss. (stdev) at 31.4 GHz 
+
+This is to allow non-UM diagnostics for microwave land surface 
+emissivity to be merged into background file for OPS processing 
+of radiances. These parameters are never to be used by the UM, 
+only in the reconfiguration step in SCS that merges in ancillary 
+files.
+
+</M001_S044_I004>
+#
+<M001_S044_I005>
+(1:44:05) Karbou emiss. at 50.0 GHz 
+
+This is to allow non-UM diagnostics for microwave land surface 
+emissivity to be merged into background file for OPS processing 
+of radiances. These parameters are never to be used by the UM, 
+only in the reconfiguration step in SCS that merges in ancillary 
+files.
+
+</M001_S044_I005>
+#
+<M001_S044_I006>
+(1:44:06) Karbou emiss. (stdev) at 50.0 GHz
+
+This is to allow non-UM diagnostics for microwave land surface 
+emissivity to be merged into background file for OPS processing 
+of radiances. These parameters are never to be used by the UM, 
+only in the reconfiguration step in SCS that merges in ancillary 
+files.
+
+</M001_S044_I006>
+#
+<M001_S044_I007>
+(1:44:07) Karbou emiss. at 89.0 GHz
+
+This is to allow non-UM diagnostics for microwave land surface 
+emissivity to be merged into background file for OPS processing 
+of radiances. These parameters are never to be used by the UM, 
+only in the reconfiguration step in SCS that merges in ancillary 
+files.
+
+</M001_S044_I007>
+#
+<M001_S044_I008>
+(1:44:08) Karbou emiss. (stdev) at 89.0 GHz
+
+This is to allow non-UM diagnostics for microwave land surface 
+emissivity to be merged into background file for OPS processing 
+of radiances. These parameters are never to be used by the UM, 
+only in the reconfiguration step in SCS that merges in ancillary 
+files.
+
+</M001_S044_I008>
+#
+<M001_S044_I009>
+(1:44:09) Karbou emiss. at 150.0 GHz 
+
+This is to allow non-UM diagnostics for microwave land surface 
+emissivity to be merged into background file for OPS processing 
+of radiances. These parameters are never to be used by the UM, 
+only in the reconfiguration step in SCS that merges in ancillary 
+files.
+
+</M001_S044_I009>
+#
+<M001_S044_I010>
+(1:44:10) Karbou emiss. (stdev) at 150.0 GHz
+
+This is to allow non-UM diagnostics for microwave land surface 
+emissivity to be merged into background file for OPS processing 
+of radiances. These parameters are never to be used by the UM, 
+only in the reconfiguration step in SCS that merges in ancillary 
+files.
+
+</M001_S044_I010>
+#
+<M001_S044_I011>
+(1:44:11) DISTANCE OFF-SHORE
+
+Distance off-shore 
+
+Field not used in the UM but in Observation Processing System
+(OPS)
+</M001_S044_I011>
+#
+<M001_S044_I012>
+(1:44:12) Microwave Surface Emissivity.  
+
+Surface emissivity data is used as background information for
+satellite data processing within OPS. 
+
+The data is available as fieldsfile defined on a (lat, lon, nfreq) grid.
+
+</M001_S044_I012>
+#
+<M001_S044_I013>
+(1:44:13) Microwave Surface Emissivity (stdev)  
+
+This is an estimate of the error in emissivity and is also defined on a 
+(lat,lon, nfreq) grid
+
+</M001_S044_I013>
+#

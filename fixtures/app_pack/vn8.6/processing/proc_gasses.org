@@ -1,0 +1,34 @@
+%TCL
+  proc gasses { active pos out_fd ngasl ygasl vgasl ngasr ygasr rgasr } {
+
+
+     if { $active } {
+       if { $ngasr > 0 } {
+         set nyears [expr $ngasl + $ngasr - 1 ]
+       } else { 
+         set nyears $ngasl 
+       }
+       putl " CLIM_FCG_NYEARS($pos)= $nyears,"
+       set y $ygasl                  ; # first lot of years.
+       if { $ngasr > 0 } {
+         set y2 [ lreplace $ygasr 0 0 ] ; # first year in second lot not required
+         set y [ concat $y $y2 ]          ; # all the years
+         unset y2
+       }
+       put " CLIM_FCG_YEARS(1,$pos)=" ; tdelimit $y {,} {} ; putl ","
+       set m $vgasl
+       for { set i $ngasl  } { $i < $nyears } {incr i } {
+         lappend m %REAL_MDI
+       }
+       put " CLIM_FCG_LEVLS(1,$pos)=" ; tdelimit $m {,} {} ; putl ","
+       set m $rgasr
+       for { set i $ngasr  } { $i < $nyears } {incr i } {
+         set m [concat %REAL_MDI $m ]
+       }
+       put " CLIM_FCG_RATES(1,$pos)=" ; tdelimit $m {,} {}  ; putl ","
+       unset  y m i 
+     } else {
+       putl " CLIM_FCG_NYEARS($pos)=0, "
+     }  
+  }
+%ENDTCL

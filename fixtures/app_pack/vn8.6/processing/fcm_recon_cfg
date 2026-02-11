@@ -1,0 +1,144 @@
+%C---------------------------------------------------------------------
+%C  File: fcm_recon_cfg
+%C
+%C  Purpose: Generates FCM_UMRECON_CFG, which contains configuration
+%C           for extracting the UM atmosphere reconfiguration including branches
+%C
+%C  Include files:
+%C   * fcm_config      (common sections for the config files)
+%C---------------------------------------------------------------------
+%TCL
+  set subm "umrecon"
+
+# Header - Version and userID
+# ===========================
+set header \
+"#---------------------------------------------------------------------
+# Script: FCM_UMRECON_CFG
+#---------------------------------------------------------------------
+#
+# Purpose: FCM Configuration and Model Selections file for a
+#          UM Atmosphere Reconfiguration job
+#         
+# Created from UMUI vn%VERSION
+#---------------------------------------------------------------------
+"
+
+# Part 1 - Inherit from a Precompiled Build
+# =========================================
+   set part1 ""
+
+# Part 2 - Script build declarations (MANDATORY)
+# ==============================================
+   set part2a \
+"bld::excl_dep::UM::script  EXE
+bld::excl_dep              USE::mpl
+bld::excl_dep              USE::gcom_mod"
+
+   set part2b "bld::pp::UM                1"
+
+
+# Part 3a - Model Specific Sections
+# =================================
+   set part3a ""
+   if {%COMP_RCF=="Y"} {
+      set def_list {}    
+      lappend def_list RECON
+      if { %RCFSERIAL == "Y"} {
+         lappend def_list RECON_SERIAL
+      }
+      set def [format C%%02d_%%2s  95 %INDEP_SR(95)]  
+      lappend def_list $def     
+      set def [format C%%02d_%%2s  98 %INDEP_SR(98)]  
+      lappend def_list $def     
+
+      set part3a "\%%jobdefs \\"
+#      set last_elm [lindex $def_list end]
+#      foreach def $def_list {
+#         set str ""
+#         if {[string equal $def $last_elm]==1} {
+#            append str "   " $def "=" [string tolower $def]
+#         } else {
+#            append str "   " $def "=" [string tolower $def] " \\"
+#         }
+#         append part3a "\n$str"
+#      }
+
+# ILP 
+      foreach def $def_list {
+         set str "   ${def}=[string tolower $def] \\"
+         append part3a "\n$str"
+      }
+   }
+
+# Part 3b - Executable definition
+# ===============================
+   set part3b ""
+   if {%COMP_RCF=="Y"} {
+      set part3b \
+"bld::exe_name::reconfigure    %FILEREC  
+bld::target                   %FILEREC"
+   }   
+ 
+
+# Part 3c - Optional Flags
+# ========================
+   set part3c ""
+   if {%INDEP_SR(98) == "1A"} {
+      set part3c \
+"\%%fflags_optional              \%%fflags_omp
+\%%ldflags_optional             \%%ldflags_omp"
+   }   
+   
+
+# Part 4 - Branches (OPTIONAL)
+# ============================   
+   set type 1
+
+
+# Part 4b - Central Scripts mods (OPTIONAL)
+# ========================================
+
+
+# Part 5 - Working copy (OPTIONAL)
+# ================================
+   set type_wc 1
+
+
+# Part 6a - Pre-bindings UMUI controlled Libraries (OPTIONAL)
+# ===========================================================
+   set umfcm_container %UMFCM_CONTAINER
+   set suffix [lindex [split $umfcm_container "@"] 1]
+   if {$suffix != ""} {   
+      set bind_rev "@$suffix"
+   } else {
+      set bind_rev "@$code_ver"
+   }
+
+   # N/A
+   set part6a ""
+
+
+# Part 6b - Bind File
+# ===================
+   if {%RCFSERIAL=="Y"} { 
+      set str_1 "inc \$UM_SVN_BIND/bind64_serial_"
+   } else {
+      set str_1 "inc \$UM_SVN_BIND/bind64_mpp_"   
+   }   
+   set str_2 %FCM_COMP_GEN
+   set str_3 ".cfg"
+
+   set part6b "$str_1$str_2$str_3$bind_rev"
+
+
+# Part 6c - Post-bindings UMUI controlled Libraries (OPTIONAL)
+# ============================================================
+   # N/A
+   set part6c ""
+
+%ENDTCL
+%T if { %JULES=="T" } {
+%I fcm_jules_cfg
+%T }
+%I fcm_config

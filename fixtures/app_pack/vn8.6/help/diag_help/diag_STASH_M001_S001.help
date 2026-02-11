@@ -1,0 +1,1101 @@
+<M001_S001_I004>
+Help for (001, 001, 004) "TEMPERATURE AFTER SW RAD INCREMENTS"
+
+This diagnostic gives the actual temperatures on model levels after
+the SW radiation increments for the timestep have been added in. The
+SW increments are calculated from the radiation code on radiation
+timesteps only. On other timesteps they are derived from the values
+calculated on the previous radiation timestep by scaling to allow for
+the change in the solar zenith angle and the fraction of the timestep
+for which a given point is illuminated.
+</M001_S001_I004>
+#
+<M001_S001_I101>
+HORIZON ANGLE 1 (N) 
+
+One of 16 horizon angles given in radians from the zenith to the horizon 
+in the specified direction. The compass directions specified in the name 
+are approximate being aligned along the model grid. 
+</M001_S001_I101>
+#
+<M001_S001_I102>
+HORIZON ANGLE 2 (NE) 
+
+One of 16 horizon angles given in radians from the zenith to the horizon 
+in the specified direction. The compass directions specified in the name 
+are approximate being aligned along the model grid. 
+</M001_S001_I102>
+#
+<M001_S001_I103>
+HORIZON ANGLE 3 (E)
+
+One of 16 horizon angles given in radians from the zenith to the horizon 
+in the specified direction. The compass directions specified in the name 
+are approximate being aligned along the model grid. 
+</M001_S001_I103>
+#
+<M001_S001_I104>
+HORIZON ANGLE 4 (SE) 
+
+One of 16 horizon angles given in radians from the zenith to the horizon 
+in the specified direction. The compass directions specified in the name 
+are approximate being aligned along the model grid. 
+</M001_S001_I104>
+#
+<M001_S001_I105>
+HORIZON ANGLE 5 (S) 
+
+One of 16 horizon angles given in radians from the zenith to the horizon 
+in the specified direction. The compass directions specified in the name 
+are approximate being aligned along the model grid. 
+</M001_S001_I105>
+#
+<M001_S001_I106>
+HORIZON ANGLE 6 (SW)
+
+One of 16 horizon angles given in radians from the zenith to the horizon 
+in the specified direction. The compass directions specified in the name 
+are approximate being aligned along the model grid. 
+</M001_S001_I106>
+#
+<M001_S001_I107>
+HORIZON ANGLE 7 (W) 
+
+One of 16 horizon angles given in radians from the zenith to the horizon 
+in the specified direction. The compass directions specified in the name 
+are approximate being aligned along the model grid. 
+</M001_S001_I107>
+#
+<M001_S001_I108>
+HORIZON ANGLE 8 (NW) 
+
+One of 16 horizon angles given in radians from the zenith to the horizon 
+in the specified direction. The compass directions specified in the name 
+are approximate being aligned along the model grid. 
+</M001_S001_I108>
+#
+<M001_S001_I109>
+HORIZON ANGLE 9 (NNE) 
+
+One of 16 horizon angles given in radians from the zenith to the horizon 
+in the specified direction. The compass directions specified in the name 
+are approximate being aligned along the model grid. 
+</M001_S001_I109>
+#
+<M001_S001_I110>
+HORIZON ANGLE 10 (ENE) 
+
+One of 16 horizon angles given in radians from the zenith to the horizon 
+in the specified direction. The compass directions specified in the name 
+are approximate being aligned along the model grid. 
+</M001_S001_I110>
+#
+<M001_S001_I111>
+HORIZON ANGLE 11 (ESE)
+
+One of 16 horizon angles given in radians from the zenith to the horizon 
+in the specified direction. The compass directions specified in the name 
+are approximate being aligned along the model grid. 
+</M001_S001_I111>
+#
+<M001_S001_I112>
+HORIZON ANGLE 12 (SSE) 
+
+One of 16 horizon angles given in radians from the zenith to the horizon 
+in the specified direction. The compass directions specified in the name 
+are approximate being aligned along the model grid. 
+</M001_S001_I112>
+#
+<M001_S001_I113>
+HORIZON ANGLE 13 (SSW)
+
+One of 16 horizon angles given in radians from the zenith to the horizon 
+in the specified direction. The compass directions specified in the name 
+are approximate being aligned along the model grid. 
+</M001_S001_I113>
+#
+<M001_S001_I114>
+HORIZON ANGLE 14 (WSW) 
+
+One of 16 horizon angles given in radians from the zenith to the horizon 
+in the specified direction. The compass directions specified in the name 
+are approximate being aligned along the model grid. 
+</M001_S001_I114>
+#
+<M001_S001_I115>
+HORIZON ANGLE 15 (WNW) 
+ 
+One of 16 horizon angles given in radians from the zenith to the horizon 
+in the specified direction. The compass directions specified in the name 
+are approximate being aligned along the model grid. 
+</M001_S001_I115>
+#
+<M001_S001_I116>
+HORIZON ANGLE 16 (NNW)
+
+One of 16 horizon angles given in radians from the zenith to the horizon 
+in the specified direction. The compass directions specified in the name 
+are approximate being aligned along the model grid. 
+</M001_S001_I116>
+#
+<M001_S001_I161>
+Stash Diagnostic Help for Section 1 Item 161
+
+STASH item specific help for
+(1, 1, 161)  TEMPERATURE       INCR: swrad - pc2
+
+This is the increment across the shortwave radiation scheme to the gridbox mean
+temperature without condensation effects, in K.
+
+Available on all timesteps.
+
+</M001_S001_I161>
+#
+<M001_S001_I182>
+Stash Diagnostic Help for Section 1 Item 182
+
+STASH item specific help for
+(1, 1, 182)  SPECIFIC HUMIDITY INCR: swrad scheme
+
+This is the increment across the shortwave radiation scheme to the gridbox mean
+specific humidity, in kg of vapour per kg of air.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+WARNING : May change to mass mixing ratio from UM VN5.4.
+
+Available on all timesteps.
+
+</M001_S001_I182>
+#
+<M001_S001_I183>
+Stash Diagnostic Help for Section 1 Item 183
+
+STASH item specific help for
+(1, 1, 183)  QCL               INCR: swrad scheme
+
+This is the increment across the shortwave radiation scheme to the gridbox mean
+specific liquid cloud condensate, in kg of liquid per kg of air.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+WARNING : May change to mass mixing ratio from UM VN5.4.
+
+Available on all timesteps.
+
+</M001_S001_I183>
+#
+<M001_S001_I192>
+Stash Diagnostic Help for Section 1 Item 192
+
+STASH item specific help for
+(1, 1, 192)  BULK CLOUD VOL    INCR: swrad scheme
+
+This is the increment across the shortwave radiation scheme to the gridbox mean
+total cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S001_I192>
+#
+<M001_S001_I193>
+Stash Diagnostic Help for Section 1 Item 193
+
+STASH item specific help for
+(1, 1, 193)  LIQUID CLOUD VOL  INCR: swrad scheme
+
+This is the increment across the shortwave radiation scheme to the gridbox mean
+liquid (including mixed phase) cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S001_I193>
+#
+<M001_S001_I194>
+Item (1:1:194) QCL INCR: swrad positive
+
+%I pc2_diags 
+
+</M001_S001_I194>
+#
+<M001_S001_I195>
+Item (1:1:195) QCL INCR: swrad negative
+
+%I pc2_diags 
+
+</M001_S001_I195>
+#
+<M001_S001_I198>
+Item (1:1:198) LIQ CLOUD VOL INCR: swrad positive
+
+%I pc2_diags 
+
+</M001_S001_I198>
+#
+<M001_S001_I199>
+Item (1:1:199) LIQ CLOUD VOL INCR: swrad negative
+
+%I pc2_diags 
+
+</M001_S001_I199>
+#
+<M001_S001_I201>
+Help for (001, 001, 201) "NET DOWN SURFACE SW FLUX: SW TS ONLY"
+
+The net downward (total downward minus upward) radiative SW flux at the 
+Earth's surface (ground or ocean surface). The diagnostic is available 
+only on SW radiation timesteps.
+
+Note on calculating mean albedos: Temporal or spatial means of albedos
+must be defined in terms of fluxes. To calculate a mean surface albedo
+the net downward flux at the surface (001,001,201) and the total
+downward flux at the surface (001,001,235) should be diagnosed. The
+mean upward flux is then the difference between the former and the 
+latter, and the ratio of the mean upward to the mean downward flux
+gives an appropriate mean albedo. When calculating the albedo of an
+extended region the upward and downward fluxes over that region should
+be averaged first and then ratioed: it would be incorrect to calculate
+the albedo at each individual point and take the mean of the resulting
+fields as this would distort the proper flux-weighting of the 
+diagnostic.
+</M001_S001_I201>
+#
+<M001_S001_I202>
+(1:1:202) "NET DOWN SURFACE SW FLUX : CORRECTED"
+
+The net downward (total downward minus upward) radiative SW flux at the 
+Earth's surface (ground or ocean surface). This diagnostic is available 
+on all model timesteps and has been corrected for the solar zenith angle
+that is valid for the model timestep.
+</M001_S001_I202>
+#
+<M001_S001_I203>
+Help for (001, 001, 203): "NET DN SW RAD FLUX:OPEN SEA:SEA MEAN"
+
+This item is the net downward shortwave flux over the open sea.
+It is weighted by the total sea (ie open sea and sea-ice) fraction.
+</M001_S001_I203>
+#
+<M001_S001_I204>
+Help for (001, 001, 204): "NET DOWN SURFACE SW FLUX BELOW 690NM"
+
+This item is no longer available as sea and land can now exist in
+the same gridbox. This diagnostic has been replaced by (1, 1, 259) and
+(1, 1, 260)
+</M001_S001_I204>
+#
+<M001_S001_I205>
+(1:1:205) "OUTGOING SW RAD FLUX (TOA):CORRECTED"
+
+The outgoing SW radiative flux at the top of the atmosphere. This
+diagnostic is available on all model timesteps and has been corrected
+for the solar zenith angle that is valid for the model timestep.
+</M001_S001_I205>
+#
+<M001_S001_I207>
+Help for (001,001,207) "INCOMING SW RAD FLUX (TOA): ALL TSS"
+
+The incoming SW radiative flux from the sun. The diagnostic 
+is calculated for all timesteps.
+</M001_S001_I207>
+#
+<M001_S001_I208>
+Help for (001,001,208): "OUTGOING SW RAD FLUX (TOA)"
+
+The outgoing SW radiative flux at the top of the atmosphere.
+
+Note on Calculating Albedos: The albedo is a measure of the fraction
+of incident energy reflected and therefore flux weighting must be 
+applied when forming means. To calculate a time-mean albedo at a 
+point you should diagnose the incoming and outgoing SW radiative fluxes
+at the top of the atmosphere ((001,001,207) and (001,001,208)) with
+the appropriate time means and take the ratio of the latter to the
+former. To diagnose a spatially meaned albedo you should mean the
+incoming and outgoing SW fluxes over the region in question before
+taking the ratio. Note especially when using a graphics package to
+plot a map of the albedo that if the package has a facility for
+generating the mean of the plotted field automatically the number 
+you get will not be the actual mean albedo of the region as defined 
+from the meaned fluxes.
+
+
+</M001_S001_I208>
+#
+<M001_S001_I209>
+Help for (001,001,209): "CLEAR-SKY (II) UPWARD SW FLUX (TOA)"
+
+The outgoing clear-sky SW radiative flux at the top of the 
+atmosphere. This is calculated as type II; that is at every
+grid-point the radiative flux is calculated using exactly
+the same physical inputs (gaseous mixing ratios, surface
+albedos etc.) as for the all-sky calculation, except that
+the radiative effects of clouds are ignored.
+
+Note on Calculating Albedos: The albedo is a measure of the fraction
+of incident energy reflected and therefore flux weighting must be
+applied when forming means. To calculate a time-mean clear-sky albedo
+at a point you should diagnose the incoming and outgoing clear-sky 
+SW radiative fluxes at the top of the atmosphere ((001,001,207) and 
+(001,001,209)) with the appropriate time means and take the ratio of 
+the latter to the former. To diagnose a spatially meaned albedo you 
+should mean the incoming and outgoing SW fluxes over the region in 
+question before taking the ratio. Note especially when using a 
+graphics package to plot a map of the albedo that if the package has 
+a facility for generating the mean of the plotted field automatically 
+the number you get will not be the actual mean albedo of the region as 
+defined from the meaned fluxes.
+</M001_S001_I209>
+#
+<M001_S001_I210>
+Help for (001,001,210): "CLEAR-SKY (II) DOWN SURFACE SW FLUX"
+
+The downward clear-sky SW radiative flux at the Earth's surface. 
+This is an actual downward flux, not a net flux. It is calculated 
+using method II for clear-sky fluxes; that is at every
+grid-point the radiative flux is calculated using exactly
+the same physical inputs (gaseous mixing ratios, surface
+albedos etc.) as for the all-sky calculation, except that
+the radiative effects of clouds are ignored.
+</M001_S001_I210>
+#
+<M001_S001_I211>
+Help for (001,001,211): "CLEAR-SKY (II) UP SURFACE SW FLUX"
+
+The upward clear-sky SW radiative flux at the Earth's surface. 
+It is calculated using method II for clear-sky fluxes; that is 
+at every grid-point the radiative flux is calculated using 
+exactly the same physical inputs (gaseous mixing ratios, surface
+albedos etc.) as for the all-sky calculation, except that
+the radiative effects of clouds are ignored.
+
+Note on calculating mean albedos: Temporal or spatial means of albedos
+must be defined in terms of fluxes. To calculate a mean clear-sky 
+surface albedo the total clear-sky downward flux at the surface 
+(001,001,210) and the upward clear-sky flux at the surface (001,001,211) 
+should be diagnosed. These fields should be meaned in space and time
+as required and then ratioed to give an albedo: it would be incorrect
+to average an albedo itself as this would distort the proper 
+flux-weighting of the diagnostic.
+</M001_S001_I211>
+#
+<M001_S001_I212>
+Help for (001, 001, 212) "LAYER CLOUD AMOUNT IN SWRAD"
+
+This diagnostic is one of a set related to the radiative properties of
+clouds. To diagnose meaningful temporal averages of the radiative properties
+of clouds allowance must be made for variations in cloud cover or the 
+absence of cloud and calculations must be done only when the point is
+illuminated: values at unlit opints are zeroed. Such quantities are 
+therefore diagnosed by calculating a weighting for each such quantity 
+and the product of the quantity and its weighting. A temporal average 
+may then be calculated once the run has finished by taking the ratio of 
+these two diagnostics: it is therefore imperative to check that both the 
+diagnostics in the pair are selected. Radiative properties also exhibit 
+a spectral variation and must be diagnosed separately in each band, 
+using pseudo-dimensions. These diagnostics are available from versions 
+1 and 2 of the SW but have not been extended to version 3 because there 
+are ambiguities of definition within that scheme and because the 
+positions of the spectral bands are not fixed, being determined by 
+the spectral file. Users of section 3 who wish to diagnose such 
+properties are advised to consider carefully what they really wish
+to diagnose and construct their own diagnostics appropriately.
+
+The current diagnostic is the amount of layer cloud at illuminated
+points and forms a weighting for albedo diagnostics of layer cloud.
+Calculations are made only on SW radiation timesteps.
+</M001_S001_I212>
+#
+<M001_S001_I213>
+Help for (001, 001, 213) "CONVECTIVE CLOUD AMOUNT IN SWRAD"
+
+This diagnostic is one of a set related to the radiative properties of
+clouds. To diagnose meaningful temporal averages of the radiative properties
+of clouds allowance must be made for variations in cloud cover or the 
+absence of cloud and calculations must be done only when the point is
+illuminated: values at unlit opints are zeroed. Such quantities are 
+therefore diagnosed by calculating a weighting for each such quantity 
+and the product of the quantity and its weighting. A temporal average 
+may then be calculated once the run has finished by taking the ratio of 
+these two diagnostics: it is therefore imperative to check that both the 
+diagnostics in the pair are selected. Radiative properties also exhibit 
+a spectral variation and must be diagnosed separately in each band, 
+using pseudo-dimensions. These diagnostics are available from versions 
+1 and 2 of the SW but have not been extended to version 3 because there 
+are ambiguities of definition within that scheme and because the 
+positions of the spectral bands are not fixed, being determined by 
+the spectral file. Users of section 3 who wish to diagnose such 
+properties are advised to consider carefully what they really wish
+to diagnose and construct their own diagnostics appropriately.
+
+The current diagnostic is the amount of convective cloud at illuminated
+points and forms a weighting for albedo diagnostics of convective cloud.
+Calculations are made only on SW radiation timesteps.
+</M001_S001_I213>
+#
+<M001_S001_I214>
+Help for (001, 001, 214) "LAYER CLOUD DIRECT ALBEDO*AMOUNT"
+
+This diagnostic is one of a set related to the radiative properties of
+clouds. To diagnose meaningful temporal averages of the radiative properties
+of clouds allowance must be made for variations in cloud cover or the 
+absence of cloud and calculations must be done only when the point is
+illuminated: values at unlit opints are zeroed. Such quantities are 
+therefore diagnosed by calculating a weighting for each such quantity 
+and the product of the quantity and its weighting. A temporal average 
+may then be calculated once the run has finished by taking the ratio of 
+these two diagnostics: it is therefore imperative to check that both the 
+diagnostics in the pair are selected. Radiative properties also exhibit 
+a spectral variation and must be diagnosed separately in each band, 
+using pseudo-dimensions. These diagnostics are available from versions 
+1 and 2 of the SW but have not been extended to version 3 because there 
+are ambiguities of definition within that scheme and because the 
+positions of the spectral bands are not fixed, being determined by 
+the spectral file. Users of section 3 who wish to diagnose such 
+properties are advised to consider carefully what they really wish
+to diagnose and construct their own diagnostics appropriately.
+
+The SW radiation field is divided into direct and diffuse components,
+the former representing radiation traveling in the direction of the 
+solar beam. The current diagnostic is the product of the amount of layer 
+cloud at illuminated points multiplied by the albedo of layer cloud to 
+direct radiation. Calculations are made only on SW radiation timesteps.
+</M001_S001_I214>
+#
+<M001_S001_I215>
+(1:1:215) "DIRECT SURFACE SW FLUX : CORRECTED"
+
+The direct (unscattered) component of the total downward SW radiative
+flux at the Earth's surface (ground or ocean surface). This diagnostic
+is available on all model timesteps and has been corrected for the
+solar zenith angle that is valid for the model timestep.
+</M001_S001_I215>
+#
+<M001_S001_I216>
+(1:1:216) "DIFFUSE SURFACE SW FLUX : CORRECTED"
+
+The diffuse (scattered) component of the total downward SW radiative
+flux at the Earth's surface (ground or ocean surface). This diagnostic
+is available on all model timesteps and has been corrected for the
+solar zenith angle that is valid for the model timestep.
+</M001_S001_I216>
+#
+<M001_S001_I217>
+(1:1:127) "UPWARD SW FLUX ON LEVELS"
+
+Upwards SW flux in Wm-2 on radiation levels.
+This is a 3-dimensional field available on radiation timesteps.
+
+The domain profile should set model rho levels starting at ATMOS_BOTTOM
+and ending at ATMOS_TOP+1. The levels correspond to:
+1              : Surface
+2 to ATMOS_TOP : rho levels 2 to ATMOS_TOP
+ATMOS_TOP+1    : Top of atmosphere
+
+(ATMOS_TOP+1 is strictly defined such that theta(ATMOS_TOP) is midway in
+height between rho(ATMOS_TOP) and ATMOS_TOP+1.)
+</M001_S001_I217>
+#
+<M001_S001_I218>
+(1:1:218) "DOWNWARD SW FLUX ON LEVELS"
+
+Downwards SW flux in Wm-2 on radiation levels.
+This is a 3-dimensional field available on radiation timesteps.
+
+The domain profile should set model rho levels starting at ATMOS_BOTTOM
+and ending at ATMOS_TOP+1. The levels correspond to:
+1              : Surface
+2 to ATMOS_TOP : rho levels 2 to ATMOS_TOP
+ATMOS_TOP+1    : Top of atmosphere
+
+(ATMOS_TOP+1 is strictly defined such that theta(ATMOS_TOP) is midway in
+height between rho(ATMOS_TOP) and ATMOS_TOP+1.)
+
+</M001_S001_I218>
+#
+<M001_S001_I219>
+(1:1:219) "CLEAR-SKY UPWARD SW FLUX ON LEVELS"
+
+Clear-sky upwards SW flux in Wm-2 on radiation levels.
+This is a 3-dimensional field available on radiation timesteps.
+
+The domain profile should set model rho levels starting at ATMOS_BOTTOM
+and ending at ATMOS_TOP+1. The levels correspond to:
+1              : Surface
+2 to ATMOS_TOP : rho levels 2 to ATMOS_TOP
+ATMOS_TOP+1    : Top of atmosphere
+
+(ATMOS_TOP+1 is strictly defined such that theta(ATMOS_TOP) is midway in
+height between rho(ATMOS_TOP) and ATMOS_TOP+1.)
+</M001_S001_I219>
+#
+<M001_S001_I220>
+(1:1:220) "CLEAR-SKY DOWNWARD SW FLUX ON LEVELS"
+
+Clear-sky downwards SW flux in Wm-2 on radiation levels.
+This is a 3-dimensional field available on radiation timesteps.
+
+The domain profile should set model rho levels starting at ATMOS_BOTTOM
+and ending at ATMOS_TOP+1. The levels correspond to:
+1              : Surface
+2 to ATMOS_TOP : rho levels 2 to ATMOS_TOP
+ATMOS_TOP+1    : Top of atmosphere
+
+(ATMOS_TOP+1 is strictly defined such that theta(ATMOS_TOP) is midway in
+height between rho(ATMOS_TOP) and ATMOS_TOP+1.)
+</M001_S001_I220>
+#
+<M001_S001_I221>
+Help for (001, 001, 221) "LAYER CLD LIQ RE * LAYER CLD AMOUNT"
+
+This diagnostic is one of a set related to the parametrization of cloud
+microphysics available in the radiation code. To diagnose meaningful
+temporal averages of microphysical quantities, allowance must be made for
+variations in cloud cover or the absence of cloud; this is done by
+diagnosing a weighting for each such quantity and the product of the
+quantity and its weighting. A temporal average may then be calculated
+once the run has finished by taking the ratio of these two diagnostics:
+it is therefore imperative to check that both the diagnostics in the pair
+are selected. Values at unlit points are zeroed.
+
+The current diagnostic is available only with versions 2 or 3 of the SW. 
+It is available on all cloudy levels and consists of the product of the 
+effective radius in layer clouds and the amount of layer cloud on that 
+level containing liquid water. To avoid packing problems the diagnostic is
+multiplied by 10^6 which is equivalent to measuring the effective radius
+in microns. It is calculated only on SW radiation timesteps.
+</M001_S001_I221>
+#
+<M001_S001_I223>
+Help for (001, 001, 223) "LYR CLD AMT IN SWRAD (MICROPHYSICS)"
+
+This diagnostic is one of a set related to the parametrization of cloud
+microphysics available in the radiation code. To diagnose meaningful
+temporal averages of microphysical quantities, allowance must be made for
+variations in cloud cover or the absence of cloud; this is done by
+diagnosing a weighting for each such quantity and the product of the
+quantity and its weighting. A temporal average may then be calculated
+once the run has finished by taking the ratio of these two diagnostics:
+it is therefore imperative to check that both the diagnostics in the pair
+are selected. Values at unlit points are zeroed.
+
+The current diagnostic is available only with versions 2 or 3 of the SW. 
+The diagnostic is available on all cloudy levels and is the amount of 
+layer cloud on that level containing liquid water. It is calculated only 
+on SW radiation timesteps.
+</M001_S001_I223>
+#
+<M001_S001_I224>
+Help for (001, 001, 224) "LAYER CLD CONDENSED WATER PATH * AMT"
+
+This diagnostic is one of a set related to the parametrization of cloud
+microphysics available in the radiation code. To diagnose meaningful
+temporal averages of microphysical quantities, allowance must be made for
+variations in cloud cover or the absence of cloud; this is done by
+diagnosing a weighting for each such quantity and the product of the
+quantity and its weighting. A temporal average may then be calculated
+once the run has finished by taking the ratio of these two diagnostics:
+it is therefore imperative to check that both the diagnostics in the pair
+are selected. Values at unlit points are zeroed.
+
+The current diagnostic is available only with versions 2 or 3 of the SW. 
+The diagnostic is available on all cloudy levels. If version 3 of the 
+radiation scheme is chosen it is equal to the product of the liquid water 
+path in layer cloud and the amount of layer cloud on that level containing 
+liquid water. However, under version 2 of the radiation scheme, it is not
+possible to separate the liquid and ice phases so the condensed water path
+is used instead. Calculations are made only on SW radiation timesteps.
+</M001_S001_I224>
+#
+<M001_S001_I225>
+Help for (001, 001, 225) "CONV CLD LIQ RE * CONV CLD WEIGHT"
+
+This diagnostic is one of a set related to the parametrization of cloud
+microphysics available in the radiation code. To diagnose meaningful
+temporal averages of microphysical quantities, allowance must be made for
+variations in cloud cover or the absence of cloud; this is done by
+diagnosing a weighting for each such quantity and the product of the
+quantity and its weighting. A temporal average may then be calculated
+once the run has finished by taking the ratio of these two diagnostics:
+it is therefore imperative to check that both the diagnostics in the pair
+are selected. Values at unlit points are zeroed.
+
+The current diagnostic is available only with version 3 of the SW where
+convective cloud may have a vertical profile. The diagnostic is the
+product of the effective radius in convective cloud and the amount of
+convective cloud containing liquid water. To avoid packing problems the
+diagnostic is multiplied by 10^6 which is equivalent to measuring the
+effective radius in microns. Calculations are made only on SW radiation 
+timesteps.
+</M001_S001_I225>
+#
+<M001_S001_I226>
+Help for (001, 001, 226) "CONV CLD WGT IN SWRAD (MPHY ALL LYR)"
+
+This diagnostic is one of a set related to the parametrization of cloud
+microphysics available in the radiation code. To diagnose meaningful
+temporal averages of microphysical quantities, allowance must be made for
+variations in cloud cover or the absence of cloud; this is done by
+diagnosing a weighting for each such quantity and the product of the
+quantity and its weighting. A temporal average may then be calculated
+once the run has finished by taking the ratio of these two diagnostics:
+it is therefore imperative to check that both the diagnostics in the pair
+are selected. Values at unlit points are zeroed.
+
+The current diagnostic is available only with version 3 of the SW where
+convective cloud may have a vertical profile. The diagnostic is the amount 
+of convective cloud containing liquid water at that level (which may be 
+smaller than the total amount of convective cloud). It is calculated only 
+on SW radiation timesteps.
+</M001_S001_I226>
+#
+<M001_S001_I230>
+Item (1:1:230)
+
+"DIRECT SW FLUX (ON RHO LEVELS)"
+Only available on radiation/prognostic timesteps. This diagnostic is available on 
+all model rho levels.
+
+</M001_S001_I230>
+#
+<M001_S001_I231>
+Item (1:1:231)
+
+"DIFFUSE SW FLUX (ON RHO LEVELS)"
+
+Only available on radiation/prognostic timesteps.  This diagnostic is available on 
+all model rho levels.
+</M001_S001_I231>
+#
+<M001_S001_I232>
+Help for (001,001,232): "SW HEATING RATES: ALL TIMESTEPS"
+
+The SW heating rates in layers of the model, obtained from
+the divergence of the net radiative flux across the layer.
+The value is calculated fully on SW radiative time-steps,
+but is adjusted for the change in the solar zenith angle
+and the fraction of time for which a point is illuminated
+on other timesteps.
+</M001_S001_I232>
+#
+<M001_S001_I233>
+Help for (001,001,233): "CLEAR-SKY SW HEATING RATES"
+
+The SW radiative heating rates in each layer of the model atmosphere,
+calculated ignoring all clouds at all levels at the grid-point from the
+divergence of the clear-sky net SW flux across the layer. The value is
+claulated only on radiative timesteps and is not adjusted on non-radiative
+timesteps, as are the all-sky heating rates. Note that these heating rates
+cannot be interpreted as the heating rates in the clear parts of a layer
+since the effects of clouds in other layers are ignored.
+</M001_S001_I233>
+#
+<M001_S001_I235>
+Help for (001,001,235) "TOTAL DOWNWARD SURFACE SW FLUX"
+
+The total downward SW radiative flux at the Earth's surface (ground 
+or ocean surface). The diagnostic is available only on SW radiation 
+timesteps.
+</M001_S001_I235>
+#
+<M001_S001_I237>
+Help for (001,001,237) "NET DOWNWARD SW FLUX AT THE TROP."
+
+The net downward (total downward minus upward) SW radiative flux at 
+tropopause. The diagnostic is available only on SW radiation 
+timesteps. The tropopause is diagnosed interactively within the model.
+</M001_S001_I237>
+#
+<M001_S001_I238>
+Help for (001,001,238) "UPWARD SW FLUX AT THE TROP."
+
+The upward SW radiative flux at the tropopause. The diagnostic is 
+available only on SW radiation timesteps. The tropopause is diagnosed 
+interactively within the model.
+</M001_S001_I238>
+#
+<M001_S001_I241>
+Diagnostic of water cloud droplet number concentration (number per cubic
+centimetre) weighted by layer cloud amount (diagnostic 1:01:223), by
+which it must be divided to be meaningful.
+</M001_S001_I241>
+#
+<M001_S001_I242>
+Diagnostic of layer cloud in-cloud liquid water content (grammes per
+cubic metre) weighted by layer cloud amount (diagnostic 1:01:223), by
+which it must be divided to be meaningful.
+</M001_S001_I242>
+#
+<M001_S001_I243>
+Diagnostic of mass concentration of sulphate acting as CCN (micro-
+grammes of the SO4 ion per cubic metre) sampled conditionally at sunlit
+points. Must be divided by conditional sampling weight diagnostic
+(1:01:244) to be meaningful. Only available when the indirect effect of
+sulphate is active in the shortwave.
+</M001_S001_I243>
+#
+<M001_S001_I244>
+Conditional sampling weight for diagnostic (1:01:243).
+</M001_S001_I244>
+#
+<M001_S001_I245>
+A 2-dimensional diagnostic of liquid cloud droplet effective radius (in
+microns) as observed from above cloud top, weighted by it's own specific
+weight (1:01:246), by which it must be divided to be meaningful.
+</M001_S001_I245>
+#
+<M001_S001_I246>
+Weight for diagnostic (1:01:245).
+</M001_S001_I246>
+#
+<M001_S001_I247>
+Help for (001,001,247) "FILM-MODE SEA-SALT AEROSOL NUMBER"
+
+Number concentration (m-3) of film-mode sea-salt aerosol
+
+
+
+</M001_S001_I247>
+#
+<M001_S001_I248>
+Help for (001,001,248) "JET-MODE SEA-SALT AEROSOL NUMBER"
+
+Number concentration (m-3) of jet-mode sea-salt aerosol
+</M001_S001_I248>
+#
+<M001_S001_I254>
+Item: (1:1:254)
+Text: A weighted diagnostic of the distribution of liquid cloud droplet
+      effective radius (microns) from warm (i.e. >273K) clouds only,
+      diagnosed as a 2-D field as would be observed by a satellite. It
+      must be divided by its weighting factor (diagnostic 1:1:255) to
+      be meaningful.
+
+
+</M001_S001_I254>
+#
+<M001_S001_I255>
+Item: (1:1:255)
+Text: Weighting factor for diagnostic 1:1:254.
+
+</M001_S001_I255>
+#
+<M001_S001_I257>
+STASH item specific help for 
+(1, 1, 257) NET DOWN SW FLUX: LAND
+
+This item is the local net downward shortwave flux over the land part
+of the gridbox.
+
+ 
+</M001_S001_I257>
+#
+<M001_S001_I258>
+STASH item specific help for 
+(1, 1, 258) NET DN SW FLX:SEAICE:SEA MEAN
+
+This item is the net downward shortwave flux over the sea-ice. It is weighted
+by the total sea (ie open sea and sea-ice) fraction.
+
+ 
+</M001_S001_I258>
+#
+<M001_S001_I259>
+STASH item specific help for 
+(1, 1, 259) NET DN SW SOLID SFC FLUX BELOW 690NM
+
+This item is the local net downward shortwave flux below 690nm over
+the solid surface fraction (ie sea-ice and land) of the gridbox.
+
+ 
+</M001_S001_I259>
+#
+<M001_S001_I260>
+STASH item specific help for 
+(1, 1, 260) NET DN SW O SEA FLX BLW 690NM:SEA MN
+
+This item is the net downward shortwave flux below 690nm over
+the open sea fraction of the gridbox. It is weighted
+by the total sea (ie open sea and sea-ice) fraction.
+ 
+</M001_S001_I260>
+#
+<M001_S001_I268>
+DIRECT SURFACE ALBEDO ON SW BANDS:
+
+The grid-box mean surface albedo for the direct beam, output for all SW 
+radiation bands over both land and sea.
+
+</M001_S001_I268>
+#
+<M001_S001_I269>
+DIFFUSE SURFACE ALBEDO ON SW BANDS:
+
+The grid-box mean surface albedo for the diffuse beam, output for all SW 
+radiation bands over both land and sea.
+
+</M001_S001_I269>
+#
+<M001_S001_I270>
+VIS ALBEDO SCALING TO OBS ON TILES:
+
+The scaling factor applied to the albedos of the land surface tiles to 
+match the supplied observed/climatological albedos in the VIS bands 
+(when L_SPEC_ALBEDO is false this is the same as the NIR albedo scaling factor).
+
+</M001_S001_I270>
+#
+<M001_S001_I271>
+NIR ALBEDO SCALING TO OBS ON TILES:
+
+The scaling factor applied to the albedos of the land surface tiles to 
+match the supplied observed/climatological albedos in the NIR bands 
+(when L_SPEC_ALBEDO is false this is the same as the VIS albedo scaling factor).
+
+</M001_S001_I271>
+#
+<M001_S001_I280>
+Item: (1:1:280)
+Text: A weighted diagnostic of the distribution of vertically-integrated
+      cloud droplet number, also known as column droplet number (number
+      per m2). Must be divided by its weighting factor (diagnostic 1:1:281)
+      to be meaningful.
+
+</M001_S001_I280>
+#
+<M001_S001_I281>
+Item: (1:1:281)
+Text: Weighting factor for diagnostic 1:1:280.
+
+</M001_S001_I281>
+#
+<M001_S001_I288>
+(1:1:288) "DOWNWARD SURFACE UV FLUX"
+
+Downwards UV (200-320nm) flux at the surface in Wm-2.
+This field is available on radiation timesteps: the flux represents
+an average value over the period of the radiation timestep.
+</M001_S001_I288>
+#
+<M001_S001_I289>
+(1:1:289) "CLEAR-SKY DOWNWARD SURFACE UV FLUX"
+
+Downwards clear-sky UV (200-320nm) flux at the surface in Wm-2.
+This field is available on radiation timesteps: the flux represents
+an average value over the period of the radiation timestep in the
+absence of clouds.
+</M001_S001_I289>
+#
+<M001_S001_I290>
+Item: (1:1:290)
+
+Text: Total downward PAR flux at the surface
+
+
+</M001_S001_I290>
+#
+<M001_S001_I291>
+Item: (1:1:291)
+
+Text: Direct component of PAR flux at surface
+
+
+</M001_S001_I291>
+#
+<M001_S001_I292>
+Item: (1,1,292)
+
+"MEAN SOLAR BEARING OVER RAD TS"
+
+Only available on radiation/prognostic timesteps.
+
+Requires the 'Orographic Correction' to be switched on.
+
+This is effectively the compass bearing of the sun from the surface. 
+The calculation for each timestep is based on the mean hour angle of 
+the sun for the period when the sun is above the horizon.
+
+
+</M001_S001_I292>
+#
+<M001_S001_I293>
+Item: (1,1,293)
+
+"SLOPE ASPECT"
+
+Only available on radiation/prognostic timesteps.
+
+Requires the 'Orographic Correction' to be switched on.
+
+This is the direction the mean slope is facing, calculated 
+as the angle between grid north and the projection of the 
+normal to the slope on the surface.
+
+
+</M001_S001_I293>
+#
+<M001_S001_I294>
+Item: (1,1,294)
+
+"SLOPE ANGLE"
+
+Only available on radiation/prognostic timesteps.
+ 
+Requires the 'Orographic Correction' to be switched on.
+
+The angle in radians between the horizontal surface and the
+mean slope.
+
+
+</M001_S001_I294>
+#
+<M001_S001_I295>
+Item: (1,1,295)
+
+"OROG CORR FACTOR TO DIRECT SURF SW"
+
+Only available on radiation/prognostic timesteps.
+
+Requires the 'Orographic Correction' to be switched on.
+
+The multiplication factor (orographic correction factor) 
+applied to the direct SW flux at the surface for the lit 
+points.
+
+
+</M001_S001_I295>
+#
+<M001_S001_I296>
+Item: (1,1,296)
+
+"EXTRA SW SURF FLUX AFTER OROG CORR"
+
+Only available on radiation/prognostic timesteps.
+ 
+Requires the 'Orographic Correction' to be switched on. 
+ 
+Difference in the surface fluxes calculated with and without the
+orographic correction factor.
+
+
+</M001_S001_I296>
+#
+<M001_S001_I408>
+Item: (1,1,408)
+
+"OUTGOING SW RAD FORCING (TOA)"
+Only available on radiation/prognostic timesteps.
+Requires the radiative forcing package to be switched on.
+The forcing of the outgoing SW radiative flux at the top 
+of the atmosphere.
+
+The radiative forcing is obtained by substracting the outgoing SW 
+fluxes  at the TOA, which have been  calculated for two different 
+states of the atmosphere (i.e. present and pre-industrial).
+
+</M001_S001_I408>
+#
+<M001_S001_I409>
+Item: (1,1,409)
+
+"CLEAR-SKY (II) UPWARD SW FORC.(TOA)"
+Only available on radiation/prognostic timesteps.
+Requires the radiative forcing package to be switched on.
+The forcing of the clear-sky upward SW flux at the TOA.
+
+The radiative forcing is obtained by substracting the clear-sky  
+fluxes, which have been calculated for two different states of
+the atmosphere (i.e. present and pre-industrial).
+
+</M001_S001_I409>
+#
+<M001_S001_I410>
+Item: (1,1,410)
+
+"CLEAR-SKY (II) DOWN SURF. SW FORC."
+Only available on radiation/prognostic timesteps.
+Requires the radiative forcing package to be switched on.
+The forcing of the clear-sky downward surface SW flux.
+
+The radiative forcing is obtained by substracting the clear-sky 
+fluxes, which have been calculated for two different states of
+the atmosphere (i.e. present and pre-industrial).
+
+
+</M001_S001_I410>
+#
+<M001_S001_I411>
+Item: (1,1,411)
+
+"CLEAR-SKY (II) UP SURF. SW FORC."
+Only available on radiation/prognostic timesteps.
+Requires the radiative forcing package to be switched on.
+The forcing of the clear-sky upward surface SW flux.
+
+The radiative forcing is obtained by substracting the clear-sky 
+fluxes, which have been calculated for two different states of
+the atmosphere (i.e. present and pre-industrial).
+
+</M001_S001_I411>
+#
+<M001_S001_I433>
+Item: (1,1,433)
+
+"CLEAR-SKY SW HEATING RATES (FORC.)"
+Only available on radiation/prognostic timesteps.
+Requires the radiative forcing package to be switched on.
+The forcing of the clear-sky SW heating rates.
+
+The radiative forcing is obtained by substracting the clear-sky 
+heating rates,which have been calculated for two different states
+of the atmosphere (i.e. present and pre-industrial).
+
+</M001_S001_I433>
+#
+<M001_S001_I435>
+Item: (1,1,435)
+
+"TOTAL DOWNWARD SURF. SW FORCING"
+Only available on radiation/prognostic timesteps.
+Requires the radiative forcing package to be switched on.
+The forcing of the total downward surface SW flux.
+
+The radiative forcing is obtained by substracting the downward SW 
+fluxes at the surface , which have been calculated for two 
+different states of the atmosphere (i.e. present and pre-industrial).
+
+
+</M001_S001_I435>
+#
+<M001_S001_I437>
+Item: (1,1,437)
+
+"NET DOWNWARD SW FORC. AT THE TROP."
+Only available on radiation/prognostic timesteps.
+Requires the radiative forcing package to be switched on.
+The forcing of the net downward SW flux at the tropopause. 
+
+The radiative forcing is obtained by substracting the net downward SW 
+fluxes at the tropopause, which have been calculated for two different
+states of the atmosphere (i.e. present and pre-industrial).
+
+</M001_S001_I437>
+#
+<M001_S001_I438>
+Item: (1,1,438)
+
+"UPWARD SW FORC. AT THE TROP."
+Only available on radiation/prognostic timesteps.
+Requires the radiative forcing package to be switched on.
+The forcing of the upward SW flux at the tropopause. 
+
+The radiative forcing is obtained by substracting the upwards SW 
+fluxes at the tropopause, which have been calculated for two 
+different states of the atmosphere (i.e. present and pre-industrial).
+
+
+</M001_S001_I438>
+#

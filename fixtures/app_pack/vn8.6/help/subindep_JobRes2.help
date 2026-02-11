@@ -1,0 +1,14 @@
+Automatic resubmission will only work at UK-met unless special provision has
+been made at external sites.
+
+Little will need to be specified if this job is externally controlled
+via the Generalised Suite system (SCS).
+
+It is useful for long climate runs as it allows runs longer than the maximum
+time limit of the queue to be performed without interaction. It is a good idea
+to set the target length.
+In this case the job-name root should be a normal job-name but should have an
+ending such as "01". This will be incremented on re-submission.
+
+See the help on the preceding panel for advice on queues and resources.
+

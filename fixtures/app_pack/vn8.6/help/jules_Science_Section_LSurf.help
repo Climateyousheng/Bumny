@@ -1,0 +1,224 @@
+Tile distribution
+------------------
+
+The JULES tiled land-surface scheme has two kinds of surface types,
+vegetation and non-vegetation. The total number of surface types in a
+run equals the sum of the number of types of each kind, as follows:
+
+ NPFT  : Number of Plant Functional Types (e.g. shrubs, broadleaf trees)
+ NNVG  : Number of Non-VeG types (e.g. bare soil, urban)
+ NTYPE = NPFT + NNVG
+
+The surface scheme can be run with the each type as a separate tile
+(i.e. with its own surface energy-budget calculation) or with the
+properties of several types aggregated into 'average' properties for a
+single composite tile. The number of tiles, NTILES, depends on both
+the number of types and the aggregation choices.
+
+Presently, the choice in the UM is between 9 separate tiles or 1
+aggregate tile:
+ either L_AGGREGATE = TRUE , NTILES = 1
+ or     L_AGGREGATE = FALSE, NTILES = NTYPE
+
+Options for aggregation:
+  0: Specify the aggregate thermal roughness length as a fraction of 
+     the aggregated momentum roughness length, using the ratio of 
+     roughness lengths specified for the first PFT
+  1: Aggregate the thermal and momentum roughness lengths separately.
+
+Fractional snow cover for sublimation and melting
+(FRAC_SNOW_SUBL_MELT)
+--------------------------------------------------
+Opting to use fractional snow cover for sublimation and melting
+introduces a factor (1-exp(-MASKD*SNOWDEPTH)), which is taken to be
+the fraction of snow cover.  This is ~1 when SNOWDEPTH is big
+(i.e. assume large fractional cover for large snow depth), and ~0 when
+SNOWDEPTH is small.
+
+This factor is used to reduce the fraction of the tile evaporating
+with aerodynamic resistance only (previously 1 for snowy tiles). It is
+also used to reduce the amount of snowmelt, by allowing the tile
+surface temperature to remain above freezing after the melt
+calculation. Thus, less energy is used for melting and consequently
+there is less melting.
+
+This factor is also used to calculate land-surface albedo, BUT that
+usage is NOT controlled by this switch.
+
+Surface emissivities
+--------------------
+Emissivities set here are used only in the land surface scheme. 
+In the radiation scheme, emssivities are set equal to 1 unless the option
+to use a single uniform emissivity for land is selected. A branch required 
+to allow the use of tile-dependent emissivities in radiation.
+
+As the UM has developed, the representation of the surface has become 
+more complicated. This has resulted in various choices being made about 
+the representation of surface temperature and surface emissivity. 
+The ultimate aim is to simplify and rationalize these settings, but in 
+the interim it is necessary to support an number of partly historical 
+possibilities. 
+
+In practice, these can be covered by two main choices, 
+available on a switch: 
+
+1.) The standard settings on the trunk and 
+2.) The settings introduced for GL4. Further developments in this area 
+are expected, however. This switch control 5 logicals as follows:
+
+In rad_input_mod.F90/RUN_Radiation (UM)
+
+Logical                Default           GL4
+l_rad_snow_emis        .F.               .T.
+l_t_land_nosnow        .F.               .F.
+l_quad_t_coast         .F.               .T.
+l_t_rad_solid          .F.               .T.
+
+
+In switches.F90/jules_switches (JULES)
+l_dolr_land_black      .T.               .F.
+The preferred option will evolve from the choices for GL4. 
+
+Select thermal vegetation canopy (CAN_MODEL)
+---------------------------------------------
+This selects which thermal properties of a 'canopy' above the ground
+surface are included in surface calculations. The 4 options correspond
+to integer values 1-4 of the CAN_MODEL switch, in order of increasing
+complexity.
+
+For no thermal vegetation canopy (1), the canopy is not included in
+surface energy-balance calculations. For radiative coupling only (2),
+the canopy is assumed to exist as a layer between the atmosphere and
+the ground, each of which is coupled in the long-wave to the canopy
+instead of to the other.
+
+For radiative coupling and thermal capacity (3), the canopy is assumed
+to have a thermal capacity calculated from basic properties. Change in
+the canopy heat content is not limited by the diffusion timescale,
+unlike the ground, thus e.g. reducing the diurnal surface temperature
+range. The addition of canopy snow (4) creates an additional snow
+store beneath the canopy, with the associated canopy processes of snow
+interception and through-fall etc.
+
+Method for treatment of canopy radiation (CAN_RAD_MOD)
+-------------------------------------------------------
+1: A single canopy layer for which radiation absorption is calculated
+using Beers law. Leaf-level photosynthesis is scaled to the canopy
+level using the "big leaf" approach. Leaf nitrogen, photosynthetic
+capacity, i.e the Vcmax parameter and leaf photosynthesis vary
+exponentially through the canopy with radiation.
+
+2: Multi-layer approach for radiation interception following the
+2-stream approach of Sellers et al. (1992). This approach takes into
+account leaf angle distribution, zenith angle, and differentiates
+absorption of direct and diffuse radiation. Leaf-level photosynthesis
+is calculated using a vertically-varying light limited rate, and
+constant Rubisco and export velocities, consistent with the assumption
+of constant leaf N through the canopy. Canopy photosynthesis and
+conductance are calculated as the sum over all layers.
+
+3: As 2, but photosynthesis calculated separately for sunlit and
+shaded leaves for the whole canopy (i.e not at each layer). The
+definition of sunlit and shaded leaves is based on a threshold of
+absorbed radiation at each layer.
+
+4. This is a modification of option 2. Instead of constant leaf N
+through the canopy, it has an exponential decline of leaf N with
+canopy height. Additionaly includes inhibition of leaf respiration in
+the light.
+
+5. This is an improvement of option 4. This includes, i) sunfleck
+penetration though the canopy, ii) division of sunlit and shaded
+leaves within each canoy level and iii) a modified version of
+inhibition of leaf respiration in the light.
+
+When using can_rad_mod=4 or 5, it is recommended to use driving data
+that contains direct and diffuse radiation separately rather than a
+constant diffuse fraction.  Descriptions 1, 2 and 3 can be found in
+Jogireddy et al. (2006) , an application of option 4 can be found in
+Mercado et al. (2007) and all will be described in Clark et al (in
+prep).
+
+References:
+Jogireddy, V.R. et al., 2006, Hadley Centre technical note 63.
+ Available from: http://www.metoffice.gov.uk/publications/HCTN.
+Sellers, P. et al., 1992, Remote Sens. Environ., 42: 187-216.
+Mercado et al. 1997, Tellus B, 59, 553565
+
+
+
+Calculate the surface-energy balance on all tiles at all land points
+(ALL_TILES)
+--------------------------------------------------------------------
+This forces the model to calculate the surface-energy balance on all
+tiles at every land point, even when the fractions of some tiles are
+zero. This option has been added to facilitate site-specific
+post-processing applications, and is otherwise not required.
+
+
+Use the FLake model for inland water tiles (L_FLAKE_MODEL)
+-----------------------------------------------------------
+(http://www.flake.igb-berlin.de/index.shtml)
+
+This switch turns on the use of FLake, to improve the inland-water
+tile surface temperature through the parametrization of the turbulent
+processes of subsurface lake heat transfer.
+
+This is only available if
+1) the executable has been built with FLake code.
+2) the JULES submodel is also used for build/run.
+2) the inland-water type is a separate tile (L_AGGREGATE=FALSE).
+3) the new, unconditionally stable, boundary-layer solver is selected.
+Otherwise, the switch will be turned off in the run.
+
+Choosing Flake also sets the value of COR_MO_ITER=3, which enables the 
+correct iteration in convective boundary layers, and also allows FLake to 
+access the correct value of the friction velocity.
+
+The lake 'canopy' should be disabled if FLake is selected, which requires 
+setting CATCH_NVG_IO=0.0 CH_NVG_IO=0.0 VF_NVG_IO=0.0 for the lake tile in 
+the non-veg surface parameters table.
+
+
+Correction to potential evap. calculation (L_EPOT_CORR)
+--------------------------------------------------------
+This switch ensures that the separate parts of the
+calculation of potential evaporation are correctly linked.
+
+
+NON-VEG SURFACE TYPE PARAMETERS
+--------------------------------
+  ALBSNC_NVG_IO = snow-covered albedo
+    default values: 0.40, 0.80, 0.80, 0.80
+
+  ALBSNF_NVG_IO = snow-free albedo
+    default values: 0.18, 0.06, -1.00, 0.75
+
+  CATCH_NVG_IO  = canopy capacity for water (kg/m^2)
+    default values: 0.50, 0.00, 0.00, 0.00
+
+  GS_NVG_IO     = surface conductance (m/s) 
+    default values: 0.00, 0.00, 1.0e-2, 1.0e6
+
+  INFIL_NVG_IO  = soil infiltration enhancement factor
+    default values: 0.10, 0.00, 0.50, 0.00
+
+  Z0_NVG_IO     = roughness length (m)    
+    default values: 1.00, 3.0e-4, 3.2e-3, 5.0e-4
+
+  CH_NVG_IO     = heat capacity of the surface type (J K^-1 m^-2) 
+    default values: 0.28e6, 0.00, 0.00, 0.00
+
+  VF_NVG_IO     = fractional coverage of non-veg 'canopy'
+    default values: 1.00, 0.00, 0.00, 0.00
+
+  EMIS_NVG_IO   = emissivity    
+    default values: 0.97, 0.97, 0.97, 0.97
+
+  Z0HM_NVG_IO   = roughness length ratio z0H/z0M  
+    default values: 0.10, 0.10, 0.10, 0.10
+
+  Z0HM_CLASSIC_NVG_IO = roughness length ratio used in CLASSIC aerosol deposition 
+    default values: 0.10, 0.10, 0.10, 0.10 
+
+

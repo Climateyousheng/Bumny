@@ -1,0 +1,9 @@
+This window allows users to specify which version of the physics diagnostics 
+code section they want to use.
+
+There is only one, so if you are running an atmospheric model you should choose
+it. There is little lost in chosing this and this will avoid unsatisfied
+external references that cause a problem on some platforms.
+
+See the basic users guide:
+Sections, releases and frozen versions.

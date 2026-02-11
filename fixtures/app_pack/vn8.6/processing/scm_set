@@ -1,0 +1,46 @@
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C used "procedures" file_build (avoids problems with %PATH/%FILE if blank)
+%C 
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C Used only by Single Column Model
+
+ &VERT_RES
+%T if { %VLEV_OPT == "G3" } {
+ VERT_LEV='/projects/um1/vn%VERSION/ctldata/vert/vertlevs_G3',
+%T } elseif { %VLEV_OPT == "USER" } {
+ VERT_LEV = %TCL putl "'%VLEV_PATH/%VLEV_FILE'," %ENDTCL
+%T } else {
+ VERT_LEV = 'VERT_LEV:                                 ',
+%T }
+ /
+
+ &SCM_CNTL
+%TCL
+set scm_nml [expand_homedir %SCM_NAMELIST]
+set scm_nml " scm_nml = '$scm_nml'"
+set scm_line ""
+putl "$scm_nml"
+
+set cnt %SCM_OD_CNT
+set lst_sw "strm_switch = "
+set lst_odf "strm_filename = "
+set str_blank "\n                "
+for {set i 1 } { $i <= $cnt } { incr i } {
+   if {%SCM_OD_NAME($i)!= "" && %SCM_OD_USE($i)=="Y"} {
+      set scm_line [expand_homedir %SCM_OD_NAME($i)]
+      append lst_odf  "'" $scm_line  
+      append lst_odf "',$str_blank"      
+      append lst_sw " 1," 
+   } else {
+      append lst_odf " ''," 
+      append lst_sw " 0,"      
+   }
+}
+putl " $lst_odf"
+putl " $lst_sw"
+unset lst_sw lst_odf scm_nml scm_line
+%ENDTCL
+ /
+ 
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ ### END OF FILE ###

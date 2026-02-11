@@ -1,0 +1,109 @@
+ RP - Random Parameters
+ ----------------------
+
+ Setting L_RP2=true will turn on the random parameters scheme, which
+ aims to represent the uncertainty due to the empirically-adjustable
+ parameters present in the physical parameterizations detailed below.
+ This is a very small subset of the parameters which could be varied.
+ The ranges quoted are based on the advice of experts in each
+ parameterization area, although please check the settings are appropriate
+ for your model configuration (global/regional) as some  variables can be
+ resolution dependent. The values quoted below are based on N216 global
+ and 12km regional configurations.
+
+ The values of the selected parameters are not held constant during
+ the whole simulation but are varied randomly (every 3hrs) between
+ their maximum (Max) and minimum (Min) values. The default value of the
+ parameter should be the standard values set for the parameterization
+ scheme under consideration. Most of these values can be checked in
+ the appropriate umui panels relating to the particular scheme. In a
+ few cases these are defined in the Stochastic Schemes window.
+
+ NOTE: IF YOU CHANGE THE DEFAULT VALUES HERE IT WILL OVERWRITE THE
+       VALUE SET IN THE RELEVANT SECTION'S PANEL.
+
+ A new option to vary each parameter independently is available from vn8.0.
+ Default behaviour is to use the same random number for all parameters. This
+ is achieved through setting the "Max independent random numbers to use" to
+ 1. Any higher number will use more random numbers. Ensure that it is set
+ high enough to cover all the parameters in the table.
+
+ "Convection Parameters":
+ ------------------------------------------------------------------------
+ |  Parameter                 |UM Variable       | Min/Default/Max       |
+ ------------------------------------------------------------------------
+ |Entrainment rate coefficient| ENTCOEF          | 2.75 / 3 / 4          |
+ |                            |                  |                       |
+ ------------------------------------------------------------------------
+ |Cape closure timescale      | cape_timescale   |1800 / 1800 / 3600     |
+ | (RH based closure)         |                  |(seconds)              |
+ ------------------------------------------------------------------------
+
+ The default entrainment rate coefficient is defined within the model and
+ can not be changed through the umui. The default cape_timescale is defined
+ in the umui panel, Section 5:Convection.
+
+ "Large Scale Precipitation Parameters":
+ ------------------------------------------------------------------------
+ |  Parameter                    |UM Variable    | Min/Default/Max       |
+ ------------------------------------------------------------------------
+ |Critical Relative Humidity     | RHCRIT        |0.875 / 0.9 / 0.91     |
+ |   (@ model level 3)           |               |                       |
+ ------------------------------------------------------------------------
+ |Parameter controlling ice fall | M_CI          |0.6 / 1.0 / 1.4        |
+ | speed  (3C/3D Microphysics)   |               |                       |
+ ------------------------------------------------------------------------
+
+ The default value of M_CI is set here - the recommended value is 1.0.
+
+ To determine appropriate min/max values for RHCRIT, check the default
+ values for levels 2,3 and 4 in the umui panel: Level by Level Physical
+ Constants under Atmosphere > Scientific Parameters and Sections. The
+ maximum value of RHCRIT at level 3 should be less than the default RHCRIT
+ value on level 2. The minimum value of RHCRIT at level 3 should be greater
+ than the RHCRIT value on level 4. If level 4 has the same value as level
+ 3, then the minimum value of RHCRIT on level 3 should be greater than the
+ next value of RHCRIT which is smaller than the value on level 3.
+
+ "Boundary Layer":
+ ------------------------------------------------------------------------
+ |  Parameter                 | UM Variable      | Min / Default / Max   |
+ ------------------------------------------------------------------------
+ |Flux profile parameter      | g0_rp            |5 / 10 / 20            |
+ ------------------------------------------------------------------------
+ |Neutral mixing length       | par_mezcla       |0.05 / 0.15 / 0.5      |
+ ------------------------------------------------------------------------
+ |Minimum mixing length       | lambda_min       |20.0 / 40.0 / 100.0    |
+ ------------------------------------------------------------------------
+ |Critical Richardson number  | ricrit_rp        |0.25 / 1.0  / 1.0      |
+ ------------------------------------------------------------------------
+ |Entrainment parameter A1    | a_ent_1_rp       |0.1 / 0.23 / 0.4       |
+ ------------------------------------------------------------------------
+ |Cloud-top diffusion control | g1_rp            |0.5 / 0.85 / 1.5       |
+ ------------------------------------------------------------------------
+ |Charnock Parameter(Charnock)|Boundary Layer    |0.01 / 0.018 / 0.026   |
+ ------------------------------------------------------------------------
+
+ The default values for these parameters are set here. However, they are
+ based on actual coefficients within the boundary layer equations and it
+ is recommended that these are not changed without consulting boundary
+ layer experts. The default value of the Charnock parameter can be found
+ in the umui in the follow on window SEA_SURF accessed from Section 3:
+ Boundary Layer and Surface Processes.
+
+ "Gravity Wave Drag":
+ --------------------------------------------------------------------------
+ |  Parameter                   | UM Variable      | Min / Default / Max   |
+ --------------------------------------------------------------------------
+ |Gravity wave constant         | kay_gwave        |7.5E4 / 7.0E4 / 1.3E4  |
+ |(Globe1 Orog, eg. MOGREPS-G)  |                  |                       |
+ --------------------------------------------------------------------------
+ |Gravity wave constant         | kay_gwave        |2.5E+03/3.3E+03/4.4E+03|
+ |(Globe30 Orog, eg. MOGREPS-R) |                  |                       |
+ --------------------------------------------------------------------------
+ |Froude number                 | gwd_frc          |2 / 4 / 6              |
+ --------------------------------------------------------------------------
+ 
+ The surface gravity wave constant depends on the orography used in the
+ model start dump. Please check the default values of the surface gravity wave
+ constant and froude number in the umui panel Section 6: Gravity Wave Drag. 

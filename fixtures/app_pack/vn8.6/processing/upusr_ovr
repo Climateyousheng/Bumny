@@ -1,0 +1,31 @@
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C used "procedures"
+%C 
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C Compiler option paths
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C------------------------------------------------------------------------------
+%TCL 
+  if {[inactive_var OASIS]==0 && %OASIS=="T"} {
+     putl "# Define PRISM_HOME directory"
+     if {%OASISWHICH==3} {
+        set prismhome %PRISMHOME3
+        set xmlhome ""
+     } else {
+        set prismhome %PRISMHOME4
+        set xmlhome ""
+     }
+     putl "\%%prism_home  $prismhome"
+     if { $xmlhome != "" } {
+         putl "\%%xml_home    $xmlhome"
+     }
+     putl ""
+  } 
+  putl "# User defined compile-time path overrides"  
+  if { %LUP_OVR == "Y" } { 
+    for { set i 1} { $i <= %NMODS } { incr i } {
+      if { %UPCOMP_OP($i) != {} && %UPUSE_OP($i)!="N"} { putl "%UPCOMP_VAR($i)  %UPCOMP_OP($i)" }
+    } 
+  }
+%ENDTCL
+%C------------------------------------------------------------------------------

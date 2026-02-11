@@ -1,0 +1,12 @@
+A set of environment variable settings were tuned on a range of UM 
+configurations. Selecting the "optimal" set will select these for 
+your configuration. You should test which choice gives you the best 
+performance for your given configuration. 
+
+The settings may affect performance of communication, and therefore 
+the number of processors you use, your choice of dump frequency and 
+number of diagnostics may all influence which option gives you the 
+best performance.
+
+The choice is not expected to affect results. You do not need to 
+recompile when changing the choice. 

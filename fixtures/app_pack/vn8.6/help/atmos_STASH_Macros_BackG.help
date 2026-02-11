@@ -1,0 +1,53 @@
+This window allows users to specify which STASHmacro to use to drive the
+quality control part of the assimilation cycle.
+
+This macro asks STASH to provide diagnostics on the PP7 file on unit 67.
+
+It is required if and only if assimilation cycles with quality control
+are being performed.
+
+Different fields are required by the different model types (global,
+limited area, mesoscale).
+
+See the UM Basic Users Guide on assimilation.
+--------------------------------------------------------------------------------
+
+No of hours in forecast for background fields:
+
+   This is the forecast time in hours at which the background QC PP file
+   is to be valid.
+
+   Forecast time is measured relative to the analysis time. If running
+   in AC mode, the latter is taken from the `nominal analysis time'
+   specified in Assimilation -> Parameters, Control. If running in
+   IAU (Incremental Analysis Update) mode, the analysis time is assumed
+   to be 3 hours into the run. Otherwise, it is assumed you are running
+   from an analysis.
+
+   In general, this value will correspond to the number of hours in one
+   data assimilation cycle:
+
+     6 for global runs
+     3 for LAM/mesoscale runs.
+
+Model level for PMSL reduction calculation:
+
+   A few fields are required at a certain model level for the PMSL
+   reduction calculation done in the observation processing. The
+   model level to be given is the first model level with an eta
+   value above 0.795.
+
+   The values for 19 level global/LAM, 30 level global and 31 level
+   mesoscale runs are 5,6 and 13 respectively. The standard 49 level
+   model and the operational 42 level model use a value of 5.
+
+   For non-standard experiments, a short run (ie, one timestep) will
+   confirm what this level should be. It is printed in the output from
+   a UM job as
+
+   SETCONA : LEVEL FOR PMSL REDUCTION CALCULATION=N
+
+   where N is the model level.
+
+%I macros
+

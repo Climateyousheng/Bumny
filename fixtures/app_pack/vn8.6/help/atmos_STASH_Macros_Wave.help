@@ -1,0 +1,11 @@
+This window allows users to specify which STASHmacro to use to drive the wave 
+model. This model is external to the UM but part of the operational suite at the
+UKMO.  
+
+This macro asks STASH to provide diagnostics to the output streams 69 and 81 (if
+split output is required). Set a split time after the end of the output to avoid
+splitting.
+
+Most users will not require such output.
+
+%I macros

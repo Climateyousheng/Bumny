@@ -1,0 +1,214 @@
+
+Section 9 : CLOUD SCHEME
+========================
+See below for a description of sections.
+See UMDP29 for a description of the Cloud Scheme algorithm and routines.
+Choose version (one version of the cloud scheme is available)
+<  > Do not include a cloud scheme
+<2A> Standard scheme (Smith scheme with triangular PDF or PC2 if "Use prognostic cloud scheem PC2" is selected below).
+The Smith scheme diagnoses Liquid Cloud Fraction and Liquid Cloud Water
+from its input variables, qT = q + qCL and TLL = T - (L/cP) qCL , which
+allows q and T to be calculated. Frozen Cloud Fraction is diagnosed from
+input Frozen Cloud Condensate assuming an inverted Smith scheme
+relationship between the two. Liquid and Frozen Cloud Fractions combine
+to produce a total Bulk Cloud Fraction.
+
+Using RHCrit parametrization
+============================
+Using RHcrit parametrization (L_RHCPT=.true.) causes the
+cloud scheme to diagnose RHcrit from the variability in moisture and
+temperature in the grid-boxes around each grid-box. Hence it will not use the
+level by level values specified in the user interface. The parameters for this
+option were originally hard-wired to N48 values but now vary according to the
+mean horizontal size of the gridbox.
+
+Use mixing ratio formulation for the parallel physics
+=====================================================
+This option allows the model to use mixing ratios for its moist
+variables in the parallel part of the physics code (otherwise it
+will use specific humidities). This includes
+large-scale-precipitation, radiation, and the call to large-scale
+cloud associated with the microphysics. If the PC2 cloud scheme is
+being used, this will also use the mixing ratio code (if selected)
+in the parallel physics part of the model, including the PC2 cloud
+erosion code.
+If this option is selected the model will convert between the
+mixing ratio and specific humidity formulations before and after
+the parallel physics call. Note that the diagnostics from the
+parallel physics part of the timestep will be in the form of
+mixing ratios (and not specific humidities) if this code is selected.
+
+Include convective cloud in cloud generator
+===========================================
+Allows radiation to "see" convective cloud when McICA scheme is in 
+use by adding the convective cloud directly to the cloud generator.
+
+Including cloud area parametrization
+====================================
+The cloud area parametrization (L_CLD_AREA=.true.) produces an estimate of
+the area cloud fraction (looking down on a gridbox from above). This area
+estimate (rather than the volume estimate) is used by the Edwards-Slingo
+radiation scheme in order to calculate the radiative impact of the cloud. There
+are two ways of calculating the area cloud fraction. The first is to assume
+subgrid vertical gradients in T and q, following the method of Cusack
+(this method also slightly alters the volume cloud fraction). This is used for
+HadGAM1a. A similar method using interpolation and extrapolation of T and q
+profiles has also been developed for use with PC2 (Boutle and Morcrette, 2010).
+The second method is to diagnostically relate the volume cloud fraction
+to the area cloud fraction, following the method of Brooks (although
+this is not applied when convection is active).  This method can be selected by
+modfying the l_acf_brooks variable in the UM.
+
+Use prognostic cloud scheme PC2
+===============================
+Choosing the PC2 scheme creates Prognostic Cloud and Prognostic
+Condensate variables, which are incremented as a result of each process
+that occurs in the model.
+
+     Ensure a minimum in-cloud ice water content
+     -------------------------------------------
+     Ensures that the model does not have very high ice cloud fractions with very
+     little ice water content in them by reducing the ice cloud fraction to
+     ensure a minimum in-cloud ice water content of 1.0e-6.
+
+     Use consistent formulation of mixed-phase cloud fraction
+     --------------------------------------------------------
+     Selecting this option removes a number of inconsistencies with the treatment of
+     mixed phase cloud fraction that were present in the code pre vn8.2. These are:
+     1) Advect the mixed phase cloud fraction instead of the bulk cloud fraction,
+        which gives better behaved numerics of the advection scheme.
+     2) Use minimum overlap for ice and liquid cloud fraction everywhere,
+        rather than a mixture of minimum and random.
+     3) Use two different equations for the boundary layer ice cloud fraction change,
+        depending on whether the ice water content has increased or decreased,
+        rather than one equation that assumes an increase only.
+     4) Treat points where cloud fraction > 1 as if cloud fraction = 1,
+        rather than treating them as if cloud fraction = 0.
+
+     Ensure consistent sinks of qcl and CFL
+     --------------------------------------
+     Without this option, individual routines calculate QCL increments and these
+     are added together later when checks are done to ensure that the increments
+     cannot lead to negative QCL values. Using this options ensures, at the level
+     of the individual subroutines, that the QCL increment cannot remove more QCL
+     than there was to start with.
+     Additionally, using this option ensures that qcl is set to zero if CFL
+     reaches zero.
+     
+     Include forced convective clouds
+     --------------------------------
+     This option includes a representation of clouds that form when the 
+     lifting condensation level is below the top of the boundary layer 
+     but the clouds are too shallow to reach the level of free convection 
+     (and become fully fledged cumulus clouds generated by the convection 
+     scheme).  They can otherwise be missed by PC2 initiation because the 
+     grid box mean RH at the boundary layer top is low but the subgrid 
+     variability is large.
+
+     Method for creating liquid cloud fraction when supersaturated in pc2_checks
+     ---------------------------------------------------------------------------
+     The routines PC2_checks creates some QCL if the grid-box has a negative
+     saturation deficit.
+     Option 0 increases QCL while leaving liquid cloud fraction  unchanged.
+     Option 1 increases QCL and sets liquid cloud fraction to 1.0.
+     Option 2 increases QCL and increases liquid cloud fraction to maintain
+              same in-cloud liquid water content. If there is no liquid cloud
+              fraction, liquid cloud fraction is created with a specified
+              in-cloud liquid water content.
+
+     Select how shear affect falling ice cloud fraction
+     --------------------------------------------------
+     In PC2 falling ice increases the ice cloud fraction in the layer it falls into.
+     There is the option to include the effects of the further increase in the
+     grid-box cloud fraction due to the lateral displacement as the ice falls
+     because of the vertical shear of the horizontal wind.
+     Either a) the effects of shear can be ignored,
+            b) a globally constant shear (not calculated from the actual wind)
+               can be assumed or
+            c) the effects of shear are considered and the shear is calculated
+               from the model wind.
+      When not using the globally constant value an additional ice cloud fraction
+      source term is used to represent the lateral spreading out of ice cloud fraction
+      while maintaining the same grid-box mean ice water content.
+      The "ice cloud fraction spreading rate" is set from the UMUI.
+
+      Include Erosion Prior to Microphysics
+      -------------------------------------
+      Standard PC2 settings implement the erosion parametrization as part of the homogeneous
+      response to convection. However, if PC2 is being used in a convection-permitting
+      configuration of the MetUM, where the convection parametrization is not active, then
+      this means that the erosion process would be missed out. This option calculates
+      the erosion process prior to the microphysics instead.
+
+      Method for doing PC2 cloud erosion
+      ----------------------------------
+      1) Default method as described in Wilson et al (2008). A relative rate of
+      narrowing of the moisture PDF is calculated from the relative humidity.
+      Self consistent changes in qcl and CFL are then inferred from the change
+      in the PDF width.
+      The "value of cloud erosion" represents the
+      relative rate of change of width of the moisture PDF by cloud erosion
+      processes when RH=1. It should be a NEGATIVE value to represent mixing
+      within the gridbox. In HadGEM2, the standard value was -2.25E-5 for
+      38-level simulations and -9.0E-5 for 70 level simulations.
+      Changing the erosion and is a way of tuning shallow cumulus cloud in PC2.
+      A value of -4.5e-5 was used in GA3.0.
+      2) Surface area-Tiedtke-PC2 hybrid method: cloud erosion reduces qcl is a
+      manner similar to the Tiedtke formulation, but with an additional dependence
+      of the exposed surface area, inferred from the cloud fraction and the vertical
+      overlap. The relative rate of narrowing which would have led to the same
+      reduction of qcl is then used to infer the change in CFL in a manner consistent
+      with the PC2 moisture PDF assumptions. This method is still experimental.
+      3) As 2) but the exposed surface area depends on the lateral sides only and
+      not on the top and bottom faces.
+      The "value of cloud erosion" should be POSITIVE if using Options 2 or 3.
+      Values of 5.0e-5, 1.0e-4 and 2.0e-4 were tried when developing GA4.0.
+
+      Method for coupling PC2 to convection scheme
+      --------------------------------------------
+      1) Original code as described in Wilson et al (2008a,b), with no consistency checks.
+      2) As 1) but with checks to ensure convection does not create unrealistically
+      high in-cloud condensate amounts.
+      3) As 2) but the condensate detrained by convection is allowed to change phase
+      smoothly from liquid to ice depending on temperature of environment (rather
+      than being detrained with the same phase as in the convective plume, which
+      changes abruptly). The range of temperatures over which the condensate changes
+      phase can be entered via the UMUI.
+      4) As 3) but with effects of detrainment and subsidence on cloud fraction
+      being considered seperately, and with cloud fraction increments calculated
+      by assuming new cloud has a specified in-cloud condensate amount. This option
+      is still experimental!
+      5) As 4) but with effects of detrainment and subsidence on mixed-phase
+      cloud fraction considered explicitly. This option is still experimental!
+      When using Options 3 onwards, the range of temperatures over which the
+      condensate changes phase can be entered via the UMUI.
+
+      Ice_Width (only applicable when PC2 is switched on)
+      ===================================================
+      Ice_width specifies the ice content (in terms of a fraction of qsat_liq) that
+      corresponds to a factor of two reduction in the width of the vapour distribution
+      in the liquid-free part of the gridbox.
+      
+      Including empirically adjusted cloud fraction (EACF)
+      ====================================================
+      This option will provide an artificial boost to the cloud fractions
+      (although not the condensate contents) to better agree with observations
+      of cloud fraction and water contents. It is included as a fix to
+      underprediction of cloud in the forecast models and is not physically
+      consistent with the Smith PDF. EACF is not consistent with, or available to 
+      use with PC2.
+
+      Filter optically-thin ice clouds from diagnostics 
+      =================================================
+
+      The model can sometimes have grid-boxes where the cloud fraction is high, 
+      but where the ice water content is so small that the cloud is unlikely to 
+      have a significant radiative impact and counting that layer as cloudy would 
+      be misleading when it comes to verifying the model against observations when 
+      the sky appears relatively clear. Selecting this option leads to a simple 
+      optical depth calculating being done and setting cloud fraction to zero if 
+      the optical depth is below a user-specified threshold. This is done using a 
+      simple approach, neglecting the fact that multiple thin layers could add up 
+      to an optically thick layer. Additionally, this option does not make use of 
+      sub-grid heterogeneity information, such as is used for McICA. This option 
+      only modifies the diagnostics and does not affect the evolution of the model.

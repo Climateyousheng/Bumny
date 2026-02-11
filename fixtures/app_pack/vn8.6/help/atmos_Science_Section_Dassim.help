@@ -1,0 +1,15 @@
+Section 18: Data assimilation and temporal filtering.
+
+At version 5.1, all atmospheric AC assimilation code that we intend to
+support has been moved from section A18_1A to section A18_2A. 
+The `Incremental Analysis Update' (IAU) scheme has been updated for 
+the new dynamics and is now joined by a related scheme called 
+`Temporal Digital Filtering' (TDF). The control code previously required 
+for the variational analysis scheme is now obsolete and has been removed.
+
+Parameters for all three schemes (AC, IAU and TDF) are set via the suite
+of panels under Atmosphere -> Data assimilation and temporal filtering.
+
+
+-------------
+%I compile_modes

@@ -1,0 +1,93 @@
+This window allows users to specify 'Science' options for the NEMO model.
+
+NEMO version
+------------
+
+Select the version of NEMO you wish to use. 
+Currently you must choose either version 3.2, 3.3.1 or 3.4. 
+These are the only versions explicitly supported by the UM model control 
+infrastructure. The need to distinguish between versions arises from the 
+need to process different formats of namelist under each NEMO release.
+NEMO uses dynamic allocation from vn3.3.1 onwards, hence PE configuration 
+details must be set in the NEMO namelist.
+
+When switching between NEMO releases please check the corresponding NEMO 
+FCM and NEMO executable panels to ensure consistency of code branches and
+compiler and fpp key configuration files with the version you are running. 
+
+NEMO Namelist
+-------------
+At present there are no proper Science panels for NEMO. Scientific
+parameters are configured by specifying a NEMO namelist in the "NEMO Model
+control namelist" field. The path and filename supplied should exist on the
+remote run platform.  A LIM namelist can also be specified if running NEMO-LIM
+rather than NEMO-only or NEMO-CICE (note that this option is non-standard and
+may not necessarily have been rigourously tested).
+
+For advice on which namelist to use please see a relevant sample job for
+an example or consult the Ocean and Sea Ice Modelling Team.
+
+
+Symbolic Links to NEMO input files
+----------------------------------
+During a run, NEMO requires various input NetCDF (.nc) files to be available.
+These are held in a central area and linked into the run directory according
+to what is specified in this table. The "NEMO input file name" column is used
+to specify the link that is to be created in the run directory. It is not
+necessary to add the run directory path variable (e.g. $DATAM) as if it is
+not present it will be added on by the UMUI. The "Actual full path and file
+name" column is used to specify the file that is to be linked. What is required
+in this table may vary depending on whether you are running NEMO standalone
+or coupled to the UM Atmosphere so consult a standard job or the Ocean and
+Sea Ice Modelling Team if you are not sure.
+
+
+NEMO Start Dump
+---------------
+If a start dump is specified then an NRUN will use this for the NEMO initial
+conditions.  If a dump is not specified than the initial NEMO state will be an
+at-rest ocean with temperature and salinity taken from the appropriate month
+of the linked data_1m_potential_temperature_nomask.nc and
+data_1m_salinity_nomask.nc files (the files are instead specified in the NEMO
+namelist for vn3.3.1 onwards).
+
+
+NEMO Restart Dump Naming
+------------------------
+For ease of cross-checking of dates between model components there is now an
+option to name the NEMO restart dumps using the date rather than the NEMO
+time-step number.  This option is most likely to be used in climate runs
+but requires a NEMO branch (e.g. fcm:nemo_br/dev/hadci/VN3.0_restart_date at
+NEMO vn3) to work correctly at present.  Consult a member of the Ocean and
+Sea Ice Modelling Team for more details if necessary.
+
+NEMO Output Options
+-------------------
+NEMO has an option to write out diagnostics using the 'iomput' code rather than
+the older 'diawri' code.  This new option can be activated in this panel.
+If 'iomput' is switched on then NEMO will expect to find the iodef.xml and 
+xmlio_server.def files at run time in order to control
+the diagnostics. These files should therefore be included in the list of 
+"Symbolic links to NEMO files" (see a standard job using iomput for examples).  
+
+Activating 'iomput' automatically causes the NEMO XMLIO and XMLIO_SERVER 
+source code to be included in the NEMO build.
+
+The 'iomput' option is at present only used with the NEMO IO server in 
+'attached' mode i.e. running on the same processors as NEMO.  
+It is not recommended for use with NEMO vn3.2. See the help panel on the 
+NEMO FCM window for more details. 
+
+If the option to "Open new diagnostic output files every time restart dump is 
+written" is selected, then regardless of the run length new NEMO diagnostic 
+files will be opened (with appropriate names) at the restart dump frequency.  
+The most common use of this functionality will be in climate runs -- writing 
+NEMO restart dumps every 10 days with all diagnostics set as 10 day means 
+(in either the namelist or iodef.xml depending on output method as described 
+above) now allows full consistency with the standard UM 10 day dumping and restart 
+procedure. Assuming CICE diagnostic and restart dump frequencies are set 
+similarly, then arbitrary resubmission periods (multiples of 10 days) can now 
+be used, and after a model failure a clean CRUN restart should be possible from 
+the previous 10 day point. This option requires a NEMO branch 
+(e.g. fcm:nemo_br/dev/hadci/vn3.4_separate_means at NEMO vn3.4) to work 
+correctly at present.  

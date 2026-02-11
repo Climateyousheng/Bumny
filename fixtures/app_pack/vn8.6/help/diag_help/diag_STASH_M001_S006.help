@@ -1,0 +1,646 @@
+<M001_S006_I101>
+
+Item (1, 6, 101) EASTWARD FLUX - SPECTRAL PSEUDOMOM.
+
+Eastward pseudomomentum flux from the spectral (non-orographic) gravity wave parametrization
+GW_USSP. These gravity waves have non-zero phase speeds and are important in the stratosphere
+and above.
+The flux is available on all model theta levels but set to zero below the launch level.
+Units are Kgm-1s-2 (i.e. Pa) 
+</M001_S006_I101>
+#
+<M001_S006_I102>
+
+Item (1, 6, 102) SOUTHWARD FLUX - SPECTRAL PSEUDOMOM.
+
+Southward pseudomomentum flux from the spectral (non-orographic) gravity wave parametrization
+GW_USSP. These gravity waves have non-zero phase speeds and are important in the stratosphere
+and above.
+
+The flux is available on all model theta levels but set to zero below the launch level.
+Units are Kgm-1s-2 (i.e. Pa) 
+</M001_S006_I102>
+#
+<M001_S006_I103>
+
+Item (1, 6, 103) WESTWARD FLUX - SPECTRAL PSEUDOMOM.
+
+Westward pseudomomentum flux from the spectral (non-orographic) gravity wave parametrization 
+GW_USSP. These gravity waves have non-zero phase speeds and are important in the stratosphere
+and above.
+
+The flux is available on all model theta levels but set to zero below the launch level.
+Units are Kgm-1s-2 (i.e. Pa)
+
+</M001_S006_I103>
+#
+<M001_S006_I104>
+
+Item (1, 6, 104) NORTHWARD FLUX - SPECTRAL PSEUDOMOM.
+
+Northward pseudomomentum flux from the spectral (non-orographic) gravity wave parametrization 
+GW_USSP. These gravity waves have non-zero phase speeds and are important in the stratosphere 
+and above.
+
+The flux is available on all model theta levels but set to zero below the launch level. 
+Units are Kgm-1s-2 (i.e. Pa)
+
+</M001_S006_I104>
+#
+<M001_S006_I105>
+
+Item (1, 6, 105) EASTWARD FORCE FROM SPECTRAL GW 
+
+Net eastward acceleration from the spectral (non-orographic) gravity wave parametrization
+GW_USSP. These gravity waves have non-zero phase speeds and are important in the stratosphere
+and above.
+
+The acceleration is available on all model rho levels but set to zero below the launch level. 
+Units are ms-2 
+
+</M001_S006_I105>
+#
+<M001_S006_I106>
+
+Item (1, 6, 106) NORTHWARD FORCE FROM SPECTRAL GW 
+
+Net northward acceleration from the spectral (non-orographic) gravity wave parametrization 
+GW_USSP. These gravity waves have non-zero phase speeds and are important in the stratosphere
+and above.
+
+The acceleration is available on all model rho levels but set to zero below the launch level. 
+Units are ms-2
+
+</M001_S006_I106>
+#
+<M001_S006_I111>
+Item: (1:6:111)
+
+Eastward pseudomomentum flux from the spectral (non-orographic)
+gravity wave parametrization GW_USSP. These gravity waves have
+non-zero phase speeds and are important in the stratosphere and above.
+The flux is available on pressure levels. Units are Kgm-1s-2 (i.e. Pa)
+</M001_S006_I111>
+#
+<M001_S006_I113>
+Item: (1:6:113)
+
+Westward pseudomomentum flux from the spectral (non-orographic)
+gravity wave parametrization GW_USSP. These gravity waves have
+non-zero phase speeds and are important in the stratosphere and above.
+The flux is available on pressure levels. Units are Kgm-1s-2 (i.e. Pa)
+</M001_S006_I113>
+#
+<M001_S006_I115>
+Item: (1:6:115)
+
+Net eastward acceleration from the spectral (non-orographic)
+gravity wave parametrization GW_USSP. These gravity waves have
+non-zero phase speeds and are important in the stratosphere and above.
+The acceleration is available on pressure levels. Units are ms-2
+</M001_S006_I115>
+# 
+<M001_S006_I181>
+Item (1, 6, 181)  GW HEATING TEMPERATURE INC
+
+This is the increment to the gridbox mean temperature, in K, due to
+the frictional dissipation of parametrized gravity waves and flow blocking drag.
+It includes contributions from the orographic and non-orographic gravity wave
+schemes. It is only available when the <5A> orographic drag scheme is selected.
+Available on all timesteps.
+</M001_S006_I181>
+#
+<M001_S006_I185>
+
+Item (1, 6, 185)  U WIND            INCR: gwd   scheme
+
+This is the x-component of the total gravity wave drag exerted
+on the zonal wind, U. It is output on model rho levels
+and is available on all model levels.
+
+Available on all timesteps.
+
+
+
+</M001_S006_I185>
+#
+<M001_S006_I186>
+
+Item (1, 6, 186)  V WIND            INCR: gwd   scheme
+
+This is the y-component of the total gravity wave drag exerted
+on the meridional wind, V. It is output on model rho levels
+and is available on all model levels.
+
+Available on all timesteps.
+
+
+
+</M001_S006_I186>
+#
+<M001_S006_I201>
+
+Item (1, 6, 201) X COMPONENT OF GRAVITY WAVE STRESS
+
+This is the x-component of the total gravity wave stress and is 
+output on model theta levels. Note that the stress is defined to
+be positive when the westerly component of the wind is positive. 
+
+In the 4A scheme the stress may be output on model levels 1 through to 
+ATMOS_LEVS+1. The surface stress is output on model level 1 and the top 
+level that the stress is output on is the model lid. This level is 
+included because some stress can 'leak' out of the model domain. 
+Thus in the 4A scheme, the stress diagnostic can be used to calculate
+the drag on the flow at any level (using du/dt=(1/rho)(d(stress)/dz)).
+
+Note that the labelling of the model level heights is incorrect by 1 model
+level. Therefore the surface stress (model level 1 output) is labelled
+as being at the height of theta level 2.
+	If the surface stress labelling is crucial, then use the diagnostic
+(1, 6, 235) instead, which is defined as a single level surface diagnostic.
+
+Available on all timesteps.
+
+
+
+</M001_S006_I201>
+#
+<M001_S006_I202>
+
+Item (1, 6, 202) Y COMPONENT OF GRAVITY WAVE STRESS
+
+This is the y-component of the total gravity wave stress and is 
+output on model theta levels. Note that the stress is defined to
+be positive when the southerly component of the wind is positive. 
+
+In the 4A scheme the stress may be output on model levels 1 through to 
+ATMOS_LEVS+1. The surface stress is output on model level 1 and the top 
+level that the stress is output on is the model lid. This level is 
+included because some stress can 'leak' out of the model domain. 
+Thus in the 4A scheme, the stress diagnostic can be used to calculate
+the drag on the flow at any level (using du/dt=(1/rho)(d(stress)/dz)).
+
+Note that the labelling of the model level heights is incorrect by 1 model
+level. Therefore the surface stress (model level 1 output) is labelled
+as being at the height of theta level 2.
+	If the surface stress labelling is crucial, then use the diagnostic
+(1, 6, 235) instead, which is defined as a single level surface diagnostic.
+
+Available on all timesteps.
+
+
+</M001_S006_I202>
+#
+<M001_S006_I203>
+Item(3, 6, 203) STANDARD DEVIATION OF OROGRAPHY
+
+This diagnostic contains the standard deviation of the real high resolution 
+orography dataset about the model mean (resolved) orography. It 
+is used to determine the depth that the sub-grid orography affects
+the flow above the mean orography.
+
+Units =  metres.
+
+</M001_S006_I203>
+#
+<M001_S006_I204>
+Item(3, 6, 204) OROGRAPHIC GRADIENT XX COMPONENT
+
+This diagnostic contains the grid-box mean of the square of the local 
+gradient in x of the real high resolution orography dataset. It is 
+used together with the XY and YY components to determine the shape of
+the real (sub-grid) orography within a model grid-box.
+
+This diagnostic is dimensionless.
+
+</M001_S006_I204>
+#
+<M001_S006_I205>
+Item(3, 6, 205) OROGRAPHIC GRADIENT XY COMPONENT
+
+This diagnostic contains the grid-box mean of the local gradient 
+in x (dh/dx) multiplied by the local gradient in y (dh/dy) of the real 
+high resolution orography dataset. It is used together
+with the XX and YY components to determine the shape of the real (sub-grid)
+orography within a model grid-box.
+
+This diagnostic is dimensionless.
+
+</M001_S006_I205>
+#
+<M001_S006_I206>
+Item(0, 6, 206) OROGRAPHIC GRADIENT YY COMPONENT
+
+This diagnostic contains the grid-box mean of the square of the 
+local gradient in y of the real high resolution orography 
+dataset. It is used together with the XX and XY components to 
+determine the shape of the real (sub-grid) orography within 
+a model grid-box.
+
+This diagnostic is dimensionless.
+
+
+</M001_S006_I206>
+#
+<M001_S006_I207>
+
+Item (1, 6, 207) U-ACCEL FROM SATURATED STRESS 
+
+This is the x-component of the gravity wave drag due to 
+linear hydrostatic waves exerted on the zonal wind, U. 
+It is output on model rho levels and is available on all 
+model levels.
+
+Available on all timesteps.
+
+
+
+</M001_S006_I207>
+#
+<M001_S006_I208>
+
+Item (1, 6, 208) V-ACCEL FROM SATURATED STRESS 
+
+This is the y-component of the gravity wave drag due to 
+linear hydrostatic waves exerted on the meridional wind, V. 
+It is output on model rho levels and is available on all 
+model levels.
+
+Available on all timesteps.
+
+
+
+</M001_S006_I208>
+#
+<M001_S006_I214>
+Item (1, 6, 214) U in the GWD surface layer
+
+This is the zonal component of the wind in the GWD surface layer. 
+The surface layer is the layer of air flowing over the sub-grid 
+mountains. 
+
+In the 4A scheme this is taken as the average value from the 
+ground up to the sub-grid mountain tops. The sub-grid mountain 
+tops are defined to be 2.5 standard deviations above the ground.
+This U is the input to the both the surface stress equations and 
+the calculation of the blocked layer depth.
+
+This diagnostic is output on a single unspecified level.
+
+Available on all timesteps.
+
+
+</M001_S006_I214>
+#
+<M001_S006_I215>
+Item (1, 6, 215) V in the GWD surface layer
+
+This is the meridional component of the wind in the GWD surface layer. 
+The surface layer is the layer of air flowing over the sub-grid 
+mountains. 
+
+In the 4A scheme this is taken as the average value from the 
+ground up to the sub-grid mountain tops. The sub-grid mountain 
+tops are defined to be 2.5 standard deviations above the ground.
+This V is the input to the both the surface stress equations 
+and the calculation of the blocked layer depth.
+
+This diagnostic is output on a single unspecified level.
+
+Available on all timesteps.
+
+
+</M001_S006_I215>
+#
+<M001_S006_I216>
+Item (1, 6, 216) N in the GWD surface layer
+
+This is the Brunt Vaisala frequency in the GWD surface layer. 
+The surface layer is the layer of air flowing over the sub-grid 
+mountains. 
+
+In the 4A scheme this is taken as the average value from the 
+ground up to the sub-grid mountain tops. The sub-grid mountain 
+tops are defined to be 2.5 standard deviations above the ground.
+This N is the input to the both the surface stress equations and 
+the calculation of the blocked layer depth.
+
+Available on all timesteps.
+
+
+</M001_S006_I216>
+#
+<M001_S006_I217>
+Item (1, 6, 217) GWD Froude Number
+
+This is the low level Froude number, Fr (=U/Nh), where
+U is the surface layer wind vector (actually, it is the
+surface layer wind vector perpendicular to the major axis 
+of the sub-grid orography, N is the Brunt Vaisala frequency
+and h is the height of the sub-grid mountains.
+
+The U and N are the same as those calculated for diagnostics 
+6214-6216, except that the winds there were the full winds, 
+whilst the ones here are the full winds resolved in the 
+direction perpendicular to the major axis of the sub-grid orography.  
+ 
+The height, h, is taken to be 2.5 standard deviations
+above the sub-grid orography. 
+
+When no upper limit on the size of Fr was applied, occasional 
+problems when outputting this diagnostic as a time mean occurred.
+Thus, this diagnostic is now not allowed to exceed 1000 at any point 
+at any time. 
+
+
+</M001_S006_I217>
+#
+<M001_S006_I218>
+
+Stash Diagnostic Help for Section 6 Item 218
+
+Item (1, 6, 218) GWD Blocked Layer Depth
+
+This is the depth of the low level blocked layer. 
+
+This diagnostic is output on a single unspecified level.
+
+Available on all timesteps.
+</M001_S006_I218>
+#
+<M001_S006_I222>
+Item (1, 6, 222) Percent of time with blocked flow
+
+This diagnostic indicates the amount of time that a blocked flow
+is diagnosed. Thus, it has a value of 100% if a blocked flow is
+diagnosed, and 0% if they are not. 
+
+This diagnostic is output on a single unspecified level.
+
+Available on all timesteps.
+
+
+
+</M001_S006_I222>
+#
+<M001_S006_I223>
+Item (1, 6, 223) X COMPONENT OF GRAVITY WAVE SATURATION STRESS
+
+This is the x-component of the gravity wave stress associated with
+linear hydrostatic waves and is output on model theta levels. Note 
+that the stress is defined to be positive when the westerly 
+component of the wind is positive. 
+
+In the 4A scheme the stress may be output on model levels 1 through to 
+ATMOS_LEVS+1. The surface stress is output on model level 1 and the top 
+level that the stress is output on is the model lid. This level is 
+included because some stress can 'leak' out of the model domain. 
+Thus in the 4A scheme, the stress diagnostic can be used to calculate
+the drag on the flow at any level (using du/dt=(1/rho)(d(stress)/dz)).
+	Note that the level this data is output on is wrong by one model 
+level, e.g. the surface stress is actually given the height label of model
+level 2.
+
+Available on all timesteps.
+
+</M001_S006_I223>
+#
+<M001_S006_I224>
+Item (1, 6, 224) Y COMPONENT OF GRAVITY WAVE SATURATION STRESS
+
+This is the y-component of the gravity wave stress associated with
+linear hydrostatic waves and is output on model theta levels. Note 
+that the stress is defined to be positive when the southerly 
+component of the wind is positive. 
+
+In the 4A scheme the stress may be output on model levels 1 through to 
+ATMOS_LEVS+1. The surface stress is output on model level 1 and the top 
+level that the stress is output on is the model lid. This level is 
+included because some stress can 'leak' out of the model domain. 
+Thus in the 4A scheme, the stress diagnostic can be used to calculate
+the drag on the flow at any level (using du/dt=(1/rho)(d(stress)/dz)).
+	Note that the level this data is output on is wrong by one model 
+level, e.g. the surface stress is actually given the height label of model
+level 2.
+
+Available on all timesteps.
+
+
+</M001_S006_I224>
+#
+<M001_S006_I227>
+Item (1, 6, 227) X COMPONENT OF FLOW BLOCKING STRESS
+
+This is the x-component of the stress associated with
+the blocked flow and is output on model theta levels. Note 
+that the stress is defined to be positive when the westerly 
+component of the wind is positive. 
+
+The stress may be output on model levels 1 through to 
+ATMOS_LEVS+1. In practice, however, the stress reduces to zero 
+at 2.5 standard deviations above the ground. Thus, the stress reduces
+to zero everywhere at about level 16 in the L38 version of the UM. 
+The surface blocked flow stress is output on model level 1. 
+        Note that the level this data is output on is wrong by one model 
+level, e.g. the surface stress is actually given the height label of model
+level 2.
+ 
+Available on all timesteps.
+
+
+</M001_S006_I227>
+#
+<M001_S006_I228>
+Item (1, 6, 228) Y COMPONENT OF  FLOW BLOCKING STRESS
+
+This is the y-component of the stress associated with
+the blocked flow and is output on model theta levels. Note 
+that the stress is defined to be positive when the southerly 
+component of the wind is positive. 
+
+The stress may be output on model levels 1 through to 
+ATMOS_LEVS+1. In practice, however, the stress reduces to zero 
+at 2.5 standard deviations above the ground. Thus, the stress reduces
+to zero everywhere at about level 16 in the L38 version of the UM. 
+The surface blocked flow stress is output on model level 1. 
+        Note that the level this data is output on is wrong by one model 
+level, e.g. the surface stress is actually given the height label of model
+level 2.
+
+Available on all timesteps.
+
+</M001_S006_I228>
+#
+<M001_S006_I231>
+
+Item (1, 6, 231) U-ACCEL FROM BLOCKED FLOW 
+
+This is the x-component of the gravity wave drag due to 
+the blocked flow exerted on the zonal wind, U. 
+It is output on model rho levels and is available on all 
+model levels.
+
+Available on all timesteps.
+
+
+
+</M001_S006_I231>
+#
+<M001_S006_I232>
+
+Item (1, 6, 232) V-ACCEL FROM BLOCKED FLOW 
+
+This is the y-component of the gravity wave drag due to 
+the blocked flow exerted on the meridional wind, V. 
+It is output on model rho levels and is available on all 
+model levels.
+
+Available on all timesteps.
+
+
+
+</M001_S006_I232>
+#
+<M001_S006_I233>
+
+Item (1, 6, 233) % of time num limiter invoked
+
+This is the percentage of the time that the numerical limiter is invoked.
+For a given timestep, therefore, the diagnostic takes a value of 100% if it is 
+invoked and 0% if it is not. The numerical limiter code and this diagnostic are
+only available in the 4A version of the code.  
+
+
+</M001_S006_I233>
+#
+<M001_S006_I234>
+
+Item (1, 6, 234) % redn. of block stress by limiter
+
+This is the percentage reduction in the flow-blocking stress resulting 
+when the numerical limiter operates. The numerical limiter calculates the 
+maximum drag permitted in a timestep and, if the scheme has diagnosed a drag 
+in excess of this limit, the drag is reduced to this limiting value. 
+This reduction equates to a reduction in the flow-blocking stress and this is 
+what this diagnostic shows. 
+
+Note that this limiter and hence this diagnostic are only available in 
+the 4a version of the scheme.
+
+</M001_S006_I234>
+#
+<M001_S006_I235>
+Item (1, 6, 235) X COMPONENT OF SURFACE SSO STRESS
+
+This is the x-component of the total SSO surface stress and is 
+output as a surface field. Note that the stress is defined to
+be positive when the westerly component of the wind is positive. 
+
+Note also that the output of this diagnostic is identical to that output
+in (1, 6, 201) on model level 1. Here the header data is correct 
+whereas for the 201 diagnostic the height label is that of theta level 2.
+
+Available on all timesteps.
+
+
+</M001_S006_I235>
+#
+<M001_S006_I236>
+Item (1, 6, 236) Y COMPONENT OF SURFACE SSO STRESS
+
+This is the y-component of the total SSO surface stress and is 
+output as a surface field. Note that the stress is defined to
+be positive when the westerly component of the wind is positive. 
+
+Note also that the output of this diagnostic is identical to that output
+in (1, 6, 202) on model level 1. Here the header data is correct 
+whereas for the 202 diagnostic the height label is that of theta level 2.
+
+Available on all timesteps.
+
+
+</M001_S006_I236>
+#
+<M001_S006_I237>
+Item (1, 6, 237) Froude Number Scaling of Total Surface Stress
+
+If the "Use Froude No. dependent surface stress option" is chosen 
+in the GWD UMUI window, then this diagnostic will indicate by how much 
+that switch has scaled the standard prediction of the surface stress. 
+Thus, when that switch is off, this field will be 1.0 everywhere. 
+However, when the switch is on, this field may vary between 0.0 and about 
+1.6 (in its original implementation at vn6.2). 
+
+This variation is motivated by the results of 
+Wells et al.(2005, QJRMS, 131, 1321-1338 ).
+
+This diagnostic is available on all timesteps. 
+
+Note that the "Use Froude No. dependent surface stress option" and 
+this diagnostic are only available in the 4a version of the scheme.
+
+</M001_S006_I237>
+#
+<M001_S006_I241>
+Item: (1:6:241)
+
+This is the x-component of the total gravity wave stress and is 
+output on pressure levels. Note that the stress is defined to be
+positive when the westerly component of the wind is positive.
+</M001_S006_I241>
+#
+<M001_S006_I247>
+Item: (1:6:247)
+
+This is the x-component of the gravity wave drag due to 
+linear hydrostatic waves exerted on the zonal wind, U. 
+It is output on pressure levels
+</M001_S006_I247>
+#
+<M001_S006_I248>
+Item(3, 6, 248) OROGRAPHIC SUB-GRID SLOPE
+
+This diagnostic is only available for the 5a orographic drag scheme. 
+
+It represents the mean slope within the grid-box. It is 
+used together with the orographic sub-grid anisotropy and 
+orographic sub-grid direction components to determine the shape of
+the real (sub-grid) orography within a model grid-box.
+
+Note that this diagnostic does not change during the run and therefore 
+should only be output once. 
+This diagnostic is dimensionless. 
+
+</M001_S006_I248>
+#
+<M001_S006_I249>
+Item(3, 6, 249) OROGRAPHIC SUB-GRID ANISOTROPY
+
+This diagnostic is only available for the 5a orographic drag scheme. 
+
+It characterizes the anisotropy of the orography within the grid-box. It is 
+used together with the orographic sub-grid slope and 
+orographic sub-grid direction components to determine the shape of
+the real (sub-grid) orography within a model grid-box.
+
+Note that this diagnostic does not change during the run and therefore 
+should only be output once. 
+This diagnostic is dimensionless. 
+
+</M001_S006_I249>
+#
+<M001_S006_I250>
+Item(3, 6, 250) OROGRAPHIC SUB-GRID DIRECTION
+
+This diagnostic is only available for the 5a orographic drag scheme. 
+
+It characterizes the orientation of the principal axis of the orography 
+within the grid-box. It is used together with the orographic sub-grid 
+slope and orographic sub-grid anisotropy components to determine the 
+shape of the real (sub-grid) orography within a model grid-box.
+
+Note that this diagnostic does not change during the run and therefore 
+should only be output once. 
+This diagnostic is dimensionless. 
+
+</M001_S006_I250>

@@ -1,0 +1,25 @@
+The Submit Button.
+The "Submit" button is the navigation action button that submist the processed
+job to the target machine.
+
+You should press "Submit" when:
+	Your job has been fully set up (pay attention to personal and job
+	  resource details).
+	You have pressed "Check Setup" to check consistency.
+	You have processed your job.
+	You have created any directories ($DATAW etc) and put in place any 
+	  files (start dumps etc) that the job may need.
+	You have made any hand edits to your control files.
+
+On pressing submit, the control files in the job directory for this job are
+copied to a unique directory created on the target machine.
+
+The type of submit used depends on questions answered elsewhere in the system 
+see personal and job resource windows. 
+
+Once copied you are safe to do anything you like to them.
+
+You can edit the control files and resubmit the job if you like. The control
+files will not interfere with each other (but the jobs themselves may, say if
+they both use the same output directories).
+ 

@@ -1,0 +1,14 @@
+This window allows users to specify which STASHmacro to use to provide a
+standard set of test diagnostics whose field values can be used to test output
+packages. The field values are based on calculations from levels and
+latitude/logitude.  
+
+See UMDP D7.
+
+This macro asks STASH to provide diagnostics to the output stream PP2 on unit
+62.
+
+Most users will not require such output.
+
+%I macros
+

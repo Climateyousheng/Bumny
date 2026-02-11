@@ -1,0 +1,16 @@
+This window allows you to specify the names of files whose names are usually
+generated automatically by the UMUI.
+
+This is required for operational purposes and occasionally for other uses.
+If you find that you are using this facility frequently, you should discuss your
+needs with the UMUI and UM teams.
+
+In you want to specify a different set of file names, light the check box.
+
+This will display a table of file types and you can enter your own names.
+Give full pathname or use a pathname environment variable such as $DATAW or 
+$DATAM.
+
+Unset records revert to the standard file name.
+
+%I gen_suite

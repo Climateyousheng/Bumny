@@ -1,0 +1,108 @@
+Warning!
+--------
+Users are advised consult the aerosol modelling group in CCE before 
+using these panels to set up experiments including Sulphur Cycle.
+
+How it works
+------------
+SO2, 3 modes of SO4 (Aitken, accumulation and dissolved), DMS (dimethyl
+sulphide), NH3 and H2O2 are prognostic variables for the Sulphur Cycle.
+Emissions and oxidants are accessed from ancillary files or 
+from the UKCA chemistry scheme (see below).
+ 
+In the Chemistry section (17), SO2 is converted to 3 modes of SO4, and 
+DMS to SO2. Choosing Sulphur Cycle to be ON automatically means that SO2
+and 3 modes of SO4 will be present in the model, but DMS and NH3 are 
+optional. If DMS is chosen, SO2 and SO4 modes are all automatically invoked.
+In this case ozone is required as an oxidant for DMS, but ammonia emissions
+should not be included unless ozone oxidation of SO2 is also required (when
+a realistic NH3 field is required for buffering the reaction).
+
+DMS and NH3 emissions are at the surface only.
+High level SO2 emissions represent those from chimney stacks; for a 
+38-level G3 model, level 5 should be specified (~500m).
+Natural SO2 emissions represent those from volcanoes (3-D field)      
+ 
+In sections 1 and 2 (SW and LW radiation) the Edwards-Slingo (3A) version 
+contains code to allow sulphate aerosol to be used for direct or first indirect 
+(albedo) effects. These effects may be selected via the AERO FX button. 
+
+In section 3 (boundary layer), code exists to doboundary layer mixing and 
+dry deposition of SO2, SO4 modes and NH3.
+
+In section 4 (large scale ppn), code exists to wet scavenge SO2, SO4 modes,
+and NH3. Code is also available to model the second indirect (cloud lifetime)
+effect, if this is selected via the AERO FX button. 
+Version 3C or 3D of ls ppn section may be chosen to include this code;
+wet scavenging diagnostics are available.
+
+In section 5 (convection), code exists to do convective transport for Sulphur
+Cycle tracers (as well as soot and free tracers), and wet scavenge SO2, 
+SO4 modes, and NH3.
+Version 3C or 4A (untested, new at vn5.4) of convection section may be chosen 
+to include this code; wet scavenging diagnostics are available.
+
+In section 11 the 2A tracer advection scheme must be included in order to 
+advect the Sulphur Cycle variables.
+
+In section 12 (primary field advection), the monotone and high-order 
+schemes chosen for moisture will also be used for tracers 
+(monotone scheme=1, high-order scheme=6 are recommended)
+
+In section 17 (sulphur 'chemistry'), the option to use the sulphate aerosol 
+to calculate droplet concentrations for the diffusional scavenging of Aitken
+mode sulphate into cloud droplets is available; this is activated via the 
+AERO FX button, and should generally be used in runs with the Sulphur Cycle 
+(if not activated, constant values will be used for land and sea).
+
+
+Ancillary files
+---------------
+Ancillary file header record maximum size must be set to 5000 
+(In window atmos_InFiles_Options_Headers). 
+      
+
+  Oxidants 
+  ---------      
+  If the option to use oxidants from UKCA instead of anciliary is chosen
+  no oxidant ancillaries are need. Otherwise,
+  the chemistry requires an ancillary file containing oxidants to be
+  provided. These must be 3-D fields of OH, HO2 and H2O2 (limiting
+  field). A 3-D ozone field must also be included on the same file if 
+  DMS is included, or if ozone oxidation of SO2 is required (but it need
+  not be the same as any other ozone file in the model).
+  Use the OXI button to specify this file.
+
+  Emissions 
+  ---------
+  Single level SO2, and DMS and NH3 emissions (if used) should be provided 
+  on the same ancillary file. 
+  Use the SUR button to specify this file.
+ 
+
+  3-D Natural SO2 emissions should be provided on a separate file
+  Use the NAT button to specify this file.  
+  
+  Dimethyl Sulphide Emissions
+  ---------------------------
+  If Dimethyl Sulphide (DMS) emissions are selected,
+  the user has a choice of reading these from an ancillary
+  file or using an interactive scheme for emissions over
+  the oceans (ancillary-file data are still used over land).
+  For all-ancillary DMS emissions, choose "No use of scheme"
+  in the "Use interactive Dimethyl Sulphide Emissions" section.
+  Ensure that the ancillary file specified for 2D sulphur
+  emissions in panel atmos_InFiles_PAncil_SulpEmis is appropriate.
+  For the interactive scheme, one of three parameterizations
+  for sea-air gas exchange is possible; HadGEM1 uses the
+  Wanninkhof scheme. To use the interactive scheme, an
+  ancillary file must be specified for DMS concentration in
+  seawater in panel atmos_InFiles_PAncil_SulpEmis.
+
+
+Initialisation of prognostics
+------------------------------
+Sulphur Cycle prognostic variables must be initialised either from existing 
+values in a model dump, or by providing a user-STASHmaster file for the
+variables and initialising them as user prognostics through the UMUI
+(in panel atmos_STASH_UserProgs)

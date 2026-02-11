@@ -1,0 +1,11 @@
+This window allows users to specify a STASHmacro to use to drive the
+UKCA model. There is only one macro.
+
+UKCA STASH macro
+----------------
+
+This specifies diagnostic coupling fields which are required by UKCA.
+Typically, these are made available at each timestep and held is secondary
+space in the D1 array. 46 items are used. No options are used.
+
+%I macros

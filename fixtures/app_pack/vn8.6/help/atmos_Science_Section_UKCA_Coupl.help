@@ -1,0 +1,28 @@
+Coupling of UKCA to the UM.
+===========================
+UKCA is coupled to the UM at each timestep, and uses a variety
+of prognostics and diagnostics including the section 34 tracers.
+The selection of the driving fields for UKCA is done via a STASH
+macro. See main UKCA help panel.
+Options
+=======
+Select which trace gases to be used in the UM radiation scheme.
+N2O and the halogens require the stratospheric chemistry
+scheme.
+Interactive dry deposition: this scheme uses resistances calculated
+using variables from  surface exchange scheme, however
+it is only suitable for the tropospheric chemistry and aerosol
+chemistry schemes.
+Direct effect of UKCA-MODE aerosols in radiation scheme, including
+aerosol optical depth: select corresponding box and provide required
+file names in follow-on window UKCA_RADAER. 
+Select 1st Indirect Effect of MODE aerosols to couple the cloud droplet
+number concentration from MODE to the calculation of cloud radiative
+properties.
+Select 2nd Indirect Effect of MODE aerosols to couple the cloud droplet
+number concentration from MODE to the calculation of autoconversion rate
+in large-scale precipitation.
+
+Coupling of the UM CLASSIC aerosol scheme to UKCA oxidants is
+set up through the aerosol (section 17) sulphur panel.
+

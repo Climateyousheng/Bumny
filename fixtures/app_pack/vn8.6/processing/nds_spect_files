@@ -1,0 +1,12 @@
+%C ======================================================
+%C module: nds_spect_files
+%C
+%C will set up variable SPECTRAL_FILE_DIR
+%C
+%C Module included in:
+%C  * MAIN_SCR via processing/nds_main
+%C  * FCM_BLD_COMMAND via processing/nds_bld_gencmd
+%C  * SCRIPT
+%C ====================================================== 
+%C 
+export SPECTRAL_FILE_DIR=%PATHSW

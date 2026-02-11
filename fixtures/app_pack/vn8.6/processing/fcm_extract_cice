@@ -1,0 +1,21 @@
+%C---------------------------------------------------------------------
+%C  File:  fcm_extract_cice
+%C---------------------------------------------------------------------
+%C
+%C  Purpose: Generates FCM_EXTRACT_CICE, which provides the CICE base repository
+%C           
+%C
+%C  Include files:
+%C
+%C---------------------------------------------------------------------
+#---------------------------------------------------------------------
+# Script: FCM_EXTRACT_CICE_CFG
+# Purpose: Provides additional source information for CICE base extract
+#         
+# Created from UMUI vn%VERSION
+#---------------------------------------------------------------------  
+
+# Add mirror command to use 
+# ----------------------------------
+%I fcm_extract_config
+

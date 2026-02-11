@@ -1,0 +1,9 @@
+This window allows you to enable your job to just build the UM scripts
+when doing a run only job with an existing model executable.
+The 'Enable build of UM scripts' is only available to be selected if you
+do NOT have compilation enabled elsewhere in the job. i.e. the job must 
+be a 'run-only' job. The information below the option button shows you
+which models you are using in your job and what their compilation settings
+are. You cannot change compilation for individual models from here, and must
+visit the appropriate panel under 'Compilation and Modifications' to
+do so.

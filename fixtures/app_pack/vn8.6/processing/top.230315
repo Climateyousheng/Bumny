@@ -1,0 +1,246 @@
+%I proc_totime
+%C %I proc_congruent  
+%I proc_max  
+%I proc_microphy_set  
+%I proc_file_build
+%I proc_LL2EQ
+%I proc_set_model_logical
+%I proc_arch_system
+%I proc_clim_real_year
+%I proc_conv_RUNID
+%I proc_gasses
+%I proc_convTimeUnits
+%I proc_calcMeanList
+%I proc_secsToHoursMinsSecs
+%I proc_switches
+%I proc_env_file_build
+%C-------------------------- 
+%OUTPUTFILE USR_MACH_OVRDS
+%I umusr_ovr
+%OUTPUTFILE USR_FILE_OVRDS
+%I ufusr_ovr
+%OUTPUTFILE USR_PATHS_OVRDS
+%I upusr_ovr
+%C-------------------------- 
+%OUTPUTFILE CNTLALL
+%T set op_no_assim 0 ; # set false, this is not the no assim file
+%I cntlall
+%T if { [string index "%EXPT_ID" 0 ] == "q" } {
+%C    Operational
+%OUTPUTFILE CNTLALL_NA
+%T    set op_no_assim 1 ; # set true, this is the no assim file
+%I cntlall
+%T    set op_no_assim 0 ; # set back to false, job done
+%T }
+%C-------------------------- 
+%OUTPUTFILE CNTLGEN
+%I cntlgen
+%C-------------------------- 
+%T set model_count 0
+%C-------------------------- 
+%C loop over all sub-models
+%T for { set i 1 } { $i <= %NINT } { incr i } {
+%T   set model_incl [ set_model_logical $i ]
+%T   set user_count 0
+%T   if { $model_incl == "T" } {
+%T      set model_letter %MODEL_ID($i)
+%T      incr model_count
+%OUTPUTFILE PRESM_$model_letter
+%I      preSM_all
+%T   }
+%T   set array_user_count($i) $user_count ; # also used in recona/recono
+%T }
+%C-------------------------- 
+%OUTPUTFILE STASHC
+%C loop over all sub-models
+%T for { set nsubm 1 } { $nsubm <= %NINT } { incr nsubm } {
+%T   set model_incl [ set_model_logical $nsubm ]
+%T   if { $model_incl == "T" } {
+%T      set model_letter %MODEL_ID($nsubm)
+%T      if { $model_letter == %DIAGBLOCK } {
+%I         stashc_all
+%T      } else {
+%T         if {%OCAAA != "5"} {
+%T            set diag_msg "You have deactivated all the diagnostics."
+%T            append diag_msg "\n\n" "Check STASH panel if this was not what you intended to do."
+%T            dialog .warning "Please NOTE" $diag_msg {} 0 {OK} 
+%T         }
+%T      }
+%T   }
+%T }
+%C--------------------------
+%T if { %ATMOS == "T" } {
+%T   if {%OCBFOAM != 0 } {
+%I     macro_foam
+%T   }
+%T   if {%OCBIS != 0 } {
+%I     macro_surge
+%T   }
+%T   if {(%ATMOS_SR(18)!="0A")&&(%AAS_AC=="Y")} {
+%I     macro_ACassim
+%T   }
+%T   if {%OCBIO != 0 } {
+%I     macro_A_drives_O
+%T   }
+%T   if {%OPSINTM!=0 && %OCAAA==1} {
+%I        macro_cx_OPS
+%T   } elseif {%OPSINTM!=0 && (%OCAAA==2 || %OCAAA==3 || %OCAAA==4) && %MESO=="Y"} {
+%I        macro_mes_OPS
+%T   }
+%T   if {%OCAAA==1 && %BEFM !=0} {
+%I        macro_backerror_global
+%T   }
+%T   if {%VARINTM!=0 } {
+%I       macro_LS
+%T   }
+%T   if {%LSMNS==1} {
+%I       macro_SMNS
+%T   } elseif {%LSMNS==2} {
+%I       macro_SMNS_lmean
+%T   }
+%T   if {%LUARS!=0} {
+%I       macro_UARS
+%T   }
+%T   if {%IUKCA!=0} {
+%I       macro_UKCA
+%T   }
+%T   if {%IRIVER!=0} {
+%I       macro_river
+%T   }
+%T   if {%IMKBC!=0} {
+%I       macro_Makebc
+%T   }
+%T   if {%INDG!=0 && %ATMOS_SR(39)!="0A"} {
+%I       macro_NDG
+%T   }
+%T   if {%OCBIT==1} {
+%I       macro_test
+%T   }
+%T }
+ 
+ &STASHNUM NUM_REQ=-1, NUM_DOM=0,  NUM_TIM=0, NUM_USE=0 /   
+
+%C-------------------------- 
+%OUTPUTFILE INITFILEENV
+%I initfileenv
+%C--------------------------
+%OUTPUTFILE INITHIS
+%I inithis
+%C-------------------------- 
+%OUTPUTFILE SIZES
+%I sizes
+%I stshcomp
+ !!! End of file !!!
+%C-------------------------- 
+%T if { %ATMOS == "T" } {
+%OUTPUTFILE CNTLATM
+%I cntlatm
+%OUTPUTFILE IOSCNTL
+%I ioscntl
+%T  if { %ARECON == "Y" } {
+%OUTPUTFILE RECONA
+%I recona
+%T  }
+%T } 
+%C--------------------------
+%OUTPUTFILE SHARED
+%I nlstshared
+%C--------------------------
+%T if { [string index "%EXPT_ID" 0 ] == "q" } {
+%C    Operational
+%T    set op_no_assim 1 ; # set true, this is the no assim file
+%OUTPUTFILE CONTCNTL_NA
+%I nlstcall
+%I nlstcgen
+%T   if { %ATMOS == "T" } {
+%I nlstcatm
+%T   } 
+ !!! End of file !!!
+%T   set op_no_assim 0 ; # set back to false, job done
+%T }
+%C-------------------------- 
+%OUTPUTFILE PPCNTL
+%I ppcntl
+%C-------------------------- 
+%T if { %GEN_SUITE == 0 } {
+%OUTPUTFILE SUBMIT
+%I nds_submit
+%T } else {
+%OUTPUTFILE UMIF
+%I umif
+%T }
+%C--------------------------
+%T if { %AUTOPP == "Y" &&  (%SYSTM == 2) } {
+%OUTPUTFILE MOOSE_JOB_SNAP
+%I moose_job_snap
+%T }
+%C-------------------------- 
+%OUTPUTFILE SCRIPT
+%T if { %GEN_SUITE != 0 } {
+%I gensuite
+%T }
+%I fcm_script
+%C------------------------------------------
+%C Always create config files for fcm.  BASE required by NEMO/CICE for scripts
+%OUTPUTFILE FCM_UMSCRIPTS_CFG
+%I fcm_scripts_cfg
+%C Always create FCM_EXTRACT_UMATMOS_CFG when submitting to MONSooN
+%T if {%MACH_NAME=="ibm02" || %MACH_NAME=="mobilis1"} {
+%OUTPUTFILE FCM_EXTRACT_UMATMOS_CFG
+%I fcm_extract_atmos
+%T }
+%T if {%ATMOS=="T"} {
+%OUTPUTFILE FCM_UMRECON_CFG
+%I fcm_recon_cfg
+%OUTPUTFILE FCM_UMATMOS_CFG
+%I fcm_atmos_cfg
+%T }
+%T if {%JULES=="T"} {
+%C Create FCM_EXTRACT_JULES_CFG if submitting to MONSooN
+%T if {%MACH_NAME=="ibm02" || %MACH_NAME=="mobilis1"} {
+%OUTPUTFILE FCM_EXTRACT_JULES_CFG
+%I fcm_extract_jules
+%T   }
+%T }
+%C----------------------------------------
+%C Extract Script
+%OUTPUTFILE EXTR_SCR
+%I nds_extract
+%C--------------------------
+%C Compile Switches
+%OUTPUTFILE COMP_SWITCHES
+%I nds_build_vars
+%C--------------------------
+%C Build Command Script
+%OUTPUTFILE FCM_BLD_COMMAND
+%I nds_bld_gencmd
+%C-------------------------- 
+%C Main Control Script
+%OUTPUTFILE MAIN_SCR
+%I nds_main
+%C--------------------------
+%OUTPUTFILE UMSUBMIT
+%I umsubmit
+%C-------------------------- 
+%T set mask %ATMOS%NEMO%CICE
+%T if {$mask=="TTT"||$mask=="FTT"||$mask=="FTF"||$mask=="FFT"||($mask=="TFF"&&%OASIS=="T") } {
+%OUTPUTFILE FCM_NEMOCICE_CFG
+%I fcm_nemocice_cfg
+%T }
+%T if {%NEMO=="T"} {
+%OUTPUTFILE FCM_EXTRACT_NEMO_CFG
+%I fcm_extract_nemo
+%T }
+%T if {(%MACH_NAME=="ibm02" || %MACH_NAME=="mobilis1") && %CICE=="T"} {
+%OUTPUTFILE FCM_EXTRACT_CICE_CFG
+%I fcm_extract_cice
+%T }
+%C--- Single Column Set ---
+%T if {%OCAAA==5} {
+%OUTPUTFILE SCM_SET
+%I scm_set
+%T }
+%C-------------------------- 
+%OUTPUTFILE EXT_SCRIPT_LOG
+%I ext_script
+%C------ End of TOP --------

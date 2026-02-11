@@ -1,0 +1,25 @@
+%C =========================================================
+%C module: fcm_extract_config
+%C
+%C Common sections in the fcm extract config files
+%C
+%C Module included in:
+%C  * FCM_EXTRACT_UMATMOS_CFG  via fcm_extract_atmos
+%C  * FCM_EXTRACT_CICE_CFG     via fcm_extract_cice
+%C  * FCM_EXTRACT_JULES_CFG    via fcm_extract_jules
+%C  * FCM_EXTRACT_NEMO_CFG     via fcm_extract_nemo
+%C =========================================================
+
+# Add mirror command to use
+#---------------------------------------------
+%TCL
+   if {%MACH_NAME=="ibm02" || %MACH_NAME=="xcml00" || %MACH_NAME=="mobilis1" || %MACH_NAME=="mobilis2"} {
+      set processed_dir [set_output_dir]/%RUN_ID
+      putl " "
+      putl "rdest::rsync                 monsoon_rsync"
+      putl "rdest::rsyncflags            $processed_dir/REMCOMMS"
+      putl "rdest::rsh_mkdir_rsh         monsoon_ssh_mkdir"
+      putl "rdest::rsh_mkdir_mkdirflags  $processed_dir/REMCOMMS"
+   }
+%ENDTCL
+

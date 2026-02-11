@@ -1,0 +1,39 @@
+This window allows you to specify various control options that cut across all
+sub-models.
+
+Climate users normally use a 360 day calendar to keep months and seasons a
+standard length. Others will use a normal Gregorian calendar to define the time
+information in model headers etc.
+
+The Gregorian calendar can be used with the coupled atmosphere-ocean 
+climate model. When running the coupled model with the Gregorian calendar
+ancillaries created for the correct calendar must be used. If the
+"Use 360 day calendar" option is not selected and the UM atmosphere
+is not running (i.e. NEMO, CICE, or NEMO-CICE runs), then the model
+will use a fixed 365-day calendar (no leap days).
+	
+	
+Test scripts and test executables can be used. This allows changes to be made to
+these UM components mid-release. There is only one test version and they are
+held centrally.  Users should not be using these unless informed otherwise.
+	
+Subroutine timer diagnostics give useful output on model efficiency. The output
+is not excessive, but there will be a small efficiency loss.
+They can only be used if the section of code is included. See
+     	Independent Section Options --> Misc. Section 97
+
+
+Operational  and other users may want to specify their own set of STASHmaster
+files.
+The operational model uses its own directory to be safe from accidental
+deletion of operational files.
+Other users are unlikely to need this facility unless making large changes to
+the STASHmaster files. Small changes can be acheived via the user-STASHmaster
+system available from the STASH navigation tree of each sub-model.
+Eg
+Atmos  ->  STASH  -> Specification of User Diagnostics
+Making changes to the STASHmaster file in this way is not ideal as the UMUI
+will not see the changes!
+The directory needs to contain files for each sub-model - currently this is only
+STASHmaster_A.
+

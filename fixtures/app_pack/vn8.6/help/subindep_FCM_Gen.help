@@ -1,0 +1,47 @@
+This window allows users to set up standard general information for
+the FCM system and applies to whatever combination of models is to be 
+built.
+
+The "Local machine root extract directory" should be set to a user 
+directory on the user's local machine. $HOME can be used in paths
+here but tends to make extracts longer. The benefit is that $HOME
+is backed up. $LOCALDATA can also be used in path specifications
+and results in quicker extracts, however it is not backed up.
+
+Note that $RUNID is appended to the path automatically by the UMUI.
+
+
+The "Target machine root extract directory" should be set to a user 
+accessible directory on the remote machine. This is where code is
+mirrored to from the local machine and where the build takes place.
+By default $USERID/$RUNID is appended to this setting by the UMUI
+so you only need to specify the top level directory, e.g.
+
+/data/[area]/[userid]   (e.g. /data/cr/crum)
+
+Please note that it is allowable to set this directory to a 
+different location from the run directory specified by $DATAW
+in order to keep build files and run files separate. If running on
+the Met Office IBM system it is desirable to separate build and
+run directories. In that case /working should be used instead of /data.
+In which case you would set:
+
+/working/[area]/[userid]   (e.g. /working/cr/crum)
+
+Paths in this setting should ALWAYS be fully specified (i.e. do not
+use environment variables).  
+
+
+This window also allows user control of some aspects of the FCM
+extract and build commands.
+
+Use "Force FULL extract" / "Force FULL build" to ensure all source code
+is fully rebuilt cleanly. Generally these options should be left disabled
+as fully rebuilding code each time is not efficient. However, these options
+can be useful as a last resort if you have unexplained problems with your 
+extract/build. Note that these options are automatically disabled if a 
+prebuild is being used.
+
+"Level of output" for extract and build should be left at 3 (the highest level)
+when testing new code changes so that you get the maximum amount of
+information for troubleshooting.

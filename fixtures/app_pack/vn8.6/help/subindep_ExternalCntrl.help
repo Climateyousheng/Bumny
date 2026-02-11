@@ -1,0 +1,50 @@
+External Control.
+
+This UM job can either run independantly (with optional resubmission
+via the internal UM system for continuation runs) or be controlled
+by an external system that is known to the UMUI.
+
+The generalised Suite Control System (SCS) is the only registered
+control system known to the UMUI.
+
+If you choose this option you are defining this UM job as a component
+within a suite controlled by the SCS.
+
+Certain values will be specified externally and hence greyed out
+in the UMUI. Other parameters, typically input and output files,
+can be optionally defined as externally controlled. These will
+appear red on the windows and you can define them as EXTERNAL
+to have them controlled by the SCS, or give a valid response to
+define the file yourself.
+
+See windows:
+
+atmos_InFiles_OtherAncil_LBC
+atmos_InFiles_Start
+personal_gen
+subindep_Compile
+subindep_Control
+subindep_ExternalCntrl
+subindep_FileDir
+subindep_SubmitMethod
+subindep_JobRes2
+subindep_OutFilesNames
+subindep_OutputMan
+subindep_Runlen
+
+PLEASE NOTE: Before turning on external control in this panel, please 
+ensure that you have made a valid selection for the Machine on: 
+subindep_SubmitMethod.  This control is greyed out once external control 
+is selected since most other controls for the specific machine are 
+controlled by the SCS.
+
+The Standard Generalised Suite control option results in additional 
+changes being made to the UMUI processed output. If you are planning 
+to convert the output to run with Rose, for example using Rosebud 
+you should not use this option, as the changes should be the 
+responsibility of the Rose conversion process. Any problems you 
+encounter would need to be resolved in the Rose conversion process and 
+not by relying on the Standard Generalised Suite.
+
+If this advice causes you problems. Please contact the UMUI
+team to discuss what refinements to the UMUI could help.

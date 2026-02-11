@@ -1,0 +1,131 @@
+%C---------------------------------------------------------------------
+%C  module: fcm_cice_cfg
+%C
+%C  Generates CICE configuration for build of CICE and NEMO_CICE
+%C  executable.
+%C
+%C  Module included in:
+%C   * FCM_NEMOCICE_CFG via processing/fcm_nemocice_cfg
+%C
+%C---------------------------------------------------------------------
+%TCL
+# Part 1 - Inherit from a Precompiled Build
+# =========================================
+  set cice_pt1 "use \$UM_MAINDIR/baserepos/CICE/cfg/ext.cfg\n"
+
+
+# Part 2 - Script build declarations (MANDATORY)
+# ==============================================
+   set cice_pt2b "bld::pp::cice              1\n"
+
+   set cice_pt2b2 \
+"
+# Initialise build declarations
+bld::tool::fflags::cice
+
+# Define CICE bld declarations
+inc        %FCM_CFGFLNM_CICE
+bld::tool::fflags::cice       \%%bld::tool::fflags::cice  -I\%%netcdf/include
+bld::tool::ldflags::cice      \%%bld::tool::ldflags::cice  -L\%%netcdf/lib -lnetcdf
+"
+
+
+# Part 3a - Model Specific Sections
+# =================================
+   set cice_pt3a \
+"# Define CICE fpp keys
+\%%cice_jobdefs \\"
+
+   set def_list {}
+
+   lappend def_list "NXGLOB=%CICE_NXGLOB"
+   lappend def_list "NYGLOB=%CICE_NYGLOB"
+   lappend def_list "BLCKX=%CICE_BLCKX"
+   lappend def_list "BLCKY=%CICE_BLCKY"
+   if { %NEMO=="T" && %NEMOKEY_DECOMP=="Y" } {
+      lappend def_list "MXBLCKS=1"
+   } else {
+      lappend def_list "MXBLCKS=%CICE_MXBLCKS"
+   }
+
+   if { %NEMO == "T" } { lappend def_list "CICE_IN_NEMO" }
+   if { $use_oasis == "Y" } { 
+      if { %OASISWHICH == "3" } {
+           lappend def_list "key_oasis%OASISWHICH"     
+         } elseif { %OASISWHICH == "4" } {
+           lappend def_list "key_oasis3mct"
+         } else {
+           lappend def_list "key_oasis%OASISWHICH" 
+         }
+       } 
+   if { %NEMO=="T" && %NEMOKEY_DECOMP=="Y" } { lappend def_list "key_nemocice_decomp" }
+
+   lappend def_list "NICECAT=%NCICECAT"
+
+   if { $def_list != {} } { 
+      set last_elm [lindex $def_list end]
+      foreach def $def_list {
+         set str "   $def"
+         if {[string equal $def $last_elm]!=1} {
+            append str " \\"
+         }
+         append cice_pt3a "\n$str"
+      }
+   }
+
+   append cice_pt3a "\n\n"
+   append cice_pt3a \
+"inc        %FCM_KEYS_CICE
+bld::tool::fppkeys::cice \%%bld::tool::fppkeys::cice \%%cice_jobdefs
+"
+
+
+# Part 3b - Executable definition
+# ===============================
+   # N/A
+    
+
+# Part 3c - Optional Flags
+# ========================
+   # N/A
+
+
+# Part 4 - Branches (OPTIONAL)
+# ============================   
+   set cice_type 1
+   set branches1 %LFCM_USRBRN_CICE
+   for {set i 1} {$i <= %FCM_BRN_COUNT} {incr i} {
+      set repos1($i) "cice"
+      set branch_name1($i) [get_variable_value FCM_USRBRN_VAL_CICE($i)]
+      set branch_ver1($i) [get_variable_value FCM_USRBRN_VER_CICE($i)]
+      set branch_use1($i) [get_variable_value FCM_USRBRN_USE_CICE($i)]
+   }
+
+
+# Part 4b - Central Scripts mods (OPTIONAL)
+# ========================================
+   # N/A
+
+# Part 5 - Working copy (OPTIONAL)
+# ================================
+   set cice_wc 1
+   set workingcopy2 %LFCM_WRKCP_CICE
+   set repos_wc2 "cice"
+   set wkcpy_name2 %FCM_WRKCP_CICE
+
+
+# Part 6a - Pre-bindings UMUI controlled Libraries (OPTIONAL)
+# ===========================================================
+   # N/A
+
+
+# Part 6b - Bind File
+# ===================
+   # N/A
+
+
+# Part 6c - Post-bindings UMUI controlled Libraries (OPTIONAL)
+# ============================================================
+   # N/A
+  
+%ENDTCL

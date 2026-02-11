@@ -1,0 +1,39 @@
+%C ======================================================
+%C module: cplflags_hadgem3
+%C
+%C Coupling flags for HadGEM3 coupled model
+%C
+%C Module included in:
+%C  * FCM_NEMOCICE_CFG   via processing/fcm_nemocice_cfg  
+%C ======================================================
+%TCL
+  append part3c \
+"
+# OASIS Coupling
+# --------------
+"
+  if {[inactive_var OASISWHICH]==0 && %OASISWHICH=="3"} {
+     append part3c \
+"
+bld::tool::cflags           %%bld::tool::cflags  -I%%prism_home/build/lib/mpp_io \\
+                                              -I%%prism_home/build/lib/psmile.MPI1 \\
+                                              -I%%prism_home/build/mod/oasis3.MPI1
+bld::tool::cppflags         %%bld::tool::cppflags -I%%prism_home/build/lib/mpp_io \\
+                                              -I%%prism_home/build/lib/psmile.MPI1 \\
+                                              -I%%prism_home/build/mod/oasis3.MPI1
+bld::tool::fppflags         %%bld::tool::fppflags -I%%prism_home/build/lib/mpp_io \\
+                                              -I%%prism_home/build/lib/psmile.MPI1 \\
+                                              -I%%prism_home/build/mod/oasis3.MPI1
+"
+  } elseif {[inactive_var OASISWHICH]==0 && %OASISWHICH=="4"} {
+     append part3c \
+"
+bld::tool::cflags           %%bld::tool::cflags  -I%%prism_home/build/lib/mpp_io \\
+                                              -I%%prism_home/build/lib/psmile.MPI1
+bld::tool::cppflags         %%bld::tool::cppflags -I%%prism_home/build/lib/mpp_io \\
+                                              -I%%prism_home/build/lib/psmile.MPI1
+bld::tool::fppflags         %%bld::tool::fppflags -I%%prism_home/build/lib/mpp_io \\
+                                              -I%%prism_home/build/lib/psmile.MPI1
+"
+  }
+%ENDTCL

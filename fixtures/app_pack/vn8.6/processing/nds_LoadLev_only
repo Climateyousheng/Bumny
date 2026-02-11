@@ -1,0 +1,255 @@
+%C ======================================================
+%C module: nds_LoadLev_only
+%C
+%C Includes variables required when using IBM
+%C ====================================================== 
+%C
+########################################
+#                              LoadLev #
+########################################
+# TARGET_MC is used in path to small execs and scripts
+%T if {%LTRGMACH != "Y"} {
+export TARGET_MC=ibm
+%T } else {
+export TARGET_MC=%USR_TARGET_MC
+%T }     
+
+# Submission command and output file names
+export SUB_CMD="llsubmit"
+export SUB_OUT_RCF=""
+export SUB_OUT_RUN=""
+export SUB_OUT_CMP=""
+
+########################################
+# Threads and nodes            LoadLev #
+########################################
+integer N_SMT
+%T if {[inactive_var N_SMT]==0 && %N_SMT=="1"} {
+N_SMT=%N_SMT
+echo "You have requested SMT ON"
+%T } else {
+N_SMT=0
+%T }
+%T if { [inactive_var NTHR_TASK] == 0  } {
+NTHREADS_PER_TASK=%NTHR_TASK
+%T } else {
+NTHREADS_PER_TASK=1
+%T }
+echo "Threads requested: $NTHREADS_PER_TASK"
+%C
+((TOTAL_THREADS=$TOTAL_PE_REQ*$NTHREADS_PER_TASK))
+%C
+integer NUM_NNODES
+if test $N_SMT = 1; then
+  ((NUM_NNODES=($TOTAL_THREADS+63) / 64))
+  AFFIN=cpu
+else
+  ((NUM_NNODES=($TOTAL_THREADS+31) / 32))
+  AFFIN=core
+fi
+
+echo "NOTE:  You are requesting the use of $NUM_NNODES node(s) on the IBM"
+
+########################################
+# Load Leveler Class Name      LoadLev #
+########################################
+%TCL 
+  if {[inactive_var QIBM]==0} {
+     if {%QIBM=="other"} {
+        set llclass %CJOTHER
+     } else {
+        set llclass %QIBM
+     }
+    putl "LL_CLASS=$llclass"
+  }
+%ENDTCL 
+
+########################################
+# Reconf: Time Limit & Memory  LoadLev #
+########################################
+%TCL
+   set hoursMinsSecs [secsToHoursMinsSecs %RCFJTLIM]
+   putl "RCF_TIME_LIMIT=$hoursMinsSecs"
+
+   set memory %RCFJSIZE   
+   if {1000 * int($memory) != int (1000 * $memory)} {
+     set result "[expr int(1000 * $memory)]Mb"
+   } else {
+     set result "[expr int($memory)]Gb"
+   }
+   putl "RCF_MEMORY=$result"
+
+   set rcf_nnodes [expr {int(($rcf_npes+31) / 32)}]
+   putl "RCF_NNODES=$rcf_nnodes"
+
+   if {$rcf_nnodes == 1} {
+       putl "RCF_NPES_PER_NODE=$rcf_npes"
+   } else {
+      putl "RCF_NPES_PER_NODE=32"
+   }
+%ENDTCL
+
+########################################
+# Comp, NRUN, CRUN Time Limits LoadLev #
+########################################
+%T if { (%COMPTLIM == -1)} {
+COMP_TIME_LIMIT=01:00:00
+%T } else {
+%T    set hoursMinsSecs [secsToHoursMinsSecs %COMPTLIM]
+%T    putl "COMP_TIME_LIMIT=$hoursMinsSecs"
+%T } 
+%T set hoursMinsSecs [secsToHoursMinsSecs %CJTLIM]
+%T putl "NRUN_TIME_LIMIT=$hoursMinsSecs"
+%C
+%T if { %JRESUB == "Y" } {
+%C Use Automatic resubmit settings for CRUNS if autoresubmit on
+%T    set cr_hoursMinsSecs [secsToHoursMinsSecs %CJTLIMR]
+%T    putl "CRUN_TIME_LIMIT=$cr_hoursMinsSecs"
+%T } else {
+%C Use the same as NRUN settings
+%T    putl "CRUN_TIME_LIMIT=$hoursMinsSecs"
+%T }
+
+########################################
+# Memory for compilation       LoadLev #
+########################################
+%TCL
+  set mem_compile "[format %CMEMO]mb"
+  putl "# You have requested $mem_compile memory for compilation "
+%ENDTCL
+
+########################################
+# Memory for any RUN job       LoadLev #
+########################################
+%TCL
+   set memory %CJSIZE
+   if {1000 * int($memory) != int (1000 * $memory)} {
+     set result "[expr int(1000 * $memory)]Mb"
+   } else {
+     set result "[expr int($memory)]Gb"
+   }
+   putl "MEMORY=$result"
+%ENDTCL
+
+###################################################
+# Create compilation header               LoadLev #
+###################################################
+%TCL
+if { [inactive_var ACCGRP] == 0 } {
+   if { %ACCGRP!="ext" } {
+      set group "#@ group            = %ACCGRP \n"
+   } else {
+      set group "#@ group            = %ACCGRP_OTHR \n"
+   } 
+} else {
+   set group ""
+}
+%ENDTCL
+
+  cat >>$comp_header<<EOF
+#!/bin/ksh
+
+#@ shell            = /bin/ksh 
+#@ class            = serial
+%T put "$group"
+#@ job_type         = serial
+#@ job_name         = ${RUNID}_build
+#@ resources        = ConsumableCpus(%TCL if_active NPROC %NPROC 1 %ENDTCL) ConsumableMemory(%TCL put "$mem_compile" %ENDTCL)
+#@ wall_clock_limit = ${COMP_TIME_LIMIT}  
+#@ output           = ${COMP_OUTPUT_FILE}
+#@ error            = ${COMP_OUTPUT_FILE}
+#@ notification     = never
+#@ queue
+export SHELL=/bin/ksh
+EOF
+
+###################################################
+# Create reconfiguration header           LoadLev #
+###################################################
+%C INDEP_SR(98)==1A is the same as ATMOS=="T" && OCAAA!=5 && LR_OPENMP=="Y"
+%TCL
+%C MetOffice classes "serial and "opserial" should have type "serial"
+  set class [string first serial [string tolower $llclass]]
+  if { $class != -1 } {
+     set type "serial"
+     set resources \
+"#@ resources        = ConsumableCpus(1) ConsumableMemory(\${RCF_MEMORY})"
+  } else { 
+     set type "parallel"
+     set resources \
+"#@ resources        = ConsumableMemory(\${RCF_MEMORY})
+#@ node             = \${RCF_NNODES}
+#@ tasks_per_node   = \${RCF_NPES_PER_NODE}
+#@ task_affinity    = core(1)"
+     if {%INDEP_SR(98)=="1A"} {
+        set threads "\n#@ parallel_threads = 1"
+        set resources $resources$threads
+     }
+  }
+%ENDTCL
+
+  cat >>$rcf_header<<EOF
+#!/bin/ksh
+
+#@ shell            = /bin/ksh 
+#@ class            = ${LL_CLASS} 
+%T put "$group"
+#@ job_type         = %TCL putl "$type" %ENDTCL
+#@ job_name         = ${RUNID}_rcf
+#@ output           = ${RCF_OUTPUT_FILE}
+#@ error            = ${RCF_OUTPUT_FILE}
+#@ notification     = never
+%T putl "$resources"
+#@ wall_clock_limit = ${RCF_TIME_LIMIT}
+#@ queue
+export SHELL=/bin/ksh
+EOF
+
+###################################################
+# Create run header                       LoadLev #
+###################################################
+
+  if [[ $TYPE = "NRUN" ]]; then
+    TIME=$NRUN_TIME_LIMIT
+  else
+    TIME=$CRUN_TIME_LIMIT
+  fi
+
+%C INDEP_SR(98)==1A when OCAAA!=5 && LR_OPENMP=="Y"
+%T if {%INDEP_SR(98)=="1A"} {  
+   if [[ ${NTHREADS_PER_TASK} = "1" ]]; then
+     num_threads=""
+     num_msg="export OMP_NUM_THREADS=1"
+   else
+     num_threads="#@ parallel_threads = ${NTHREADS_PER_TASK}"
+     num_msg=""
+   fi
+%T } else {
+     num_threads=""
+     num_msg="export OMP_NUM_THREADS=1"    
+%T }  
+
+  cat >>$run_header<<EOF
+#!/bin/ksh
+
+#@ shell            = /bin/ksh 
+#@ class            = ${LL_CLASS}
+%T put "$group"
+#@ job_type         = parallel 
+#@ job_name         = ${RUNID}_run
+#@ output           = ${RUN_OUTPUT_FILE}
+#@ error            = ${RUN_OUTPUT_FILE}
+#@ notification     = never
+#@ resources        = ConsumableMemory(${MEMORY}) 
+#@ node             = ${NUM_NNODES}
+#@ total_tasks      = ${TOTAL_PE_REQ}
+#@ wall_clock_limit = ${TIME}
+#@ node_usage       = not_shared
+#@ task_affinity    = ${AFFIN}(${NTHREADS_PER_TASK})
+$num_threads
+#@ network.MPI      = sn_all, shared, US
+#@ queue
+export SHELL=/bin/ksh
+
+$num_msg
+EOF

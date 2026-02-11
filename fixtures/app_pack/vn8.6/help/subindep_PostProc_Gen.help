@@ -1,0 +1,49 @@
+Many questions are specific to the UKMO site.
+
+See the UM Basic Users Guide on climate post processing.
+
+Basic post processing starts up the post processing server. This can:
+
+1. Delete superseded dumps and files. That is, once the next restart
+   dump is written the old one may be deleted when it is safe to do
+   so. PP files are deleted once a new file has been attached to the
+   stream, etc.
+
+2. Submit user defined scripts, either periodically or at fixed
+   timesteps. These are defined in the post-processing section.
+
+3. Archive results as specified plus "job snap". The job snap is the set 
+   of files which describes job at the moment of processing (control 
+   files with namelists, scripts, UMUI basis file, and the JOBSHEET if 
+   requested in the "Output Options" window). At the Met Office these 
+   files are archived to the MASS-R archive system. The files are tarred 
+   up and date-stamped so it is possible to tell which data was produced 
+   by which job description.
+
+Post processing is necessary if:
+
+1. You want dumps or PP-files that have been superseded (i.e. they are
+   out of date because another has been written) to be deleted.
+
+2. You want PP and other files automatically archived using the MOOSE
+   archiving system.
+
+3. You want user defined scripts to be submitted at fixed points in
+   the run or periodically.
+
+The climate archiving system will only archive PP files which are
+being re-initialised. The climate archiving is set up to archive to the 
+MOOSE system. 
+
+Information about using MOOSE commands available on the site: 
+http://www01/teams/mass_replacement/docs/user_guide.html
+
+You can set the archiving script and the path to it. This is currently 
+set up for Met Office internal use only. You can set the archiving script 
+and the path to it. Internal to the Met Office, the location is:
+/projects/cr/cprod/archiving/bin/um_archiving
+External to the Met Office, check your local support to see if an 
+archive script has been provided. 
+
+
+%I gen_Arch

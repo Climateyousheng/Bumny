@@ -1,0 +1,38 @@
+This window allows users to set up standard general information for
+the FCM system.
+
+Users should not need to change the top 3 fields here as these
+supply information about the FCM UM repository. They will, however
+need to change the output directory settings.
+
+The "Local machine root extract directory" should be set to a user 
+directory on the Linux desktop. $HOME can be used in paths here but 
+tends to make extracts longer. The benefit is that $HOME is backed up. 
+$LOCALDATA can also be used in path specifications and results in quicker
+extracts, however it is not backed up.
+
+Note that $RUNID is appended to the path automatically by the UMUI.
+
+
+The "Target machine root extract directory" should be set to a user 
+directory on the machine you will build on. This is where code is
+mirrored.  The general setting used here is the equivalent 
+of a user's top level data directory on the build machine.
+The path must be fully specified: e.g.
+
+/data/cr/crum
+
+Note that $USERID/$RUNID is appended to the path automatically by the UMUI.
+
+This window also allows user control of some aspects of extract and build.
+
+Use "Force FULL extract" / "Force FULL build" to ensure all source code
+is fully rebuilt. These options are disabled if a prebuild is being used.
+
+"Level of output" for extract and build should be left at 3 (the highest level)
+when testing new code changes so that you get the maximum amount of
+information for troubleshooting.
+
+This window also gives the user the option to specify a location for the FCM
+extract output. This should be a location on the Linux desktop. The standard
+setting is $UM_OUTDIR/ext.out : i.e. in the local extract directory.

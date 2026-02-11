@@ -1,0 +1,113 @@
+Section 2 : LW Radiation
+
+See UMDP 23 for a description of the Radiation Schemes.
+
+Options for multiple calls to radiation
+---------------------------------------
+On a given time-step multiple calls to the radiation scheme can be made
+in order to either:
+i) "Diagnose radiative forcings": calculate radiative forcing diagnostics
+with respect to variation of certain abundances (see panel Gen2 -> SLW_Forc).
+ii) "Timestepping scheme": calculate approximate radiative increments on
+timesteps in-between full radiation timesteps.
+
+Incremental time-stepping for improved sampling of cloud
+-------------------------------------------------------- 
+This is used if the "Timestepping scheme" option above is selected. 
+Approximate radiative increments will be made on time-steps in-between full 
+radiation time-steps. Spectral files tuned to account for changes in cloud 
+condensate should be used. These are entered in the Gen2 window as the second 
+spectral file. The recommended LW file is spec3c_lw_cloud. See "Manners et al. 
+2009, Q. J. R. Meteorol. Soc. 135: 457-468, DOI:10.1002/qj.385" for further details.
+
+Setting of emissivity and surface temperature
+---------------------------------------------
+As the UM has developed, the representation of the surface has become 
+more complicated. This has resulted in various choices being made about 
+the representation of surface temperature and surface emissivity. 
+The ultimate aim is to simplify and rationalize these settings, but in 
+the interim it is necessary to support an number of partly historical 
+possibilities. 
+
+In practice, these can be covered by two main choices, 
+available on a switch: 
+
+1.) The standard settings on the trunk and 
+2.) The settings introduced for GL4. Further developments in this area 
+are expected, however. This switch control 5 logicals as follows:
+
+In rad_input_mod.F90/RUN_Radiation (UM)
+
+Logical                Default           GL4
+l_rad_snow_emis        .F.               .T.
+l_t_land_nosnow        .F.               .F.
+l_quad_t_coast         .F.               .T.
+l_t_rad_solid          .F.               .T.
+
+In switches.F90/jules_switches (JULES)
+l_dolr_land_black      .T.               .F.
+The preferred option will evolve from the choices for GL4.
+
+Use mixing ratio formulation
+----------------------------
+This option allows the model to use mixing ratios for its moist
+variables in the parallel part of the physics code (otherwise it
+will use specific humidities). This includes
+large-scale-precipitation, radiation, and the call to large-scale
+cloud associated with the microphysics. If the PC2 cloud scheme is
+being used, this will also use the mixing ratio code (if selected)
+in the parallel physics part of the model, including the PC2 cloud
+erosion code.
+If this option is selected the model will convert between the
+mixing ratio and specific humidity formulations before and after
+the parallel physics call. Note that the diagnostics from the
+parallel physics part of the timestep will be in the form of
+mixing ratios (and not specific humidities) if this code is selected.
+
+Segmentation
+------------
+The choice of segmenting depends on the ratio between CPU and memory capacity
+of the machine that you are running on. This facility allows the routines to
+split the domain into several segments and work on one at a time. This
+reduces the memory requirements of the job by allowing smaller work-arrays.
+1 segment is most efficient on CPU but uses more memory. This needs to be
+tuned for each configuration, machine and version of the code.
+It is possible to specify the segment size rather than number of segments.
+This allows tuning in a manner that should be invariant to decomposition
+(unlike number of segments). On the IBM Power 6 it is recommended that the
+segment size is specified and set to 80 for LW and SW. This can give a useful
+improvement in runtimes.
+
+Number of bands
+---------------
+The number of bands should be set for the spectral file selected from the
+panel "GEN2".
+
+Number of times per day to calculate increments (Prognostic)
+------------------------------------------------------------
+LW Radiation is expensive and in all standard configurations the increments are
+only calculated periodically, but added in every timestep. The frequency of
+calling needs to be a multiple of the timestep and depends on the required
+temporal resolution of the run.
+
+Number of times per day to calculate increments (Diagnostic)
+------------------------------------------------------------
+Where "Diagnose radiative forcings" has been selected the number of
+"diagnostic" increments per day must also be given. The diagnostic increments
+must coincide with full prognostic increments but may be less often.
+
+Where "Timestepping scheme" has been selected the number of approximate
+radiative increments per day must be given. These must be a multiple of the
+number of full radiative increments.
+
+
+Spatial degradation
+-------------------
+Switching on the spatial degradation of radiation calculations will do
+full radiation calculations on every other point, in a chequerboard
+pattern, and those points on which a radiation calculation is not done
+will use data interpolated from their neighbours which did do a full
+calculation.
+
+-------------
+%I compile_modes

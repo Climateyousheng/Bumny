@@ -1,0 +1,18 @@
+Section 71:
+
+Section 71 contains science service routines for the atmosphere that
+can be called from other sections. This includes the QSAT
+routines that are used to calculate saturated mixing ratio.
+
+The QSAT calculation is performed in the boundary layer, large scale
+precipitation, convection and large scale cloud physics schemes, and the
+version chosen on this panel will be used by all of these physics
+schemes.
+
+The 2<A> scheme uses a formulation based on equations
+A4.3, A4.6 and A4.7 of Adrian Gill's book Atmosphere-Ocean dynamics.
+Version 2A is standard at vn6.2. 
+
+A71_1A also contains the routine to calculate cloud droplet number and
+sea-salt aerosol, which may be required by the radiation, large-scale
+precipitation and aerosol chemistry schemes.

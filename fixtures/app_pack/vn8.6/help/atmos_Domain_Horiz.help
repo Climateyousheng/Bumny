@@ -1,0 +1,100 @@
+This window allows you to specify the horizontal domain for your 
+atmospheric model.
+
+Models are allowed to be global, limited area or single column.
+
+Global models.
+The grid for a global atmospheric model can be completely described by the
+number of rows and columns and covers the whole globe (with full grid-points
+at each pole). The first gridpoint is at the south pole with the first 
+column at 0 degrees West.
+
+Limited area models.
+Limited area models can be on a rotated grid. Here the "pole" of the grid 
+should be chosen such that the centre of the area at the equator of the 
+rotated grid. See UMDP S1.
+
+For limited area models, give the first latitude and longitude in rotated
+coordinates for the bottom left-hand corner. 
+
+The mesoscale question is used to define the operational mod set used and
+operational file naming conventions only.
+
+For a LAM in the southern hemisphere, a polar latitude of between 90 and 
+180 degrees is advised. While a latitude of >90degs is, initself, quite 
+nonsensical it does result in a LAM in the correct place. 
+
+If you imagine that a rotated pole has a latitude of 90degs, (i.e. the same 
+as the true pole) then that would put an LAM on the equator. By reducing the 
+latitude of the pole it moves the LAM further up into the northen hemisphere. 
+Conversely, increasing the latitude of the pole moves it down into the 
+southern hemisphere. While it doesn't make a lot of conceptual sense, it does 
+seem to work. 
+
+The only other way to get an LAM in the southern hemisphere is to have 
+a pole latitude in the normal range, but place your LAM at a longitude 
+of 180degs in the rotated system. This has however caused some problems 
+in the UM because this was not anticipated at the time the code was 
+written.
+
+The Frame size is the number of points around the edge where only driving 
+model data is used everywhere in the model, including the solver. This is 
+different from the rim zone where data may be blended. This is normally 
+set to 1 but future changes may allow different values.
+
+Single Column Model (SCM)
+The umui only provides support in creating the executable file for the
+SCM, ie, one can choose the PHYSICS sections one wants to use, then
+compile the source direct from the umui. Other information like, say
+the number of model levels, whether the convective momentum transport,
+the rapidly-mixing boundary layer, etc are on/off will not automatically
+be passed to the SCM as they use UM namelists which are not recognised
+by the SCM. Those items will have to be set up 'by hand' in the
+namelists dedicated for the SCM.
+
+There are many variables that are resolution dependent that users should
+consider when changing resolution. These include:
+Timestep,
+Diffusion Coefficients, 
+Gravity wave drag, vertical diffusion, filtering.
+
+The number of land points is required for STASH addressing. Values on the
+standard ancillary files are:
+   Global(288x217)= 21347              Global(192x145)= 9283
+   Global( 48x37 )= 612                Global(144x109)= 5264
+   LAM   (229x132)= 14814              Global( 96x73 )= 2381
+   Mes   ( 91x91 )= 2890              
+   
+However, if you are changing resolution without an ancillary file the value can
+be obtained by guessing and submitting a reconfigutation only run. The true
+number is given in your output.   
+
+
+See UMDP 10 and the Basic Users Guide on changing resolution.
+
+Site Specific Forecast model (SSFM)
+This is a version of the SCM code but with certain modifications which
+help read and use other model data. Choosing this will allow the 
+user to compile the relevant code to run such a model. As with the SCM the
+model will not run from umui generated namelists.
+
+
+Extended Halo Sizes
+
+Concerning the choice of extended halo sizes:
+
+The size of the extended halo is determined by the choice of 
+ i) interpolation order used in the semi-lagrangian advection and 
+ ii) the maximum wind speed (CFL) which you want to allow. (the maximum
+CFL determines how much communication on demand will be done        in
+the E-W direction.)
+
+In the E-W direction the number is chosen as (interpolation order+1)/2 +
+max CFL wanted in E-W (usually 2).
+Usually this number is set to 4 for cubic interpolation.
+
+In the N-S direction the number is chosen as (interpolation order+1)/2 +
+0.5 + max CFL wanted in N-S (either 1.5 or 2.5).
+Usually this number is set to 4 or 5 for cubic interpolation.
+
+

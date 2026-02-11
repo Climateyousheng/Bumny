@@ -1,0 +1,111 @@
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C used "procedures" file_build (avoids problems with %PATH/%FILE if blank)
+%C 
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%TCL
+  set opfile_indexes %OPFILE_INDEX
+  for {set i 1} {$i <= %N_OPFILES} {incr i} {
+    set default   [ lindex %OPFILES_DEF($i) 0 ]
+    set external  [ lindex %OPFILES_DEF($i) 1 ]
+    set type %OPFILE_TYPES($i)
+    set index [expr [lsearch $opfile_indexes $type] + 1]
+    if {$index==0} {
+       set opfiles {}
+    } else {
+       set opfiles %OPFILES($index)
+    }
+    if {(%USE_OPFILES=="Y")&&([regexp "^ *$" $opfiles]==0)} {
+      if {$opfiles == "EXTERNAL"} {
+        putl "export $type=$external"
+      } else {
+        putl "export $type=$opfiles"
+      }
+    } else {
+      putl "export $type=$default"
+    }
+  }
+%ENDTCL
+export ASTART=%TCL putl [ env_file_build %PATH21 %FILE21 \$UM_ARECONOUTDIR \$UM_ARECONOUTNAME] %ENDTCL
+export AINITIAL=%TCL putl [ env_file_build %PATH20 %FILE20  \$UM_AINITDUMPDIR \$UM_AINITDUMPNAME] %ENDTCL
+%T if { %VLEV_OPT == "G3" } {
+export VERT_LEV=/projects/um1/vn%VERSION/ctldata/vert/vertlevs_G3
+%T } elseif { %VLEV_OPT == "USER" } {
+export VERT_LEV=%TCL putl [ env_file_build %VLEV_PATH %VLEV_FILE ] %ENDTCL
+%T } else {
+export VERT_LEV=
+%T }
+export ALABCIN1=%TCL putl [ env_file_build %PATH95 %FILE95  \$UM_ALATBOUNDDIR1 \$UM_ALATBOUNDNAME1] %ENDTCL
+%T if { %LBTENCY=="2" } {
+export ALABCIN2=%TCL putl [ env_file_build %PATH95_2 %FILE95_2  \$UM_ALATBOUNDDIR2 \$UM_ALATBOUNDNAME2] %ENDTCL
+%T } else {
+export ALABCIN2=
+%T }
+export TRANSP=%TCL putl [ env_file_build %PATH97 %FILE97 ] %ENDTCL
+%T if { (%ES_RAD == 1) || (%ES_RAD == 3) } {
+export SWSPECTD=%TCL putl [ env_file_build %PATHSW %FILESW ] %ENDTCL
+%T } else {
+export SWSPECTD=
+%T }
+%T if { (%ES_RAD == 2) || (%ES_RAD == 3) } {
+export LWSPECTD=%TCL putl [ env_file_build %PATHLW %FILELW ] %ENDTCL
+%T } else {
+export LWSPECTD=
+%T }
+%T if { %ATMOS_SR(34)!="0A" && %L_UKCA_AERCHEM=="Y" && %LUKCA_RADAER=="Y" } {
+export UKCAPREC=%TCL putl [ env_file_build %RADAER_DIR %UKCAPREC ] %ENDTCL
+export UKCAACSW=%TCL putl [ env_file_build %RADAER_DIR %UKCAACSW ] %ENDTCL
+export UKCAACLW=%TCL putl [ env_file_build %RADAER_DIR %UKCAACLW ] %ENDTCL
+export UKCAANSW=%TCL putl [ env_file_build %RADAER_DIR %UKCAANSW ] %ENDTCL
+export UKCAANLW=%TCL putl [ env_file_build %RADAER_DIR %UKCAANLW ] %ENDTCL
+export UKCACRSW=%TCL putl [ env_file_build %RADAER_DIR %UKCACRSW ] %ENDTCL
+export UKCACRLW=%TCL putl [ env_file_build %RADAER_DIR %UKCACRLW ] %ENDTCL
+%T } else {
+export UKCAPREC=
+export UKCAACSW=
+export UKCAACLW=
+export UKCAANSW=
+export UKCAANLW=
+export UKCACRSW=
+export UKCACRLW=
+%T }
+%T if {%ATMOS_SR(35)!="0A"} {
+export RPSEED=%TCL putl [ env_file_build %RSEED_PATH %RSEED_FILE ] %ENDTCL
+%T } else {
+export RPSEED=
+%T }
+%TCL
+ # Output ancillary filenames
+ set mLetter "A"
+ set mNumber "1"
+ set key ""
+ # Get list of file numbers from main and user ancillary files
+ set fileKeys [getAllKeys "AncilFiles" "" $mLetter]
+ foreach key $fileKeys {
+   # Get environment variable name and determine whether a user item
+   set envVar [getRecordElement "AncilFiles" $mLetter $key envVar "user"]
+   if {$envVar == ""} {
+     set envVar [getRecordElement "AncilFiles" $mLetter $key envVar "main"]
+   } 
+   # Use the APATH, AFILE options for main items
+   putl "export $envVar=[env_file_build %$mLetter\PATH($key) %$mLetter\FILE($key)]"
+ }
+%ENDTCL
+%T if { %ATMOS == "T" && %ATMOS_SR(18)!="0A" &&  %AAS_IAU=="Y" } {  
+export IAU_inc=%TCL put [ env_file_build %ASM_IAUINC  "#NULL" \$UM_IAUINC  "#NULL"] %ENDTCL     
+%T }    
+%C %T if { %ATMOS == "T" && %ATMOS_SR(18)!="0A" &&  %AAS_TDF=="Y" } {  
+%C export TDF_dump=%TCL put [ env_file_build %ASM_TDFDUMP "#NULL" \$UM_TDFDUMP  "#NULL"] %ENDTCL     
+%C %T }    
+%T if { %ATMOS == "T" && %ATMOS_SR(18)!="0A" &&  %AAS_AC=="Y" } {                   
+export OBS01=%TCL putl [ env_file_build %ACOBSFL(1)  "#NULL" \$UM_ACOBS01 "#NULL"] %ENDTCL
+export OBS02=%TCL putl [ env_file_build %ACOBSFL(2)  "#NULL" \$UM_ACOBS02 "#NULL"] %ENDTCL
+export OBS03=%TCL putl [ env_file_build %ACOBSFL(3)  "#NULL" \$UM_ACOBS03 "#NULL"] %ENDTCL
+export OBS04=%TCL putl [ env_file_build %ACOBSFL(4)  "#NULL" \$UM_ACOBS04 "#NULL"] %ENDTCL
+export OBS05=%TCL putl [ env_file_build %ACOBSFL(5)  "#NULL" \$UM_ACOBS05 "#NULL"] %ENDTCL
+%T }
+export IDEALISE=%TCL putl [ env_file_build %IDIR %INAME ] %ENDTCL
+%T if { %LVARGRID=="Y" } {
+export VAR_GRID=%TCL putl [ env_file_build %PATHVARGRD %FILEVARGRD ] %ENDTCL
+%T }
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ ### END OF FILE ###

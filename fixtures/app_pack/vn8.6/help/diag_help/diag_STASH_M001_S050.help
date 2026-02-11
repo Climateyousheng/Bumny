@@ -1,0 +1,1232 @@
+#
+<M001_S050_I001>
+Ox PROD: HO2+NO
+
+Chemical reaction flux giving Ox production: HO2+NO 
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+
+</M001_S050_I001>
+#
+<M001_S050_I002>
+Ox PROD: MeOO+NO
+
+Chemical reaction flux giving Ox production: MeOO+NO 
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I002>
+#
+<M001_S050_I003>
+Ox PROD: NO+RO2
+
+Chemical reaction flux giving Ox production: NO+RO2 
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I003>
+#
+<M001_S050_I004>
+Ox PROD: OH+INORGANIC ACID
+
+Chemical reaction flux giving Ox production: OH+INORGANIC ACID
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I004>
+#
+<M001_S050_I005>
+Ox PROD: OH+ORGANIC NITRATE
+
+Chemical reaction flux giving Ox production: OH+ORGANIC NITRATE
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I005>
+#
+<M001_S050_I006>
+Ox PROD: ORGANIC NITRATE PHOTOLYSIS
+
+Chemical reaction flux giving Ox production: ORGANIC NITRATE PHOTOLYSIS
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I006>
+#
+<M001_S050_I007>
+Ox PROD: OH + PAN-TYPE REACTIONS
+
+Chemical reaction flux giving Ox production: OH + PAN-TYPE REACTIONS
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I007>
+#
+#
+<M001_S050_I011>
+Ox LOSS: O(1D)+H2O
+
+Chemical reaction Flux giving Ox destruction: O(1D)+H2O 
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being destroyed by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I011>
+#
+<M001_S050_I012>
+Ox LOSS: MINOR LOSS REACTIONS
+
+Chemical reaction Flux giving Ox destruction: MINOR LOSS REACTIONS
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being destroyed by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I012>
+#
+<M001_S050_I013>
+Ox LOSS: HO2+O3
+
+Chemical reaction Flux giving Ox destruction: HO2+O3 
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being destroyed by this reaction per second in the 
+whole model.
+
+</M001_S050_I013>
+#
+<M001_S050_I014>
+Ox LOSS: OH+O3
+
+Chemical reaction Flux giving Ox destruction: OH+O3 
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being destroyed by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I014>
+#
+<M001_S050_I015>
+Ox LOSS: O3+ALKENE
+
+Chemical reaction Flux giving Ox destruction: O3+ALKENE 
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being destroyed by this reaction per second in the 
+whole model.
+
+</M001_S050_I015>
+#
+<M001_S050_I016>
+Ox LOSS: N2O5+H2O
+
+Chemical reaction Flux giving Ox destruction: N2O5+H2O 
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being destroyed by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I016>
+#
+<M001_S050_I017>
+Ox LOSS: NO3 CHEMICAL LOSS
+
+Chemical reaction Flux giving Ox destruction: NO3 CHEMICAL LOSS
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being destroyed by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I017>
+#
+#
+<M001_S050_I021>
+Ox BUDGET: O3 DRY DEPOSITION (3D)
+
+Deposition flux for O3 through dry deposition (3D)
+(moles/s)
+
+This is the total dry deposition flux of ozone in each gridbox
+
+The sum of this deposition flux over all model gridboxes gives the total 
+number of moles of O3 removed by this process per second in the 
+whole model.
+
+</M001_S050_I021>
+#
+<M001_S050_I022>
+Ox BUDGET: NOy DRY DEPOSITION (3D)
+
+Deposition flux for NOy through dry deposition (3D)
+(moles/s)
+
+This is the total dry deposition flux of NOy in each gridbox
+
+The sum of this deposition flux over all model gridboxes gives the total 
+number of moles of NOy removed by this process per second in the 
+whole model.
+
+</M001_S050_I022>
+#
+#
+<M001_S050_I031>
+Ox BUDGET: NOy WET DEPOSITION (3D)
+
+Deposition Flux for NOy through WET DEPOSITION (3D)
+(moles/s)
+
+This is the total wet deposition flux of NOy in each gridbox
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of NOy removed by this process per second in the 
+whole model.
+
+</M001_S050_I031>
+#
+<M001_S050_I041>
+RXN FLUX: OH+CH4 (CH4 LIFETIME) TROP
+
+Chemical reaction flux for OH+CH4 (CH4 LIFETIME) TROP
+moles/s
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+
+</M001_S050_I041>
+#
+<M001_S050_I042>
+RXN FLUX: NO3+C5H8->ISON
+
+Chemical reaction flux for NO3+C5H8->ISON 
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+
+</M001_S050_I042>
+#
+<M001_S050_I043>
+RXN FLUX: NO+ISO2->ISON
+
+Chemical reaction flux for NO+ISO2->ISON 
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+
+</M001_S050_I043>
+#
+<M001_S050_I044>
+RXN FLUX: H2O2 PRODUCTION
+
+Chemical reaction flux for H2O2 PRODUCTION  
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux producing H2O2.
+
+</M001_S050_I044>
+#
+<M001_S050_I045>
+RXN FLUX: ROOH PRODUCTION
+
+Chemical reaction flux for ROOH PRODUCTION  
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux producing ROOH.
+
+</M001_S050_I045>
+#
+<M001_S050_I046>
+RXN FLUX: HONO2 PRODUCTION (HNO3)
+
+Chemical reaction flux for HONO2 PRODUCTION (HNO3)  
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux producing nitric acid.
+</M001_S050_I046>
+#
+#
+<M001_S050_I051>
+STE: O3
+
+Flux for O3 Stratosphere-Troposphere Exchange  : moles/s 
+</M001_S050_I051>
+#
+<M001_S050_I052>
+TENDENCY: O3 (TROP ONLY)
+
+Chemical Tendency for O3 (Troposphere only) : moles/s
+</M001_S050_I052>
+#
+<M001_S050_I053>
+TROPOSPHERIC O3
+
+Tropospheric O3 Mass Mixing Ratio : kg/kg (Air)  
+</M001_S050_I053>
+#
+<M001_S050_I054>
+TENDENCY: O3 (WHOLE ATMOS)
+
+Chemical Tendency for O3 (Whole Atmosphere) : moles/s
+</M001_S050_I054>
+#
+#
+<M001_S050_I061>
+AIR MASS DIAGNOSTIC (TROP ONLY)
+
+Total Air Mass (Troposphere only) : kg 
+</M001_S050_I061>
+#
+<M001_S050_I062>
+TROPOSPHERIC MASK
+
+Tropospheric Fraction : =1 if grid-cell is in always in the 
+troposphere, =0 if always in the stratosphere
+</M001_S050_I062>
+#
+<M001_S050_I063>
+AIR MASS DIAGNOSTIC (WHOLE ATMOS)
+
+Total Air Mass (Whole Atmosphere) : kg
+</M001_S050_I063>
+#
+#
+<M001_S050_I071>
+CO BUDGET: CO LOSS VIA OH+CO
+
+Chemical reaction flux for CO BUDGET: CO LOSS VIA OH+CO
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+</M001_S050_I071>
+#
+<M001_S050_I072>
+CO BUDGET: CO PROD VIA HCHO+OH/NO3
+
+Chemical reaction flux for CO BUDGET: CO PRODUCTION VIA HCHO+OH/NO3
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+</M001_S050_I072>
+#
+<M001_S050_I073>
+CO BUDGET: CO PROD VIA MGLY+OH/NO3
+
+Chemical reaction flux for CO BUDGET: CO PRODUCTION VIA MGLY+OH/NO3
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+</M001_S050_I073>
+#
+<M001_S050_I074>
+CO BUDGET: CO MISC PROD&O3+MACR/ISOP
+
+Chemical reaction flux for CO BUDGET: CO miscellaneous
+production rates O3+MACR/ISOP
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+</M001_S050_I074>
+#
+<M001_S050_I075>
+CO BUDGET: CO PROD VIA HCHO PHOT RAD
+
+Chemical reaction flux for CO BUDGET: CO PROD VIA HCHO PHOT RAD
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+</M001_S050_I075>
+#
+<M001_S050_I076>
+CO BUDGET: CO PROD VIA HCHO PHOT MOL
+
+Chemical reaction flux for CO BUDGET: CO PROD VIA HCHO PHOT MOL
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+</M001_S050_I076>
+#
+<M001_S050_I077>
+CO BUDGET: CO PROD VIA MGLY PHOTOL
+
+Chemical reaction flux for CO BUDGET: CO PROD VIA MGLY PHOTOL
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+</M001_S050_I077>
+#
+<M001_S050_I078>
+CO BUDGET: CO PROD VIA MISC PHOTOL
+
+Chemical reaction flux for CO BUDGET: CO PROD VIA MISC PHOTOL
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+</M001_S050_I078>
+#
+<M001_S050_I079>
+CO BUDGET: CO DRY DEPOSITION (3D)
+
+Deposition Flux for CO through Dry Deposition (3D)
+(moles/s)
+This is the total dry deposition flux of CO in each gridbox
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of CO removed by this process per second in the 
+whole model.
+</M001_S050_I079>
+#
+#
+<M001_S050_I081>
+LIGHTNING NOx EMISSIONS 3D
+
+Lightning NOx Emissions (3D) : moles/gridcell/s  
+</M001_S050_I081>
+#
+<M001_S050_I082>
+LIGHTNING DIAGNOSTIC: TOT FLASHES 2D
+
+Total Lightning Flashes (2D) : no. of flashes/column/s 
+</M001_S050_I082>
+#
+<M001_S050_I083>
+LIGHTNING DIAG: CLD TO GRND FLSH 2D
+
+Cloud-to-Ground Lightning Flashes (2D)
+
+(no. of flashes/column/s)
+</M001_S050_I083>
+#
+<M001_S050_I084>
+LIGHTNING DIAG: CLD TO CLD FLSH 2D
+
+Cloud-to-cloud Lightning Flashes
+
+(no. of flashes/column/s)
+</M001_S050_I084>
+#
+<M001_S050_I085>
+LIGHTNING DIAG: TOTAL N PRODUCED 2D
+
+Total N Produced from Lightning (2D) : moles/column/s
+</M001_S050_I085>
+#
+<M001_S050_I086>
+LIGHTNING N IN kg(N)/km^2/s
+
+Total N produced from Lightning (3D) in kg(N)/km^2/s
+</M001_S050_I086>
+#
+#
+<M001_S050_I091>
+STRATOSPHERIC OH PRODUCTION
+
+Production rate (all reactions) of Stratospheric OH
+
+(moles/gridcell/s) 
+</M001_S050_I091>
+#
+<M001_S050_I092>
+STRATOSPHERIC OH LOSS
+
+Loss rate (all reactions) of Stratospheric OH 
+moles/s
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux destroying stratospheric OH.
+</M001_S050_I092>
+#
+#
+<M001_S050_I101>
+STRAT O3 PROD: O2+PHOTON->O(3P)+O(3P
+
+Flux for Stratospheric O3 Production reaction : O2+PHOTON->O(3P)+O(3P)
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I101>
+#
+<M001_S050_I102>
+STRAT O3 PROD: O2+PHOTON->O(3P)+O(1D
+
+Flux for Stratospheric O3 Production reaction : O2+PHOTON->O(3P)+O(1D)
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I102>
+#
+<M001_S050_I103>
+STRAT O3 PROD: HO2 + NO
+
+Flux for Stratospheric O3 Production reaction : HO2 + NO
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I103>
+#
+<M001_S050_I104>
+STRAT O3 PROD: MeOO + NO
+
+Flux for Stratospheric O3 Production reaction : MeOO + NO
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I104>
+#
+#
+<M001_S050_I111>
+STRAT O3 LOSS: Cl2O2 + PHOTON
+
+Flux for Stratospheric O3 Loss reaction : Cl2O2 + PHOTON
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I111>
+#
+<M001_S050_I112>
+STRAT O3 LOSS: BrO + ClO
+
+Flux for Stratospheric O3 Loss reaction : BrO + ClO
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I112>
+#
+<M001_S050_I113>
+STRAT O3 LOSS: HO2 + O3
+
+Flux for Stratospheric O3 Loss reaction : HO2 + O3
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I113>
+#
+<M001_S050_I114>
+STRAT O3 LOSS: ClO + HO2
+
+Flux for Stratospheric O3 Loss reaction : ClO + HO2
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I114>
+#
+<M001_S050_I115>
+STRAT O3 LOSS: BrO + HO2
+
+Flux for Stratospheric O3 Loss reaction : BrO + HO
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I115>
+#
+<M001_S050_I116>
+STRAT O3 LOSS: O(3P) + ClO
+
+Flux for Stratospheric O3 Loss reaction : O(3P) + ClO
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I116>
+#
+<M001_S050_I117>
+STRAT O3 LOSS: O(3P) + NO2
+Flux for Stratospheric O3 Loss reaction : O(3P) + NO2
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I117>
+#
+<M001_S050_I118>
+STRAT O3 LOSS: O(3P) + HO2
+
+Flux for Stratospheric O3 Loss reaction : O(3P) + HO2
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I118>
+#
+<M001_S050_I119>
+STRAT O3 LOSS: O3 + H
+
+Flux for Stratospheric O3 Loss reaction : O3 + H
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I119>
+#
+<M001_S050_I120>
+STRAT O3 LOSS: O(3P) + O3
+
+Flux for Stratospheric O3 Loss reaction : O(3P) + O3
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I120>
+#
+<M001_S050_I121>
+STRAT O3 LOSS: NO3 + PHOTON
+
+Flux for Stratospheric O3 Loss reaction : NO3 + PHOTON
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I121>
+#
+<M001_S050_I122>
+STRAT O3 LOSS: O(1D) + H2O
+
+Flux for Stratospheric O3 Loss reaction : O(1D) + H2O
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I122>
+#
+<M001_S050_I123>
+STRAT O3 LOSS: HO2 + NO3
+
+Flux for Stratospheric O3 Loss reaction : HO2 + NO3
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I123>
+#
+<M001_S050_I124>
+STRAT O3 LOSS: OH + NO3
+
+Flux for Stratospheric O3 Loss reaction : OH + NO3
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I124>
+#
+<M001_S050_I125>
+STRAT O3 LOSS: NO3 + HCHO
+
+Flux for Stratospheric O3 Loss reaction : NO3 + HCHO
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+ 
+</M001_S050_I125>
+#
+#
+<M001_S050_I131>
+STRAT MISC: O3 DRY DEPOSITION (3D)
+
+Stratospheric O3 Dry Deposition Rate (3D) 
+(moles(Ox)/s) 
+
+This is the total dry deposition flux of ozone in each gridbox
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of O3 removed by this process per second in the 
+whole model.
+
+</M001_S050_I131>
+#
+<M001_S050_I132>
+STRAT MISC: NOy DRY DEPOSITION (3D)
+
+Stratospheric NOy Dry Deposition Rate (3D) 
+(moles/s)
+
+This is the total dry deposition flux of NOy in each gridbox
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of NOy removed by this process per second in the 
+whole model.
+
+</M001_S050_I132>
+#
+<M001_S050_I133>
+STRAT MISC: NOy WET DEPOSITION (3D)
+
+Stratospheric NOy Wet Deposition Rate (3D) 
+(moles(Ox)/s) 
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+number of moles of Ox being produced by this reaction per second in the 
+whole model.
+
+</M001_S050_I133>
+#
+#
+<M001_S050_I140>
+DMS + OH => SO2 + MeOO + HCHO
+
+Chemical reaction flux for DMS + OH => SO2 + MeOO + HCHO
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+</M001_S050_I140>
+#
+<M001_S050_I141>
+DMS + OH => 0.6SO2 + 0.4DMSO + MeOO
+
+Chemical reaction flux for DMS + OH => 0.6SO2 + 0.4DMSO + MeOO
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+</M001_S050_I141>
+#
+<M001_S050_I142>
+DMS + NO3 => SO2 + HONO2 + MeOO
+
+Chemical reaction flux for DMS + NO3 => SO2 + HONO2 + MeOO
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+</M001_S050_I142>
+#
+<M001_S050_I143>
+DMSO + OH => 0.6SO2 + 0.4MSA
+
+Chemical reaction flux for DMSO + OH => 0.6SO2 + 0.4MSA
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+</M001_S050_I143>
+#
+<M001_S050_I144>
+CS2 + OH => SO2 + COS
+
+Chemical reaction flux for CS2 + OH => SO2 + COS 
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+
+</M001_S050_I144>
+#
+<M001_S050_I145>
+H2S + OH => SO2
+
+Chemical reaction flux for H2S + OH => SO2 
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+
+</M001_S050_I145>
+#
+<M001_S050_I146>
+COS + OH => SO2
+
+Chemical reaction flux for COS + OH => SO2 
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+
+</M001_S050_I146>
+#
+<M001_S050_I147>
+Monoterp + OH => Sec_org
+
+Chemical reaction flux for Monoterpene + OH => Sec_org  
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+
+</M001_S050_I147>
+#
+<M001_S050_I148>
+Monoterp + O3 => Sec_org
+
+Chemical reaction flux for Monoterpene + O3 => Sec_org 
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+
+</M001_S050_I148>
+#
+<M001_S050_I149>
+Monoterp + NO3 => Sec_org
+
+Chemical reaction flux for Monoterpene + NO3 => Secondary organic
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+
+</M001_S050_I149>
+#
+<M001_S050_I150>
+SO2 + OH => HO2 + H2SO4
+
+Chemical reaction flux for SO2 + OH => HO2 + H2SO4 
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+
+</M001_S050_I150>
+#
+<M001_S050_I151>
+SO2 + H2O2 => NULL0
+
+Chemical reaction flux for SO2 + H2O2 => NULL0 
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+
+</M001_S050_I151>
+#
+<M001_S050_I152>
+SO2 + O3 => NULL1
+
+Chemical reaction flux for SO2 + O3 => NULL1 
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+
+</M001_S050_I152>
+#
+<M001_S050_I153>
+SO2 + O3 => NULL2
+
+Chemical reaction flux for SO2 + O3 => NULL2 
+(moles/s)
+This is the total flux in the gridbox obtained by multiplying the 
+reaction rate of the above reaction (moles/cm^3/s) by the grid box's 
+volume (in cm^3)
+
+The sum of this chemical flux over all model gridboxes gives the total 
+chemical flux through this reaction.
+
+</M001_S050_I153>
+#
+<M001_S050_I154>
+SO2 DRY DEPOSITION (3D)
+
+SO2 Dry Deposition Rate (3D) 
+moles/s
+
+This is the total dry deposition flux of ozone in each gridbox
+
+The sum of this deposition flux over all model gridboxes gives the total 
+number of moles of SO2 removed by this process per second in the 
+whole model.
+
+</M001_S050_I154>
+#
+<M001_S050_I155>
+SO2 WET DEPOSITION (3D)
+
+SO2 Wet Deposition Rate (3D) 
+moles/s
+
+This is the total wet deposition flux of SO2 in each gridbox
+
+The sum of this deposition flux over all model gridboxes gives the total 
+number of moles of SO2 removed by this process per second in the 
+whole model.
+</M001_S050_I155>
+#
+<M001_S050_I156>
+TOTAL EMISSION OF NITROGEN MONOXIDE FROM SURFACE, HIGH-LEVEL 
+AND SINGLE-LEVEL SOURCES (KILOGRAMMES OF NITROGEN MONOXIDE 
+PER SQUARE METRE PER SECOND)
+
+</M001_S050_I156>
+#
+<M001_S050_I157>
+TOTAL EMISSION OF METHANE EXCLUDING ONLINE EMISSIONS FROM 
+WETLANDS (KILOGRAMMES OF METHANE PER SQUARE METRE PER SECOND)
+
+</M001_S050_I157>
+#
+<M001_S050_I158>
+TOTAL EMISSION OF CARBON MONOXIDE FROM SURFACE, HIGH-LEVEL 
+AND SINGLE-LEVEL SOURCES (KILOGRAMMES OF CARBON MONOXIDE 
+PER SQUARE METRE PER SECOND)
+
+</M001_S050_I158>
+#
+<M001_S050_I159>
+TOTAL EMISSION OF FORMALDEHYDE FROM SURFACE, HIGH-LEVEL 
+AND SINGLE-LEVEL SOURCES (KILOGRAMMES OF FORMALDEHYDE 
+PER SQUARE METRE PER SECOND)
+
+</M001_S050_I159>
+#
+<M001_S050_I160>
+TOTAL EMISSION OF ETHANE FROM SURFACE, HIGH-LEVEL AND 
+SINGLE-LEVEL SOURCES (KILOGRAMMES OF ETHANE PER SQUARE 
+METRE PER SECOND)
+
+</M001_S050_I160>
+#
+<M001_S050_I161>
+TOTAL EMISSION OF PROPANE FROM SURFACE, HIGH-LEVEL AND 
+SINGLE-LEVEL SOURCES (KILOGRAMMES OF PROPANE PER SQUARE 
+METRE PER SECOND)
+
+</M001_S050_I161>
+#
+<M001_S050_I162>
+TOTAL EMISSION OF ACETONE FROM SURFACE, HIGH-LEVEL AND 
+SINGLE-LEVEL SOURCES (KILOGRAMMES OF ACETONE PER SQUARE 
+METRE PER SECOND)
+
+</M001_S050_I162>
+#
+<M001_S050_I163>
+TOTAL EMISSION OF ACETALDEHYDE FROM SURFACE, HIGH-LEVEL 
+AND SINGLE-LEVEL SOURCES (KILOGRAMMES OF ACETALDEHYDE 
+PER SQUARE METRE PER SECOND)
+
+</M001_S050_I163>
+#
+<M001_S050_I164>
+TOTAL EMISSION OF ISOPRENE FROM SURFACE, HIGH-LEVEL AND 
+SINGLE-LEVEL SOURCES (KILOGRAMMES OF ISOPRENE PER SQUARE 
+METRE PER SECOND)
+
+</M001_S050_I164>
+#
+<M001_S050_I165>
+TOTAL EMISSION OF BUTANE FROM SURFACE, HIGH-LEVEL AND 
+SINGLE-LEVEL SOURCES (KILOGRAMMES OF BUTANE PER SQUARE 
+METRE PER SECOND)
+
+</M001_S050_I165>
+#
+<M001_S050_I166>
+TOTAL EMISSION OF ETHENE FROM SURFACE, HIGH-LEVEL AND 
+SINGLE-LEVEL SOURCES (KILOGRAMMES OF ETHENE PER SQUARE 
+METRE PER SECOND)
+
+</M001_S050_I166>
+#
+<M001_S050_I167>
+TOTAL EMISSION OF PROPENE FROM SURFACE, HIGH-LEVEL AND 
+SINGLE-LEVEL SOURCES (KILOGRAMMES OF PROPENE PER SQUARE 
+METRE PER SECOND)
+
+</M001_S050_I167>
+#
+<M001_S050_I168>
+TOTAL EMISSION OF TOLUENE FROM SURFACE, HIGH-LEVEL AND 
+SINGLE-LEVEL SOURCES (KILOGRAMMES OF TOLUENE PER SQUARE 
+METRE PER SECOND)
+
+</M001_S050_I168>
+#
+<M001_S050_I169>
+TOTAL EMISSION OF O-XYLENE FROM SURFACE, HIGH-LEVEL AND 
+SINGLE-LEVEL SOURCES (KILOGRAMMES OF O-XYLENE PER SQUARE 
+METRE PER SECOND)
+
+</M001_S050_I169>
+#
+<M001_S050_I170>
+TOTAL EMISSION OF METHANOL FROM SURFACE, HIGH-LEVEL AND 
+SINGLE-LEVEL SOURCES (KILOGRAMMES OF METHANOL PER SQUARE 
+METRE PER SECOND)
+
+</M001_S050_I170>
+#
+<M001_S050_I171>
+TOTAL EMISSION OF MOLECULAR HYDROGEN FROM SURFACE, HIGH-LEVEL 
+AND SINGLE-LEVEL SOURCES (KILOGRAMMES OF MOLECULAR HYDROGEN 
+PER SQUARE METRE PER SECOND)
+
+</M001_S050_I171>
+#
+<M001_S050_I172>
+3-DIMENSIONAL EMISSION OF NITROGEN MONOXIDE FROM AIRCRAFT 
+(KILOGRAMMES OF NITROGEN MONOXIDE PER SQUARE METRE PER SECOND)
+
+</M001_S050_I172>
+#

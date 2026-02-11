@@ -1,0 +1,13 @@
+This window allows users to specify the use of the ancillary files for the mean and
+standard deviation of the topographic index.
+
+NOTE If this is the first time you are using this option then you will need to
+configure these ancillary files.
+
+These ancillary files are fixed in time.
+
+Fields should be configured when changing (especially higher) resolution or moving
+to a new land-sea mask.
+
+-----------------------------
+%I ancill_gen

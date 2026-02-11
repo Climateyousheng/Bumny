@@ -1,0 +1,34 @@
+
+Model Testing
+-------------
+
+Sometimes a simplified version of the code may need to be run to test certain
+ideas. The possibilities allowed are:-
+
+ - Running a semi-geostrophic model rather than a primitive equation model
+ - Running a dry model
+ - Running a dry model with moist adjustments
+ - Running without physics
+ - Running an idealised test case (see sub-window help panel)
+
+Running without physics allows us to test the dynamical core of the model in
+isolation. The other options are for more theoretical tests.
+
+Backwards Integrations
+----------------------
+
+Backwards integrations are required mainly for the construction of
+initialization schemes, which may be used, for example, to determine the
+degree of balance of analysis increments. Another possible application of
+backwards integrations is as a means of tracing back the origin of forecast
+errors.
+
+Backwards integrations are achieved by negating the dynamics timestep and
+switching off the main physics routines, which are irreversible. Thus,
+backwards integrations may be requested only if the `Include Physics' option
+has been switched off. In a backwards integration, simple friction, diffusion
+and divergence damping may be included, but they will be run with a positive
+timestep - dissipative processes run backwards generally lead to numerical
+instability.
+
+

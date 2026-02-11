@@ -1,0 +1,247 @@
+STASH is the diagnostic system of the Unified Model.
+
+The UMUI windows that allow users to define their diagnostics are non-standard
+windows. They do not behave in the same way as other UMUI windows. Users
+should read these instructions carefully.
+
+There are separate STASH windows for each submodel and, as yet, no
+information can be shared between the windows. For example, you will need to
+set up time profiles for each submodel independently.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Handy Tips.
+~~~~~~~~~~~
+New users are advised to read all the help, but these tips will be useful to
+those who have used the system previously. 
+
+  Menus are "tearoff" menus - select the dashed line at the top of an open
+  menu. This will cause a new window to open that contains the menu. Unlike 
+  a normal menu, the window will not disappear once an item has been selected.
+  This makes it easy repeat a menu option many times (eg to remove lots of 
+  diagnostics; but this can also be done using Ctrl-r).
+
+  Go into STASH last to make sure that you have not affected diagnostic
+  availability - also, some of the error checks require certain questions
+  to have been answered in other parts of the UMUI.
+
+  Keep an eye on the AVAILABLE column in the diagnostic table; have you made
+  any diagnostics unavailable by other choices in the UMUI?
+
+  Verification is NOT done automatically on exit from the window. 
+  Use "Verify diagnostics" in the Diagnostics menu to check for errors.
+
+  If you have already entered STASH once, you will not get any changes to the
+  user-STASHmaster list until you reenter the UMUI.
+
+  YOU CANNOT TYPE ANYTHING INTO THE STASH TABLE. 
+  All settings are achieved by double-clicking or using the key bindings
+  (see the help on STASH key bindings).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+About STASH.
+~~~~~~~~~~~~
+
+STASH is the diagnostic system of the Unified Model. It allows
+access to a large number of diagnostic ITEMS defined by a unique
+ITEM NUMBER. Items are arranged into SECTIONS that produce the
+diagnostic items. These sections can be scientific sections (such as
+SW-radiation), special diagnostic sections (such as atmospheric
+sections 15 and 16 that produce derived diagnostics from prognostic
+fields) or section zero (that holds the prognostic fields).
+
+In the UM, the STASH system accepts diagnostics that are passed to
+it by special interfacing techniques. These  allow for efficient
+interception of fields calculated as part of the integration, as
+well as specifically calculated diagnostics. Diagnostic items are
+defined to STASH by a file known as the STASHmaster file. This has a
+record for each registered diagnostic. The information is used by
+the STASH part of the UMUI and by the UM via a copy of the
+STASHmaster. To allow users to create their own diagnostics, they
+can attach user-STASHmaster files that contain STASHmaster records.
+These files should be sub-model specific and relate to a mod-set
+that generates the diagnostics and interfaces them to the STASH
+system.  See the SPECIFICATION OF USER DIAGNOSTICS windows,
+atmos_STASH_UserDiags etc.
+
+STASH allows diagnostics to be processed in time and space and the
+UMUI STASH windows allow users to define the diagnostics that they
+want to be output and any processing they require  for these chosen
+diagnostics.
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Entering STASH.
+~~~~~~~~~~~~~~~
+On entry to the STASH windows the UMUI loads the STASHmaster records for the
+sub-model in question. This file contains definitions of all the diagnostics
+known to this particular release of the UM and UMUI. Also, any user-STASHmaster
+files are loaded if they are defined for this sub-model (see the other window
+in this section: SPECIFICATION OF USER DIAGNOSTICS,  atmos_STASH_UserDiags
+etc).
+
+On re-entry the above files are NOT loaded. This saves time but implies that
+any changes to the user-STASHmaster files will not be seen until you exit the
+and re-enter the UMUI.
+
+Do not enter STASH for more than one sub-model at once.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Basic Idea.
+~~~~~~~~~~~~~~~
+Within this STASH window you can define a list of chosen diagnostics (ie those
+that you want to output) and attach profiles to them. The profiles define what
+you want STASH to do with the diagnostics:
+  The TIME profiles define any temporal processing such as time means and the
+  output patterns for the diagnostic. 
+  The DOMAIN profiles define any spatial processing such as vertical-meaning
+  and the desired output domain such as level and sub-areas.
+  The USAGE profiles define where the diagnostics get put. The system allows
+  you to:  Define and redefine profiles using the upper part of the screen.
+
+Add diagnostics to your list held in the large table in the lower half
+of the screen. This is done by selecting "Load New Diagnostics" from the
+menu and then selecting diagnostics from the window that appears.
+
+Attach profiles to the diagnostics by selecting the three profiles
+required and then double clicking on the diagnostic title. Or, just
+one profile at a time can be attached by clicking on the appropriate
+profile column next to the diagnostic.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+STASH window anatomy.
+~~~~~~~~~~~~~~~~~~~~~
+At the top of the window are the lists of defined profiles. One list for each
+type of profile. Blank entries are for undefined profiles and represent the
+maximum number of profiles available for each profile type.
+
+Below this is the diagnostic table, defining the chosen diagnostics, the
+profiles attached to them and the availability of the diagnostics.
+
+There are menus related to the diagnostics, to the profiles and to STASH as a 
+whole.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Managing Profiles.
+~~~~~~~~~~~~~~~~~~
+Highlight the profile that you want to act on and use the profile menu to delete,
+copy or edit that profile.
+
+For example, to create a new time profile highlight the first empty
+time profile box at the end of the list by clicking on it. Then select
+the "Edit" option and the "Edit time" sub-option from the Profiles menu.
+This will open a panel to set a time profile.
+
+Alternatively, you can highlight an existing profile and use the
+"Copy" menu option to copy it.
+
+Once you have "entered" a profile you will see that these are defined by
+standard windows with help buttons etc to give advice on their use.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Managing Your Diagnostic List.  
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+See help on STASH key bindings.
+
+Firstly, to add diagnostics, the "New Diagnostics" panel needs to be
+opened by selecting the "Load New Diagnostics" option from the
+diagnostics menu.  Diagnostics are arranged in sections and the New
+Diagnostics panel displays a list of sections to choose from. The
+sections are the sections of the Unified Model that can generate
+diagnostics. They can be special sections (such as section zero that
+holds the prognostic fields) or scientific sections (such as section
+1, SW radiation). You have defined the chosen version of these
+sections elsewhere in the UMUI (1A, 1B etc).
+
+Choose a section by double-clicking on the section wording. In the
+table below, a list of diagnostics for that section will be
+displayed. The list will include any user defined diagnostics in the
+section. Choose the diagnostics you want by double clicking on
+them. The diagnostic count at the bottom of the STASH window will
+increment as the new diagnostic is added to the Diagnostics table. The
+new diagnostic will be added just below the last highlighted
+diagnostic or to the top of the table if none has been selected.
+
+You can add several diagnostics from several sections before pressing cancel
+to return to the STASH window.
+
+You will note a record by each diagnostic headed AVAILABLE with the value Y or
+N. This defines which of the diagnostics are available to the run you have set
+up. Those with N by them are unavailable because:
+  They are recorded in the STASH system but never allow to be diagnostics
+  (often because they are not on a standard STASH grid).
+  They are not generated by the version of their section that you have chosen
+  (1A, 1B etc).
+  Some other choice you have made has implied that the diagnostics are
+  unavailable. See UMDP paper C4 and the STASHmaster file for details.
+
+Only choose diagnostics that are available.
+
+The include column can be used for temporarily excluding certain
+diagnostics without needing to delete them.  New diagnostics are
+created with the Include column set to Y. To exclude a diagnostic
+double click on it with the mouse to set the include column to N.
+Double clicking again will revert it back to Y.
+
+Once you have added all your new diagnostics delete any that you do
+not want by clicking on them (this will highlight the line defining
+the diagnostic) and selecting "Remove Diagnostic" from the
+menu. Searching the table for particular diagnostics or profiles can
+be assisted by altering the Sort order to sort on different columns or
+lists of columns. For example, sorting on the time and domain columns
+will result in, say, all diagnostics attached to UPMEAN and TALL to be
+grouped together. Finally, re-order the diagnostics by using the Sort
+option in the menu.
+
+After this attach the profiles to the diagnostics. You may need to
+generate new profiles as you go through the list. See instructions in
+Managing Profiles and Attaching Profiles.
+
+You may wish to have the same diagnostics in the list more than once, with
+different time processing for example. Select a diagnostic from the table by
+clicking on it and use the CLONE DIAGNOSTIC button to obtain another copy.
+Attach alternative profile(s) to this "replica" to define the new requirement.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Attaching and Changing Profile Choices.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+See help on STASH key bindings.
+
+Changing a profile setting is achieved by the same method as attaching
+a profile to a diagnostic without a profile setting. You must attach
+all three profiles to all diagnostics chosen. Highlight the profile(s)
+that you want to attach and either double-click on the diagnostic name
+in the diagnostic table to attach all three profiles, or double-click
+on the profile box in the diagnostic table to attach just one profile.
+
+Remember, not all profiles can be used with all diagnostics: Some
+sections only produce some of their diagnostics on certain time-steps
+(for example the radiation codes in the atmospheric model are not
+called, in full, every time-step and some of the diagnostics are only
+available on radiation time-steps).
+
+STASH does not convert from one level type to another. You must use a
+domain profile with the correct level type and pseudo-level type.
+
+There are special usage profiles to be used if and only if the
+diagnostic is from the special climate-mean sections.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Verifying Diagnostics.
+~~~~~~~~~~~~~~~~~~~~~~
+Verification is NOT done automatically on exit from the window. This is
+because STASH requests can take a long time to set up and correct. This allows
+you to save what you have done and continue the work over several sessions.
+
+Get into the habit of running the "Verify Diagnostics" process before
+you exit, unless you intend to continue setting up STASH later.
+

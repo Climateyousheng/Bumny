@@ -1,0 +1,21 @@
+
+Help for window : subindep_Recon_Output
+
+This panel allows you to specify various control options regarding
+output choices for reconfiguration.
+
+Timer information for reconfiguration turns on the output of timer
+information during the reconfiguration section of the run for
+diagnostic efficiency purposes.
+
+The level of print output determines how many messages are required
+from the model executable. Most users will select "Normal". Setting
+"Minimum" should reduce the length of output for long running stable
+jobs, but you may need to be prepared to rerun parts of a job with
+"Normal" should it run into trouble. "Operational" level is for
+operational forecast use. "Extra" can be useful for debugging purposes
+but can produce voluminous output.
+
+Keeping the output from PEs, other than PE0, even when reconfiguration
+completes successful can be used for problem diagnosis but is not
+normally required.

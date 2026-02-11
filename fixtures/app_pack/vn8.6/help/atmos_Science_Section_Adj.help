@@ -1,0 +1,34 @@
+Section 9 : Dynamical Adjustment
+see below for a description of sections.
+See UMDP 15 for a description of the adjustment routines that form 
+part of the atmospheric dynamics.
+
+Version <2A> is the only version available from version 5.0 onwards.
+
+Choosing the preconditioner :-
+
+For Global Models  option 4 is recommended.
+
+For Limited Area Models option 1 is the only one available.
+
+If options 2-5 are chosen then parameters for the preconditioner must 
+be set. 
+These values are resolution dependent.
+
+See Table below for recommended choices.
+
+It is recommended to add the full solution for ADI.
+
+It is recommended to use a zero initial guess.
+
+For testing use diagnostics option 1, and for long runs use option 0.
+
+For N216 use 100 maximum iterations otherwise use 50
+
+Table
+
+Resolution      Tol type, value      no precon calls, size of ADI timestep
+N48,  DT=1800   RESIDUAL, 1e-7          2           , 0.01300
+N144, DT=1200   RESIDUAL, 1e-8          2           , 0.00320
+N216, DT=1200   ABSOLUTE, 1e-3          2           , 0.00060
+N320  DT=900    ABSOLUTE , 1.00E-2      1           , 0.00022

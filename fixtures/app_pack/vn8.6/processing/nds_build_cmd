@@ -1,0 +1,64 @@
+%C ======================================================
+%C module: nds_build_cmd
+%C
+%C Creates common part of build command BLD_CMD 
+%C
+%C Module included in:
+%C  * FCM_BLD_COMMAND   via processing/nds_bld_gencmd  
+%C ======================================================
+%TCL
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Define No of processors for compilation
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   set nproc_u 0
+   set nproc_n 0
+   set nproc_c 0
+   set flag_nproc 0
+   
+   if {%ATMOS=="T" && %GEN_SUITE==0 && %SETNPROC=="Y"} {
+       set nproc_u %NPROC
+       set flag_nproc 1
+   }
+   if {%NEMO=="T" && %GEN_SUITE==0 && %SETNPROC_N=="Y"} {
+       set nproc_n %NPROC_N
+       set flag_nproc 1
+   }
+   if {%CICE=="T" && %GEN_SUITE==0 && %SETNPROC_C=="Y"} {
+       set nproc_c %NPROC_C
+       set flag_nproc 1
+   }
+   
+   if {$mask=="TTT"} {
+      set nproc [expr {$nproc_n > $nproc_c ? $nproc_n : $nproc_c}]
+      set nproc [expr {$nproc_u > $nproc ? $nproc_u : $nproc}]
+   } elseif {$mask=="FTT"} {
+       set nproc [expr {$nproc_n > $nproc_c ? $nproc_n : $nproc_c}]
+   } elseif {$mask=="FTF"} {
+       set nproc $nproc_n
+   } elseif {$mask=="FFT"} {
+       set nproc $nproc_c
+   } elseif {$mask=="TFF"} {
+      set nproc $nproc_u
+   }
+ 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Create fcm build command
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   
+   set cmd_common "fcm build -v %FCM_VERB_BLD"
+   set add_local " >> \$COMP_OUTFILE 2>\&1"
+
+   if {%LFULL_BLD == "Y" && (%LFCM_PREBUILD !="Y" || %COMP_ATM=="Y")} {
+      append cmd_common { -f}
+   } 
+   
+   if {$flag_nproc == 1} {
+      append cmd_common " -j $nproc"
+   }  
+   
+   putl ""
+   putl "# Build command common part" 
+   put  "BLD_CMD=\"$cmd_common \"" 
+    
+%ENDTCL     
+

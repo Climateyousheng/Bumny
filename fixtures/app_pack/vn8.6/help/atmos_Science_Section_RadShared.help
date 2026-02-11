@@ -1,0 +1,11 @@
+Section 70 : Shared Radiation Routines
+
+Some routines are common to the SW and LW parts of the spectrum and
+therefore need to be held in a separate section. To include these
+routines, select an option in this panel.
+
+Currently only one version is available and no additional options need
+to be set.
+
+-------------
+%I compile_modes

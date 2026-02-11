@@ -1,0 +1,73 @@
+# fixed parameters are not set by the UI
+# and should not need to be edited.
+%T if { %AUTOPP== "Y"   &&   %SYSTM != 0 } {
+#
+F_END_JOB_TIC='unset'
+F_END_JOB_PROGID='%TCL put [ string toupper [string range %USERID 3 4]] %ENDTCL'
+MAIL='%MAIL_ID'
+#MAIL_ID='%TCL put [exec whoami]@[exec hostname] %ENDTCL'
+MAIL_ID='%MAIL_ID'
+#
+STORCLAS="SCDATPRK"
+MGMTCLAS="mcsnc1"     # fixed parameter
+#
+USERID='%USERID'
+PP_UNPACK='FALSE'                            # fixed parameter
+#
+%T } ; # end if { %SYSTM NE 0 }
+#
+%TCL
+ if { %USE_AJR(1) == "Y" } {
+   for { set i 1 } { $i <= %AJRN(1) } { incr i } {
+    putl "A_JOB_MEMBER_$i='%AJRPATH(1)/%AJRS($i,1)'"
+   }
+ }
+%ENDTCL
+%C--------------------------------------------------------
+%T if { %AUTOPP== "Y" &&  %SYSTM != 0 } {
+#
+BKUP_AUTH=/u/m20/cprod/bkup_auth
+#
+ARCH_CNTL=$UMDIR/vn$VN/ctldata/clim_arch_control
+#
+DMP_RQST_LIMIT=0           # Fixed Parameters. Set to non-zero to override 
+BF_RQST_LIMIT=0            # automatic system based on file size.
+DB_RQST_LIMIT=0            #
+PP_RQST_LIMIT=0 
+MPP_RQST_LIMIT=0    
+PMP_RQST_LIMIT=0
+MIX_RQST_LIMIT=0
+#
+ARCHSYS='true'
+#
+%T    if {%SYSTM == 3} {
+ARCHNERC='true'
+%T    } else {
+ARCHNERC='false'
+%T    }
+%T    if {%SYSTM == 5} {
+ARCHHECTOR='true'
+%T    } else {
+ARCHHECTOR='false'
+%T    }
+%T    if {%SYSTM == 2 || %SYSTM == 3} {
+#
+PROJECTGROUP='%PROJECTGROUP'
+%T    }
+%T    if {%SYSTM == 3} {
+FF2PP_NERC='%FF2PP_NERC'
+%T    } elseif {%SYSTM == 5} {
+#
+HECTOR_TAPE_ARCH=%HECTOR_TAPE_ARCH
+%T       if {%HECTOR_TAPE_ARCH == 0} {
+ARCHIVEDIR=%ARCHIVEDIR
+%T       }
+%T    }
+
+%T } ; # end if { %AUTOPP== "Y" && %SYSTM != 0 } 
+#
+%T if { %AUTOPP== "N" || %SYSTM == 0 } {
+ARCHSYS='false'
+%T }
+#
+ ### END OF FILE ###

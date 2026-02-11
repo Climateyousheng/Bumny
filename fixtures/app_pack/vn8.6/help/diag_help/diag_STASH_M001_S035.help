@@ -1,0 +1,152 @@
+<M001_S035_I001>
+(1:35:1) U COMPNT OF WIND AFTER SKEB2
+
+U wind after SKEB2 in m/s on u grid.
+</M001_S035_I001>
+#
+<M001_S035_I002>
+(1:35:2) V COMPNT OF WIND AFTER SKEB2
+
+V wind after SKEB2 in m/s on v grid.
+</M001_S035_I002>
+#
+<M001_S035_I003>
+(1:35:3) U COMPNT OF WIND INCR SKEB2
+
+U increment from SKEB2 in m/s per model timestep on u grid.
+</M001_S035_I003>
+#
+<M001_S035_I004>
+(1:35:4) V COMPNT OF WIND INCR SKEB2
+
+V increment from SKEB2 in m/s per model timestep on v grid.
+</M001_S035_I004>
+#
+<M001_S035_I005>
+(1:35:5) ROT U COMPNT OF WIND INCR SKEB2
+
+U increment of rotational wind from SKEB2 in m/s per model timestep on u grid.
+</M001_S035_I005>
+#
+<M001_S035_I006>
+(1:35:6) ROT V COMPNT OF WIND INCR SKEB2
+
+V increment of rotational wind from SKEB2 in m/s per model timestep on v grid.
+</M001_S035_I006>
+#
+<M001_S035_I007>
+(1:35:7) DIV U COMPNT OF WIND INCR SKEB2
+
+U increment of divergent wind from SKEB2 in m/s per model timestep on u grid.
+This requires Include Velocity Potential Forcing to be on in section 35 - SKEB2.
+</M001_S035_I007>
+#
+<M001_S035_I008>
+(1:35:8) DIV V COMPNT OF WIND INCR SKEB2
+
+V increment of divergent wind from SKEB2 in m/s per model timestep on v grid.
+This requires "Include Velocity Potential Forcing" to be on in section 35 - SKEB2.
+</M001_S035_I008>
+#
+<M001_S035_I009>
+(1:35:9) SKEB2 DISSIPATION FROM SMAG
+
+Energy dissipation on model rho-levels from numerical schemes. Requires "Include
+Numerical Dissipation Rate" to be on in section 35 - SKEB2
+</M001_S035_I009>
+#
+<M001_S035_I010>
+(1:35:10) SKEB2 DISSIPATION FROM CONVECTION
+
+Energy dissipation on model rho-levels from convective schemes using the 
+CAPE*VertFlux method. Requires "Include Convective Dissipation Rate" and 
+"Using CAPE*UPFLX (Conv scheme 4)" to be on in section 35 - SKEB2
+</M001_S035_I010>
+#
+<M001_S035_I011>
+(1:35:11) SKEB2 DISS FROM SKEB1-TYPE PATTERN
+
+Energy dissipation on model rho-levels from SKEB1-type energy dissipation 
+pattern in m2.s-3. Requires "Include SKEB1-type Dissipation Rate" to be on 
+in section 35 - SKEB2. See main panel help for further description of the 
+Stochastic Kinetic Energy Backscatter Scheme (SKEB2). 
+</M001_S035_I011>
+#
+<M001_S035_I012>
+(1:35:12) SKEB2 SMOOTHED MODULATING FIELD
+
+Combined dissipation field after spatial smoothing.
+</M001_S035_I012>
+#
+<M001_S035_I013>
+(1:35:13) SKEB2 STREAMFUNCTION FORC FIELD
+
+Modulated streamfunction forcing field. This field is calculated from the 
+dissipation rates and random streamfunction forcing, and is used to calculate 
+the final SKEB2 wind increments.
+</M001_S035_I013>
+#
+<M001_S035_I014>
+(1:35:14) SKEB2 INITIAL RANDOM PATTERN
+
+Random streamfunction forcing field provided by the random number 
+initialisation with the prescribed spatial and temporal characteristics.
+</M001_S035_I014>
+#
+<M001_S035_I015>
+(1:35:15) MASS VERT INT OF STRM FORC FIELD
+
+Mass-weighted vertical integral of the random streamfunction forcing field 
+(Item 1:35:14).
+</M001_S035_I015>
+#
+<M001_S035_I016>
+(1:35:16) VERT INTEG NUMERICAL DISSP (W/M^2)
+
+Mass-weighted vertical integral of the numerical energy dissipation rate 
+(Item 1:35:9).
+</M001_S035_I016>
+#
+<M001_S035_I017>
+(1:35:17) VERT INTEG CONVECTIVE DISSP (W/M^2)
+
+Mass-weighted vertical integral of the convective energy dissipation rate 
+(Item 1:35:10).
+</M001_S035_I017>
+#
+<M001_S035_I018>
+(1:35:18) VERT INTEG SKEB1-TYPE DISS (W/M^2)
+
+Mass-weighted vertical integral of the SKEB1-type energy dissipation rate in W/m2 
+(see item 1:35:11). See main panel help for further description of the 
+Stochastic Kinetic Energy Backscatter Scheme (SKEB2). 
+</M001_S035_I018>
+#
+<M001_S035_I019>
+(1:35:19) MASS VERT INT OF MODULATED STRMFUNC
+
+Mass-weighted vertical integral of the modulated streamfunction  forcing 
+field (Item 1:35:13)
+</M001_S035_I019>
+#
+<M001_S035_I020>
+(1:35:20) V INT KE WIND INCR PRE SKEB2 (J/M^2)
+
+Mass-weighted vertical integral of the model kinetic energy before SKEB2 
+is called.
+</M001_S035_I020>
+#
+<M001_S035_I021>
+(1:35:21) V INT KE WIND INCR SKEB2 (J/M^2)
+
+Mass-weighted vertical integral of the model kinetic energy of the SKEB2 
+wind increments.
+</M001_S035_I021>
+#
+<M001_S035_I022>
+(1:35:22) V INT KE WIND INCR POST SKEB2 (J/M^2)
+
+Mass-weighted vertical integral of the model kinetic energy after SKEB2 
+is called.
+</M001_S035_I022>
+#

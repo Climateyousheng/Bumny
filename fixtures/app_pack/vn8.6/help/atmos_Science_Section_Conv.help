@@ -1,0 +1,354 @@
+Section 5: CONVECTION SCHEME
+
+The convection scheme consists of 2 parts;
+  (1) The diagnosis routine "conv_diag".
+  (2) The convection scheme.
+
+
+(1) The diagnosis routine "conv_diag".
+-------------------------------------
+ Please see Conv_Diag panel help file.
+
+
+(2) The convection scheme.
+---------------------------
+   
+ The following versions of the convection scheme are available:
+
+  <0A> -  No convection scheme but contains diagonsis routine calculations 
+          required by boundary layer. 
+  <4A> -  New scheme at July 2002. Previously known as CMODS. Built on the 
+          nolonger available 3C scheme structure but major differences in
+	      science.
+  <5A> -  Turbulence and mass flux convection. Development version. 
+  <6A> -  Turbulence and mass flux convection. Research version. 
+ 	  
+  Science options  4A, 5A, 6A
+-----------------------------
+ (i)   Apply various safety checks to convection - if set true
+
+       4A, 5A, 6A Applies a check on the input q profile to ensure all values are 
+       above qmin_conv. Any values below this are reset to qmin_conv. Note it is 
+       possible for the q profile seen by convection to have negative values. 
+       This can cause problems in the scheme.
+
+       Any corrections to q to provide safe values are saved and removed again at 
+       the end of convection.
+
+       5A & 6A scheme only - also checks for negative CAPE at the end of the parcel 
+       ascent in deep and mid-level convection. Any ascents with a negative CAPE have 
+       their increments set to zero. Note negative CAPE values have been found at the 
+       end of deep and mid-level convection when the water loading and/or the diurnal 
+       cycle changes are being applied in the convection scheme.
+
+       Increments from such ascents are unrealistic. 
+
+ (ii)  Include CMT heating (6a only)
+
+       If switched on then the turbulent heating due to the convective momentum 
+       transport is included in the convective heating.
+
+ (iii) Apply an energy correction to the convection code. (5A/6A schemes only)
+
+       The convection scheme formulation does not ensure the conservation of energy. 
+       The correction automatically applied by the 4A scheme is now thought to be 
+       wrong due to the introduction of PC2 and other changes to the scheme. This 
+       switches on an optional energy correction under development for the 5A/6A 
+       convections schemes. At present this is not recommended as the exact method 
+       of evaluating the energy and how to correct it has not been finally decided. 
+  
+  Science options  4A, 5A
+-------------------------
+ (i)    Convective momentum transports. This switch allows convection to
+       transport momentum in the vertical (in addition to heat and moisture).
+       It is recommended for use. 
+     
+       Deep CMT option 
+          0 - original settings for deep convective momentum transport.
+          1 - original 70 level settings.
+          2 - for Gregory-Kershaw mass flux scheme
+          3 - new turbulence based CMT
+          4 - further experimental turbulence based CMT  
+	  5 - revised 70 level settings. This option uses a quadratic shape factor 
+	      to reduce the CMT increments at upper levels. 
+
+       Mid-level CMT option
+          0 - Gregory-Kershaw mass flux scheme (recommended value)
+          1 - diffusive mass flux CMT scheme        
+
+ (ii)   Click for deep CMT to use KTERM instead of NTPAR (4A only) 
+       The original 4A code uses the estimated convective top NTPAR to
+       determine the deep CMT increments. NTPAR is often very different from   
+       the level (KTERM) reached by the mass flux scheme. 
+       In future users are advised to switch on the option to use KTERM rather
+       than NTPAR for the deep CMT. 
+       The 5A code for deep mass flux scheme will use KTERM and not NTPAR. 
+     
+ (iii)  Adaptive detrainment available at 4A, 5A & 6A". This makes the proportion
+       cloudy air detrained on a given model level depend on the rate at which
+       the buoyancy of the plume decreases with height, giving smoother mass
+       flux profiles. Operational models and HadGEM1a apply this to both mid and
+       deep convection. 
+         
+       Smoothed adaptive detrainment is available at 4A & 5A. This is an
+       improvement to the numerical implementation of adaptive detrainment 
+       that results in smoother detrainment profiles.
+
+       Improved smoothed adaptive detrainment is available at 4A & 5A. This is an 
+       further improvement to the numerical implementation of adaptive detrainment 
+       that applies smoothed adaptive detrainment to QCL, QCF and tracers. 
+       If PC2 or tracers are not being used then this will be identical to the 
+       original smoothed adaptive detrainment option.
+ 
+       The 6a always uses the improved numerical implementation of forced 
+       detrainment for both adaptive and non-adaptive forced detrainment.
+    
+       The parameter controlling adaptive detrainment has a default value of 
+       0.75 (the operational setting).
+	 
+       If some form of adaptive forced detrainment is chosen then the deep mixing
+       detrainment is given by:
+                          amdet_fac*(1-RH)*E
+       where amdet_fac is the parameter controlling the deep mixing detrainment,
+       RH is the relative humidity and E is the entrainment rate.
+       The orginal value of amdet_fac was 1.0. The operational 70 level
+       global model and HadGEM3 are currently using amdet_fac=1.5       
+
+ (iv)   Entrainment profile options for deep and mid_level convection
+       (5A and 6A schemes only).
+
+       Deep and mid-level choices have the same set of options where ent_fac 
+       refers to either the deep or mid-level entrainment parameter enter below.
+
+       0 - default ent_fac*Ap/(pstar*pstar) entrainment profile
+       1 - n/z entrainment profile where n=ent_fac (scaling factor for deep 
+           and mid-level entrainment)
+       2 - test version ent_fac*Ap/(pstar*pstar) plus a scaling factor to 
+           increase values at lower levels
+       3 - ent_fac_dp *(A/pstar)*(p/pstar)^ent_dp_power style vertical 
+           dependence for deep and 
+           ent_fac_md *(A/pstar) (p/pstar)^ent_md_power style vertical 
+           dependence for mid-level.
+       
+ (v)    4A scheme.    Parameter controlling mid-level and deep entrainment: 
+       (ent_fac) scaling  factor for the mid-level and deep convection 
+       entrainment rates. Setting the value to 1.0 (the default) is directly 
+       equivalent to using the original Gregory-Rowntree entrainment rate. 
+       Please note that the mixing detrainment rate is directly proportional 
+       to the entrainment rate and changing this  parameter will directly 
+       change the mixing detrainment rate for mid-level and deep convection. 
+       A value of 0.9 is being used in the global  operational model. 
+
+       5A and 6A scheme - different controlling factors can be used for deep and 
+       mid-level convection, otherwise as described for the 4A scheme.       
+     
+ (vi)   The deep and mid-level convective mass flux schemes use a closure base
+       on convective available potential energy (CAPE).
+       CAPE timescale. This determines the e-folding time for the dissipation
+       of CAPE. There is some observational evidence for a timescale
+       of the order of an hour. The 4A scheme seems to work better with a shorter 
+       CAPE timescale of around half an hour (1800 secs).
+	 
+       The 4A and 5A mass flux deep and mid-level convection schemes use a CAPE
+       closure. The following variants of the CAPE closure are available where the
+       number in brackets is the value of the CAPE_OPT variable;
+       (0) CAPE timescale reset depending on relative humidity
+           with minimum timescale of 5 minutes.  This reflects the fact that
+	   humid environments are more unstable to convection.
+	   (Not recommended for use as can allow timescale less than model convection
+	   timestep. Use options 1 or 6.) 
+       (1) CAPE timescale reset depending on relative humidity, with minimum
+           timescale limited to timestep.
+       (2) Fixed CAPE timescale as set in UMUI panel.  Note that short timescales
+           may result in intermittent convection, while very long timescales
+	   may not remove instability fast enough and may leave the model at 
+	   risk of grid point storms. (Original CAPE closure.)
+       (3) Vertical velocity dependent CAPE timescale. Currently used by global, NAE
+           and HadGEM3. The vertical velocity dependent CAPE timescale works 
+       by reducing the CAPE timescale as the maximum vertical velocity w_max
+       increases, hence stabilising the model profiles at locations where the
+       explicit convection is too strong. In this option the user needs to set
+       the CAPE timescale (value may depend on resolution), the threshold
+       vertical velocity w_cape_limit (value depends on resolution) above which
+       the CAPE timescale will be reduced and the levels from CAPE_bottom to 
+       CAPE_top over which this rescaling is to be carried out (suggested 
+       values 5 and 30 respectively in a 38 level model).     
+       (4) Grid-box area scaled CAPE timescale.  May be used for high resolution
+           models (1km, 4km) if convection is still being used.  Convection is modified
+	   so that it is less active  as the area of the grid box is decreased.
+	   The CAPE timescale is increased   reducing the activity of the
+	   parametrized convection.  The user needs to  set the minimum value of
+	   CAPE CAPE_min; above this value, the CAPE timescale is approximately
+	   unchanged, while below the CAPE timescale will be lengthened in
+	   proportion to the value of CAPE (suggested values for CAPE_min are 0.5
+	   J/kg for the 4 km model and 250.0J/kg for the 12 km model).
+       (5) Option not available from UMUI
+       (6) CAPE timescale depending on relative humidity but reduced if the vertical
+           velocity exceeds w_max (see option 3). Minimum CAPE timescale is the
+	   model convection timestep. Recommended reference CAPE timescale for use
+	   with this option is 7200s.
+       (7) Large-scale w based CAPE closure.  For this option the CAPE timescale 
+           is determined by the large-scale vertical velocity profile over the depth 
+           of the convective cloud. In the mean large-scale vertical velocity is 
+           positive and gives a timescale less than 4 hours this is used. If the 
+           mean is negative or gives a larger timescale then 4 hours is used. This 
+           option will tend to result in shorter CAPE timescales at higher horizontal 
+           resolution.  
+	 
+ (vii)  Emanuel downdraughts - alternative to the original Gregory-Rowntree
+       downdraught code. Available for 4A and 5A. Not used operationally or by
+       HadGEM.
+    
+ (viii) Downdraught version (4A & 5A only) - alternative versions of the
+       Gregory-Rowntree downdraught code.
+	     0 - original Gregory-Rowntree downdraught code.
+	     1 - improved Gregory-Rowntree downdraught code. Includes water loading
+       in the downdraught buoyancy calculation, allows precipitation to
+       accumulate as in falls in the updraught, and corrects several bugs in
+       the original code.
+ (ix)  Allow melting of snow over a range of temperatures This option allows the 
+       melting of snow in the downdraught or the updraught/ below cloud base to 
+       take place over a range of temperatures between the freezing level 273.15 
+       and the value supplied in the box "Temperature at which all snow melts". 
+       CRM studies suggest that all snow melts by a value of ~8K above the freezing 
+       level i.e. 281.15K. 
+
+ (x)   Minimum pressure for mid level convection. This sets the minimum
+       pressure in Pa (i.e. maximum height) at which to test for the initiation
+       of mid level convection. The basic assumptions used by the convection
+       scheme will be invalid outside of the troposphere and using this option
+       it is possible to prevent convection occurring at too high a level.
+       Setting the minimum pressure to 0.0 allows mid-level convection to
+       initiate from any height and will replicate the behaviour of earlier
+       versions of the convection scheme. A value of 10000.0 is recommended 
+       to prevent mid-level convection initiating outside of the troposphere.
+
+ (xi)    Sub cloud mixing method (4A and 5A) - alternative methods of
+       mixing the convective increments below cloud base.
+          
+	     0 - original mixing. Mixes the convective temperature and humidity
+                 increments from all sources below cloud base such that the total
+                 convective increments are constant between the surface and the LCL.
+	     1 - mix the initial perturbation increment only. Only the temperature
+                 and humidity increments from the initial parcel perturbation are 
+                 mixed between the surface and the LCL. The increments from other 
+                 convective sources (i.e. downdraughts, evaporation of precipitation
+                 and updraught compensating subsidence) are not mixed.
+
+ (xii)   Limit initial parcel perturbations options. This limits the initial parcel 
+       perturbations in temperature and humidity to physically sensible values in 
+       both the main ascent and the convection diagnosis.
+
+             0 - no limits applied.
+             1 - apply limits to main ascent only.
+             2 - apply limits to main ascent and to the convection diagnosis.
+       
+ (xiii)  Use new termination condition for deep and mid-level convection.
+       This is an improved method for terminating the convection and is
+       recommended for use. It will tend to give deeper convection.
+   
+ (xiv)  Water Loading Option. This sets how water loading is  included in 
+        the convection scheme.
+
+    0 - Ignore the effects of water loading (default). When this option is 
+        selected, the rate of change of CAPE calculation assumes that all 
+        the detrained condensate is immediately evaporated even when PC2 is 
+        switched on.
+    1 - Include the effects of water loading in the calculation of buoyancy, 
+        CAPE and the rate of change of CAPE.
+   
+   
+ (xv)  Include convective history prognostics.
+       Do not switch this on as it adds to the memory used by the model but 
+       will not change answers at present. This switch is for development use 
+       only at present. It adds 3 extra prognostic variables to the dump to 
+       store information about the history of convection on previous time steps. 
+       The convection scheme may be developed to make use of this information 
+       in the future. 
+       
+
+Options for 5A scheme only:
+---------------------------
+ (i)    Shallow convection options for 5A scheme;
+
+             0 - no shallow convection
+             1 - mass flux scheme
+             2 - new non-precipitating shallow turbulence scheme
+             3 - new precipitating shallow turbulence scheme
+             4 or above for future use.
+       
+ (ii)   Congestus convection
+   
+             0 - no congestus   (Only option at present)
+             1 - future mass flux scheme ?  NOT AVAILABLE
+             2 - future turbulence based scheme ? NOT AVAILABLE
+
+ (iii)  Deep convection
+   
+             0 - no deep convection (may be of use at high resolution)
+             1 - Mass flux scheme like 4A scheme
+             2 - for future turbulence scheme ? NOT AVAILABLE
+       
+ (iv)   Mid-level convection
+       
+             0 - no call to mid-level convection
+             1 - Gregory-Rowntree mass flux scheme
+             2 - for future use.
+
+Options for 6A scheme only:
+---------------------------
+ (i) Method for calculating forced detrainment rate. This sets whether the 
+     forced detrainment rate is calculated using 
+             0 the humidity equation or 
+             1 the theta equation. 
+
+In practice the differences are small but not negligible.
+
+
+(4) Efficiency, optimisation and memory issues.
+------------------------------------------------
+
+(i) Segmentation
+    Convection is done in blocks of grid-points known as segments. 
+    One may choose either the number of segments to use, or the size
+    of segment. In making a choice the following need to be considered,
+    * OpenMP parallelisation is over segments, so the number of threads
+      should be the minimum for the number of segments.
+    * Vector machines will typically be more efficient with smaller 
+      numbers of threads in order to maximise the vector length.
+    * Scalar machines will usually need the size of segment tuned to
+      fit well in the cache hierarchy. This will need experimentation.
+
+    Note that if the segment size is specified this will be fixed 
+    independently of decomposition. This is not the case if the 
+    number of segments is specified.
+
+(ii) Convection option - 
+    Time level n* data, increments not advected is the only option available
+    and should be set.
+    
+(iii) Number of calls per timestep
+
+ This allows the timestep used for the convection scheme to be reduced
+ relative to the rest of the model. Note that sub-timestepping is NOT
+ the same as iteration. A 10 minute sub-timestep for convection seems
+ to work well. This typically means 3 calls per timestep for the climate
+ model and 2 for the operational model.
+
+6A code 
+------------ 
+The 6A convection code is used as a development version and you are advised to  
+contact the code owner before using it. In addition to the 5A mass flux schemes,  
+the 6A code also contains experimental turbulence-based convection schemes(TCS).   
+Currently the options for the 6A scheme are the same as those for the 5A scheme.   
+
+To use the warm precipitating TCS change the following default values: 
+Convective diagnosis method = 1 
+Shallow convection = 4 
+Congestus convection = 1 
+	 
+Various other combinations exist, but please consult the code owner for these. 
+
+
+---------------------------------------------------------------------
+%I compile_modes

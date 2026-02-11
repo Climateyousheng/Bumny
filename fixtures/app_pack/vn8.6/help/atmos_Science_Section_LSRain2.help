@@ -1,0 +1,164 @@
+  USE GENERIC ICE PARTICLE SIZE DISTRIBUTION
+  ------------------------------------------
+  This code uses the idea of a generic ice particle size distribution
+  (PSD) to calculate the microphysical transfer rates between ice and
+  other water species. Only one ice species is assumed (aggregates), 
+  and the transfers are calculated via calculation of the moments of
+  the PSD.
+
+  Two methods are available for calculation of the ice particle size
+  distribution. Upon selection of the generic ice PSD, the choice will
+  default to the mid-latitude version (Field et al,
+  2005. Parametrization of ice-particle size distributions for
+  mid-latitude stratiform cloud. Quart. J. Royal Meterol. Soc., 131, 
+  pp 1997-2017). 
+  
+  Changing the selection to Global version with the
+  "Choose generic ice p.s.d. version" button will change the
+  calculation to that based on a global data set (Field et al, 2007. 
+  Snow Size Distribution Parameterization for Midlatitude and Tropical 
+  Ice Clouds. J. Atmos. Sci., 64, pp 4346-4365). 
+
+  The first option is more suitable for the mid-latitude and UK-based
+  simulations, while the second option should be more relevant for 
+  Hadley centre and global NWP models. 
+
+  Split ice fallspeeds allows two fallspeed-diameter relations
+  to be use with the Generic ice PSD. One relation
+  applies to small ice particles (crystals) and the other to larger
+  ones (aggregates). The two relations are of the form c*D^d,
+  where D is the diameter and c and d are constants. The mass-weighted
+  mean fallspeed of ice (Vm) in each gridbox is computed using whichever
+  fallspeed relation gives the least value of Vm, this will depend
+  on the gridbox in-cloud IWC and temperature.
+
+  l_diff_icevt: This change allows for two different ice fall speeds, one for
+  small ice and one for larger ice dependent on the ice mass. It works particularly
+  well with the Generic Ice PSD.
+  cic_input: When two different ice fall speeds are used, this is a parameter
+  used to specify the fallspeed of the small crystals.
+  dic_input: When two different ice fall speeds, this is a parameter
+  used to specify the fallspeed of the small crystals.
+  ci_input: When two different ice fall speeds are used, this is a parameter
+  used to specify the fallspeed of the large crystals.
+  di_input: When two different ice fall speeds, this is a parameter
+  used to specify the fallspeed of the large crystals.
+
+  INCLUDE HALLETT-MOSSOP PROCESS
+  ------------------------------
+  This switch turns on the process of generating ice particles
+  (sometimes known as 'Rime Splintering') according to the Hallett-Mossop 
+  process. Between temperatures of -3 and -8 degrees Celsius, collisions 
+  between ice crystals and water (riming) are shown to produce a number of 
+  small crystals (i.e. frozen ice splinters) when water droplets freeze on 
+  impact. Switching on this option will produce more ice crystals in the UM. 
+  Reference: Hallett, J. and Mossop, S. C. 1974. Production of secondary ice 
+  particles during the riming process. Nature, 249, 26\u201328.
+
+
+  SHARE SUPERSATURATION BETWEEN CRYSTALS AND AGGREGATES
+  -----------------------------------------------------
+  Both depositional growth by the ice crystal category and depositional
+  growth by the aggregate category can deplete the supersaturation. When
+  this switch is active the amount of supersaturation that each ice
+  category can deplete is equal to the overall supersaturation multiplied
+  by the fraction of ice mass that is in each category. Hence the
+  supersaturation cannot be completely depleted twice over.
+
+  SHARE SUPERSATURATION BETWEEN CRYSTALS AND AGGREGATES
+  -----------------------------------------------------
+  This option limits the amount of supersaturation that can removed by the
+  each of the deposition terms (aggregates and crystals) to a fraction of
+  the supersaturation given by the ratio of the mass of each ice category
+  (aggregates or crystals) to the total mass of ice. Unmodified, both of
+  these ice categories could each remove all the supersaturation,
+  resulting in an equivalent subsaturation being generated and the model
+  relative humidity oscillating between timesteps. This behaviour has been
+  identified in the single column model with larger timesteps but has not
+  been seen to be a real issue in terms of results for the three-
+  dimensional models.
+
+  ALLOW SNOW-RAIN COLLISIONS TO PRODUCE GRAUPEL
+  ---------------------------------------------
+  This option is only available when prognostic graupel is switched on.
+
+  When this switch is on, collisions betwee snow and rain are allowed to
+  form graupel, according to the following table:
+
+    ICE TYPE          RAIN MIXING RATIO     COLLISION RESULTS IN
+    CRYSTALS           > 1.0E-4 KG/KG           CRYSTALS
+    CRYSTALS           < 1.0E-4 KG/KG           CRYSTALS
+    SNOW AGGREGATES    > 1.0E-4 KG/KG           GRAUPEL
+    SNOW AGGREGATES    < 1.0E-4 KG/KG           SNOW AGGREGATES
+
+  When the generic ide PSD is switched on, the mean diameter of the 
+  particles is used to determine whether the collision results in ice
+  aggregates or graupel.  If the mean diameter of water is larger, then
+  graupel particles will be formed.  Otherwise the result of the collision
+  will be an increase in the mixing ratio of aggregates.
+
+  When the option is switched off, then a collision between rain and
+  crystals produces crystals and similarly, a collision between rain
+  and aggregates forms aggregates.
+
+
+  SPECIFY ICE PARTICLE MASS-DIAMETER RELATIONSHIP
+  -----------------------------------------------
+  This allows the explicit input of ice particle mass diameter
+  relationships. The user can either select the default values (listed
+  below) or can specify their choice explicitly (for example the
+  recommended Brown and Francis sizes for the generic ice PSD need to be
+  selected explicitly).
+
+  Variable	3B          3C or 3D       Recommended generic ice PSD
+  AI		6.9E-2      0.0444         1.85E-2
+  BI		2.0         2.1            1.9
+  AIC		6.9E-2      0.587          1.85E-2
+  BIC           2.0         2.45           1.9
+
+  
+  SPECIFY ICE PARTICLE BEST-REYNOLDS RELATIONSHIP
+  -----------------------------------------------
+  This allows the explicit input of ice particle Best number-Reynolds number
+  relationships. The user can either select the default values (listed
+  below) or can specify their choice explicitly. When using the Brown and 
+  Francis ice density (See section entitled 'Specify ice particle mass-diameter
+  relationship ' above), you are recommended to use the Mitchell (1996) Re-X values
+  (listed in the table below).
+
+  Variable            Default (3B,3C,3D)          Mitchell (1996)
+  LSP_EIC             0.2072                      0.06049                     
+  LSP_FIC             0.6380                      0.8310
+
+
+  MAXIMUM ICE NUCLEATION TEMPERATURE (Celsius)
+  -------------------------------
+ 
+  This variable is the temperature at which heterogeneous nucleation of
+  ice first starts to form in the model. See UMDP26 for details. Although
+  ice can exist at temperatures warmer than this value, it is not created
+  until the temperature reaches this value. The default value in many UM
+  configurations is -10 C. Changing the maximum ice nucleation temperature
+  to values colder than this figure will reduce the amount of ice present.
+  Changing the maximum ice nucleation temperature to values warmer than this
+  should increase the ice present in the model run.
+
+
+  AXIAL RATIOS
+  ------------------------------
+  It is possible to change the assumed axial ratios for both ice crystals
+  and aggregates in the UM. This impacts the shape of the ice crystals,
+  which in turn is fed through to the ice processes of
+  deposition/sublimation (growth from and decay to and water vapour) and
+  melting. No other ice processes are affected. Values can be selected as
+  follows:
+  Above     1.0 : Prolates (Vertical axis longer than the horizonal axis)
+  Equal to  1.0 : Spheres (Default in most UM configurations)
+  Less than 1.0 : Oblate (Horizontal axis longer than vertical axis)
+  The maximum value of the axial ratio that should be selected in the UM is
+  10.0 and the minimum value is 0.01. 
+
+ 
+-------------
+%I compile_modes
+

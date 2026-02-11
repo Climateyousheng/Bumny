@@ -1,0 +1,114 @@
+Use neighbouring sea point wind speeds in coastal grid points
+--------------------------------------------------------------
+Recommended for HadGEM3 onwards: the wind speed over the sea part of
+coastal grid-boxes is taken from the surrounding sea points, rather than
+using the coastal grid-box mean wind speed.  The wind speed over the
+land part is adjusted to maintain the grid-box mean.
+
+Anthropogenic Heat Source
+-------------------------
+Anthropogenic Heat Source will add a seasonal dependent amount
+to the surface heat fluxes (Wm-2) in urban tiles. Values are derived
+for Northern Hemisphere mid latitude cities, so its scope is limited to
+these regions.
+
+Opting to use fractional snow cover for sublimation and melting
+introduces a factor (1-exp(-MASKD*SNOW)), which is taken to be the
+fraction of snow cover.  This factor is ~1 when SNOW is big
+(i.e. assume large fractional cover for large snow areal density),
+and ~0 when SNOW is small.
+
+In SF_RESIST, this factor is used to reduce the fraction of the tile
+evaporating with aerodynamic resistance only (previously 1 for snowy
+tiles).  In SF_MELT, this factor is used to reduce the amount of
+snowmelt by allowing the tile surface temperature to remain above
+freezing after melt has taken place, thus less energy is used for
+melting, thus there is less melting.
+
+This factor is also used in TILE_ALBEDO to calculate land-surface
+albedo, BUT that usage is NOT controlled by this switch. However, the
+value of MASKD (masking depth) that is set here IS the one used in the
+albedo calculation.
+
+This option is switched by the integer FRAC_SNOW_SUBL_MELT (0 or 1).
+
+When the surface temperature gets warm on snow covered surfaces, the 
+excess heat is used to melt snow rather than raise the temperature 
+above the freezing point.  As standard this is applied as a correction 
+after the implicit solution of the coupling between the surface and 
+lowest model level.  Under rare circumstances this has been found to 
+cause model stability problems.  These can be ameliorated by the option 
+to "Use an additional iteration in the implicit solver for melting snow".  
+
+MASKD has a default value of 0.2 .
+
+Global versions of the UM have always assumed a land surface emissivity of unity. 
+Recently, NAE and UK4 models have started using a value of 0.97 operationally which is a more 
+representative value for the U.K area (as derived from MODIS satellite data). This change allows 
+the user to specify a value between 0.0 and 1.0 and is a first step to allowing a land surface 
+emissivity that varies on tiles (longer term goal).
+
+Method for treatment of canopy radiation (CAN_RAD_MOD)
+  1) Beer's law for light penetration and "big leaf" for scaling
+  leaf to canopy scale photosynthesis.
+  
+  2) Multi-layer approach for both radiation interception (2-
+  stream approach of Sellers et al., 1992) and canopy
+  photosynthesis.
+
+Number of layers for canopy radiation (ILAYERS) >= 1
+  Only used if CAN_RAD_MOD=2. These layers are used for the calculations of 
+  radiation interception and photosynthesis. 
+  
+Method for treatment of soil hydraulics (L_VG_SOIL) [4]
+  .FALSE. Use Clapp and Hornberger soil hydraulics
+  .TRUE.  Use van Genuchten soil hydraulics
+  
+CALCULATIONS ON ALL TILES
+This forces the model to calculate the surface-energy balance on all
+tiles at every land point, even when the fractions of some tiles are
+zero. This option has been added to facilitate site-specific
+post-processing applications, and is otherwise not required.
+
+
+Orographic stress scheme 
+------------------------  
+The  turbulent   form  drag  due  to  sub-grid   hills  can  be
+parametrized via:
+
+(1) an effective roughness length 
+    (Wood and Mason, 1993, QJRMS 119, pp 1233-1267) or
+(2) a distributed form drag approach 
+    (Wood et al. 2001, QJRMS 127, pp 759-777).
+
+The total  parametrized drag in both  cases is very similar  but the two
+approaches differ in the way the  drag is applied. In (1) the vegetative
+roughness lengths are increased in order  to account for the drag due to
+the sub-grid hills whereas in (2)  an additional stress term is added to
+the  equations. This orographic  stress decays  with height  through the
+boundary  layer  and   is  represented  as  an  explicit   term  in  the
+boundary-layer solver.  Note that one advantage of  the distributed form
+drag approach  is that scalar  transport is relatively  unaffected since
+the  roughness length  remains at  its vegetative  value.  The low-level
+winds may also be improved.
+
+From version 7.1 onwards the orographic form drag coefficient can be set.
+The default value is 0.3 and larger (smaller) values will increase (decrease)
+the drag exerted by sub-grid scale hills.
+
+Also see help panels on surface ancillary files:
+Soil moisture and snow depth
+Deep soil temperature
+Soil: VSMC, hydrological/thermal conductivity etc
+Effective vegetation parameters
+
+References:
+[1] Sellers, P. et al., 1992, Remote Sens. Environ., 42: 187-216.
+[2] Jogireddy, V.R. et al., 2006, Hadley Centre technical note 63.
+	Available from
+	http://www.metoffice.gov.uk/research/hadleycentre/pubs/HCTN/index.html
+[3] Mercado, L.M., et al., 2007, Tellus, 59B 553-565
+[4] See Appendix and references therin of:
+        New soil physical properties implemented in the Unified Model at PS1
+	I Dharssi, P L Vidale, A Verhoef, B Macpherson, C Jones and M Best
+	Met R&D Technical Report 528, 2008.

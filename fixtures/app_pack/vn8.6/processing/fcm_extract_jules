@@ -1,0 +1,21 @@
+%C---------------------------------------------------------------------
+%C  File:  fcm_extract_jules
+%C---------------------------------------------------------------------
+%C
+%C  Purpose: Generates FCM_EXTRACT_JULES_CFG, which provides the JULES base repository
+%C           
+%C
+%C  Include files:
+%C
+%C---------------------------------------------------------------------
+#---------------------------------------------------------------------
+# Script: FCM_EXTRACT_JULES_CFG
+# Purpose: Provides additional source information for JULES base extract
+#         
+# Created from UMUI vn%VERSION
+#---------------------------------------------------------------------  
+
+# Add mirror command to use 
+# ----------------------------------
+%I fcm_extract_config
+

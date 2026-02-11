@@ -1,0 +1,174 @@
+<M001_S013_I181>
+
+Item: (1:13:181)
+Text:
+Increment to temperature from section 13 - diffusion and divergence damping
+
+</M001_S013_I181>
+#
+<M001_S013_I182>
+
+Item: (1:13:182)
+Text:
+Increment to q from section 13 - diffusion and divergence damping
+
+
+</M001_S013_I182>
+#
+<M001_S013_I185>
+
+Item: (1:13:185)
+Text:
+Increment to u wind from section 13 - diffusion and divergence damping
+</M001_S013_I185>
+#
+<M001_S013_I186>
+
+Item: (1:13:186)
+Text:
+Increment to v wind from section 13 - diffusion and divergence damping
+
+</M001_S013_I186>
+#
+<M001_S013_I190>
+Item: (1:13:190)
+
+The vector diffusion coefficient obtained from the Smagorinsky-type subgrid 
+turbulence scheme.  This is only available if the 3D subgrid turbulence scheme
+is switched on. 
+
+</M001_S013_I190>
+#
+<M001_S013_I191>
+Item: (1:13:191)
+
+The scalar diffusion coefficient obtained from the Smagorinsky-type subgrid 
+turbulence scheme.  This is only available if the 3D subgrid turbulence scheme
+is switched on. 
+
+</M001_S013_I191>
+#
+<M001_S013_I192>
+Item: (1:13:192)
+
+The diffusion coefficients from the subgrid turbulence scheme are a product of a 
+shear term, a mixing length and a stability function.  This diagnostic is the 
+shear term.  This is only available if the 3D subgrid turbulence scheme is switched 
+on.
+
+</M001_S013_I192>
+#
+<M001_S013_I193>
+Item: (1:13:193)
+
+The diffusion coefficients from the subgrid turbulence scheme are a product of a 
+shear term, a mixing length and a stability function.  This diagnostic is the 
+mixing length term.  This is only available if the 3D subgrid turbulence scheme is 
+switched on.
+
+</M001_S013_I193>
+#
+<M001_S013_I194>
+Item: (1:13:194)
+
+The diffusion coefficients from the subgrid turbulence scheme are a product of a 
+shear term, a mixing length and a stability function.  This diagnostic is the 
+stability function Fm, which is calculated in the boundary layer scheme and used 
+in the diagnosis of the vector diffusion coefficient.  
+This is only available if the 3D subgrid turbulence scheme is switched on.
+
+
+</M001_S013_I194>
+#
+<M001_S013_I195>
+Item: (1:13:195)
+
+The diffusion coefficients from the subgrid turbulence scheme are a product of a 
+shear term, a mixing length and a stability function.  This diagnostic is the 
+stability function Fh, which is calculated in the boundary layer scheme and used 
+in the diagnosis of the scalar diffusion coefficient.  
+This is only available if the 3D subgrid turbulence scheme is switched on.
+
+
+</M001_S013_I195>
+#
+<M001_S013_I196>
+Item: (1:13:196)
+
+The local mixing coefficient Km (multiplied by density) from the boundary layer 
+scheme
+
+
+</M001_S013_I196>
+#
+<M001_S013_I197>
+Item: (1:13:197)
+
+The local mixing coefficient Kh (multiplied by density) from the boundary layer 
+scheme
+
+
+</M001_S013_I197>
+#
+<M001_S013_I201>
+Item (1:13:201) 
+
+Indicator of local q diffusion
+
+
+</M001_S013_I201>
+#
+<M001_S013_I381>
+Item: (0:13:381)
+
+T increment from filtering code.
+</M001_S013_I381>
+#
+<M001_S013_I385>
+Item: (0:13:385)
+
+U increment from filtering code.
+</M001_S013_I385>
+#
+<M001_S013_I386>
+Item: (0:13:386)
+
+V increment from filtering code.
+</M001_S013_I386>
+#
+<M001_S013_I387>
+Item: (0:13:387)
+
+W increment from filtering code.
+</M001_S013_I387>
+#
+<M001_S013_I388>
+Item: (0:13:388)
+
+Exner increment from filtering code.
+</M001_S013_I388>
+#
+<M001_S013_I481>
+Item: (0:13:481)
+
+T increment from increment filtering code.
+</M001_S013_I481>
+#
+<M001_S013_I485>
+Item: (0:13:485)
+
+U increment from increment filtering code.
+</M001_S013_I485>
+#
+<M001_S013_I486>
+Item: (0:13:486)
+
+V increment from increment filtering code.
+</M001_S013_I486>
+#
+<M001_S013_I487>
+Item: (0:13:487)
+
+W increment from increment filtering code.
+</M001_S013_I487>
+#

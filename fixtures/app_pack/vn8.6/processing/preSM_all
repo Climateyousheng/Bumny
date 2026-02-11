@@ -1,0 +1,54 @@
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C Atmos/Ocean/Slab user-preSTASHmaster file:
+%TCL
+%C user_count set to 0 in top, to allow for non-atmos runs.
+%C get_variable_* used rather than %NOTATION to allow it to be generic
+  if { [ get_variable_value USERPRE_$model_letter ] == "Y" } {
+    set output_list {}
+    set files [ get_variable_array USERLST_$model_letter ]
+    foreach file $files {
+      set icode [ file readable $file ]
+      if { $icode == 0 } {
+       # unexpected EOF found
+       error "Stopping: preSTASHmaster file <$file> does not exists or is not readable"
+      }
+      set file_id [ open $file r ]
+      set item 1
+      while { $item > 0 } {
+        set icode [ gets $file_id line ]
+        if { $icode == -1 } {
+          # unexpected EOF found
+          close $file_id
+          error "Unexpected EOF in preSTASHmaster file: $file"
+        } 
+        set firstchar [string range $line 0 0 ]
+        if { $firstchar == "1"  } {
+          set item [expr [string range $line 16 21]]
+          if { $item > 0 } {
+            incr user_count
+          } else { 
+            break 
+          }
+        }
+        if { $firstchar == "1"  } {
+           lappend output_list "#" 
+        }
+        if { ($firstchar != "#" ) && ($firstchar != "H" ) } {
+           lappend output_list $line 
+        }
+      } ; # end while { $item != 0 } 
+      close $file_id
+    } ; # end foreach file $files
+    putl "[format %%3i $user_count] RECORDS in this file."
+    if {[llength $output_list]>0} {
+      foreach line $output_list {
+        putl $line
+      }
+      putl "# end of file"
+      unset line output_list
+    }
+  } else {
+    # no user-preSTASHmaster files
+    putl "  0 RECORDS in this file."
+  }
+%ENDTCL

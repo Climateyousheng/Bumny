@@ -1,0 +1,35 @@
+0  Prognostic variables at the end of the time-step.
+1  S.W Radiation.
+2  L.W Radiation.
+3  Boundary Layer/Surface.
+4  Large-Scale Precipitation.
+5  Convection.
+6  Gravity Wave drag.
+7  Vertical diffusion.
+8  Hydrology.
+9  Cloud scheme.
+10 Adjustment.
+11 Tracer Advection.
+12 Primary field advection.
+13 Diffusion and filtering.
+14 Energy adjustment.
+15 Processed dynamics diags.
+16 Processed physics diags.
+17 CLASSIC Aerosols.
+18 Data assimilation.
+19 Vegetation.
+20 Field Calc Diagnostic
+21 Thunderstorm Electrification diags.
+26 River Routing
+30 Processed Climate diagnostics
+31 LBC fields for input (ie. by a LAM model)
+32 LBC fields for output.
+33 Atmospheric Tracers
+34 UKCA Chemistry
+35 Stochastic Physics
+36 Tracer LBCs
+37 UKCA LBCs
+38 UKCA Diagnostics
+39 Nudging Diagnostics
+44 Non-UM Diagnostics
+50 UKCA chemical diagnostics

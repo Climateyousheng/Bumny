@@ -1,0 +1,321 @@
+ ### Start of CX fields macro for the global model ###
+%T if { %OPSINTM == 1 } {
+%T set TopLev %NLEVSA
+%T set TopWetLev %NWLEVA
+%T set j 0
+%T set outtimes {}
+%T for {set counter  1} {$counter <= %CXTIMES} {incr counter 1} {
+%T   set value %CXOUTTIME($counter)
+%T   lappend outtimes $value
+%T   if {$value==0} {set j 1}
+%T }
+%T if {$j != 1 } {
+
+%TCL putl " &STASHNUM NUM_REQ= 17, NUM_DOM=5,  NUM_TIM=3, NUM_USE=1 /  " %ENDTCL
+%TCL putl "" %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=2, IDOM=2, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=3, IDOM=2, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=4, IDOM=3, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=10, IDOM=4, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=24, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=30, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=31, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=33, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=254, IDOM=4, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=407, IDOM=5, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=409, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=209, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=210, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=236, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=245, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=247, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=16, ITEM=222, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+
+%T } elseif {%CXTIMES==1} {
+
+%TCL putl " &STASHNUM NUM_REQ= 17, NUM_DOM=5,  NUM_TIM=2, NUM_USE=1 /   " %ENDTCL
+%TCL putl "" %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=2, IDOM=2, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=3, IDOM=2, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=4, IDOM=3, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=10, IDOM=4, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=24, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=30, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=31, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=33, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=254, IDOM=4, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=407, IDOM=5, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=409, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=209, IDOM=1, ITIM=2, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=210, IDOM=1, ITIM=2, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=236, IDOM=1, ITIM=2, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=245, IDOM=1, ITIM=2, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=247, IDOM=1, ITIM=2, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=16, ITEM=222, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+
+%T } else {
+
+%TCL putl " &STASHNUM NUM_REQ= 34, NUM_DOM=5,  NUM_TIM=3, NUM_USE=1 /   " %ENDTCL
+%TCL putl "" %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=2, IDOM=2, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=2, IDOM=2, ITIM=2, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=3, IDOM=2, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=3, IDOM=2, ITIM=2, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=4, IDOM=3, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=4, IDOM=3, ITIM=2, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=10, IDOM=4, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=10, IDOM=4, ITIM=2, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=24, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=24, IDOM=1, ITIM=2, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=30, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=30, IDOM=1, ITIM=2, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=31, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=31, IDOM=1, ITIM=2, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=33, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=33, IDOM=1, ITIM=2, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=254, IDOM=4, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=254, IDOM=4, ITIM=2, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=407, IDOM=5, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=407, IDOM=5, ITIM=2, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=409, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=0, ITEM=409, IDOM=1, ITIM=2, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=209, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=209, IDOM=1, ITIM=3, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=210, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=210, IDOM=1, ITIM=3, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=236, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=236, IDOM=1, ITIM=3, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=245, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=245, IDOM=1, ITIM=3, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=247, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=3, ITEM=247, IDOM=1, ITIM=3, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=16, ITEM=222, IDOM=1, ITIM=1, IUSE=1 /  " %ENDTCL
+%TCL putl " &STREQ IMOD= 1, ISEC=16, ITEM=222, IDOM=1, ITIM=2, IUSE=1 /  " %ENDTCL
+
+%T }
+%T unset j
+
+%T if {%CXTIMES >= 1} {
+%T   set myoutlist {}
+%T   foreach item $outtimes {
+%T     if {$item != 0} {
+%T       lappend myoutlist $item,
+%T     }
+%T   }
+%T   set len_myoutlist [llength $myoutlist]
+%T   if {$len_myoutlist >= 1} {
+%TCL putl " &TIME NAME=\"CxTimes\", ITYP=1"            %ENDTCL
+%TCL putl " IOPT=2,"                                   %ENDTCL
+%TCL putl " ITIMES=$len_myoutlist,UNT3=\"%CXUNITS \"," %ENDTCL
+%TCL putl " ISER= $myoutlist"                          %ENDTCL
+%TCL putl " /"                                      %ENDTCL
+%T   }
+%T }
+
+ &TIME NAME="TS0", ITYP=1
+ IOPT=2,
+ ITIMES=1,UNT3="T ",
+ ISER=0,
+ /
+
+ &TIME NAME="TS1", ITYP=1
+ IOPT=2,
+ ITIMES=1,UNT3="T ",
+ ISER=1,
+ /
+
+ &DOMAIN NAME="Single", IOPL=5
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &DOMAIN NAME="M_rho", IOPL=1
+ ILEVS=1,
+ LEVB=1,
+%TCL putl " LEVT=$TopLev," %ENDTCL
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &DOMAIN NAME="M_theta", IOPL=2
+ ILEVS=1,
+ LEVB=1,
+%TCL putl " LEVT=$TopLev," %ENDTCL
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &DOMAIN NAME="M_q", IOPL=2
+ ILEVS=1,
+ LEVB=1,
+%TCL putl " LEVT=$TopWetLev," %ENDTCL
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &DOMAIN NAME="M_p", IOPL=1
+ ILEVS=1,
+ LEVB=1,
+%T set tlplus1 [expr $TopLev +1]
+%TCL putl " LEVT=$tlplus1," %ENDTCL
+%T unset tlplus1
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &USE NAME="cx102", LOCN=3
+ IUNT=102,
+ /
+%T } elseif { %OPSINTM != 0 } {
+%T
+%T   set TopLev    %NLEVSA
+%T   set TopWetLev %NWLEVA
+%T
+%T   # Convert CX times into timesteps:
+%T   set ts_per_hr [expr %ATPP / (24 * %AHPP)]
+%T   set cxtimes_ts {}
+%T   for {set counter 1} {$counter <= %CXTIMES} {incr counter 1} {
+%T     set time %CXOUTTIME($counter)
+%T     if { %CXUNITS == "T" } {
+%T       lappend cxtimes_ts $time
+%T     } else {
+%T       set ts [expr $time * $ts_per_hr]
+%T       lappend cxtimes_ts $ts
+%T     }
+%T   }
+%T
+%T   # Create output times list for fields in sections 0, 15 or 16:
+%T   set cxtimes_list_ts {}
+%T   foreach ts $cxtimes_ts {
+%T     lappend cxtimeslist_ts $ts,
+%T   }
+%T
+%T   # Create output times list for fields NOT in sections 0, 15 or 16:
+%T
+%T   # Default:
+%T   set cxtimeslist_ts_phys $cxtimeslist_ts
+%T
+%T   # Override:
+%T   if { %ATMOS_SR(18) != "0A" && %AAS_IAU == "Y" } {
+%T
+%T     set anal_min  %AASMDEF
+%T     set anal_ts        [expr (%AASMDEF / 60.00) * $ts_per_hr]
+%T     set anal_ts_plus_1 [expr (%AASMDEF / 60.00) * $ts_per_hr + 1]
+%T     set anal_ts [expr int($anal_ts)]
+%T     set anal_ts_plus_1 [expr int($anal_ts_plus_1)]
+%T
+%T     # If the IAU scheme is being used to add a complete increment at the
+%T     # nominal analysis time, fields not in sections 0, 15 or 16 that are
+%T     # being written at the analysis time should be written one timestep
+%T     # later so they see the influence of the increment:
+%T     if { %ASM_IAUSTR == %ASM_IAUEND && %ASM_IAUSTR == $anal_min } {
+%T       set cxtimeslist_ts_phys {}
+%T       foreach ts $cxtimes_ts {
+%T         if { $ts == $anal_ts } {
+%T           lappend cxtimeslist_ts_phys $anal_ts_plus_1,
+%T         } else {
+%T           lappend cxtimeslist_ts_phys $ts,
+%T         }
+%T       }
+%T     }
+%T   }
+
+
+ &STASHNUM NUM_REQ= 17, NUM_DOM=5,  NUM_TIM=2, NUM_USE=1 /
+
+ &STREQ IMOD= 1, ISEC=0, ITEM=2, IDOM=2, ITIM=1, IUSE=1 /
+ &STREQ IMOD= 1, ISEC=0, ITEM=3, IDOM=2, ITIM=1, IUSE=1 /
+ &STREQ IMOD= 1, ISEC=0, ITEM=4, IDOM=3, ITIM=1, IUSE=1 /
+ &STREQ IMOD= 1, ISEC=0, ITEM=10, IDOM=4, ITIM=1, IUSE=1 /
+ &STREQ IMOD= 1, ISEC=0, ITEM=24, IDOM=1, ITIM=1, IUSE=1 /
+ &STREQ IMOD= 1, ISEC=0, ITEM=30, IDOM=1, ITIM=1, IUSE=1 /
+ &STREQ IMOD= 1, ISEC=0, ITEM=31, IDOM=1, ITIM=1, IUSE=1 /
+ &STREQ IMOD= 1, ISEC=0, ITEM=33, IDOM=1, ITIM=1, IUSE=1 /
+ &STREQ IMOD= 1, ISEC=0, ITEM=254, IDOM=4, ITIM=1, IUSE=1 /
+ &STREQ IMOD= 1, ISEC=0, ITEM=407, IDOM=5, ITIM=1, IUSE=1 /
+ &STREQ IMOD= 1, ISEC=0, ITEM=409, IDOM=1, ITIM=1, IUSE=1 /
+ &STREQ IMOD= 1, ISEC=3, ITEM=209, IDOM=1, ITIM=2, IUSE=1 /
+ &STREQ IMOD= 1, ISEC=3, ITEM=210, IDOM=1, ITIM=2, IUSE=1 /
+ &STREQ IMOD= 1, ISEC=3, ITEM=236, IDOM=1, ITIM=2, IUSE=1 /
+ &STREQ IMOD= 1, ISEC=3, ITEM=245, IDOM=1, ITIM=2, IUSE=1 /
+ &STREQ IMOD= 1, ISEC=3, ITEM=247, IDOM=1, ITIM=2, IUSE=1 /
+ &STREQ IMOD= 1, ISEC=16, ITEM=222, IDOM=1, ITIM=1, IUSE=1 /
+
+ &TIME NAME="CxTS", ITYP=1
+ IOPT=2,
+%TCL putl " ITIMES=%CXTIMES,UNT3=\"T \"," %ENDTCL
+%TCL putl " ISER=$cxtimeslist_ts" %ENDTCL
+ /
+
+ &TIME NAME="CxTSphys", ITYP=1
+ IOPT=2,
+%TCL putl " ITIMES=%CXTIMES,UNT3=\"T \"," %ENDTCL
+%TCL putl " ISER=$cxtimeslist_ts_phys" %ENDTCL
+ /
+
+ &DOMAIN NAME="Single", IOPL=5
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &DOMAIN NAME="M_rho", IOPL=1
+ ILEVS=1,
+ LEVB=1,
+%TCL putl " LEVT=$TopLev," %ENDTCL
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &DOMAIN NAME="M_theta", IOPL=2
+ ILEVS=1,
+ LEVB=1,
+%TCL putl " LEVT=$TopLev," %ENDTCL
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &DOMAIN NAME="M_q", IOPL=2
+ ILEVS=1,
+ LEVB=1,
+%TCL putl " LEVT=$TopWetLev," %ENDTCL
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &DOMAIN NAME="M_p", IOPL=1
+ ILEVS=1,
+ LEVB=1,
+%T set tlplus1 [expr $TopLev +1]
+%TCL putl " LEVT=$tlplus1," %ENDTCL
+%T unset tlplus1
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &USE NAME="cx102", LOCN=3
+ IUNT=102,
+ /
+
+%T }
+%T unset TopLev TopWetLev
+ ### End of CX fields macro for the global model ###

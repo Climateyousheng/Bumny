@@ -1,0 +1,32 @@
+Window: atmos_InFiles_PAncil_SootEmis 
+
+
+Ancillary files
+---------------
+ * Ancillary file header record maximum size must be set to >1000  
+    (In file related options) 
+
+
+Emissions 
+---------
+Soot emissions should be provided on an ancillary file.
+Details of appropriate ancillary files can be obtained from Luke Robinson
+(lmrobinson) or David Roberts (dlroberts).
+
+Soot emissions ancillary files:
+Surface level emissions: Fossil fuel emissions only
+                         Both fossil fuel and biomass burning emissions
+A high level fossil fuel emissions ancillary field will be prepared some time.
+For the moment, do not use high level soot emissions.
+
+Note:
+   * The pathname of a file on the host machine should be given. 
+   * Single time fields may be read into the reconfiguration, or 
+     fields may be updated during the run. The ancillary file should contain
+     all fields for the first valid time (e.g. January), followed by all fields 
+     for the next valid time (e.g. February) etc.  
+   * Fields should be specified as Not Used if they have not been requested in 
+     the main soot window.
+   * Use the SOOT button to return to the main soot window.
+
+%I ancill_gen

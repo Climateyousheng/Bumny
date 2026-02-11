@@ -1,0 +1,120 @@
+ ### Start of LS fields macro for mesoscale models ###
+%T if { %VARINTM == 1} {
+%T   set nat [expr %AASMDEF / 60.00]
+%T   if {%OCAAA == 1 } {
+%T     set dap 6
+%T   } else {
+%T     set dap 3
+%T   }
+%T   set ThreeOrFour %VARINTFC
+%T   set NextAnlTime [expr $nat + $dap]
+%T   set StartTime   %VARSTART
+%T   set EndTime     %VAREND
+%T   set Interval    %VARINTVL
+%T   set Units       %VARUNITS
+%T   set TopLev      %NLEVSA
+%T   set topone      [expr $TopLev + 1 ]
+%T   set TopWetLev   %NWLEVA
+%T   set TopBLLev    %NBLLV
+ &STASHNUM NUM_REQ= 9, NUM_DOM=7,  NUM_TIM=1, NUM_USE=1 /   
+
+ &STREQ IMOD= 1, ISEC=0, ITEM=2, IDOM=2, ITIM=1, IUSE=1 /  
+ &STREQ IMOD= 1, ISEC=0, ITEM=3, IDOM=2, ITIM=1, IUSE=1 /  
+ &STREQ IMOD= 1, ISEC=0, ITEM=4, IDOM=3, ITIM=1, IUSE=1 /  
+ &STREQ IMOD= 1, ISEC=0, ITEM=10, IDOM=4, ITIM=1, IUSE=1 /  
+ &STREQ IMOD= 1, ISEC=0, ITEM=33, IDOM=1, ITIM=1, IUSE=1 /  
+ &STREQ IMOD= 1, ISEC=0, ITEM=90, IDOM=7, ITIM=1, IUSE=1 /  
+ &STREQ IMOD= 1, ISEC=0, ITEM=150, IDOM=6, ITIM=1, IUSE=1 /  
+ &STREQ IMOD= 1, ISEC=0, ITEM=253, IDOM=2, ITIM=1, IUSE=1 /  
+ &STREQ IMOD= 1, ISEC=0, ITEM=407, IDOM=5, ITIM=1, IUSE=1 /  
+
+%T if {$ThreeOrFour == 3} {
+%TCL putl " &TIME NAME=\"LSTimes\", ITYP=1 " %ENDTCL
+%TCL putl " IOPT=2, " %ENDTCL
+%TCL putl " ITIMES=1,UNT3=\"H\", " %ENDTCL
+%TCL putl " ISER=$NextAnlTime, \n /" %ENDTCL 
+%TCL putl " " %ENDTCL
+%T } else {
+%TCL putl " &TIME NAME=\"LSTimes\", ITYP=1 " %ENDTCL
+%TCL putl " IOPT=1, " %ENDTCL
+%TCL putl " ISTR=$StartTime,IEND=$EndTime,IFRE=$Interval,UNT3=\"$Units\"," %ENDTCL
+%TCL putl " / " %ENDTCL
+%TCL putl " " %ENDTCL
+%T } 
+
+ &DOMAIN NAME="Single", IOPL=5
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &DOMAIN NAME="M_rho", IOPL=1
+ ILEVS=1,
+ LEVB=1,
+%TCL putl " LEVT=$TopLev," %ENDTCL
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &DOMAIN NAME="M_theta", IOPL=2
+ ILEVS=1,
+ LEVB=1,
+%TCL putl " LEVT=$TopLev," %ENDTCL
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &DOMAIN NAME="M_q", IOPL=2
+ ILEVS=1,
+ LEVB=1,
+%TCL putl " LEVT=$TopWetLev," %ENDTCL
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &DOMAIN NAME="M_p", IOPL=1
+ ILEVS=1,
+ LEVB=1,
+%TCL putl " LEVT=$topone," %ENDTCL
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &DOMAIN NAME="M_w", IOPL=2
+ ILEVS=1,
+ LEVB=0,
+%TCL putl " LEVT=$TopLev," %ENDTCL
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &DOMAIN NAME="M_th_bl", IOPL=2
+ ILEVS=1,
+ LEVB=1,
+%TCL putl " LEVT=$TopBLLev," %ENDTCL
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &USE NAME="PPVAR", LOCN=3
+ IUNT=150,
+ /
+
+%T } elseif { %VARINTM != 0 } {
+%T     error "No development macro for 3DVAR interface is set.  Please reset option"
+%T }
+%T unset dap NextAnlTime StartTime EndTime Interval Units TopLev topone TopWetLev TopBLLev
+ ### End of LS fields macro for mesoscale models ###

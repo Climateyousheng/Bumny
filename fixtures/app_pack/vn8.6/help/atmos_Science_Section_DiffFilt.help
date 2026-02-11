@@ -1,0 +1,134 @@
+Section 13 : Diffusion & Filtering
+see below for a description of sections.
+
+See UMDP 15 for a description of the diffusion and filtering routines
+that form part of the atmospheric dynamics.
+
+Polar filter. Recommended for all global configurations.
+   Old polar filter. Original code with settings supplied by user.
+
+Combined diffusion/filtering. New code which calculates polar filtering
+   required for a given set of parameters. Can smoothly combine with
+   horizontal diffusion and uses the same (conservative) operator.
+
+Horizontal Diffusion. For standard configurations it is recommended that
+   none of these options are used. The combined diffusion/filtering is the
+   recommended option.
+   Old version (not recommended). Allows horizontal diffusion for theta,
+   winds, moisture. Each variable has its own diffusion coefficient and
+   order for each level. This option is not recommended.
+   Conservative.  As old diffusion but uses a conservative form of the
+   diffusion operator.
+   
+Subgrid turbulence scheme. The 3D subgrid turbulence scheme is
+   experimental and currently uses a 3D Smagorinsky-type scheme which is
+   widely used in, for example, LEMs.  Switching this on will enable the
+   user to implement the scheme in the horizontal and/or the vertical, over
+   levels specified by the user but limited to values between 2 and model
+   levels - 1. Note that the number of boundary levels must be equal to the
+   number of model levels - 1.  Diffusion coefficients are calculated using
+   the subgrid turbulence scheme. In the horizontal these coefficients are
+   used in a 3D diffusion operator. In the vertical the local boundary
+   layer mixing coefficients are overwritten by those calculated in the
+   subgrid turbulence scheme. The non-local boundary layer scheme is then
+   switched off.  There is also an option (in the vertical only) to blend
+   the coefficients from the 1D local boundary layer scheme with those from
+   the subgrid turbulence scheme so that the coefficients vary smoothly
+   with height from those calculated in the 1D local boundary layer scheme
+   (in the boundary layer) to those calculated in the subgrid turbulence
+   scheme (above the boundary layer).
+
+"Fraction of maximum diffusion": In the code the diffusion coefficient
+   is limited to a maximum value to enable numerical stability and the user
+   can choose to limit this further by setting "Fraction of maximum
+   diffusion" to a value between 0 and 1.0. The maximum diffusion in the
+   code is then multiplied by this value. 
+   "Mixing length constant": In the scheme the mixing length is the
+   horizontal grid length multiplied by a constant.  The "Mixing length
+   constant" is simply this constant and is usually set to a value around
+   0.2
+
+Additional upper-level horizontal diffusion may be applied to the
+   uppermost levels. It is activated by setting a start level lower or
+   equal to model_levels. The upper-level diffusion coefficient is applied
+   at the top level. If the ramp is activated then this coefficient is
+   multiplied by the upper-level diffusion ramp value for each level
+   downwards otherwise the same value is used at each level.
+
+Truly Horizontal combi-filtering and targeted diffusion.
+   Diffusion/Polar filtering along geopotentials instead of model levels. 
+   This affects the combi-diffusion/filtering and the targeted diffusion. 
+   It removes the steep slope check to turn diffusion off and the 
+   Hadgem2 polar filtering setting has no effect when this is selected.
+
+  Truly horizontal diffusion is only compatible with New Dynamics and will 
+  not currently work with ENDGame.
+
+
+Vertical diffusion is optional. There are two options :-
+1) standard where the same coefficient is applied over the whole globe
+2) ramped (used in operational jobs) where the vertical diffusion is
+   only applied within 30 degrees of the equator and the diffusion
+   coefficient changes from zero at 30 degrees to the given value at the
+   equator in a ramp shape.
+
+Energy-conserving dry convective adjustment of theta.
+  This allows negative lapse rates to be removed between a set of
+  levels.
+
+Vertical diffusion of winds based on wind shear.
+  An alternative form of vertical diffusion can be applied to the
+  horizontal winds over a range of levels. The (integer) timescale for
+  the diffusion needs to be set. The wind shear test value is used to
+  find the number of points exceeding this value of vertical shear.
+
+Targeted diffusion of moisture applies a first order local diffusion
+  (delsquared) on the primary moisture variable ( specific humidity q 
+  or mixing ratio mix_v) at points (vertical columns) where the 
+  threshold  exceeds a prescribed value (w_conv_limit, 
+  typically 0.2 at N48, 0.5 at N216,  1.0 in the Mesoscale model).
+  A diffusion coefficient needs to be set 
+  (tardiffq_factor, 0.1 recommended). Values significantly larger than
+  0.1 (say  bigger than 0.25 will probably be unstable). The start level
+  for testing the vertical velocity tardiffq_test is best set above
+  level 1 to avoid seeing strong vertical velocity from flows over 
+  steep terain, typically level 5 would do but it (probably) wont matter
+  if 1 is chosen). To apply the targeted diffusion it is best to choose
+  a start level = 5 and an end level well into the stratosphere
+  (38 for a 38 level model or a 50 level model). 
+   
+Divergence damping is usually set off.
+
+Moisture and tracer resetting is used to avoid moisture or tracer values below a minimum value. 
+There are multiple methods that can be used to reset these fields;
+ * original - an approach that scales values across a level. This method is computationally expensive 
+   and not scalable and is only retained for bit-comparison purposes. The "level" method provides the
+   same functionality in a more scalable way. Will be conservative if sufficient of the variable in the level.
+ * local - uses horizontal searches around a point that is too low to find enough of the variable to correct.
+   If this isn't possible the original method is utilised. Computationally expensive and not scalable. 
+   Conservation as for local.
+ * reset - a simple reset of values that lie below the limit to that limit. Computationally cheap and scalable.
+   Non-conservative.
+ * column - scaling within a column to adjust points below the limit. Computationally cheap and scalable. Will
+   be conservative if sufficient of the variable within a column.
+ * level - a re-engineering of the original method but in a much more scalable manner.
+ * hybrid - utilises the column method for levels 1 - BL_LEVELS and the level method above this.
+   Computational cost and scalability as for the constituent methods.
+
+QPOS diagnostic prints is a facility to enable a printout of the number of points that lie below
+the value given and the minimum value of these. It adds additional cost and shouldn't be used in 
+production runs.
+
+Sponge zones near LAM lateral boundaries. Specify width in points for
+   EW boundaries and NS boundaries. The model values in the sponge zones
+   will be a weighted combination of the boundary value and the LAM value.
+   The weights decrease either linearly or quadratically from the boundary.
+   e.g. a width of 4 with quadratic (2) weights will have values of
+   0.64B+0.36L1 at the first interior point, 0.36B+0.64L2 at the second
+   interior point, 0.16B+0.84L3 at the third interior point and
+   0.04B+0.96L4 at the fourth interior point. With linear weights the
+   corresponding values would be 0.8B+0.2L1, 0.6B+0.4L2, 0.4B+0.6L3,
+   0.2B+0.8L4
+
+-------------
+%I compile_modes

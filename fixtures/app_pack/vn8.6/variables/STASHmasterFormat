@@ -1,0 +1,92 @@
+######################################################################
+# WARNING: THIS FILE IS NOT YET USED BY THE UMUI:
+#
+# Changing to use this file also involves changing the data structure
+# used to store the STASHmaster data in the UMUI scripts. This would
+# therefore involve a lot of changes to check_stash.tcl, stash.tcl etc.
+# Until then, changes to the STASHmaster format will require changes
+# to read_sm_rec.tcl and potentially changes to other UMUI STASH 
+# scripts involved with checking the values of items
+#
+######################################################################
+#
+# Format files describe format of certain UM control files such as
+# ANCILmasters For a given record type EXAMPLErecords, the format file
+# should be called:
+#   "EXAMPLErecordsFormat".
+# Each set of records is subdivided into submodels identified by a
+# letter
+
+#   When editing this file, precede comments with the "#" character;
+# in the first column. Lines with only whitespace or comments are
+# ignored.
+#
+# Format of STASHmaster follows:
+# First line should state number of lines per record:
+
+5
+
+# The standard record format is of the form:
+#
+#  "1| elementA1 [elA2 [elAn]] | elB1 [elB2 [elBn]] |... eln1|"
+#  "2| element [element2 [elementn]] | element1 [element2 [elementn]] |"
+#  "...
+#  "n| element [element2 [elementn]] | element1 [element2 [elementn]] |"
+#
+# That is, each line starts with a line number 0-9 followed by a "|" and
+# ends with a |. In between there are one or more fields delimited by "|"
+# characters. Each field contains 1 or more elements.
+
+# The purpose of the first part of the format definition is purely to define
+# the positions of the "|" characters. To do this, include below an example
+# of a well-formed entry in which the bars are positioned as required and
+# in which the line numbers are correct. The fields between the bars can
+# contain anything, but using a real example is a good reminder of what
+# each field means
+
+1|    1 |    0 |    2 |U COMPNT OF WIND AFTER TIMESTEP     |
+2|    2 |    0 |    1 |   18 |    1 |    1 |    2 |    0 |    0 |    0 |    0 |
+3| 000000000000010000000000000000 | 00000000000000000001 |    1 |
+4|    1 |    2 |  -3   -3   -3   -3  -12   20  -99  -99  -99  -99 |
+5|    0 |   56 |    0 |   65 |    0 |    0 |    0 |    0 |    5 |
+#
+# The purpose of the second part of the format is to define unique
+# identities for each of the elements in each of the fields. One line
+# is required for each line in the record. The line contains one item
+# for each field.  Where a field requires more than one element, the
+# item will consist of a list of sub-items surrounded by {}. For
+# example, if a line from an example record comprises the following:
+#
+# 1| 1 | 2  | 121 | 111 112 113 | title of record |
+#
+#   the following set of identities would be suitable
+#
+# main1 main2 field1 {subField1 subField2 subField3} title
+#
+# The field identities for the UMUI STASHmaster follow
+  
+model sec item name
+space point time grid levT levF levL pseudT pseudF pseudL levcom
+option version halo
+t dmpp {pack1 pack2 pack3 pack4 pack5 pack6 pack7 pack8 pack9 pack10} 
+r ppfc user lbvc blev tlev rlbv cfll cfff
+  
+# Each record should have a unique key comprising one or more of the
+# above listed fields. The value of a key is required to obtain other
+# fields in the record. For example, in the example above, if the key
+# were "main1 main2" then each record for each submodel will have a
+# unique "main1 main2" combination. If main1=1 and main2=2 and
+# submodel is "A", then to access the value of subField2 for this
+# record, something like the following will do:
+#
+# set sf2 [getRecordElement "EXAMPLErecords" "A" 1,2 subField2]
+        
+sec item
+
+# Define the key for the end of file marker. This is a list of values
+# of the key items in the line above that define the final record of
+# the file. Typically, if the key were "main1 main2", the EOF marker
+# might be "-1 -1". The last record in each and every record file must
+# have these values set in the key fields
+
+-1 -1

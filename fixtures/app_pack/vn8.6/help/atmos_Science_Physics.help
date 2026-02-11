@@ -1,0 +1,48 @@
+This window allows users to specify parameters associated with more than one
+physics section.
+
+Values should be taken from standard experiments unless you know what you are
+doing.
+
+Current operational models restrict the levels passed to the boundary
+layer scheme to be those below 3km.
+
+The number of wet levels is the number of levels on which water vapour may take
+a non-zero value. The number of cloudy levels should not exceed the number of
+wet levels. In the early days of the UM, setting these to values smaller than
+the number of model levels offered a useful saving of memory, but now it is
+usual to set both the number of cloudy and wet levels to be the same as the
+number of model levels.
+
+CO2 specification.
+The mass-mixing ratio of CO2 should be set to a value appropriate to the
+era of the run. The IPCC reports are a useful source of data.
+The gas is assumed to be well mixed and is used in both longwave and shortwave 
+radiation calculations.
+
+
+There are three ways to specify CO2. 
+
+The simple one is fine for those who want fixed CO2. This is used for some
+climate integrations and operational integrations.
+
+However, those who are doing climate studies that require more complex
+CO2 scenarios should use the complex method.
+This allows for both linear interpolation between defined values at
+designated years and compound percentage growth (exponential growth), with
+rates changing on designated years. The linear growth period must come first.
+
+The third method is for use with the carbon cycle model, and will not
+normally be necessary for ordinary runs. It involves a full 3D field of
+CO2 rather than a single number. In order to use this option the full carbon
+cycle model must be turned on. You will also need the ocean carbon cycle 
+turned on, under Ocean scientific section choices.
+
+If you select the interactive carbon cycle then you must specify whether
+to initialise the atmospheric CO2 field from the dump or set it to a
+constant value globally (as a MMR in kg/kg, NOT as a concentration in ppmv).
+You can then also specify whether or not to use surface CO2 emissions. If
+so then click on the "CO2E" button to specify the ancillary file containing
+the emissions.
+
+%I gas_rates

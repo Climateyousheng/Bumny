@@ -1,0 +1,28 @@
+This window allows you to specify various control options that cut across all
+sub-models used to define how output is managed.
+
+Job names are not required when using generalised suite control.
+
+Extended script output is of limited use. Various bits of information that are
+not normally required are written to a file that is output by this option.
+ 
+Standard output can become very large, especially if you are adding
+write-statements for debugging or using various debugging facilities. The
+maximum length of the "STANDARD OUT" stream from the UM can be limited to avoid
+problems.
+
+The "Copy control files to run output" option allows a record of the control
+files provided by the UMUI to be put into the job output. This may be useful at a
+later date when the UI job may have been deleted.
+
+On distributed memory parallel machines, you get repeated output written from
+every PE. This is not helpful if your run works and it is normally best to
+just have it deleted. The output from all but PE-0 does not get copied to
+your job-output file but remains in your DATAW until the end of the run,
+when you are advised to have it deleted.
+It is never deleted if the run fails as it may contain useful output.
+Remember to delete it yourself once you have solved your problem.
+
+You can choose to be mailed when your job has started or finished. This can
+be useful if you are monitoring the progress of jobs through the queues.
+

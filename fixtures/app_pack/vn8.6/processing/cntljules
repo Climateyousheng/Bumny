@@ -1,0 +1,191 @@
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C JULES only NAMELISTS:    
+%C   JULES_SWITCHES, JULES_NVEGPARM, JULES_PFTPARM, JULES_TRIFFID, 
+%C   JULES_SNOW_PARAM, JULES_SOIL_PARAM, JULES_SURF_PARAM,
+%C   JULES_ELEVATE, JULES_RAD_PARAM, JULES_CSMIN, JULES_SEED, JULES_SIGM 
+%C
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C Include files:
+%C 
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!!! Only variables where no default is provided in the corresponding !!!
+!!! module are defined here                                          !!!
+
+ &JULES_NVEGPARM
+ ALBSNF_NVGU_IO = 0.20, 0.15, 0.80, 0.75,
+ ALBSNF_NVGL_IO = 0.16, 0.06, 0.03, 0.75,   
+%TCL
+ foreach item {ALBSNF_NVG ALBSNC_NVG CATCH_NVG GS_NVG INFIL_NVG Z0_NVG CH_NVG VF_NVG EMIS_NVG Z0HM_NVG Z0HM_CLASSIC_NVG} {
+   set output ""
+   for {set i 0} {$i < %JI_NVTYPE } {incr i} {
+      set elem [lindex [get_variable_array $item] $i]
+      set output "$output  $elem,"
+   }
+   putl " ${item}_IO  = $output"   
+ }
+%ENDTCL
+ /
+ 
+ &JULES_PFTPARM
+ C3_IO          =      1,      1,      1,      0,      1,
+ ORIENT_IO      =      0,      0,      0,      0,      0,
+ A_WL_IO        =   0.65,   0.65,  0.005,  0.005,   0.10,
+ A_WS_IO        =  10.00,  10.00,   1.00,   1.00,  10.00,
+ ALBSNF_MAXU_IO = 0.215, 0.132, 0.288, 0.239, 0.173, 
+ ALBSNF_MAXL_IO = 0.095, 0.059, 0.128, 0.106, 0.077, 
+ ALNIRU_IO = 0.68, 0.53, 0.87, 0.87, 0.87, 
+ ALNIRL_IO = 0.30, 0.23, 0.39, 0.39, 0.39, 
+ ALPARU_IO = 0.15, 0.11, 0.15, 0.15, 0.15, 
+ ALPARL_IO = 0.06, 0.04, 0.06, 0.06, 0.06, 
+ OMEGAU_IO = 0.23, 0.23, 0.23, 0.26, 0.23, 
+ OMEGAL_IO = 0.10, 0.10, 0.10, 0.12, 0.10, 
+ OMNIRU_IO = 0.90, 0.65, 0.98, 0.98, 0.98, 
+ OMNIRL_IO = 0.50, 0.30, 0.53, 0.53, 0.53, 
+%TCL
+ foreach item {ALBSNC_MAX ALBSNC_MIN ALBSNF_MAX EMIS_PFT  DZ0V_DH CATCH0 DCATCH_DLAI INFIL_F KEXT ROOTD_FT Z0HM_PFT Z0HM_CLASSIC_PFT} {
+   set output ""
+   for {set i 0} {$i < %JI_PFTYPE } {incr i} {
+      set elem [lindex [get_variable_array $item] $i]
+      set output "$output  $elem,"
+   }
+   putl " ${item}_IO  = $output"   
+ }
+%ENDTCL
+ ALPHA_IO       =   0.08,   0.08,   0.08,  0.040,   0.08,
+ ALNIR_IO       =   0.45,   0.35,   0.58,   0.58,   0.58,
+ ALPAR_IO       =   0.10,   0.07,   0.10,   0.10,   0.10,
+ B_WL_IO        =  1.667,  1.667,  1.667,  1.667,  1.667,
+ DGL_DM_IO      =    0.0,    0.0,    0.0,    0.0,    0.0,
+ DGL_DT_IO      =    9.0,    9.0,    0.0,    0.0,    9.0,
+ DQCRIT_IO      =  0.090,  0.060,  0.100,  0.075,  0.100,
+ ETA_SL_IO      =   0.01,   0.01,   0.01,   0.01,   0.01,
+ FD_IO          =  0.015,  0.015,  0.015,  0.025,  0.015,
+ FSMC_OF_IO     =   0.00,   0.00,   0.00,   0.00,   0.00,
+ F0_IO          =  0.875,  0.875,  0.900,  0.800,  0.900,
+ G_LEAF_0_IO    =   0.25,   0.25,   0.25,   0.25,   0.25,
+ GLMIN_IO       = 1.0E-6, 1.0E-6, 1.0E-6, 1.0E-6, 1.0E-6,
+ KPAR_IO        =   0.50,   0.50,   0.50,   0.50,   0.50,
+ NEFF_IO        = 0.8e-3, 0.8e-3, 0.8e-3, 0.4e-3, 0.8e-3,
+ NL0_IO         =  0.040,  0.030,  0.060,  0.030,  0.030,
+ NR_NL_IO       =   1.00,   1.00,   1.00,   1.00,   1.00,
+ NS_NL_IO       =   0.10,   0.10,   1.00,   1.00,   0.10,
+ OMEGA_IO       =   0.15,   0.15,   0.15,   0.17,   0.15,
+ OMNIR_IO       =   0.70,   0.45,   0.83,   0.83,   0.83,
+ R_GROW_IO      =   0.25,   0.25,   0.25,   0.25,   0.25,
+ SIGL_IO        = 0.0375, 0.1000, 0.0250, 0.0500, 0.0500,
+ TLEAF_OF_IO    = 273.15, 243.15, 258.15, 258.15, 243.15,
+ TLOW_IO        =    0.0,   -5.0,    0.0,   13.0,    0.0,
+ TUPP_IO        =   36.0,   31.0,   36.0,   45.0,   36.0,
+%T if { [inactive_var DUSTVEG]==0 } {
+ DUST_VEG_SCJ_IO=   0.0,     0.0,     1.0,     1.0,    0.5, 
+%T }
+ /
+ 
+ &JULES_TRIFFID
+ CROP_IO    =      0,     0,     1,     1,     0,
+ G_AREA_IO  =  0.005, 0.004,  0.25,  0.25,  0.05,
+ G_GROW_IO  =  20.00, 20.00, 20.00, 20.00, 20.00,
+ G_ROOT_IO  =   0.25,  0.25,  0.25,  0.25,  0.25,
+ G_WOOD_IO  =   0.01,  0.01,  0.20,  0.20,  0.05,
+ LAI_MAX_IO =   9.00,  9.00,  4.00,  4.00,  4.00,
+ LAI_MIN_IO =   3.00,  3.00,  1.00,  1.00,  1.00,
+ /
+ 
+ &JULES_SURF_PARAM
+ !!! USE DEFAULTS FOR MOST VARIABLES !!!
+ z0miz=%Z0_MIZ,
+ z0sice=%Z0_SICE,
+ z0h_z0m_miz=%Z0H_Z0M_MIZ,
+ z0h_z0m_sice=%Z0H_Z0M_SICE,
+ kappai=%KAPPAI,
+ kappai_snow=%KAPPAS,
+ kappa_seasurf=%KAPPA_SSL,
+%T if { [inactive_var EMISSICE]==0 } {
+ EMIS_SICE=%EMISSICE,
+ EMIS_SEA=%EMIS_SEA,
+%T }
+ /
+ 
+ &JULES_ELEVATE
+  !!! THIS IS ONLY USED IF L_AGGREGATE IS FALSE !!!
+ SURF_HGT_IO = 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
+ /
+ 
+ &JULES_RAD_PARAM
+  !!! USE DEFAULTS FOR ALL !!!
+ /
+ 
+ &JULES_CSMIN
+  !!! USE DEFAULT !!!
+ /
+ 
+ &JULES_SEED
+  !!! USE DEFAULTS FOR ALL !!!
+ /
+ 
+ &JULES_SIGM
+  !!! USE DEFAULT !!!
+ /
+
+
+
+ &URBAN2T_PARAM
+%T if { %JULES_SR(2) == "2T" } {
+ albsnc_c           = %CANYON_2T(1), 
+ albsnc_rf          = %ROOF_2T(1),
+ albsnf_c           = %CANYON_2T(2),
+ albsnf_rf          = %ROOF_2T(2),
+ catch_c            = %CANYON_2T(3),
+ catch_rf           = %ROOF_2T(3),
+ gs_c               = %CANYON_2T(4),
+ gs_rf              = %ROOF_2T(4),
+ infil_c            = %CANYON_2T(5),
+ infil_rf           = %ROOF_2T(5),
+ z0_c               = %CANYON_2T(6),
+ z0_rf              = %ROOF_2T(6),
+ z0h_z0m_c          = %CANYON_2T(7),
+ z0h_z0m_rf         = %ROOF_2T(7),
+ ch_c               = %CANYON_2T(8),
+ ch_rf              = %ROOF_2T(8),
+ vf_c               = %CANYON_2T(9),
+ vf_rf              = %ROOF_2T(9),
+ emis_c             = 0.97,
+ emis_rf            = 0.97,
+ anthrop_heat_scale = %TCL if_active ANTHRHEAT VALUE 1.00 %ENDTCL,
+%T } elseif { %JULES_SR(2) == "3M" } {
+ albsnc_c           = %TCL if_active ALBSNC_C VALUE 0.4 %ENDTCL,
+ albsnc_rf          = %TCL if_active ALBSNC_RF VALUE 0.4 %ENDTCL,
+ albsnf_c           = %TCL if_active ALBSNF_C VALUE 0.18 %ENDTCL,
+%T   if { %MORUSES_TAB == "1" } {
+ albsnf_rf          = %ALBSNF_RF,
+ catch_c            = %CANYON_3M(1),
+ catch_rf           = %ROOF_3M(1),
+ gs_c               = %CANYON_3M(2),
+ gs_rf              = %ROOF_3M(2),
+ infil_c            = %CANYON_3M(3),
+ infil_rf           = %ROOF_3M(3),
+%T   } else { 
+ albsnf_rf          = 0.18,
+ catch_c            = 0.5,
+ catch_rf           = 0.5,
+ gs_c               = 0.0,
+ gs_rf              = 0.0,
+ infil_c            = 0.1,
+ infil_rf           = 0.1,
+%T   }
+ z0_c               = %TCL if_active RGHLEN_C VALUE 1.00 %ENDTCL,
+ z0_rf              = %TCL if_active RGHLEN_RF VALUE 1.00 %ENDTCL,
+ z0h_z0m_c          = %TCL if_active RGHRATIO_C VALUE 1.0e-7 %ENDTCL,
+ z0h_z0m_rf         = %TCL if_active RGHRATIO_RF VALUE 1.0e-7 %ENDTCL,
+ ch_c               = %TCL if_active CANHEAT_C VALUE 0.28e6 %ENDTCL,
+ ch_rf              = %TCL if_active CANHEAT_RF VALUE 0.04e6 %ENDTCL,
+ vf_c               = %TCL if_active FRACCAN_C VALUE 1.00 %ENDTCL,
+ vf_rf              = %TCL if_active FRACCAN_RF VALUE 1.00 %ENDTCL,
+ emis_c             = 0.97,
+ emis_rf            = 0.97,
+ anthrop_heat_scale = %TCL if_active ANTHRHEAT VALUE 1.00 %ENDTCL,
+%T } else {
+  !!! Not required for URBAN-1T Scheme !!!
+%T }
+ /
+ 

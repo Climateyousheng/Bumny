@@ -1,0 +1,57 @@
+This window allows users to specify 'Science' options for the CICE model.
+
+Number of Sea Ice Categories
+----------------------------
+Typically, in atmosphere-only models, this value will be set to 1.
+
+In coupled models the value set here will need to match the value used by any
+sea-ice and ocean component models (usually, a value of 5 is used).
+
+It is possible to employ a value other than 1 in atmosphere-only models,
+however, this is usually only done during the course of model development and
+debugging where the necessary multi-category fields are already present in the
+start dump. If atmosphere-only forced runs are being set up, then
+ice field ancillary files will need to contain fields with the appropriate
+number of ice categories (as the third, "pseudo-level" dimension). 
+
+
+CICE Namelist
+-------------
+
+At present there are no proper Science panels for CICE. Scientific
+parameters are configured by specifying a CICE namelist in the "CICE Model
+control namelist" field. The path and filename supplied should exist on the
+remote run platform.
+
+For advice on which namelist to use please see a relevant sample job for
+an example or consult the Ocean and Sea Ice Modelling Team.
+
+CICE Start Dump
+---------------
+
+A start dump should usually be specified to be used as CICE initial
+conditions in a NRUN.  If the start dump comes from an earlier model run you
+may need to do an off-line 'reconfiguration' to reset the time information it
+contains (otherwise the dates in the model output will be incorrect). Seek
+advice from a member of the Ocean and Sea Ice Modelling Team if necessary.
+
+At present only CICE-only jobs will initialise correctly without a specified 
+start dump and even in this case you will need to ensure name-list options 
+are correctly set.  Consult a member of the Ocean and Sea Ice Modelling Team 
+if necessary.
+
+Symbolic Links to CICE input files
+----------------------------------
+
+Forcing file locations for CICE-only jobs are specified in the CICE
+name-list (and set in the separate UMUI boxes) so do not require symbolic
+links.  Some may be required for NEMO-CICE depending on the forcing option
+being used.  Consult a member of the Ocean and Sea Ice Modelling Team if
+necesary.
+
+If any files are required they can be linked into the run directory according
+to what is specified in this table. The "CICE input file name" column is used
+to specify the link that is to be created in the run directory. It is not
+necessary to add the run directory path variable (e.g. $DATAM) as if it is
+not present it will be added on by the UMUI. The "Actual full path and file
+name" column is used to specify the file that is to be linked.

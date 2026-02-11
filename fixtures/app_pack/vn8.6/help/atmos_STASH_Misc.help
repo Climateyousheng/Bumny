@@ -1,0 +1,24 @@
+This window allows users to specify parameters that are to be used in
+association with STASH (the diagnostic system). 
+
+Height threshold above which the PMSL is calculated using relaxation to
+geostrophic wind, as described in UMDP 80, section 4.5.2.
+
+The relaxation to geostrophic wind algorithm was originally coded using 
+an SOR algorithm after gathering to a single processor. To improve the 
+scalability we have coded up an procedure which uses a Jacobi algorithm 
+and swaps data between processors.
+
+The screen temperature may be diagnosed using pure surface similarity theory, 
+or with an allowance for decoupling of the surface in very stable conditions. 
+If the option "Using surface similarity with decoupling in strongly stable 
+conditions" is selected, the screen temperature is diagnosed using pure 
+surface similarity theory if the bulk Richardson number for the lowest level 
+of the atmosphere is less than 0.25 and from a radiative quasi-equilibrium 
+profile if the Richardson number is larger. If the option "Including radiative 
+cooling and transient decoupling during the evening transition" is selected, 
+the screen-level temperature is diagnosed using surface similarity theory 
+under normal conditions, but in light winds after sunset, the diagnosis is 
+made to approach the radiative the transient radiative solution. Note that it 
+is likely that this option will be subject to continuing development.
+

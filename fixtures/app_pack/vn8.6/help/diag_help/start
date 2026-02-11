@@ -1,0 +1,4 @@
+cd /home/hc0300/hadwr/SRCE_Source/help51_work/main/help/diag_help
+while read line
+do
+echo

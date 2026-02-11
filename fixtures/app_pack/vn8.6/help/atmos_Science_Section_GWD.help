@@ -1,0 +1,129 @@
+Help for window : atmos_Science_Section_GWD
+                   Gravity Wave Drag
+                   ================
+There are two separate drag schemes which fall under the
+"gravity-wave-drag" umbrella. The first is the orographic flow-blocking
+and gravity-wave drag scheme and the second is the non-orographic
+spectral gravity-wave drag scheme.
+Either or both schemes can be included in a model run because, as their
+names imply, the schemes are independent of each other.
+The orographic scheme should be switched on for all global and limited area
+models with resolutions equal to or coarser than 4 km in the horizontal.
+   
+The Ultra-Simple Spectral Parametrization (USSP) non-orographic GW
+scheme is recommended for both (climate and NWP) global model configurations
+with model lids higher than 40 km.
+1a) The <4a> (default) Orographic Scheme
+------------------------
+See UMDP 22 for a description of the 4A version
+of the Orographic Flow-blocking and Gravity-Wave Drag
+algorithms & routines.
+The science behind the scheme is described in
+"Improvements to the Representation of Orography in the Met Office
+Unified Model", by S. Webster, A.R. Brown, D.R. Cameron and C.P. Jones,
+2003, Q.J.R.M.S.,129, 1989-2010.
+The scheme requires the surface gravity wave constant and the
+critical Froude number to be set.
+The surface gravity wave constant defines the magnitude of the
+parametrized response. At the time of writing (July 2009), this value
+should be in the range 3e3 to 6e3 for all models except the global
+(N320L50) NWP model and the HadGEM2 model. It is anticipated that the
+global NWP model will also move to using this value when the horizontal
+resolution is upgraded to N512. HadGEM3 has already moced to using values
+in this range.
+Note that the surface gravity wave constant is VERY SENSITIVE to the choice
+of filtering applied to the source dataset - so please make sure that it is
+set consistent with the value of FILT_SRCE_LENGTH used when creating
+the orography ancillary file. When FILT_SRCE_LENGTH=6000 (m), the surface
+gravity wave constant should be in the range 3e3 to 6e3, whilst when
+FILT_SRCE_LENGTH=40000 (m) the surface gravity wave constant should be 1e5.
+The recommended setting for FILT_SRCE_LENGTH is 6000m
+By default from vn8.2 the orographic GWD in the 4A version is turned off
+above 40km altitude. This prevents unrealistically large drags (which
+could cause model failures) being applied at upper levels. The switch
+to turn on/off this option which was previously available in this panel
+has now been removed because the default option is used in all configurations.
+ 
+The critical Froude number determines the proportion of that drag
+attributed to flow blocking and gravity wave drag respectively. The
+larger the critical Froude number the larger the proportion attributed to
+flow blocking. This value should be of order 1, but takes the value of 4 in
+most operational configurations since smaller values can lead to excessive drags
+in the lower stratosphere.
+At vn7.1 switches were introduced to allow a choice of gravity
+wave saturation test. These are the original stress based saturation
+test and a new amplitude based saturation test. The latter compares the
+wave amplitude with a critical amplitude for wave breaking. Whereas the
+original scheme assumed the launched waves were close to breaking, the
+amplitude based scheme does not. This is more realistic and will
+typically result in reduced wave drag in the troposphere. The inverse
+critical Froude number for wave saturation is used by the amplitude
+based scheme only. It should normally be set to 1.0. Increasing the
+value will cause an increase in the wave amplitude required before wave
+breaking occurs. The amplitude based saturation test has never become
+operational, and so it is recommended to continue using the old
+test.
+1b) The <5a> Orographic Scheme
+------------------------------
+A description of the 5A version is provided in UMDP 22. The 5A scheme
+is the latest version of the orographic drag scheme.
+Like the 4A version, the 5A scheme represents the drag due to low level
+processes (flow blocking, flow splitting, wakes) and vertically propagating
+gravity waves. The critical Froude number determines the proportion of the flow
+which flows around the sub-grid mountains and thus the fractional mountain
+height which is able to generate gravity waves. As in the 4A version, this
+should be of order 1.
+The mountain wave amplitude constant determines the size of the gravity wave
+stress. The flow blocking drag coefficient determines the size of the
+low-level drag. Both should be of order 1 and larger values of these
+parameters imply greater drag.
+The amplitude threshold above which the gravity waves will break
+(and exert drag) is determined by the inverse critical Froude number for
+wave saturation. This should be of order 1. Smaller values will allow lower
+amplitude waves to break, typically leading to drag being exerted at lower
+altitudes.
+The 5A scheme includes the option to smooth the gravity wave drag profile
+over a depth scale determined by the gravity-wave vertical wavelength.
+This option is recommended as it results in a smoother drag profile. Note that
+the option to switch off the gravity wave drag above 40 km is not available
+in the 5A scheme.
+The 5A scheme also includes the option to apply heating due to the frictional
+dissipation of gravity waves and flow blocking drag. When selected this heating
+is also applied in the non-orographic gravity wave scheme (see below).
+2) The non-orographic scheme
+----------------------------
+See UMDP 34 for detailed description of the 4A non-orographic (spectral)
+Gravity-Wave Forcing algorithms, routines and scientific references.
+Activate "Include spectral gravity wave scheme" to select scheme, which
+distributes additional momentum from unresolved wave activity that is required
+to produce realistic behaviour in the tropical stratosphere (16-30km --
+quasi-biennial oscillation [QBO]) and the mesosphere (above 40km -- jet
+structures and large-scale circulation). Note that, depending on conditions, the
+scheme can generate positive accelerations instead of drag decelerations.
+A parametrized spectrum of gravity wave horizontal pseudomomentum flux is
+transported upwards after initiation at a launch level in the troposphere, where
+it is isotropic along the four grid directions (N,S,E,W) and therefore makes
+no net contribution to the mean flow. The simplest source is globally invariant.
+"Factor enhancement for wave launch amplitude" allows the global source to be
+adjusted about its default value (selected for a factor = 1.0). The permitted
+range is from 0.0 (switch off globally invariant source) to 10.0 (spectrum
+saturated at launch level) but significant impact on the QBO period is usual for
+deviations about 1.0 of order ten percent.
+Activate "Use Opaque model lid condition" to apply this condition to the
+parametrised pseudomomentum flux reaching the model top. Although at the launch
+level there is no net contribution to the mean flow, as wave energy is deposited
+on ascent through the model, there is potentially a net pseudomomentum entering
+the top layer. 
+The default "Transparent lid" condition allows all residual pseudomomentum
+reaching the model lid to pass out of the model, which introduces a net source
+or sink of horizontal pseudomomentum into the mean flow of the top level that is
+theoretically undesirable. Selecting "Opaque model lid condition" ensures
+conservation of pseudomomentum by resetting the flux through the top lid to zero.
+(Note that this is done after the fluxes are written to STASH so that the flux
+diagnostics show how much extra pseudomomentum is deposited in the top layer).
+Although theoretically preferable the Opaque lid choice can lead to large
+accelerations in the top level horizontal wind components if the residual
+pseudomomentum is significant. As the lid is raised high enough that almost all
+the wave energy is deposited within the model, differences between the two
+options correspondingly disappear.
+

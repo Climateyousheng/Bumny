@@ -1,0 +1,24 @@
+Ancillary files
+---------------
+ * Ancillary file header record maximum size may need to be set to a large
+   value as these are 3-D files. A value >1000 is suggested for most
+   integrations, but this will depend on the data frequency.
+    (In file related options)
+
+
+  Emissions
+  ---------
+  3_D natural SO2 emissions should have 19 levels of data (for a
+  19-level model.
+
+   * The field should be specified as Not Used if these emissions are not
+     required.
+
+   * Use the SULPHUR button to return to the Sulphur Cycle window
+
+   * Typically, these files will be real data rather than
+     climatologies. It is therefore important to ensure that the
+     file holds data for the whole period of integration.
+
+%I ancill_gen
+

@@ -1,0 +1,145 @@
+This window allows users to define the re-initialisation and post
+processing requirements for the PP-files that the user can access
+through the STASH panels. It also allows the specification of the
+packing profiles to be used for those output streams. Climate post
+processing needs to be switched on to enable archiving etc.
+
+These options do not apply to unit 151 (PP10) which cannot be
+modified.
+ 
+The climate mean PP-file will only exist if at least one of the
+sub-models is defined with a climate meaning sequence. Define the
+packing profile that you wish to use.
+
+Packing profiles.
+Each STASH item has 10 packing profiles defined. These are numbers that
+define the accuracy to which the field will be packed when written to PP
+files. Each of the ten profiles can be defined as the standard packing
+for a particular configuration. Using packing reduces the space
+requirement to about one third the unpacked size.
+Currently the following profiles are defined:
+   0 Unpacked
+   1 WGDOS packed as required for operational standard output.
+   2 WGDOS packed as required for old climate standard output
+   4 WGDOS packed for Stratosphere model requirements.
+   5 New WGDOS packing profile for climate. Now the standard for 
+     climate use.
+   6 Simple grib packing.
+   
+Override size.
+Fieldsfiles usually can only contain 4096 fields.
+The recommended way to work around this restriction is to use periodic
+re-initialisation of the fieldsfiles. In the rare case that this is not
+a suitable option (e.g. for analysis time in a forecast) it is possible 
+to extend the 4096 field restriction by overriding the default size.
+Be careful not to override the size by too much - large numbers of
+fieldsfile headers can be inefficient for both runtime and memory use
+and may cause problems with some small executables.
+   
+GRIB Format.
+It is possible to ask for PP files to be output in GRIB format. At
+present this is a flavour of GRIB unique to the UKMO, but does fit to
+general GRIB definitions of numbers etc. This option may help if the
+data is to be exchanged.
+
+Packing profile 6 is only suitable if the grib output option is chosen.
+Profile 6 is designed to allow users to get grib output packed in a
+similar way to data held in the ECMWF MARS archive, ie simple packing is
+used and no bitmap is included in the grib message. Unless the user has
+a requirement to output grib suitable for inclusion in the ECMWF MARS
+archive or a a requirement to exchange the data with a centre unable to
+cope with complex grib packing one of standard packing profiles should
+be used.
+
+Grib output can be packed in 2 different ways;
+
+1. Simple packing - eg profile 6
+For a given field the minimum value is found and stored as a real value.
+The differences from the minimum value are calulated at each gridpoint
+and then stored in n bits where n is the value specified in profile 6
+and is know as the width.  Documentation on grib gives the following
+formula for working out a suitable width
+
+        Width = NINT( alog ({fmax-fmin} * {10**D})/alog(2) +0.5 )
+
+where fmax - maximum value likely in field
+      fmin - mimimum value likely in field
+      D - number of decimal places required
+
+Note in the UM the value of width is restricted to 30 bits. If the value
+in profile 6 is unset ie -99, width will be set to 30.
+One advantage of this method is that for a given width and field type
+all grib messages are the same length.
+
+2. Complex packing - eg other UM profiles
+This method requires the binary accuracy n, where the accuracy is given
+by 2**n. n is usually negative. Each row of model data is treated
+seperately and the resulting field is usually shorter than method 1. A
+bitmap is used if appropriate. Grib messages even for the same field
+type will vary in length depending in the range of values present in the
+field at the time of output.  The accurracy of the data is similar to
+that obtained using the WGDOS packing.
+
+
+Run Length Encoding of Ocean fields.
+In ocean or coupled jobs there is an additional option to have "run
+length encoding of ocean fields"; the question will be unavailable in
+non-ocean jobs.  Run length encoding compresses the ocean field by
+removing the portions of missing data indicator that indicate land
+points.  Therefore it does not affect the precision of the data.
+
+Run length encoding applies only to unpacked ocean fields, but most
+ocean fields remain unpacked even when packing profile 5 is set.
+Hence selecting, for example, both packing profile 5 and run length
+encoding makes sense and is advised.
+
+The question applies to both climate mean PP files and standard PP 
+files.
+
+---
+
+There are 10 user defined streams to consider. Each stream can be
+written to by STASH.  In long runs such as climate runs, the amount of
+data that would be written to any stream would become too large to
+manage. Hence, it is possible to have the files at the end of the
+streams reinitialised. This means that, periodically, a new file is
+created and the stream pointer is changed to write to the new file. If
+climate post processing is enabled (see subindep_PostProc_Gen) the old
+file is automatically archived and deleted. In short runs the files
+never get very large and this facility may not be necessary.
+
+Streams that are reinitialised are written to DATAM rather than DATAW
+and their names are generated by the model using model time
+information. UM documentation paper 007 has information on how to
+decipher the model time from the filename.
+
+Streams that are reinitialised must be defined as being to a particular
+sub-model and the STASH request must only put diagnostics from the named
+sub-model onto that stream. Any sub-model can support more than one
+reinitialised stream.
+Streams that are not reinitialised can hold diagnostics from any
+sub-model. Any mix of reinitialised and non-reinitialised can be used.
+
+Users of climate post processing can define their post processing
+requirement for reinitialised streams.
+The period of reinitialisation needs to be set depending on the number
+of diagnostics chosen. A period that coincides with a climate meaning
+period for the sub-model that ensures that the file size is not too
+large is a good choice. If the Gregorian calendar is being used (but not
+necessarily Gregorian climate meaning) then these PP files may be
+reinitialised on real-month boundaries, either at 1, 3 or 12-month
+intervals, although to avoid exceeding the limit of 4096 headers per
+file with the longer periods, the number of fields going to each stream
+per day must be limted to no more than 44 for 3 months, or 11 for 12
+months.
+
+It is normal to start re-initialisation at time 0.  Archiving will
+only work if climate post-processing is enabled. Plotting and Copying
+to HP's are options that do not work!
+
+It is possible to stop reinitialisation of PP files at a certain
+timestep, hour, day or real month by entering a value into the
+'Ending' column of the table.  Set to '-1' to never stop
+reinitialising.
+
+%I gen_Arch

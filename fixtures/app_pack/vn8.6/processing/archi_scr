@@ -1,0 +1,49 @@
+# Generate various scripts related to archiving
+
+ARCHIVE_OUTFILE=$COMP_OUT_PATH/$CJOBN.$RUNID.d$OUTPUT_D.t$OUTPUT_T.'$(jobid)'.archive.$OCO
+archi_sub=$JOBDIR/archi_submit
+archi_scr=$JOBDIR/archi_script
+archi_todo=$JOBDIR/archive.todo
+archi_name=%ARCH_SCR_NAME
+archi_path=%ARCH_SCR_PATH
+touch $archi_sub
+touch $archi_scr
+touch $archi_todo
+
+# Generate the archi_submit script for archiving
+cat >>$archi_sub<<EOF
+#!/bin/ksh
+#@ shell           = /usr/bin/ksh
+#@ class           = serial
+#@ job_type        = serial
+#@ job_name        = ${RUNID}_arch
+#@ output          = ${ARCHIVE_OUTFILE}
+#@ error           = ${ARCHIVE_OUTFILE}
+#@ notification    = never
+#@ resources       = ConsumableMemory(300Mb)
+#@ wall_clock_limit = 01:00:00
+#@ node_usage      = shared
+#@ queue
+
+$archi_path/$archi_name ${DATADIR}/${RUNID}
+EOF
+
+# Generate the archi_script script for submitting archi_submit
+
+cat >>$archi_scr<<EOF
+#!/bin/ksh
+
+llsubmit archi_submit
+EOF
+
+# Generate the archive_$RUNID.todo file. This contains the header information
+# used by qsarchive.py
+
+cat >>$archi_todo<<EOF
+[header]
+RUNID:%EXPT_ID%JOB_ID
+HOME:$HOME
+DATAM:$DATADIR/%EXPT_ID%JOB_ID
+VN:%VERSION
+
+EOF

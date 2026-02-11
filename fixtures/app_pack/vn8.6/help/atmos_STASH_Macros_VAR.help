@@ -1,0 +1,39 @@
+Help for window : atmos_STASH_Macros_VAR 
+
+This panel allows the user to specify which STASH macros should be used to
+generate the fieldsfile(s) which will form the interface between this UM job
+and the variational data assimilation system (VAR).
+
+The VAR interface fields are written to unit 150 (PPVAR).
+
+There is currently only one macro; the LS fields macro:
+
+LS fields macro
+---------------
+
+The LS fields macro is used to generate a set of fieldsfiles containing those
+fields required within VAR LS states (linearisation states). The LS states are
+then obtained from the fieldsfiles by reconfiguring from the outer-loop (UM)
+resolution to the inner-loop (PF) resolution using the ConfigureLS module.
+
+Within our current 3D-Var suites, a single background LS state is required
+valid at the time of the next analysis. This is calculated by adding the
+specified data assimilation cycle length to the nominal analysis time specified
+elsewhere in the UMUI.
+
+The 4D-Var suites currently under development require multiple LS states valid
+at several times during the data window. In this case, the output stream is
+reinitialised using the same time profile as used for the LS fields, so the
+result is a series of fieldsfiles with names of the form $DATAM/*ca_*.
+
+WGDOS packing may be activated to reduce the size of the fieldsfiles, at the
+expense of accuracy.
+
+If visibility obs are being assimilated within VAR, as they currently are
+within the UK MES for example, you will need to request aerosol fields.
+
+Adam Clayton, 18/11/03.
+
+
+%I macros
+

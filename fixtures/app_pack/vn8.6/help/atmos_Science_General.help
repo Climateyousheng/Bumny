@@ -1,0 +1,19 @@
+This window allows users to specify parameters associated with both the dynamics
+and physics schemes.
+
+In the event of negative total layer moisture, there is an option to continue,
+setting any negative q values to zero, hence a loss of conservation. The
+occurence of this is indicative of model problems and it may be better not to
+hide the problem by using this option. The model will otherwise fail if this
+event occurs.
+
+Negative values of q can occur at a few points due to the nature of the
+integration sheme. They can be removed, on a layer-by-layer basis, by applying
+either GLOBAL or LOCAL corrections. 
+Both methods conserve as long as total layer moisture is positive where the
+corrective option described above will cause loss of conservation.  Operational
+users, especially those who are assimilating, should consider the faster GLOBAL
+option, this will bit compare with pre-3.4 versions. However, this method does
+lead to spurious horizontal moisture fluxes as well as a long term decline in
+stratospheric moisture. 
+LOCAL corrections overcome these problems & are recommended for climate use.

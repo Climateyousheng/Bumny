@@ -1,0 +1,11 @@
+Selecting the 'use methane oxidation' panel allows the calculation of
+chemical water vapour change due to methane oxidation and photolysis,
+following  the method used at ECMWF (Untch et al (ECMWF Newsletter No
+87, winter 1998/99, pp 2-8) and Simmons (pers. comm.)).  The model
+methane mixing ratio is implicit, and derived from the assumption that
+2 [CH4] + [H2O] = 3.75  ppmm throughout the stratosphere.
+
+The methane oxidation and hydrogen photolysis rate coefficients vary
+only with pressure, and are calculated within the code assuming a
+surface pressure of 1000 hPa.
+

@@ -1,0 +1,74 @@
+%TCL
+#==============================================================================
+# RCS Header:
+#   File         [$Source: /home/hc0300/umui/srce_code/UMUI_archive/umui2.0/vn7.6/processing/proc_calcMeanList,v $]
+#   Revision     [$Revision: 1.1 $]     Named [$Name: head#main $]
+#   Last checkin [$Date: 2010/02/02 17:07:33 $]
+#   Author       [$Author: umui $]
+#==============================================================================
+
+# calcMeanList
+#   Calculate a list of climate meaning archiving streams for a given
+#   submodel. If climate mean periods are not "special" the streams
+#   are ?p1, ?p2, ?p3 and ?p4 where ? stands for "a" or "o" depending
+#   on submodel. For special periods such as a season, month or year
+#   the number is replaced with a letter.
+# Arguments
+#   mLetter: Model letter: A or O
+#   mNumber: Model number: 1 or 2
+
+
+proc calcMeanList {mLetter mNumber} {
+
+    # This is "ap" or "op" depending on submodel
+    set sPref "[string tolower $mLetter]p"
+
+    # unit is timesteps, hours, days or dump periods (T, H, DA or DU)
+    set unit %ADUMPU($mNumber)
+    set every %ADUMPP($mNumber)
+
+    # Stream ids for 365 day calendar are hardwired
+    set lcal360 [expr %ADUMP($mNumber) != 3]
+
+    if {$lcal360} {
+	# 360-day calendar
+	set numPeriods %ANMP($mNumber)
+	
+	set specialDays [list 30 90 360 1800 3600 18000 36000 360000 5 7 10 14]
+	set letterList  [list m  s   y    v    x    l      u     z   p w  t  r]
+	
+	set list ""   
+	for {set i 1} {$i <= $numPeriods} {incr i} {
+	    set nPer %AMP($i,$mNumber)
+	    set every [expr $nPer * $every]
+	    if {%AMPA($i,$mNumber) == "Y"} {
+		# This period is to be archived
+		set days [convTimeUnits $every $unit DA $mLetter]
+		# Convert number of days to a letter
+		set found 0
+		foreach dayList $specialDays letter $letterList {
+		    if {$days == $dayList} {
+			set found 1
+			lappend list $sPref$letter
+		    }
+		}
+		if {$found == 0} {
+		    lappend list $sPref$i
+		}
+	    }
+	}
+    } else {
+	# Gregorian calendar
+	set numPeriods %ANMPRM($mNumber)
+	set list ""
+	set sList [list dummy ${sPref}m ${sPref}s ${sPref}y]
+	for {set i 1} {$i <= $numPeriods} {incr i} {
+	    if {%AMPARM($i,$mNumber) == "Y"} {
+		lappend list [lindex $sList $i]
+	    }
+	}
+    }
+    return $list
+}
+%ENDTCL
+

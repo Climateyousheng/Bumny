@@ -1,0 +1,15 @@
+This window allows users to specify the use of the soil-moisture &
+snow-depth  ancillary file.  
+
+Before 8.4 the snow amount field was confusingly called snow depth. 
+From 8.4 it has been renamed and both snow amount and snow depth fields are 
+available. Snow depth may only be configured (not updated) and should only be 
+used for single-tile model configurations.
+
+Standard files hold time-variant fields, but periodic updating would prohibit
+interactive surface processes from responding fully.
+
+Fields should be configured when changing resolution or moving to a new land-sea
+mask.
+
+%I ancill_gen

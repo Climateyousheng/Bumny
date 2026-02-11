@@ -1,0 +1,313 @@
+%C ======================================================
+%C module: fcm_config
+%C
+%C Common sections of the fcm config files
+%C
+%C Module included in:
+%C  * FCM_UMUI_SCRIPTS_CFG   via processing/fcm_base_cfg
+%C  * FCM_UMUI_MODEL_CFG  via processing/fcm_model_cfg
+%C  * FCM_UMUI_JOB_RECFG  via processing/fcm_job_recfg
+%C  * FCM_NEMOCICE_CFG    via processing/fcm_nemocice_cfg  
+%C ======================================================
+%TCL
+   putl $header
+
+   if { $subm == "umscripts" || $subm == "umatmos" || $subm == "umrecon" } {
+      set UMrepos "T"
+   } else {
+      set UMrepos "F"
+   }
+%ENDTCL
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Part 1: Inherit Precompiled Build
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# If UMUI switch "Use a precompiled build" is selected then the
+# "use" declaration and full path to the file ext.cfg has to be
+# included, otherwise inherit src code from base repository.
+# For example:
+#   use 	    $UM_PREBUILD/N48_atmos/umscripts/cfg/ext.cfg 
+# or:
+#   use             $UM_MAINDIR/baserepos/UMATMOS/cfg/ext.cfg
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+%TCL
+   if { $UMrepos == "T" } {
+      if { %LFCM_PREBUILD=="Y" } {
+         putl "use \$UM_PREBUILD/%UMFCM_MODNAME/$subm/cfg/ext.cfg"
+      } else {
+         putl "use \$UM_MAINDIR/baserepos/UMATMOS/cfg/ext.cfg"
+      } 
+   }
+   putl "$part1"
+   if {%MACH_NAME=="ibm02"} {
+      set processed_dir [set_output_dir]/%RUN_ID
+      putl " "
+      putl "rdest::rsync                 monsoon_rsync"
+      putl "rdest::rsyncflags            $processed_dir/REMCOMMS"
+      putl "rdest::rsh_mkdir_rsh         monsoon_ssh_mkdir"
+      putl "rdest::rsh_mkdir_mkdirflags  $processed_dir/REMCOMMS"
+   }
+%ENDTCL
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Part 2: Build Declarations (MANDATORY)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+%TCL
+   if {[inactive_var OASIS]==0 && [get_variable_value OASIS]=="T"} {
+     set use_oasis Y
+   } else {
+     set use_oasis N
+   }
+
+   putl "$part2a"
+   if { $subm != "umscripts" } {
+      putl "bld::excl_dep              USE::netcdf"
+      putl "bld::excl_dep              INC::mpif.h"
+      putl "bld::excl_dep              INC::netcdf.inc"
+      if { $use_oasis=="Y" } {
+         putl "bld::excl_dep              USE::psmile"
+         putl "bld::excl_dep              USE::prism"
+         putl "bld::excl_dep              USE::mod_prism_proto"
+         putl "bld::excl_dep              USE::mod_prism_grids_writing"
+         putl "bld::excl_dep              USE::mod_prism_def_partition_proto"
+         putl "bld::excl_dep              USE::mod_prism_put_proto"
+         putl "bld::excl_dep              USE::mod_prism_get_proto"
+         putl "bld::excl_dep              USE::mod_prism"
+      }
+   }
+   putl ""
+   putl "$part2b"
+
+   if { $part3a != "" } {
+      putl ""
+      putl "# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      putl "# Part 3a: Model Specific Sections"
+      putl "# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      putl "# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      putl ""
+# Trim the last back slash if several def lists were concatenated
+   set part3a [string trimright $part3a "\\"]
+
+      putl "$part3a"
+   }
+   
+   if { $part3b != "" } {
+      putl ""
+      putl ""
+      putl "# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      putl "# Part 3b: Executable definition"
+      putl "# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      putl "# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      putl ""
+      putl "$part3b"
+   }
+
+   if { $part3c != "" } {
+      putl ""
+      putl ""
+      putl "# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      putl "# Part 3c: Optional Flags"
+      putl "# ~~~~~~~~~~~~~~~~~~~~~~~"
+      putl "# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      putl ""
+      putl "$part3c"
+   }
+%ENDTCL
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Part 4: User overrides from a branch (OPTIONAL)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  
+# If the user selects "Include modifications from branch(es)"
+# then a pair of "branchN" declarations for each branch needs
+# to be included.
+# For example:
+#   repos::UM::branch1    svn://fcm2/UM_svn/UM/branches/dev/userid/VNx.x_branchname/src
+#   expsrc::UM::branch1   /
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+%TCL
+   if { $UMrepos == "T" } {
+      set branches %LFCM_USRBRN
+      for {set i 1} {$i <= %FCM_BRN_COUNT} {incr i} {
+         set repos($i) "UM"
+         set branch_name($i) [get_variable_value FCM_USRBRN_VAL($i)]
+         set branch_ver($i) [get_variable_value FCM_USRBRN_VER($i)]
+         set branch_use($i) [get_variable_value FCM_USRBRN_USE($i)]
+      }
+   } else {
+      # Branch variables set up in calling procedure
+   }
+
+   set str_sp "     "
+   set str_spv "   "
+   set str_empt "    /"
+
+   for {set t 1} {$t <= $type} {incr t} {
+
+      if {$branches == "Y"} {
+         for {set i 1} {$i <= %FCM_BRN_COUNT} {incr i} {
+            if { $branch_name($i)!="" && $branch_use($i)=="Y" && $repos($i)!="" } {
+               set str_1 branch$i
+               set str_2 $branch_name($i)
+               set ver [string trim $branch_ver($i)]
+               if {$ver == ""} {
+                  set str_3 "head"
+               } else {
+                  set str_3 $branch_ver($i)
+               }
+               putl "repos::$repos($i)::$str_1$str_sp$str_2"
+               putl "version::$repos($i)::$str_1$str_spv$str_3"
+               if { $repos($i)=="UM" } {
+                  putl "expsrc::$repos($i)::$str_1$str_empt"
+               }
+            }
+         } 
+      }
+      putl ""
+      if { $t < $type } {
+
+         set branches [expr \$branches$t]
+         for {set i 1} {$i <= %FCM_BRN_COUNT} {incr i} {
+            set repos($i) [string tolower [expr \$repos$t\($i)]]
+            set branch_name($i) [expr \$branch_name$t\($i)]
+            set branch_ver($i) [expr \$branch_ver$t\($i)]
+            set branch_use($i) [expr \$branch_use$t\($i)]
+         }
+      }
+   }
+%ENDTCL
+
+%T  if { $UMrepos == "T" } {
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Part 4b: Overrides from central script mods (OPTIONAL)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# If the option "Use central script mods" in the umui is selected
+# then "script_mods" declaration needs to be included.
+# This entry in the CFG file only differs from that of an ordinary 
+# branch in the UMscripts build, because the script build targets 
+# for each branch is included.
+# For example:
+#   repos::UM::script_mods     svn://fcm2/UM_svn/UM/branches/dev/???
+#   expsrc::UM::script_mods    /
+#   inc svn://fcm2/UM_svn/UM/branches/???/src/configs/script_build/...    /
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+%TCL
+      if {%LFCM_CENSRCMOD=="Y"} {
+         set str_sp "     "
+         set str_spv "   "
+         set str_empt "    \/"
+         for {set i 1} {$i <= %FCM_CMS_COUNT} {incr i} {
+            if { %FCM_CMSCR_VAL($i)!="" && %FCM_CMSCR_USE($i)=="Y" } {
+               set str_1 script_mods$i
+               set str_2 %FCM_CMSCR_VAL($i)
+               set ver [string trim %FCM_CMSCR_VER($i)]
+               if {$ver == ""} {
+                  set str_3 "head"
+               } else {
+                  set str_3 %FCM_CMSCR_VER($i)
+               }
+               putl "repos::UM::$str_1$str_sp$str_2"
+               putl "version::UM::$str_1$str_spv$str_3"
+               putl "expsrc::UM::$str_1$str_empt"
+               if { $subm == "umscripts" } {
+                  putl ""
+                  putl "inc $str_2/configs/script_build/script_targets.cfg@$str_3"
+               }
+               putl " "  
+            }
+         }
+      } 
+   }
+%ENDTCL
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Part 5: User overrides from a working copy (OPTIONAL)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# If the option "Include modifications from user working copy" 
+# is selected then "user" declarations needs to be included.
+# For example:
+#   repos::UM::user    /data/local/userid/workingcpy_name/src
+#   expsrc::UM::user
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+%TCL
+   if { $UMrepos == "T" } {
+      set repos_wc "UM"
+      set workingcopy "%LFCM_USRWRKCP"
+      set wkcpy_name "%FCM_USRWRKCP"
+   } else {
+      # Branch variables set up in calling procedure
+   }
+   
+   for {set t 1} {$t <= $type_wc} {incr t} {
+      if { $workingcopy == "Y" } {
+         putl "repos::${repos_wc}::user		    $wkcpy_name"
+         if { $repos_wc == "UM" } {
+            putl "expsrc::${repos_wc}::user"
+         }
+         putl ""
+      }
+
+      if { $t < $type_wc } {
+         set workingcopy [expr \$workingcopy$t]
+         set repos_wc [expr \$repos_wc$t]
+         set wkcpy_name [expr \$wkcpy_name$t]
+      }
+   }
+%ENDTCL
+
+%T if { $part6a != "" } {
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Part 6a: Pre-bindings UMUI controlled Libraries (OPTIONAL)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# The UMUI has options to include particular external
+# libraries. Currently available libraries are:
+#     DR HOOK
+#     OASIS3, OASIS3-MCT
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%T    putl "$part6a"
+%T }
+
+
+%T if { $part6b != "" } {
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Part 6b: Bind file (MANDATORY)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# These relate to the level of optimisation required and sets up
+# all the correct pre-processing, compiler and linker flags.
+# For umui purposes there are 6 possibilities:
+#   bind64_mpp_high.cfg
+#   bind64_mpp_safe.cfg
+#   bind64_mpp_debug.cfg
+#   bind64_serial_high.cfg
+#   bind64_serial_safe.cfg
+#   bind64_serial_debug.cfg 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+%T    putl "$part6b"
+%T }
+
+
+%T if { $part6c != "" } {
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Part 6c: Post-bindings UMUI controlled Libraries (OPTIONAL)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# The UMUI has options to include particular external
+# libraries. Currently available libraries are:
+#     OASIS3, OASIS3-MCT
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%T    putl "$part6c"
+%T }

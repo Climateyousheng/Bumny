@@ -1,0 +1,21 @@
+%C------------------------------------------------------------------------
+%C  File:  fcm_extract_atmos
+%C------------------------------------------------------------------------
+%C
+%C  Purpose: Generates FCM_EXTRACT_UMATMOS, which provides the UMATMOS base repository
+%C           
+%C
+%C  Include files:
+%C
+%C------------------------------------------------------------------------
+#-------------------------------------------------------------------------
+# Script: FCM_EXTRACT_UMATMOS_CFG
+# Purpose: Provides additional source information for UMATMOS base extract
+#         
+# Created from UMUI vn%VERSION
+#-------------------------------------------------------------------------  
+
+# Add mirror command to use for MONSooN 
+# --------------------------------------
+%I fcm_extract_config
+

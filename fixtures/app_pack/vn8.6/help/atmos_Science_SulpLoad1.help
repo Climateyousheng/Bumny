@@ -1,0 +1,16 @@
+The HadCM2 approximate treatment of sulphate aerosol (only available with
+version 2B of the SW radiation) uses a linear combination of two sulphate
+loading patterns with time-varying coefficients.
+
+
+The aerosol is assumed to be close to the surface and is only used in
+shortwave radiation calculations.
+
+
+The method of specifying the loading is rather complex and needs
+some care to set up.
+The method allows for both linear interpolation between defined values at
+designated years and compound percentage growth (exponential growth), with
+rates changing on designated years. The linear growth period must come first.
+
+%I gas_rates

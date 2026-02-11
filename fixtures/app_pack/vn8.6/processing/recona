@@ -1,0 +1,220 @@
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C Atmospheric Reconfiguration control NAMELISTS
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C used procedures: none
+%C imbedded files: 
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ &RECON
+ DUMP_PACK=%ADPACK(1),
+ GRIB= %TCL replacep AGRIB Y .TRUE. N .FALSE. %ENDTCL, 
+ reset_data_time= %TCL replacep ADTVT Y .TRUE. N .FALSE. %ENDTCL, 
+ l_trans= %TCL replacep USE_TRA Y .TRUE. N .FALSE. %ENDTCL,
+ LSPIRAL_S= %TCL replacep ASPIR Y .TRUE. N .FALSE. %ENDTCL, 
+ VAR_RECON= %TCL replacep VAR_RECON Y .TRUE. * .FALSE. %ENDTCL,
+%T if { [inactive_var RCF_QMIN] == 0 } {
+ Q_MIN=%RCF_QMIN,
+%T } else {
+ Q_MIN=0.0,
+%T }
+%T if { [inactive_var RSETWST] ==0 } {
+ w_zero_start=%RSETWST,
+%T } else {
+ w_zero_start=-1,
+%T }
+%T if { [inactive_var RSETWEND] ==0 } {
+ w_zero_end=%RSETWEND,
+%T } else {
+ w_zero_end=-1,
+%T }
+%T if { [inactive_var LPOLARCHK] == 0 } {
+ polar_check=%TCL replacep LPOLARCHK Y .TRUE. * .FALSE. %ENDTCL,
+%T } else {
+ polar_check=.FALSE.,
+%T }
+ USE_SMC_STRESS=%TCL replacep USMCSTRESS Y .TRUE. * .FALSE. %ENDTCL, 
+%T if {[inactive_var LCANSNOWTHR] == 0} {
+ L_CANOPY_SNOW_THROUGHFALL=%TCL replacep LCANSNOWTHR Y .TRUE. * .FALSE. %ENDTCL,
+%T }
+ /
+
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ &VERTICAL
+ V_INT_ORDER = %VINT,
+ / 
+
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ &HORIZONT
+%T if { %OCAAA == 2 ||%OCAAA == 3||%OCAAA == 4 } {
+%T   if { [inactive_var L_LIMROT] == 0 } {
+ L_LIMIT_ROTATIONS=%TCL replacep L_LIMROT Y .TRUE. N .FALSE. %ENDTCL,
+%T   } 
+%T }
+ H_INT_METHOD= %AINTERPOL, 
+%T if { %ACON(2) == "C" && %OCAAA == 2} {
+ OROG_BLEND_WEIGHTS= %TCL tdelimit %OBLENDWGT {,} {} %ENDTCL,
+%T }
+ smcp_int_nearest_neighbour=%TCL replacep SMCPIMTHD Y .TRUE. * .FALSE. %ENDTCL,
+ / 
+
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ &HEADERS 
+%T if {%USEMBT == "Y"} {
+ i_dump_year=%SRYR,
+%T }
+ / 
+
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C &ITEMS NAMELIST
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C Ancillary fields.
+%TCL
+  putl " !!! Ancillary fields !!!"
+  # Get list of user ancillary fields
+  set mLetter "A"
+  set userList [getAllKeys "AncilFields" "user" $mLetter]
+  set n_a_stashan %N_$mLetter\_STASHAN
+  # Do not write record if user override exists
+  for { set i 1 } { $i <= $n_a_stashan } { incr i } {
+    if {[lsearch $userList $i] == -1} {
+      set rec %$mLetter\_STASHAN($i)
+      set item   [lindex $rec 1]
+      set parent [lindex $rec 2]
+      if {$item == "505" && %CTILE != "Y"} {
+        # Do nothing (this is inactive) 
+        # Warning: This is a special case linked with
+        # ACON 110.  This is stash item 1,0,505 -
+        # the "land fraction" file found in panel
+        # atmos_InFiles_OtherAncil_LandFrac
+      } elseif { ($item>="418" && $item<="426") && %I_DUST==0 } {
+        # Do nothing (these are inactive)
+        # Special case linked to ACON(112) on Aero_Dust panel
+      } else {
+      if { $i != 41 && $i != 42 && $i != 43  &&  $item!=-1} {
+        # updateable tracer!
+        if { %$mLetter\CON($parent) == "C" } {
+          putl " \&ITEMS SECTION=0, ITEM=$item, DOMAIN=1, SOURCE=2, /"
+        } elseif { %$mLetter\CON($parent) == "U" } {
+          putl " \&ITEMS SECTION=0, ITEM=$item, DOMAIN=1, SOURCE=4, /"
+        }
+      }
+    }
+    } 
+  }
+  # Write records for user ancillary fields
+  foreach key $userList {
+    set confOpt [getUserAncOpt $mLetter $key configure]
+    set item [getRecordElement AncilFields $mLetter $key "itemNo"]
+    set sec_num [getRecordElement AncilFields $mLetter $key "secNo"]
+        if { $confOpt == "C" } {
+          putl " \&ITEMS SECTION=$sec_num, ITEM=$item, DOMAIN=1, SOURCE=2, /"
+        } elseif { $confOpt == "U" } {
+          putl " \&ITEMS SECTION=$sec_num, ITEM=$item, DOMAIN=1, SOURCE=4, /"
+        }
+  }
+%ENDTCL
+%C Tracer fields.
+%TCL
+  if {%USE_TCA=="Y"} {
+    putl " !!! Tracer fields !!!"
+    for { set i 1 } { $i <= %N_ATRACERS } { incr i } {
+      set rec %TCA_DEF($i)
+ 
+      set pos [string first "(" $rec]  
+      set pos [incr pos -1]
+      set item [ expr [string range $rec 0 $pos ] ]
+           
+      if { %TCA($i) == 2 } {
+        putl " \&ITEMS SECTION=33, ITEM=$item, DOMAIN=1, SOURCE=5, /"
+      } elseif { %TCA($i) == 3 } {
+        putl " \&ITEMS SECTION=33, ITEM=$item, DOMAIN=1, SOURCE=4, /"
+      }
+    }
+  }
+%ENDTCL
+%C CO2.
+%T if {%CO2OPT=="3" && %CO2INITOPT==2} {
+ !!! Co2 Field for interactive carbon cycle !!!"
+ &ITEMS SECTION=0, ITEM=252, DOMAIN=1, SOURCE=6, USER_PROG_RCONST=%CO2INITVAL /
+%T }
+%C User Prognostics, Atmos.
+%TCL
+  if { (%USERPRE_A == "Y")&&(%USRP_COUNT(1) > 0) } {
+    putl " !!! Atmos user-prognostic fields !!!"
+    set items %USRP_INDEX_A
+    set num_progs [ llength $items ]
+    for { set i 1 } { $i <= $num_progs } { incr i } { 
+      set item [ lindex $items [expr $i-1] ]
+    
+    set len [string length $item]
+    set itm [string range $item [expr $len - 3] $len]
+    set sec [string range $item 0 [expr $len - 4]]
+    if {$sec==""} {set sec 0}
+    set itm [string trimleft $itm "0"]
+    set item $itm
+      
+      set option %USRP_OPTN_A($i)
+      if { $option == 2 || $option == 3 || $option == 4 } { 
+         putl " \&ITEMS SECTION=$sec, ITEM=$item, DOMAIN=1, SOURCE=$option /"
+      } elseif { $option == 6 } { 
+         set const %USRP_CONST_A($i) 
+         putl " \&ITEMS SECTION=$sec, ITEM=$item, DOMAIN=1, SOURCE=6, USER_PROG_RCONST=$const /"
+         unset const
+      } elseif { $option == 7 } { 
+         set file %USRP_FILE_A($i) 
+         putl " \&ITEMS SECTION=$sec, ITEM=$item, DOMAIN=1, SOURCE=7, USER_PROG_ANCIL_SCTNC=$sec, USER_PROG_ANCIL_ITEMC=$item"
+         putl " USER_PROG_ANCIL_FILE=\"$file\" /"
+         unset file
+      } 
+      unset option len itm sec
+    }
+    unset items num_progs i
+  }
+%ENDTCL
+%C SST anomaly ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%TCL
+  if { (%SSTAN=="Y") && (%SSTA=="Y")  } {
+    putl " !!! SST Anomaly !!!"
+    putl " &ITEMS SECTION=0, ITEM= 39,DOMAIN=1,SOURCE=2, /"
+  }
+%ENDTCL
+%C Energy correction
+%TCL
+  if { %ATMOS_SR(14) != "0A" } {
+    putl " !!! Energy and moisture correction prognostics !!! "
+    putl " &ITEMS SECTION=0, ITEM=222, DOMAIN=1, SOURCE=3, / "
+    putl " &ITEMS SECTION=0, ITEM=235, DOMAIN=1, SOURCE=3, / "
+  }
+  if { %RECON49 == "Y" } {
+     putl " !!! Sea Ice surface temperature prognostics !!! "
+     putl " \&ITEMS SECTION=0, ITEM=49, DOMAIN=1, SOURCE=8, / "
+  }
+  if { ([inactive_var RECON415] == 0) && (%RECON415 == "Y") } {
+     if { %RECON49 =="N" } {
+        putl " !!! Sea Ice surface temperature prognostics !!! "
+     }
+     putl " \&ITEMS SECTION=0, ITEM=415, DOMAIN=1, SOURCE=8, / "
+  }  
+
+  if { %RECONCCLD == "Y" } {
+     putl " !!! Convective cloud diagnostics !!! "
+     putl " \&ITEMS SECTION=0, ITEM=13, DOMAIN=1, SOURCE=3, / "
+     putl " \&ITEMS SECTION=0, ITEM=14, DOMAIN=1, SOURCE=3, / "
+     putl " \&ITEMS SECTION=0, ITEM=15, DOMAIN=1, SOURCE=3, / "
+     putl " \&ITEMS SECTION=0, ITEM=16, DOMAIN=1, SOURCE=3, / "
+     putl " \&ITEMS SECTION=0, ITEM=211, DOMAIN=1, SOURCE=3, / "
+  }
+%ENDTCL
+%C LAM jobs
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ !!! Transplant data !!!
+%T if { %USE_TRA == "Y" } {
+%T   for { set i 1 } { $i <= %NTRANSP } { incr i } {
+ &TRANS SCTNC=%TPSEC($i), ITEMC=%TPI($i), LEV1=%TPL1($i), LEV2=%TPL2($i), 
+ COL1=%TPC1($i), COL2=%TPC2($i), ROW1=%TPR1($i), ROW2=%TPR2($i) / 
+%T   }
+%T }
+
+ !!! END OF FILE ###
+%C Delete local variables
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

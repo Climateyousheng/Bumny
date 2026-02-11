@@ -1,0 +1,97 @@
+The Cusack aerosol climatology represents a first attempt to include background 
+aerosols in the model and is distinct from the interactive aerosol schemes. 
+It is based on the report WCRP-55 of WMO and uses two basic aerosol profiles,
+one over ice-free land and one over oceans and land ice. The climatology 
+consists of a boundary layer component and a stratospheric component. The
+component in the planetary boundary layer may be distributed across either
+the layers over which the boundary layer scheme is applied, the diagnosed
+boundary layer height, or a user specified number of levels, depending on
+the choices in this section. When using other aerosol species, provided either 
+through interactive aerosol schemes (See section 17: Aerosols) or other 
+climatologies in this section, it may be desirable to only include the stratospheric
+component of the Cusack aerosol (as is standard in HadGEM1).
+
+Scaling factors may be applied to the components of the climatology in their standard 
+order: "Water Soluble", "Dust", "Oceanic", "Soot" and "Stratospheric".
+
+The sulphate aerosol in this scheme can be modified in the stratosphere 
+to take account of large enhancements that occur after volcanic eruptions. 
+This is useful in seasonal and decadal forecasts, for example, where a sudden 
+volcano could be detrimental if not represented. At the same time, it is unlikely 
+that detailed measurements of aerosol concentrations would be available 
+quickly enough to specify 3d fields via the ancillary file method below. As such,
+the volcano is represented as a 'climatology' that varies month by month for 
+4 years after the eruption date. This 'climatology' is specified as a composite 
+of the 5 explosive tropical eruptions of the 20th century, as reckoned in 
+the Sato (2002) optical depth dataset (http://www.giss.nasa.gov/data/strataer). 
+The code converts optical depth to the necessary mass mixing ratios between the 
+tropopause level and 30hPa and has limited latitude resolution by using differing 
+values for the bands 90-30N, 30-0N, 0-30S, 30-90S. If the volcanic eruption option 
+is selected, then the year and month of the eruption need to be specified. In 
+addition, a scaling factor can be applied to increase or decrease the magnitude 
+of the volcanic eruption effect. 
+The default (1.0) corresponds to a moderate-sized eruption with a peak optical 
+depth of 0.1. For comparison, the 1991 Pinatubo eruption had a peak optical depth 
+of about 0.2. Scaling can be set as high as 9.99 (almost optically saturated) 
+but an eruption this large probably has effects beyond the scope of 
+the code.
+
+3D time varying aerosol climatologies can be specified using ancillary files 
+which are used for the direct radiative effect and, when switched on, the 
+cloud droplet number in the cloud microphysics (second indirect effect). 
+The first indirect effect (cloud droplet number seen by radiation is not yet 
+included in this effect but will be in an upcoming future release, when the 
+radiation and microphysics schemes share this information. The following 
+aerosol climatologies are specified using ancillary files and are available:
+
+Biogenic aerosols: are interpolated from a climatology originally made by 
+Colin Johnson using the HadCM3/STOCHEM climate/chemistry model with a 
+degradation model for terpenes as described in the paper Derwent et al. 2003. 
+If the only additional aerosol is the biogenic aerosol, then in general the 
+Cusack aerosol climatology should include both the boundary layer and 
+stratospheric component. If the biogenic aerosol is used in conjunction with the
+prognostic aerosol scheme and the sulphate aerosol indirect effect is switched
+on then the biogenic aerosol will also have an indirect effect.
+
+Biomass-burning aerosols: these aerosols have the same properties as the 
+prognostic biomass burning aerosol scheme. The climatology datasets for 
+this aerosol are usually generated from climate model runs. At present there
+is no indirect effect from this aerosol.
+
+Black Carbon aerosols: these aerosols have the same properties as the 
+prognostic black carbon aerosol scheme. The climatology datasets for 
+this aerosol are usually generated from climate model runs. At present there
+is no indirect effect from this aerosol.
+
+Sea-salt aerosols: these aerosols have the same properties as the diagnostic
+sea-salt aerosol scheme. The climatology datasets for this aerosol are usually
+generated from climate model runs. At present there is no indirect effect from
+this aerosol.
+
+Sulphate aerosols: these aerosols have the same properties as the prognostic
+sulphate aerosol scheme. The climatology datasets for this aerosol are usually
+generated from climate model runs. At present there is no indirect effect from
+this aerosol.
+
+Dust aerosols: these aerosols have the same properties as the prognostic dust
+aerosol scheme. The climatology datasets for this aerosol are usually generated
+from climate model runs. At present there is no indirect effect from this aerosol.
+
+Organic Carbon Fossil Fuel aerosols (OCFF): these aerosols have the same
+properties as the prognostic OCFF aerosol scheme. The climatology datasets for 
+this aerosol are usually generated from climate model runs. At present there
+is no indirect effect from this aerosol.
+
+'Delta' aerosols: This is an additional aerosol species that can be used to fill in
+gaps left by the other climatologies when compared to observations. At present
+there is no indirect effect from this aerosol. The datasets used to generate this
+aerosol climatology are currently still ad-hoc.
+
+NOTE: If you run with both an aerosol climatology and a prognostic variable for
+the same aerosol species then the aerosol climatology would be used for the
+direct effect.
+
+The ancillary files for the spatial/temporally varying aersosol climatologies can be
+created with the script  ~freb/bin/ancil_scripts_7.0/ancil_aero_clims
+
+

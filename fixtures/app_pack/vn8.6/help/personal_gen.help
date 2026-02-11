@@ -1,0 +1,51 @@
+Enter your personal information in this window.
+
+%I user_id
+
+%I mail_id
+
+Job names are not required when using generalised suite control.
+
+For Met Office users only: 
+By default the user Account Group is set to "cr" or "nwp" on the
+IBM depending on whether your home disk is /home/cr or home/nwp. 
+If the default is wrong for the work you are running, please set 
+the correct alternative:
+
+ cr:      You are doing work that is in line with Climate Science goals,
+          or work in line with the Hadley Centre Climate Programme
+
+ nwp:     You are doing work in line with Weather Science goals
+
+ science: You are doing work that contributes to both programmes.
+
+Commonly, the codes divide into the three subdivisions of Science:
+   Climate Science (cr), 
+   Weather Science (nwp) and 
+   Foundation Science (science). 
+Please use your judgment or ask your manager if you are not sure.
+
+If you are using the production queues run_cr or run_nwp then you 
+MUST use the related code "cr" or "nwp" respectively.
+
+The front-end DSN prefix is for Met-Office use. Others could set
+none. Not required when using generalised suite control.
+
+Users running remotely will need to set up a .rhosts file on the
+machine that they will be running on. It needs to be in your home
+directory and have access 644 set.
+
+eg
+cat > .rhosts <<EOF
+hc0300 hadmk
+hc0302 hadmk
+hc0303 hadmk
+EOF
+
+Those using the Suite Control System may wish to specify an
+alternative name for EXPT_ID that goes at the top of the CNTLALL
+file. Usually the normal 4-letter experiment identity is used.  NB:
+unless overridden by this question, operational jobs (those whose
+experiment identities begin with "q") are automatically given 'umgl',
+'umla' or 'umms' for global, limited area and mesoscale models
+respectively.

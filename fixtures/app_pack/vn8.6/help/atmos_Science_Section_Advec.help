@@ -1,0 +1,99 @@
+
+Section 12 : Primary Field Advection
+see below for a description of sections.
+
+Monotone Schemes:
+      0: No scheme
+      1: Tri-linear Lagrange interpolation
+      2: ECMWF monotone quasi-cubic interpolation
+
+High order schemes:
+      0: Linear interpolation - no high order scheme
+      1: Cubic Lagrange interpolation
+      2: Quintic Lagrange interpolation
+      3: ECMWF quasi-cubic interpolation
+      4: ECMWF monotone quasi-cubic interpolation
+      5: Bi-cubic Lagrange interpolation in the horizontal, 
+         linear interpolation in the vertical
+      6: ECMWF quasi-cubic interpolation in the horizontal,
+         quintic in the vertical
+      7: cubic Lagrange interpolation in the horizontal,
+         quintic in the vertical
+
+Apply more accurate non-hydrostatic conservation of moisture
+    This calls the advection for moisture twice using end of timestep
+    density for a more accurate solution
+
+Checking of global moisture conservation by physics should only be 
+    switched on in short <= 10 day runs as it generates 4 print statements 
+    every timestep from each physics scheme checked. It is currently setup 
+    to check convection, boundary layer, micro-physics and methane oxidation.
+
+The conservation is checked in 3 different ways: 
+    a) a method consistent with the dynamics assumptions on the rho grid 
+    b) on the theta grid c) on the theta grid but assuming hydrostatic 
+       balance and ignoring grid geometry.
+    c) uses a pressure integral i.e. a wet density so is not really valid 
+       for physics routines using mixing ratios.
+
+Use of a fully-interpolating theta advection scheme is often desirable
+    in high resolution local area model runs in domains with orography.
+    The practical result is that gravity waves are more accurately resolved 
+    and furthermore, if a monotone theta scheme is selected no valley 
+    cooling occurs. The penalty is loss of stability and for this reason 
+    choosing this scheme in a Global setting where large timesteps are used
+    is not recommended (the model quickly blows up). It is useful to note 
+    that use of this new scheme in conjuction with dynamics cycling 
+    (formally known as iterative semi-Lagrangian scheme) allows use of 
+    larger model timesteps. For example, if the fully-interpolating theta 
+    advection scheme is activated for a 1 km L38 mesoscale run over the Alps, 
+    the model runs stably with a 40s timestep and 2 cycles or a 15s timestep 
+    and no cycling.
+
+Interpolation of departure points
+    Instead of calculating departure points at theta, u and v points 
+    individually, we calculate the theta departure points and then 
+    interpolate to u and v points. 
+       
+The free slip boundary condition calculates w for sloping surfaces.
+    This may be needed for idealised problems where the no-slip condition
+    is inappropriate. It has little effect when the parametrized boundary
+    layer scheme is active.
+  
+    Use the variable resolution button when delta_lambda and delta_phi are
+    not constant.
+  
+    To avoid valley-cooling problems apply a monotone limiter to the
+    non-interpolating advection of theta. To do this set 
+    Height (in metres) up to which a monotone limiter is applied to
+    advection of theta to an appropriate REAL value > 0.0. It is recommended
+    that this is set as low as possible to stop the valley cooling since if
+    applied above the tropopause the model tends to be less stable.  
+    
+Use corrected monotone limiter code
+    At vn7.6 a correction to the monotone limiter has been implemented.
+    This is a bug-fix and is recommended for inclusion in all versions
+    of the UM.       
+         
+Instability diagnostics controls the level of output from dynamics looking at 
+    checking for negative pressure creation and stability within the dry 
+    adjustment code. 
+
+Alpha relaxation method provides ways to alter alpha weights 
+    1) constant (no change) 
+    2)alpha_relax_type_sqrt 
+    3) alpha_relax_type_coslaw 
+    4) alpha_relax_type_step
+    See UM code and seek dynamics advice. 1 is generally used. 
+
+Vertical damping method applied between the lid of the model (eta=1) and value 
+    selected in 'Eta value above which to apply vertical damping'.
+    For more details consult with dynamics team and look at damping routine. 
+
+To aid the initialisation of EG runs that start from ND or EC data one can 
+    select to filter the start dump during the 1st timestep of an EG run. 
+    This is not used by LAMs and is not expected to be used for runs 
+    initiated by already spun up EG start data. 
+
+-------------
+%I compile_modes

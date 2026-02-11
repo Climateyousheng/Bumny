@@ -1,0 +1,1364 @@
+<M001_S002_I004>
+Help for (001, 002, 004) "TEMPERATURE AFTER LW RAD INCREMENTS"
+
+This diagnostic gives the actual temperatures on model levels after the
+LW radiation increments for the timestep have been added in. The LW 
+increments are calculated from the radiation code only on radiation 
+timesteps:on other timesteps the values calculated on the previous
+radiation timestep are used.
+</M001_S002_I004>
+#
+<M001_S002_I101>
+SKYVIEW FACTOR
+
+The skyview factor for the inclined surface of the grid-box divided 
+by the cosine of the slope angle. This is the factor used to correct 
+the net LW flux into the surface. 
+</M001_S002_I101>
+#
+<M001_S002_I161>
+Stash Diagnostic Help for Section 2 Item 161
+
+STASH item specific help for
+(1, 2, 161)  TEMPERATURE       INCR: lwrad - pc2
+
+This is the increment across the longwave radiation scheme to the gridbox mean
+temperature without condensation effects, in K.
+
+Available on all timesteps.
+
+</M001_S002_I161>
+#
+<M001_S002_I182>
+Stash Diagnostic Help for Section 2 Item 182
+
+STASH item specific help for
+(1, 2, 182)  SPECIFIC HUMIDITY INCR: lwrad scheme
+
+This is the increment across the longwave radiation scheme to the gridbox mean
+specific humidity, in kg of vapour per kg of air.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+WARNING : May change to mass mixing ratio from UM VN5.4.
+
+Available on all timesteps.
+
+</M001_S002_I182>
+#
+<M001_S002_I183>
+Stash Diagnostic Help for Section 2 Item 183
+
+STASH item specific help for
+(1, 2, 183)  QCL               INCR: lwrad scheme
+
+This is the increment across the longwave radiation scheme to the gridbox mean
+specific liquid cloud condensate, in kg of liquid per kg of air.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+WARNING : May change to mass mixing ratio from UM VN5.4.
+
+Available on all timesteps.
+
+</M001_S002_I183>
+#
+<M001_S002_I192>
+Stash Diagnostic Help for Section 2 Item 192
+
+STASH item specific help for
+(1, 2, 192)  BULK CLOUD VOL    INCR: lwrad scheme
+
+This is the increment across the longwave radiation scheme to the gridbox mean
+total cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S002_I192>
+#
+<M001_S002_I193>
+Stash Diagnostic Help for Section 2 Item 193
+
+STASH item specific help for
+(1, 2, 193)  LIQUID CLOUD VOL  INCR: lwrad scheme
+
+This is the increment across the longwave radiation scheme to the gridbox mean
+liquid (including mixed phase) cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S002_I193>
+#
+<M001_S002_I194>
+Item (1:2:194) QCL INCR: lwrad positive
+
+%I pc2_diags 
+
+</M001_S002_I194>
+#
+<M001_S002_I195>
+Item (1:2:195) QCL INCR: lwrad negative
+
+%I pc2_diags 
+
+</M001_S002_I195>
+#
+<M001_S002_I198>
+Item (1:2:198) LIQ CLOUD VOL INCR: lwrad positive
+
+%I pc2_diags 
+
+</M001_S002_I198>
+#
+<M001_S002_I199>
+Item (1:2:199) LIQ CLOUD VOL INCR: lwrad negative
+
+%I pc2_diags 
+
+</M001_S002_I199>
+#
+<M001_S002_I201>
+Help for (001, 002, 201) "NET DOWN SURFACE LW RAD FLUX"
+
+The net downward (total downward minus upward) LW radiative flux at the 
+Earth's surface (ground or ocean surface). The diagnostic is available 
+only on LW radiation timesteps.
+</M001_S002_I201>
+#
+<M001_S002_I203>
+Help for (001, 002, 203): "NET DN LW RAD FLUX:OPEN SEA:SEA MEAN"
+
+This item is the net downward longwave flux over the open sea. It is
+weighted by the total sea (ie open sea and sea-ice) fraction.
+
+
+</M001_S002_I203>
+#
+<M001_S002_I204>
+Help for (001, 002, 204) "TOTAL CLOUD AMOUNT IN LW RADIATION"
+
+The total cloud amount seen in LW radiation. This diagnostic is caclulated
+in a manner consistent with the assumption made about the overlapping of
+cloud in different layers in the vertical: there is no absolute requirement
+in the model that the overlaps be treated consistently in the SW and LW, so
+this diagnostic may give results different from diagnostic 219 in section 1.
+Calculations are made only on LW radiation timesteps.
+
+</M001_S002_I204>
+#
+<M001_S002_I205>
+Help for (001, 002, 205) "OUTGOING LW RAD FLUX (TOA)"
+
+The flux of LW radiation leaving the top of the atmosphere. The diagnostic
+is calculated only on LW radiation timesteps.
+</M001_S002_I205>
+#
+<M001_S002_I206>
+Help for (001, 002, 206) "CLEAR-SKY (II) UPWARD LW FLUX (TOA)"
+
+The flux of LW radiation leaving the top of the atmosphere neglecting
+the radiative effects of all clouds in the atmosphere. The diagnostic
+is calculated only on LW radiation timesteps.
+</M001_S002_I206>
+#
+<M001_S002_I207>
+Help for (001, 002, 207) "DOWNWARD LW RAD FLUX: SURFACE"
+
+The total downward flux of LW radiation at the ground or ocean surface. 
+The diagnostic is calculated only on LW radiation timesteps.
+</M001_S002_I207>
+#
+<M001_S002_I208>
+Help for (001, 002, 208) "CLEAR-SKY (II) DOWN SURFACE LW FLUX"
+
+The total downward flux of LW radiation at the ground or ocean surface 
+neglecting the radiative effects of all clouds in the atmosphere. 
+The diagnostic is calculated only on LW radiation timesteps.
+</M001_S002_I208>
+#
+<M001_S002_I217>
+(1:2:217) "UPWARD LW FLUX ON LEVELS"
+
+Upwards LW flux in Wm-2 on radiation levels.
+This is a 3-dimensional field available on radiation timesteps.
+
+The domain profile should set model rho levels starting at ATMOS_BOTTOM
+and ending at ATMOS_TOP+1. The levels correspond to:
+1              : Surface
+2 to ATMOS_TOP : rho levels 2 to ATMOS_TOP
+ATMOS_TOP+1    : Top of atmosphere
+
+(ATMOS_TOP+1 is strictly defined such that theta(ATMOS_TOP) is midway in
+height between rho(ATMOS_TOP) and ATMOS_TOP+1.)
+</M001_S002_I217>
+#
+<M001_S002_I218>
+(1:2:218) "DOWNWARD LW FLUX ON LEVELS"
+
+Downwards LW flux in Wm-2 on radiation levels.
+This is a 3-dimensional field available on radiation timesteps.
+
+The domain profile should set model rho levels starting at ATMOS_BOTTOM
+and ending at ATMOS_TOP+1. The levels correspond to:
+1              : Surface
+2 to ATMOS_TOP : rho levels 2 to ATMOS_TOP
+ATMOS_TOP+1    : Top of atmosphere
+
+(ATMOS_TOP+1 is strictly defined such that theta(ATMOS_TOP) is midway in
+height between rho(ATMOS_TOP) and ATMOS_TOP+1.)
+</M001_S002_I218>
+#
+<M001_S002_I219>
+(1:2:219) "CLEAR-SKY UPWARD LW FLUX ON LEVELS"
+Clear-sky upwards LW flux in Wm-2 on radiation levels.
+This is a 3-dimensional field available on radiation timesteps.
+
+The domain profile should set model rho levels starting at ATMOS_BOTTOM
+and ending at ATMOS_TOP+1. The levels correspond to:
+1              : Surface
+2 to ATMOS_TOP : rho levels 2 to ATMOS_TOP
+ATMOS_TOP+1    : Top of atmosphere
+
+(ATMOS_TOP+1 is strictly defined such that theta(ATMOS_TOP) is midway in
+height between rho(ATMOS_TOP) and ATMOS_TOP+1.)
+</M001_S002_I219>
+#
+<M001_S002_I220>
+(1:2:220) "CLEAR-SKY DOWNWARD LW FLUX ON LEVELS"
+
+Clear-sky downwards LW flux in Wm-2 on radiation levels.
+This is a 3-dimensional field available on radiation timesteps.
+
+The domain profile should set model rho levels starting at ATMOS_BOTTOM
+and ending at ATMOS_TOP+1. The levels correspond to:
+1              : Surface
+2 to ATMOS_TOP : rho levels 2 to ATMOS_TOP
+ATMOS_TOP+1    : Top of atmosphere
+
+(ATMOS_TOP+1 is strictly defined such that theta(ATMOS_TOP) is midway in
+height between rho(ATMOS_TOP) and ATMOS_TOP+1.)
+</M001_S002_I220>
+#
+<M001_S002_I232>
+Help for (001,002,232): "LW HEATING RATES"
+
+The LW heating rates in layers of the model, obtained from
+the divergence of the net radiative flux across the layer.
+The value is calculated only on LW radiative time-steps.
+</M001_S002_I232>
+#
+<M001_S002_I233>
+Help for (001,002,233): "CLEAR-SKY LW HEATING RATES"
+
+The LW radiative heating rates in each layer of the model atmosphere,
+calculated ignoring all clouds at all levels at the grid-point from the
+divergence of the clear-sky net LW flux across the layer. The value is
+claulated only on LW radiative timesteps.
+</M001_S002_I233>
+#
+<M001_S002_I237>
+Help for (001,002,237) "NET DOWNWARD LW FLUX AT THE TROP."
+
+The net downward (total downward minus upward) LW radiative flux at 
+tropopause. The diagnostic is available only on LW radiation 
+timesteps. The tropopause is diagnosed interactively within the model.
+</M001_S002_I237>
+#
+<M001_S002_I238>
+Help for (001,002,238) "TOTAL DOWNWARD LW FLUX AT THE TROP."
+
+The total downward LW radiative flux at the tropopause. The diagnostic is 
+available only on LW radiation timesteps. The tropopause is diagnosed 
+interactively within the model.
+</M001_S002_I238>
+#
+<M001_S002_I251>
+
+Soluble aitken mode aerosol optical depth for the stratospheric region 
+of the atmosphere. This diagnostic is supplied at six wavelengths 
+(0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns) using the psuedo levels. 
+The diagnostic will remain at zero if corresponding UKCA-MODE aerosols 
+are not used in the model run (see atmosphere section 34 UKCA).
+
+The tropopause is diagnosed based on the lapse rate in a similar manner 
+to the WMO definition (see UMDP S1 section 3.2.2 or Swinbank & Wilson 
+(1990: SRFRTN 48)). 
+</M001_S002_I251>
+#
+<M001_S002_I252>
+
+Soluble accumulation mode aerosol optical depth for the stratospheric 
+region of the atmosphere. This diagnostic is supplied at six wavelengths 
+(0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns) using the psuedo levels. 
+The diagnostic will remain at zero if corresponding UKCA-MODE aerosols 
+are not used in the model run (see atmosphere section 34 UKCA).
+
+The tropopause is diagnosed based on the lapse rate in a similar manner 
+to the WMO definition (see UMDP S1 section 3.2.2 or Swinbank & Wilson 
+(1990: SRFRTN 48)). 
+</M001_S002_I252>
+#
+<M001_S002_I253>
+
+Soluble coarse mode aerosol optical depth for the stratospheric region 
+of the atmosphere. This diagnostic is supplied at six wavelengths 
+(0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns) using the psuedo levels. 
+The diagnostic will remain at zero if corresponding UKCA-MODE aerosols 
+are not used in the model run (see atmosphere section 34 UKCA).
+
+The tropopause is diagnosed based on the lapse rate in a similar manner 
+to the WMO definition (see UMDP S1 section 3.2.2 or Swinbank & Wilson 
+(1990: SRFRTN 48)). 
+</M001_S002_I253>
+#
+<M001_S002_I254>
+
+Insoluble aitken mode aerosol optical depth for the stratospheric region 
+of the atmosphere. This diagnostic is supplied at six wavelengths 
+(0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns) using the psuedo levels. 
+The diagnostic will remain at zero if corresponding UKCA-MODE aerosols 
+are not used in the model run (see atmosphere section 34 UKCA).
+
+The tropopause is diagnosed based on the lapse rate in a similar manner 
+to the WMO definition (see UMDP S1 section 3.2.2 or Swinbank & Wilson 
+(1990: SRFRTN 48)). 
+</M001_S002_I254>
+#
+<M001_S002_I255>
+
+Insoluble accumulation mode aerosol optical depth for the stratospheric 
+region of the atmosphere. This diagnostic is supplied at six wavelengths 
+(0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns) using the psuedo levels. 
+The diagnostic will remain at zero if corresponding UKCA-MODE aerosols 
+are not used in the model run (see atmosphere section 34 UKCA) or if 
+UKCA-MODE dust is not active / has not been incorporated into the modal 
+scheme.
+
+The tropopause is diagnosed based on the lapse rate in a similar manner 
+to the WMO definition (see UMDP S1 section 3.2.2 or Swinbank & Wilson 
+(1990: SRFRTN 48)). 
+</M001_S002_I255>
+#
+<M001_S002_I256>
+
+Insoluble accumulation mode aerosol optical depth for the stratospheric 
+region of the atmosphere. This diagnostic is supplied at six wavelengths 
+(0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns) using the psuedo levels. 
+The diagnostic will remain at zero if corresponding UKCA-MODE aerosols 
+are not used in the model run (see atmosphere section 34 UKCA) or if 
+UKCA-MODE dust is not active / has not been incorporated into the modal 
+scheme.
+
+The tropopause is diagnosed based on the lapse rate in a similar manner 
+to the WMO definition (see UMDP S1 section 3.2.2 or Swinbank & Wilson 
+(1990: SRFRTN 48)). 
+</M001_S002_I256>
+#
+<M001_S002_I260>
+Item (1:2:260) OZONE MASS MIXING RATIO AFTER LW
+
+This diagnostic contains the mass mixing ratio of ozone as a 3-D
+field on theta levels, after expansion from the ancillary file (which
+may,and usually does, contain zonal mean ozone). The diagnostic is 
+available on ozone levels which may be fewer in number than the number 
+of model levels: in that case the mixing ratio in the last ozone level 
+applies on the top level of the model, and so on backwards to the first 
+ozone level which applies on its level and on any remaining levels between
+it and the surface.
+</M001_S002_I260>
+#
+<M001_S002_I280>
+Item (1:2:280) 
+
+Ozone Tropopause Level
+</M001_S002_I280>
+#
+<M001_S002_I281>
+Item (1:2:281) 
+
+Ozone Tropopause Height
+</M001_S002_I281>
+#
+<M001_S002_I282>
+Item (1:2:282) 
+
+Thermal Tropopause Level
+</M001_S002_I282>
+#
+<M001_S002_I283>
+Item (1:2:283) 
+
+Thermal Tropopause Height
+</M001_S002_I283>
+#
+<M001_S002_I284>
+SULPHATE OPTICAL DEPTH IN RADIATION
+
+Sulphate aerosol optical depth, as seen by the radiation scheme. This is 
+output at various wavelengths defined in the spectral file (typically 
+0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). 
+
+To output AOD diagnostics, they should be specified on a single level 
+domain, with pseudo-levels set to the SW radiation bands with the numbers 
+used to specify which wavelengths are output.
+
+</M001_S002_I284>
+#
+<M001_S002_I285>
+MINERAL DUST OPTICAL DEPTH IN RADN. 
+
+Mineral dust aerosol optical depth, as seen by the radiation scheme. 
+This is output at various wavelengths defined in the spectral file 
+(typically 0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). 
+
+To output AOD diagnostics, they should be specified on a single level 
+domain, with pseudo-levels set to the SW radiation bands with the numbers 
+used to specify which wavelengths are output.
+
+
+</M001_S002_I285>
+#
+<M001_S002_I286>
+SEA SALT OPTICAL DEPTH IN RADIATION
+
+Sea-salt aerosol optical depth, as seen by the radiation scheme. This is 
+output at various wavelengths defined in the spectral file (typically 
+0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). 
+
+To output AOD diagnostics, they should be specified on a single level 
+domain, with pseudo-levels set to the SW radiation bands with the numbers 
+used to specify which wavelengths are output.
+
+
+</M001_S002_I286>
+#
+<M001_S002_I287>
+SOOT OPTICAL DEPTH IN RADIATION
+
+Soot (or black carbon) aerosol optical depth, as seen by the radiation 
+scheme. This is output at various wavelengths defined in the spectral 
+file (typically 0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). 
+
+To output AOD diagnostics, they should be specified on a single level 
+domain, with pseudo-levels set to the SW radiation bands with the numbers 
+used to specify which wavelengths are output.
+
+
+</M001_S002_I287>
+#
+<M001_S002_I288>
+BIOMASS OPTICAL DEPTH IN RADIATION
+
+Biomass-burning aerosol optical depth, as seen by the radiation scheme. 
+This is output at various wavelengths defined in the spectral file 
+(typically 0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). 
+
+To output AOD diagnostics, they should be specified on a single level 
+domain, with pseudo-levels set to the SW radiation bands with the numbers
+used to specify which wavelengths are output.
+
+
+</M001_S002_I288>
+#
+<M001_S002_I289>
+BIOGENIC OPTICAL DEPTH IN RADIATION
+
+Biogenic aerosol optical depth at various wavelengths defined in the 
+spectral file (typically 0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). 
+The biogenic aerosol mixing ratios are specified from an ancillary file.
+
+To output AOD diagnostics, they should be specified on a single level 
+domain, with pseudo-levels set to the SW radiation bands with the numbers 
+used to specify which wavelengths are output.
+
+
+</M001_S002_I289>
+#
+
+<M001_S002_I291>
+Item: (01:02:291)
+
+Diagnostic 02-291: WEIGHTED ISCCP CLOUD OPTICAL DEPTH
+This diagnostic, when divided by its weight (diagnostic 02-293, WEIGHTED ISCCP 
+TOTAL CLOUD AREA), gives a 2-D field of mean cloud optical depth during 
+daylight. This resulting field will be undefined at points where there was
+no daylight and also at points where there was no cloud; such points may be
+set to missing data in post-processing.
+</M001_S002_I291>
+#
+<M001_S002_I292>
+Item: (01:02:292)
+
+Diagnostic 02-292: WEIGHTED ISCCP CLOUD TOP PRESSURE
+This diagnostic, when divided by its weight (diagnostic 02-293, WEIGHTED ISCCP
+TOTAL CLOUD AREA), gives a 2-D field of mean cloud-top pressure (in mb) during
+daylight. This resulting field will be undefined at points where there was
+no daylight and also at points where there was no cloud; such points may be
+set to missing data in post-processing.
+</M001_S002_I292>
+#
+<M001_S002_I293>
+Item: (01:02:293)
+
+Diagnostic 02-293: WEIGHTED ISCCP TOTAL CLOUD AREA
+As well as forming the weighting function for diagnostics 02-291 and 02-292,
+this diagnostic, when divided by diagnostic 02-269 (ISCCP CLOUD WEIGHTS),
+gives a 2-D field of mean total cloud area (range 0-1). This resulting field
+will be undefined at points where there was no daylight; such points may be 
+set to missing data in post-processing.
+ 
+</M001_S002_I293>
+#
+<M001_S002_I295>
+FOSSIL FUEL ORG C OPTIC DEPTH IN RAD
+
+Organic Carbon from Fossil Fuel aerosol optical depth, as seen by the 
+radiation scheme. This is output at various wavelengths defined in the 
+spectral file (typically 0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). 
+
+To output AOD diagnostics, they should be specified on a single level 
+domain, with pseudo-levels set to the SW radiation bands with the numbers 
+used to specify which wavelengths are output.
+
+
+</M001_S002_I295>
+#
+<M001_S002_I296>
+DELTA AEROSOL OPTICAL DEPTH IN RADN.
+
+Delta aerosol optical depth at various wavelengths defined in the spectral 
+file (typically 0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). The 
+Delta aerosol is a climatological aerosol that may be provided, via an 
+ancillary file, to add additional aerosol where it is known to be missing.
+
+To output AOD diagnostics, they should be specified on a single level 
+domain, with pseudo-levels set to the SW radiation bands with the numbers
+used to specify which wavelengths are output.
+
+
+</M001_S002_I296>
+#
+<M001_S002_I297>
+AMMONIUM NITRATE OPTICAL DEPTH RADN.
+
+Ammonium nitrate aerosol optical depth, as seen by the radiation scheme. 
+This is output at various wavelengths defined in the spectral file 
+(typically 0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). 
+
+To output AOD diagnostics, they should be specified on a single level 
+domain, with pseudo-levels set to the SW radiation bands with the numbers 
+used to specify which wavelengths are output.
+
+
+</M001_S002_I297>
+#
+<M001_S002_I298>
+TOTAL OPTICAL DEPTH IN RADIATION
+
+Total aerosol optical depth, as seen by the radiation scheme. This is 
+output at various wavelengths defined in the spectral file (typically 
+0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). 
+
+To output AOD diagnostics, they should be specified on a single level 
+domain, with pseudo-levels set to the SW radiation bands with the numbers 
+used to specify which wavelengths are output.
+
+
+</M001_S002_I298>
+#
+<M001_S002_I299>
+ANGSTROM FROM TOTAL AOD IN RADIATION
+
+Angstrom coefficient of the total aerosol optical depth, as seen by the 
+radiation scheme (STASH 2298). This is output at various wavelengths 
+defined in the spectral file (typically 0.38, 0.44, 0.55, 0.67, 0.87, 
+and 1.02 microns). The Angstrom coefficient is the logarithmic gradient 
+of AOD, with respect to wavelength, defined as the 
+
+log(AOD(wavelengthA)/AOD(wavelengthB)) / log(wavelengthB/wavelengthA)
+ 
+It is defined on the same AOD wavelengths as the aerosol optical depth 
+diagnostics. For the first wavelength (w=1) the gradient is from w to w+1. 
+It then uses wavelengths w-1 and w+1, for w=2 to N_AOD_WL-1, and the 
+final wavelength takes w-1 and w for w=N_AOD_WL, where N_AOD_WL is the 
+number of wavelengths for which an AOD is defined.
+
+To output this diagnostic, its domain should be specified in the same 
+way as an aerosol optical depth: on a single level domain, with 
+pseudo-levels set to the SW radiation bands with the numbers used to 
+specify which wavelengths are output.
+
+</M001_S002_I299>
+#
+<M001_S002_I300>
+Item: (A:2:300) AITKEN MODE (SOLUBLE) OPTICAL DEPTH
+
+Soluble Aitken mode aerosol optical depth at six wavelengths (0.38,
+0.44, 0.55, 0.67, 0.87, and 1.02 microns). This diagnostic will
+remain at zero if corresponding UKCA-MODE aerosols are not used in
+the model run (see atmosphere section 34 UKCA).
+
+</M001_S002_I300>
+#
+<M001_S002_I301>
+Item: (A:2:301) ACCUM MODE (SOLUBLE) OPTICAL DEPTH
+
+Soluble accumulation mode aerosol optical depth at six wavelengths 
+(0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). This diagnostic will
+remain at zero if corresponding UKCA-MODE aerosols are not used in
+the model run (see atmosphere section 34 UKCA).
+
+</M001_S002_I301>
+#
+<M001_S002_I302>
+Item: (A:2:302) COARSE MODE (SOLUBLE) OPTICAL DEPTH
+
+Soluble coarse mode aerosol optical depth at six wavelengths (0.38,
+0.44, 0.55, 0.67, 0.87, and 1.02 microns). This diagnostic will
+remain at zero if corresponding UKCA-MODE aerosols are not used in
+the model run (see atmosphere section 34 UKCA).
+
+</M001_S002_I302>
+#
+<M001_S002_I303>
+Item: (A:2:303) AITKEN MODE (INSOL) OPTICAL DEPTH
+
+Insoluble Aitken mode aerosol optical depth at six wavelengths (0.38,
+0.44, 0.55, 0.67, 0.87, and 1.02 microns). This diagnostic will
+remain at zero if corresponding UKCA-MODE aerosols are not used in
+the model run (see atmosphere section 34 UKCA).
+
+</M001_S002_I303>
+#
+<M001_S002_I304>
+Item: (A:2:304) ACCUM MODE (INSOL) OPTICAL DEPTH
+
+Insoluble accumulation mode aerosol optical depth at six wavelengths 
+(0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). This diagnostic will
+remain at zero if corresponding UKCA-MODE aerosols are not used in
+the model run (see atmosphere section 34 UKCA).
+
+</M001_S002_I304>
+#
+<M001_S002_I305>
+Item: (A:2:305) COARSE MODE (INSOL) OPTICAL DEPTH
+
+Insoluble coarse mode aerosol optical depth at six wavelengths (0.38,
+0.44, 0.55, 0.67, 0.87, and 1.02 microns). This diagnostic will
+remain at zero if corresponding UKCA-MODE aerosols are not used in
+the model run (see atmosphere section 34 UKCA).
+
+</M001_S002_I305>
+#
+<M001_S002_I308>
+Item: (A:2:308)
+
+Grid box average of large-scale cloud liquid water mixing ratio
+
+
+</M001_S002_I308>
+#
+<M001_S002_I309>
+Item: (A:2:309)
+
+Grid box average of large-scale cloud ice water mixing ratio
+
+
+</M001_S002_I309>
+#
+<M001_S002_I310>
+Item: (A:2:310)
+
+Grid box average of convective cloud liquid water mixing ratio
+
+
+
+</M001_S002_I310>
+#
+<M001_S002_I311>
+Item: (A:2:311)
+
+Grid box average of convective cloud ice water mixing ratio
+
+
+
+</M001_S002_I311>
+#
+<M001_S002_I312>
+Item: (A:2:312)
+
+Grid box average of large-scale liquid cloud fraction
+
+
+
+</M001_S002_I312>
+#
+<M001_S002_I313>
+Item: (A:2:313)
+
+Grid box average of large-scale ice cloud fraction
+
+
+
+</M001_S002_I313>
+#
+<M001_S002_I314>
+Item: (A:2:314)
+
+Grid box average of convective liquid cloud fraction
+
+
+
+</M001_S002_I314>
+#
+<M001_S002_I315>
+Item: (A:2:315)
+
+Grid box average of convective ice cloud fraction
+
+</M001_S002_I315>
+#
+<M001_S002_I320>
+Item 1:2:320  COSP: MASK FOR 2.343,2.349,2.374      
+Heaviside function needed to identify missing data for 3D cloud fraction 
+from CALIPSO (2.343, 2.349, 2.374), 0=missing, 1=ok. You need to divide 
+(2.343, 2.349, 2.374)/2.320 to get the correct cloud fraction. This needs 
+to be requested with the same time profile that (2.343, 2.349, 2.374).
+</M001_S002_I320>
+#
+<M001_S002_I321>
+Item 1:2:321  COSP: MASK FOR 2.344                 
+Heaviside function needed to identify missing data for low-level cloud fraction 
+from CALIPSO (2.344), 0=missing, 1=ok. You need to divide 2.344/2.321 to get the 
+correct cloud fraction. This needs to be requested with the same time profile 
+that 2.344.
+</M001_S002_I321>
+#
+<M001_S002_I322>
+Item 1:2:322  COSP: MASK FOR 2.345                 
+Heaviside function needed to identify missing data for mid-level cloud fraction 
+from CALIPSO (2.345), 0=missing, 1=ok. You need to divide 2.345/2.322 to get the 
+correct cloud fraction. This needs to be requested with the same time profile 
+that 2.345.
+</M001_S002_I322>
+#
+<M001_S002_I323>
+Item 1:2:323  COSP: MASK FOR 2.346                 
+Heaviside function needed to identify missing data for high-level cloud fraction 
+from CALIPSO (2.346), 0=missing, 1=ok. You need to divide 2.346/2.323 to get the 
+correct cloud fraction. This needs to be requested with the same time profile 
+that 2.346.
+</M001_S002_I323>
+#
+<M001_S002_I324>
+Item 1:2:324  COSP: MASK FOR 2.347                 
+Heaviside function needed to identify missing data for total cloud fraction from 
+CALIPSO (2.347), 0=missing, 1=ok. You need to divide 2.347/2.324 to get the 
+correct cloud fraction. This needs to be requested with the same time profile 
+that 2.347.
+</M001_S002_I324>
+#
+<M001_S002_I325>
+Item 1:2:325  COSP: MASK FOR 2.371                 
+Heaviside function needed to identify missing data for CALIPSO 3D cloud fraction
+on the standard CloudSat grid with 40 levels (2.371), 0=missing, 1=ok. You need 
+to divide 2.371/2.325 to get the correct cloud fraction. This needs to be 
+requested with the same time profile that 2.371.
+</M001_S002_I325>
+#
+<M001_S002_I330>
+Item 1:2:330  COSP: ISCCP/MISR/MODIS CLOUD WEIGHTS 
+Heaviside function needed to identify missing data for ISCCP/MISR/MODIS cloud 
+diagnostics, 0=missing, 1=ok. You need to divide the cloud diagnostics by this 
+one. This needs to be requested with the same time profile that the cloud 
+diagnostics.
+</M001_S002_I330>
+#
+<M001_S002_I331>
+Item 1:2:331  COSP: ISCCP WEIGHTED CLOUD ALBEDO    
+In-cloud albedo, multiplied by total cloud fraction (2.334). Time-averages 
+of this diagnostic will have to be unweighted(divided) by the time-average 
+of 2.334 to produce mean in-cloud values. Linear average of cloud albedo 
+accross sub-columns.  Reported on sunlit points only. No need to used Heaviside
+weights for time-means.
+</M001_S002_I331>
+#
+<M001_S002_I332>
+Item 1:2:332  COSP: ISCCP WEIGHTED CLOUD TAU       
+In-cloud optical depth, multiplied by total cloud fraction (2.334). Time-averages
+of this diagnostic will have to be unweighted(divided) by the time-average of 
+2.334 to produce mean in-cloud values. A linear average in cloud albedo is 
+performed, and the the albedo converted to optical depth using the ISCCP 
+formulation. Reported on sunlit points only. No need to used Heaviside weights 
+for time-means.
+</M001_S002_I332>
+#
+<M001_S002_I333>
+Item 1:2:333  COSP: ISCCP WEIGHTED CLOUD TOP PRES. 
+Mean cloud top pressure (Pa), multiplied by total cloud fraction (2.334). 
+Time-averages of this diagnostic will have to be unweighted(divided) by the 
+time-average of 2.334 to produce mean in-cloud values. Linear average of cloud 
+top pressure accross sub-columns. Reported on sunlit points only. No need to 
+used Heaviside weights for time-means.
+</M001_S002_I333>
+#
+<M001_S002_I334>
+Item 1:2:334  COSP: ISCCP TOTAL CLOUD AREA         
+Total cloud area from ISCCP simulator. Reported on sunlit points only.
+</M001_S002_I334>
+#
+<M001_S002_I335>
+Item 1:2:335  COSP: ISCCP ALL-SKY 10.5 MICRON Tb   
+All-sky mean brightness temperature (K) from ISCCP simulator. This is reported 
+on all model points.
+</M001_S002_I335>
+#
+<M001_S002_I336>
+Item 1:2:336  COSP: ISCCP CLEAR-SKY 10.5 MICRON Tb 
+Clear-sky mean brightness temperature (K) from ISCCP simulator. This is 
+reported on all model points.
+</M001_S002_I336>
+#
+<M001_S002_I337>
+Item 1:2:337  COSP: ISCCP CTP-TAU HISTOGRAM        
+Cloud fraction in 7x7 CTP-tau bins. The pseudo-level dimension contains the 
+tau axis, with intervals: 
+[ 0.0,  0.3)
+[ 0.3,  3.6)
+[ 3.6,  9.4)
+[ 9.4, 23.0)
+[23.0, 60.0)
+[60.0,  inf)
+
+Reported on sunlit points only.
+</M001_S002_I337>
+#
+<M001_S002_I340>
+Item 1:2:340  COSP: CALIPSO MOLECULAR BACKSCATTER  
+Theoretical molecular backscatter (m-1 sr-1) from CALIPSO simulator. This is 
+the backscatter assumming an atmosphere with neither clouds nor aerosols.
+</M001_S002_I340>
+#
+<M001_S002_I341>
+Item 1:2:341  COSP: CALIPSO TOTAL BACKSCATTER      
+Theoretical attenuated total backscatter (m-1 sr-1) from CALIPSO simulator. 
+The current version does not consider aerosols. This is reported on sub-columns.
+</M001_S002_I341>
+#
+<M001_S002_I342>
+Item 1:2:342  COSP: CALIPSO CFAD SCATTERING RATIO   
+Attenuated total backscatter (ATB, 2.341) histograms as a function of height. 
+For each gridbox, this diagnostic reports a 2D histogram, with frequency of 
+occurrence of volumes in height-ATB bins. The histogram is normalised level-
+by-level. Vertical levels are model theta levels. The pseudo-level dimension 
+contains the discretisation in ATB, with 15 intervals:
+[ 0.0 ,   0.01] -> Fully attenuated
+( 0.01,   1.2]  -> Clear
+( 1.2 ,   3.0]  -> Unclassified
+( 3.0 ,   5.0]  -> Unclassified, probably cloudy
+( 5.0 ,   7.0]  -> Cloudy (and all the intervals below)
+( 7.0 ,  10.0]
+(10.0 ,  15.0]
+(15.0 ,  20.0]
+(20.0 ,  25.0]
+(25.0 ,  30.0]
+(30.0 ,  40.0]
+(40.0 ,  50.0]
+(50.0 ,  60.0]
+(60.0 ,  80.0]
+(80.0 ,   Inf]
+
+</M001_S002_I342>
+#
+<M001_S002_I343>
+Item 1:2:343  COSP: CALIPSO CLOUD AREA ON LEVELS   
+Cloud fraction on model levels from CALIPSO simulator. Needs mask 2.320.
+</M001_S002_I343>
+#
+<M001_S002_I344>
+Item 1:2:344  COSP: CALIPSO LOW-LEVEL CLOUD        
+Low-level cloud fraction from CALIPSO simulator. 680 hPa <= CTP. 
+Needs mask 2.321.
+</M001_S002_I344>
+#
+<M001_S002_I345>
+Item 1:2:345  COSP: CALIPSO MID-LEVEL CLOUD        
+Mid-level cloud fraction from CALIPSO simulator. 440 hPa <= CTP < 680 hPa. 
+Needs mask 2.322.
+</M001_S002_I345>
+#
+<M001_S002_I346>
+Item 1:2:346  COSP: CALIPSO HIGH-LEVEL CLOUD       
+High-level cloud fraction from CALIPSO simulator. CTP < 440 hPa. 
+Needs mask 2.323.
+</M001_S002_I346>
+#
+<M001_S002_I347>
+Item 1:2:347  COSP: CALIPSO TOTAL CLOUD FRACTION   
+Total cloud fraction from CALIPSO simulator. Needs mask 2.324.
+</M001_S002_I347>
+#
+<M001_S002_I348>
+Item 1:2:348  COSP: PARASOL TOA REFLECTANCE        
+Simulated reflectance from PARASOL as seen at the top of the atmosphere 
+for 5 solar zenith angles (degree): 0, 20, 40, 60, 80. Valid only over 
+ocean and for one viewing direction (viewing zenith angle of 30 degrees 
+and relative azimuth angle 320 degrees).
+</M001_S002_I348>
+#
+<M001_S002_I349>
+Item 1:2:349  COSP: CALIPSO-ONLY 3D CLOUD AREA     
+CALIPSO cloud fraction undetected by CloudSat on model levels. Clouds 
+detected by CALIPSO but below the detectability threshold of CloudSat. 
+Needs mask 2.320.
+</M001_S002_I349>
+#
+<M001_S002_I350>
+Item 1:2:350  COSP: CLOUDSAT CFAD REFLECTIVITY     
+CloudSat reflectivity (94 GHz) histograms as a function of height. 
+For each gridbox, this diagnostic reports a 2D histogram, with frequency 
+of occurrence of volumes in height-reflectivity bins. The histogram is 
+normalised level-by-level. Vertical levels are model theta levels. 
+The pseudo-level dimension contains the discretisation in reflectivity, 
+with 15 5-dBZ intervals, from -50 to +25. Valid Z values smaller than -50 
+and larger than +25 are set into the smallest bin and largest bin, 
+respectively. 
+The CloudSat sentivity is estimated to around -28 dBZ, so -25 dBZ is a 
+conservative threshold for the identification of cloudy volumes.
+</M001_S002_I350>
+#
+<M001_S002_I351>
+Item 1:2:351  COSP: CLOUDSAT REFLECTIVITY          
+CloudSat reflectivity (94 GHz, dBZ) on sub-columns.
+</M001_S002_I351>
+#
+<M001_S002_I352>
+Item 1:2:352  COSP: SUBCOLUMN CLOUD ARRAY          
+Sub-column cloud array.
+0 -> Cloud free volume.
+1 -> Large-scale cloud.
+2 -> Convective cloud.
+</M001_S002_I352>
+#
+<M001_S002_I353>
+Item 1:2:353  COSP: GBX-MEAN CSAT Ze MDL LEVELS    
+Gridbox-mean CloudSat reflectivity (dBZ) on model levels. This is the mean 
+(in linear space) of 2.351.
+</M001_S002_I353>
+#
+<M001_S002_I354>
+Item 1:2:354  COSP: GBX-MEAN CSAT Ze 40 LEVELS     
+Gridbox-mean CloudSat reflectivity (dBZ) on the standard 40-level grid. 
+The vertical profiles of reflectivity (2.351) are regridded using a 
+volume-weighted average, and then averaged in linear space.
+</M001_S002_I354>
+#
+<M001_S002_I355>
+Item 1:2:355  COSP: GBX-MEAN CALIPSO ATB MDL LVLS 
+Gridbox-mean attenuated total backscatter (m-1 sr-1) on model levels. 
+This is the mean of 2.341.
+</M001_S002_I355>
+#
+<M001_S002_I356>
+Item 1:2:356  COSP: GBX-MEAN CALIPSO ATB 40 LVLS   
+Gridbox-mean attenuated total backscatter (m-1 sr-1) on the standard 40-level 
+grid. The vertical profiles of ATB (2.341) are regridded using a volume-weighted 
+average, and then averaged within each gridbox.
+</M001_S002_I356>
+#
+<M001_S002_I360>
+Item 1:2:360  COSP: MISR CTH-TAU HISTOGRAM         
+Cloud fraction in 16x7 CTH-tau bins. The pseudo-level dimension contains the 
+tau axis, with intervals: 
+[ 0.0,  0.3)
+[ 0.3,  3.6)
+[ 3.6,  9.4)
+[ 9.4, 23.0)
+[23.0, 60.0)
+[60.0,  inf)
+
+The vertical leves are unevenly-spaced, with boundaries (m):
+(-99000,     0] - > Cloud can be detected but too thin to get CTH
+(     0,   500]
+(   500,  1000]
+(  1000,  1500]
+(  1500,  2000]
+(  2000,  2500]
+(  2500,  3000]
+(  3000,  4000]
+(  4000,  5000]
+(  5000,  7000]
+(  7000,  9000]
+(  9000, 11000]
+( 11000, 13000]
+( 13000, 15000]
+( 15000, 17000]
+( 17000, 99000]
+
+</M001_S002_I360>
+#
+<M001_S002_I370>
+Item 1:2:370  COSP: CALIPSO CFAD SR 40 CSAT LEVELS 
+Attenuated total backscatter histograms as a function of height. For each 
+gridbox, this diagnostic reports a 2D histogram, with frequency of occurrence 
+of volumes in height-ATB bins. The histogram is normalised level-by-level. 
+Before the histograms are computed, the ATB (2.341) is regridded onto a 
+standard 40-level grid. The pseudo-level dimension contains the discretisation 
+in ATB, with 15 intervals:
+[ 0.0 ,   0.01] -> Fully attenuated
+( 0.01,   1.2]  -> Clear
+( 1.2 ,   3.0]  -> Unclassified
+( 3.0 ,   5.0]  -> Unclassified, probably cloudy
+( 5.0 ,   7.0]  -> Cloudy (and all the intervals below)
+( 7.0 ,  10.0]
+(10.0 ,  15.0]
+(15.0 ,  20.0]
+(20.0 ,  25.0]
+(25.0 ,  30.0]
+(30.0 ,  40.0]
+(40.0 ,  50.0]
+(50.0 ,  60.0]
+(60.0 ,  80.0]
+(80.0 ,   Inf]
+</M001_S002_I370>
+#
+<M001_S002_I371>
+Item 1:2:371  COSP: CALIPSO CLOUD AREA 40 CSAT LVS 
+Cloud fraction on model levels from CALIPSO simulator on the standard 40-level 
+vertical grid. The cloud fraction os computed after the ATB (2.341) is regridded 
+onto a standard 40-level grid. Needs mask 2.325.
+</M001_S002_I371>
+#
+<M001_S002_I372>
+Item 1:2:372  COSP: CLOUDSAT CFAD Ze 40 CSAT LVLS  
+CloudSat reflectivity (94 GHz) histograms as a function of height. For each 
+gridbox, this diagnostic reports a 2D histogram, with frequency of occurrence of 
+volumes in height-reflectivity bins. The histogram is normalised level-by-level. 
+Before the histograms are computed, the reflectivity (2.351) is regridded onto a 
+standard 40-level grid. The pseudo-level dimension contains the discretisation in 
+reflectivity, with 15 5-dBZ intervals, from -50 to +25. Valid Z values smaller 
+than -50 and larger than +25 are set into the smallest bin and largest bin, 
+respectively. The CloudSat sentivity is estimated to around -28 dBZ, so -25 dBZ 
+is a conservative threshold for the identification of cloudy volumes.
+</M001_S002_I372>
+#
+<M001_S002_I373>
+Item 1:2:373  COSP: HYDROMETEOR EFFECTIVE RADIUS   
+Effective radius of the nine hydrometeors, stored using pseudo-levels in the 
+following order:
+Large-scale cloud liquid water
+Large-scale cloud ice
+Large-scale cloud rainfall
+Large-scale cloud snowfall
+Convective cloud liquid water
+Convective cloud ice
+Convective cloud rainfall
+Convective cloud snowfall
+Large-scale cloud graupel
+
+This is the in-cloud effective radius, i.e. the computed from the in-cloud 
+hydrometeor contents. It is not weighted by cloud fraction. Its main purpose 
+id to be used as input for running COSP off-line. Time-averages of this 
+diagnostic should be used with caution.
+</M001_S002_I373>
+#
+<M001_S002_I374>
+Item 1:2:374  COSP: CALIPSO-ONLY 3D CLOUD 40 LVLS  
+CALIPSO cloud fraction undetected by CloudSat (40 height levels). Clouds 
+detected by CALIPSO but below the detectability threshold of CloudSat. 
+Needs mask 2.320.
+</M001_S002_I374>
+#
+<M001_S002_I375>
+Item 1:2:375  COSP: LARGE-SCALE CLOUD OPT. DEPTH   
+In-cloud large-scale cloud optical depth on model levels. It is not weighted 
+by cloud fraction. Its main purpose is to be used as input for the off-line 
+version of COSP. Time-averages of this diagnostic should be used with caution.
+</M001_S002_I375>
+#
+<M001_S002_I376>
+Item 1:2:376  COSP: LARGE-SCALE CLOUD EMISSIVITY   
+In-cloud large-scale cloud optical emissivity on model levels. It is not 
+weighted by cloud fraction. Its main purpose is to be used as input for 
+the off-line version of COSP. Time-averages of this diagnostic should be 
+used with caution.
+</M001_S002_I376>
+#
+<M001_S002_I377>
+Item 1:2:377  COSP: CONVECTIVE CLOUD OPT. DEPTH    
+Convective cloud optical depth on model levels. It is not weighted by cloud 
+fraction. Its main purpose is to be used as input for the off-line version 
+of COSP. Time-averages of this diagnostic should be used with caution.
+</M001_S002_I377>
+#
+<M001_S002_I378>
+Item 1:2:378  COSP: CONVECTIVE CLOUD EMISSIVITY    
+Convective cloud optical depth on model levels. It is not weighted by cloud 
+fraction. Its main purpose is to be used as input for the off-line version 
+of COSP. Time-averages of this diagnostic should be used with caution.
+</M001_S002_I378>
+#
+<M001_S002_I380>
+Item 1:2:380  COSP: Reff L-S CLOUD LIQUID WATER    
+In-cloud effective radius of large-scale liquid cloud. It is not weighted 
+by cloud fraction. Its main purpose is to be used as input for the off-line 
+version of COSP. Time-averages of this diagnostic should be used with caution.
+</M001_S002_I380>
+#
+<M001_S002_I381>
+Item 1:2:381  COSP: Reff L-S CLOUD ICE             
+In-cloud effective radius of large-scale ice cloud. It is not weighted by 
+cloud fraction. Its main purpose is to be used as input for the off-line 
+version of COSP. Time-averages of this diagnostic should be used with caution.
+</M001_S002_I381>
+#
+<M001_S002_I382>
+Item 1:2:382  COSP: Reff L-S CLOUD RAINFALL        
+In-cloud effective radius of large-scale rainfall. It is not weighted by 
+cloud fraction. Its main purpose is to be used as input for the off-line 
+version of COSP. Time-averages of this diagnostic should be used with caution.
+</M001_S002_I382>
+#
+<M001_S002_I383>
+Item 1:2:383  COSP: Reff L-S CLOUD SNOWFALL        
+In-cloud effective radius of large-scale snowfall. It is not weighted by 
+cloud fraction. Its main purpose is to be used as input for the off-line 
+version of COSP. Time-averages of this diagnostic should be used with caution.
+</M001_S002_I383>
+#
+<M001_S002_I384>
+Item 1:2:384  COSP: Reff CONV CLOUD LIQUID WATER   
+In-cloud effective radius of convective liquid cloud. It is not weighted 
+by cloud fraction. Its main purpose is to be used as input for the off-line 
+version of COSP. Time-averages of this diagnostic should be used with caution.
+</M001_S002_I384>
+#
+<M001_S002_I385>
+Item 1:2:385  COSP: Reff CONV CLOUD ICE            
+In-cloud effective radius of convective ice cloud. It is not weighted by 
+cloud fraction. Its main purpose is to be used as input for the off-line 
+version of COSP. Time-averages of this diagnostic should be used with caution.
+</M001_S002_I385>
+#
+<M001_S002_I386>
+Item 1:2:386  COSP: Reff CONV CLOUD RAINFALL       
+In-cloud effective radius of convective rainfall. It is not weighted by 
+cloud fraction. Its main purpose is to be used as input for the off-line 
+version of COSP. Time-averages of this diagnostic should be used with caution.
+</M001_S002_I386>
+#
+<M001_S002_I387>
+Item 1:2:387  COSP: Reff CONV CLOUD SNOWFALL       
+In-cloud effective radius of convective snow. It is not weighted by 
+cloud fraction. Its main purpose is to be used as input for the off-line 
+version of COSP. Time-averages of this diagnostic should be used with caution.
+</M001_S002_I387>
+#
+<M001_S002_I388>
+Item 1:2:388  COSP: Reff L-S CLOUD GRAUPEL         
+In-cloud effective radius of large-scale graupel. It is not weighted by 
+cloud fraction. Its main purpose is to be used as input for the off-line 
+version of COSP. Time-averages of this diagnostic should be used with caution.
+</M001_S002_I388>
+#
+<M001_S002_I389>
+Item 1:2:389  COSP: 3D CONVECTIVE RAINFALL RATE    
+Vertical profiles of convective rainfall on model levels. This is the flux 
+accross the lower boundary of the theta layer. The rate at the bottom level 
+equals the surface rate.
+</M001_S002_I389>
+#
+<M001_S002_I390>
+Item 1:2:390  COSP: 3D CONVECTIVE SNOWFALL RATE    
+Vertical profiles of convective snowfall on model levels. This is the flux 
+accross the lower boundary of the theta layer. The rate at the bottom level 
+equals the surface rate.
+</M001_S002_I390>
+#
+<M001_S002_I406>
+Item: (1,2,406)
+
+"CLEAR-SKY (II) UPWARD LW FORC.(TOA)"
+Only available on radiation/prognostic timesteps.
+Requires the radiative forcing package to be switched on.
+The forcing of the clear0sky upward LW flux at the TOA
+
+The radiative forcing is obtained by substracting the upward LW 
+fluxes at the TOA, which have been calculated for two different 
+states of the atmosphere (i.e. present and pre-industrial).
+</M001_S002_I406>
+#
+<M001_S002_I407>
+Item: (1,2,407)
+
+"DOWNWARD LW RAD FORCING: SURFACE"
+Only available on radiation/prognostic timesteps.
+Requires the radiative forcing package to be switched on.
+The forcing of the downward LW fluxes at the surface.
+
+The radiative forcing is obtained by substracting the downward  
+LW fluxes at the surface, which have been calculated for two
+different states of the atmosphere (i.e. present and pre-industrial).
+</M001_S002_I407>
+#
+<M001_S002_I408>
+Item: (1,2,408)
+
+"CLEAR-SKY (II) DOWN SURF. LW FORC. "
+Only available on radiation/prognostic timesteps.
+Requires the radiative forcing package to be switched on.
+The forcing of the clear-sky donward LW flux at the surface.
+
+The radiative forcing is obtained by substracting the clear-sky 
+fluxes, which have been calculated for two different states of
+the atmosphere (i.e. present and pre-industrial).
+</M001_S002_I408>
+#
+<M001_S002_I421>
+SULPHATE OPTICAL DEPTH FROM PROGN.
+
+Sulphate aerosol optical depth, from the prognostic aerosol scheme, 
+regardless of whether it is seen by the radiation scheme or not. This is 
+output at various wavelengths defined in the spectral file (typically 
+0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). 
+
+To output AOD diagnostics, they should be specified on a single level 
+domain, with pseudo-levels set to the SW radiation bands with the numbers 
+used to specify which wavelengths are output.
+
+
+</M001_S002_I421>
+#
+<M001_S002_I422>
+DUST OPTICAL DEPTH FROM PROGNOSTIC 
+
+Mineral dust aerosol optical depth, from the prognostic aerosol scheme, 
+regardless of whether it is seen by the radiation scheme or not. This is 
+output at various wavelengths defined in the spectral file (typically 
+0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). 
+
+To output AOD diagnostics, they should be specified on a single level 
+domain, with pseudo-levels set to the SW radiation bands with the numbers 
+used to specify which wavelengths are output.
+
+
+</M001_S002_I422>
+#
+<M001_S002_I423>
+SEA SALT OPTICAL DEPTH, DIAGNOSED
+
+Aerosol optical depth of Sea Salt (as diagnosed from the local winds), 
+regardless of whether it is seen by the radiation scheme or not. This is 
+output at various wavelengths defined in the spectral file (typically 
+0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). 
+
+To output AOD diagnostics, they should be specified on a single level 
+domain, with pseudo-levels set to the SW radiation bands with the numbers 
+used to specify which wavelengths are output.
+
+
+</M001_S002_I423>
+#
+<M001_S002_I424>
+SOOT OPTICAL DEPTH FROM PROGNOSTIC
+
+Soot (or black carbon) aerosol optical depth, from the prognostic aerosol 
+scheme, regardless of whether it is seen by the radiation scheme or not. 
+This is output at various wavelengths defined in the spectral file 
+(typically 0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). 
+
+To output AOD diagnostics, they should be specified on a single level 
+domain, with pseudo-levels set to the SW radiation bands with the numbers 
+used to specify which wavelengths are output.
+
+
+</M001_S002_I424>
+#
+<M001_S002_I425>
+BIOMASS OPTICAL DEPTH FROM PROGN.
+
+Biomass-burning aerosol optical depth, from the prognostic aerosol scheme,
+ regardless of whether it is seen by the radiation scheme or not. This is 
+output at various wavelengths defined in the spectral file (typically 
+0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). 
+
+To output AOD diagnostics, they should be specified on a single level 
+domain, with pseudo-levels set to the SW radiation bands with the numbers 
+used to specify which wavelengths are output.
+
+
+</M001_S002_I425>
+#
+<M001_S002_I426>
+OCFF OPTICAL DEPTH FROM PROGNOSTIC
+
+Organic Carbon from Fossil Fuel aerosol optical depth, from the prognostic 
+aerosol scheme, regardless of whether it is seen by the radiation scheme 
+or not. This is output at various wavelengths defined in the spectral file 
+(typically 0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). 
+
+To output AOD diagnostics, they should be specified on a single level 
+domain, with pseudo-levels set to the SW radiation bands with the numbers 
+used to specify which wavelengths are output.
+
+
+</M001_S002_I426>
+#
+<M001_S002_I427>
+AMM. NITRATE OPT. DEPTH FROM PROGN.
+
+Ammonium nitrate aerosol optical depth, from the prognostic aerosol scheme, 
+regardless of whether it is seen by the radiation scheme or not. This is 
+output at various wavelengths defined in the spectral file (typically 
+0.38, 0.44, 0.55, 0.67, 0.87, and 1.02 microns). 
+
+To output AOD diagnostics, they should be specified on a single level 
+domain, with pseudo-levels set to the SW radiation bands with the numbers 
+used to specify which wavelengths are output.
+
+
+</M001_S002_I427>
+#
+<M001_S002_I433>
+Item: (1,2,433)
+
+"CLEAR-SKY LW HEATING RATES (FORC.)"
+Only available on radiation/prognostic timesteps.
+Requires the radiative forcing package to be switched on.
+The forcing of the clear-sky LW heating rates.
+
+The radiative forcing is obtained by substracting the clear-sky 
+heating rates, which have been calculated for two different 
+states of the atmosphere (i.e. present and pre-industrial).
+</M001_S002_I433>
+#
+<M001_S002_I437>
+Item: (1,2,437)
+
+"NET DOWNWARD LW FORC. AT THE TROP."
+Only available on radiation/prognostic timesteps.
+Requires the radiative forcing package to be switched on.
+The forcing of the net downward LW flux at the tropopause. 
+
+The radiative forcing is obtained by substracting the net downward LW 
+fluxes at the tropopause, which have been calculated for two different 
+states of the atmosphere (i.e. present and pre-industrial).
+</M001_S002_I437>
+#
+<M001_S002_I438>
+Item: (1,2,438)
+
+"TOTAL DOWNWARD LW FORC. AT THE TROP."
+Only available on radiation/prognostic timesteps.
+Requires the radiative forcing package to be switched on.
+The forcing of the downward LW flux at the tropopause. 
+
+The radiative forcing is obtained by substracting the downwards LW 
+fluxes at the tropopause, which have been calculated for two 
+different states of the atmosphere (i.e. present and pre-industrial).
+</M001_S002_I438>
+#

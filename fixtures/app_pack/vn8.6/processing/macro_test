@@ -1,0 +1,38 @@
+ ### Start of Test Diagnostics Macro. ###
+%T if { %OCBIT == 1 } {
+ &STASHNUM NUM_REQ=4, NUM_DOM=3,  NUM_TIM=1, NUM_USE=1 / 
+  
+ &STREQ IMOD= 1, ISEC=15, ITEM=231, IDOM=1, ITIM=1, IUSE=1 / 
+ &STREQ IMOD= 1, ISEC=15, ITEM=232, IDOM=1, ITIM=1, IUSE=1 / 
+ &STREQ IMOD= 1, ISEC=15, ITEM=233, IDOM=1, ITIM=1, IUSE=1 / 
+ &STREQ IMOD= 1, ISEC=15, ITEM=234, IDOM=1, ITIM=1, IUSE=1 / 
+
+ &TIME NAME="ttest1", ITYP=1,
+ IOPT=1,
+ ISTR=0,IEND=6,IFRE=6,UNT3="H ",
+ /
+
+ &DOMAIN NAME="dtest1", IOPL=5,
+ PLT=0, IOPA=1,
+ IMSK=1, IMN=0, IWT=0, TS="N",
+ /
+
+ &DOMAIN NAME="dest2", IOPL=3
+ RLEVLST=    1000.000 ,     850.000 ,     500.000 ,      250.000 ,
+ PLT=0, IOPA=1, IMSK=1, IMN=0, IWT=0, TS="N",
+ /
+
+ &DOMAIN NAME="da5z", IOPL=1
+ ILEVS=2,
+ LEVLST=1,2,3,10,20,30,
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=2, IWT=0, TS="N",
+ /
+
+ &USE NAME="utest1", LOCN=3, IUNT=62 /
+
+%T } elseif { %OCBIT != 0 } {
+%T     error "No development macro for TEST diagnotics is set. Please reset option"
+%T }
+ ### End of Test Diagnostics Macro. ###

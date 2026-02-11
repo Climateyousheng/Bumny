@@ -1,0 +1,162 @@
+%C---------------------------------------------------------------------
+%C  module: fcm_nemo_cfg
+%C
+%C  Generates NEMO configuration for build of NEMO and NEMO_CICE
+%C  executable.
+%C
+%C  Module included in:
+%C   * FCM_NEMOCICE_CFG via processing/fcm_nemocice_cfg
+%C
+%C---------------------------------------------------------------------
+%TCL
+# Part 1 - Inherit from a Precompiled Build
+# =========================================
+  set nemo_pt1 "use \$UM_MAINDIR/baserepos/NEMO/cfg/ext.cfg\n"
+
+
+# Part 2 - Script build declarations (MANDATORY)
+# ==============================================
+   set nemo_pt2a \
+"bld::excl_dep              USE::mod_comprism_proto
+bld::excl_dep              USE::mod_prism_get_comm 
+bld::excl_dep              USE::mpi"
+
+
+   set nemo_pt2b "bld::pp::nemo              1
+bld::pp::ioipsl            1\n"
+
+   set nemo_pt2b2 \
+"
+# Initialise build declarations
+bld::tool::cppflags
+bld::tool::cflags
+bld::tool::fflags
+bld::tool::ldflags
+
+# Define NEMO build declarations
+inc        %FCM_CFGFLNM_NEMO
+bld::tool::cppflags           \%%bld::tool::cppflags -I\%%netcdf/include
+bld::tool::cflags             \%%bld::tool::cflags   -I\%%netcdf/include
+bld::tool::fflags             \%%bld::tool::fflags   -I\%%netcdf/include 
+bld::tool::ldflags            \%%bld::tool::ldflags  -L\%%netcdf/lib -lnetcdf 
+"
+   if { $use_oasis == "Y" } {
+     append nemo_pt2b2 \
+"
+# For coupled runs: PRISM libraries
+bld::tool::fflags::nemo       \%%bld::tool::fflags
+bld::tool::fflags::ioipsl     \%%bld::tool::fflags
+"
+   }
+
+# Part 3a - Model Specific Sections
+# =================================
+# Additional setting of nemo_nproc, required when GEN_SUITE!=0   
+   set nemo_nproc [expr (int(%NEMO_IPROC) * int(%NEMO_JPROC))] 
+
+   set nemo_pt3a "# Define NEMO fppkeys\n"
+
+   set def_list {}
+   if { %NEMOVERSION <= 302 } {
+      lappend def_list "IPROC=%NEMO_IPROC"
+      lappend def_list "JPROC=%NEMO_JPROC"
+      lappend def_list "IJPROC=$nemo_nproc"
+   }
+
+   if { %CICE == "T" } { lappend def_list "key_cice" }
+   if { $use_oasis == "Y" } { 
+      if { %OASISWHICH == "3" } {
+         lappend def_list "key_oasis%OASISWHICH"     
+         } elseif { %OASISWHICH == "4" } {
+         lappend def_list "key_oasis3mct"
+         } else {
+         lappend def_list "key_oasis%OASISWHICH"  
+         }
+      if { [inactive_var LCPLNEMOMR]==0 &&  %LCPLNEMOMR=="T" } { lappend def_list "key_cpl_rootexchg" }
+   }  
+
+   if { %NEMOKEY_IOMPUT == "Y" } { lappend def_list "key_iomput" }
+   if { %NEMOKEY_DECOMP == "Y" } { lappend def_list "key_nemocice_decomp" }
+
+   append nemo_pt3a "\%%nemo_jobdefs"
+   if { $def_list != {} } { 
+      append nemo_pt3a " \\"
+
+      set last_elm [lindex $def_list end]
+      foreach def $def_list {
+         set str "   $def"
+         if {[string equal $def $last_elm]!=1} {
+            append str " \\"
+         }
+         append nemo_pt3a "\n$str"
+      }
+   }
+
+   append nemo_pt3a "\n\n"
+   append nemo_pt3a \
+"inc        %FCM_KEYS_NEMO
+bld::tool::fppkeys::nemo \%%bld::tool::fppkeys::nemo \%%nemo_jobdefs
+"
+
+
+# Part 3b - Executable definition
+# ===============================
+
+   set nemo_pt3b "bld::exe_dep\n"
+
+   if { %NEMOVERSION > "302" } {
+     append nemo_pt3b "bld::exe_name::nemo        %FILENEMO \n"
+   } else {
+     append nemo_pt3b "bld::exe_name::model       %FILENEMO \n"
+   }   
+   append nemo_pt3b "bld::target                %FILENEMO"
+
+
+# Part 3c - Optional Flags
+# ========================
+   # N/A
+
+
+# Part 4 - Branches (OPTIONAL)
+# ============================   
+   set nemo_type 1
+   set branches %LFCM_USRBRN_NEMO
+   for {set i 1} {$i <= %FCM_BRN_COUNT} {incr i} {
+      set repos($i) [string tolower [get_variable_value FCM_USRBRN_TYPE($i)]]
+      set branch_name($i) [get_variable_value FCM_USRBRN_VAL_NEMO($i)]
+      set branch_ver($i) [get_variable_value FCM_USRBRN_VER_NEMO($i)]
+      set branch_use($i) [get_variable_value FCM_USRBRN_USE_NEMO($i)]
+   }
+
+
+# Part 4b - Central Scripts mods (OPTIONAL)
+# ========================================
+   # N/A
+
+# Part 5 - Working copy (OPTIONAL)
+# ================================
+   set nemo_wc 2
+   set workingcopy %LFCM_WRKCP_NEMO
+   set repos_wc "nemo"
+   set wkcpy_name %FCM_WRKCP_NEMO
+   set workingcopy1 %LFCM_WRKCP_IOIPSL
+   set repos_wc1 "ioipsl"
+   set wkcpy_name1 %FCM_WRKCP_IOIPSL
+
+
+# Part 6a - Pre-bindings UMUI controlled Libraries (OPTIONAL)
+# ===========================================================
+   # N/A
+
+
+# Part 6b - Bind File
+# ===================
+   # N/A
+
+
+# Part 6c - Post-bindings UMUI controlled Libraries (OPTIONAL)
+# ============================================================
+   # N/A
+
+  
+%ENDTCL

@@ -1,0 +1,105 @@
+#!/bin/ksh
+%C------------------------------------------------------------------------------
+%C  File:  nds_main
+%C------------------------------------------------------------------------------
+%C
+%C  Purpose: Generates MAIN_SCR, which calls extract, build or run
+%C
+%C  Include files:
+%C   * nds_target_vars (Job Specific environment variables)
+%C   * nds_user_vars   (User Defined environment variables)
+%C   * nds_comp_switch (Compile switches)
+%C   * nds_spect_files (directory for spectral files LW SW radiation)
+%C------------------------------------------------------------------------------
+%C
+#---------------------------------------------------------------------
+# Script: MAIN_SCR
+#---------------------------------------------------------------------
+#
+# Purpose: Calls fcm extract on a local machine and build
+#          and/or run commands on a remote machine
+#
+# Created from umui vn%VERSION
+#---------------------------------------------------------------------
+
+%I nds_user_vars
+%I nds_target_vars
+
+# Local variables used within this script
+%T set runid %RUN_ID
+%T set uid %USERID
+%T set submitid "-\$1"
+
+# Exported variables 
+export UM_SVN_URL=%UMSVN_URL
+export UM_SVN_BIND=%UMSVN_BIND
+export UM_CONTAINER=%UMFCM_CONTAINER
+%T putl "export UM_LOCALHOST=[info hostname]"
+
+%I nds_spect_files
+
+%T set processed_dir [set_output_dir]/%RUN_ID
+%T putl "export PROCESSED_DIR=$processed_dir"
+. $PROCESSED_DIR/COMP_SWITCHES
+%I nds_comp_switch 
+
+#---------------------------------------------
+# Do Extract if compilation was requested
+#---------------------------------------------
+
+RC=0
+if test $RUN_COMPILE = "true" ; then
+   echo
+   echo MAIN_SCR: Calling Extract ...
+   $PROCESSED_DIR/EXTR_SCR
+   RC=$?
+   if test $RC -eq 0 ; then
+      echo MAIN_SCR: Extract OK
+   else
+      echo MAIN_SCR: Extract failed >&2
+      echo MAIN_SCR stopped with return code $RC
+      exit $RC
+   fi
+fi
+
+#---------------------------------------------
+#   Submit to compile or/and run
+#---------------------------------------------
+
+if test $RC -eq 0 ; then
+   RUN_FILE=stage_1_submit
+%TCL
+  if {$run_on == "ibm02" || $run_on == "mobilis1"} {
+
+    set cmd "llsubmit umui_runs/$runid$submitid/\$RUN_FILE"
+    putl "   echo echo Submitting job... >> \$PROCESSED_DIR/REMCOMMS"
+    putl "   echo $cmd >> \$PROCESSED_DIR/REMCOMMS"
+
+  } elseif { %SUBMIT_METHOD == 6 } {
+
+    set cmd "/opt/pbs/default/bin/qsub umui_runs/$runid$submitid/\$RUN_FILE"
+    putl "   ssh $run_on -l $uid -n $cmd"
+
+  } else {
+%ENDTCL
+   echo
+   echo MAIN_SCR: Calling UMSUBMIT ...
+
+     $PROCESSED_DIR/UMSUBMIT \
+     -h %MACH_NAME \
+     -u ${USERID} \
+     -m %SUBMIT_METHOD \
+      ${RUNID}    \
+      ${RUN_FILE}
+%T }
+   RC=$?
+   if test $RC -eq 0 ; then
+     echo MAIN_SCR: Submit OK
+   else
+     echo MAIN_SCR: Submit failed >&2
+   fi
+fi 
+
+exit $RC
+
+#EOF  

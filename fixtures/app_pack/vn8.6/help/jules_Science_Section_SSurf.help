@@ -1,0 +1,69 @@
+Use wind-speed dependent thermal roughness lengths (ISeaZ0T)
+-------------------------------------------------------------
+Instead of using a fixed thermal roughness length, this option anables
+a calculation of the thermal roughness length over sea water that
+depends on the wind speed through the surface friction velocity.
+At low wind speeds, the aerodynamically smooth limit is used, but
+at higher wind speeds, the thermal roughness length is inversely
+proportional to the momentum roughness length, giving a gentler
+increase in the exchange coefficient with wind speed than does a
+fixed roughness length. This agrees more closely with field data.
+If a fixed thermal roughness length is required this should be
+set as the value for open sea in the table below.
+
+Sea ice Roughness lengths
+--------------------------
+Exchange coefficients are calculated separately for open sea, 
+for the marginal ice zone and for pack ice, An overall exchange 
+coefficient for sea and sea ice together is defined by interpolation 
+between these exchange coefficients using the sea ice concentration. 
+For concentrations between 0 and 0.7, the interpolation is between
+the values for open sea and marginal ice and for greater
+concentrations of ice between the values for marginal ice and
+pack ice. Both momentum and thermal roughness lengths for 
+marginal and pack ice are set to the values in this table, but
+the value for open sea is used only as thermal roughness length
+when wind-speed dependent thermal roughness lengths are not used.
+The momentum roughness length is set using Charnock's relation,
+allowing for aerodynamically smooth behaviour at low wind
+speeds.
+
+Calculate Tstar over sea ice in same way as over land points
+------------------------------------------------------------
+In atmosphere-only runs, selecting this new option in the UMUI will mean 
+that the surface temperature over sea ice is calculated using the JULES 
+algorithm, in the same way as for land points.  If this option is not 
+selected in atmosphere-only runs, the original UM sea ice algorithm will 
+be used.  This option is not available in coupled runs, as the JULES 
+algorithm is used by default in that case.
+
+Emissivity of open sea and sea-ice
+----------------------------------
+By default these values are set to 1.0 (a black surface), but the user may 
+set them to more realistic values, which are slightly less than 1.0.
+
+Sea ice thermal conductivities
+------------------------------
+When the Semtner zero-layer approximation is used, a constant sea ice 
+thermal conductivity is used.  The value of this thermal conductivity 
+(in W/m/K) is set here.  Similarly, the (constant) thermal conductivity 
+of the snow layer on top of the sea ice and the effective thermal 
+conductivity of a shallow sea surface layer (both in W/m/K) are also 
+set here. 
+
+ Choice of model for the Ocean Surface Albedo (open water, ice free): 
+
+   1. Original UM: Diffuse albedo constant (0.06), Direct albedo 
+      from Briegleb and Ramanathan, 1982. 
+   2. Modified Barker: Diffuse albedo constant (0.06), Direct albedo 
+      from Barker and Li, 1995. 
+   3. Jin et al. 2011 for the direct and diffuse beam. 
+
+References:
+  Barker and Li. Improved simulation of clear-sky radiative transfer in the 
+  CCC-GCM. 1995, J. Climate. doi:10.1175/1520-0442(1995)008<2213:ISOCSS>2.0.CO;2. 
+  Briegleb and Ramanathan. Spectral and Diurnal Variations in Clear Sky Planetary 
+  Albedo. 1982. J. Appl. Met. doi:10.1175/1520-0450(1982)021<1160:SADVIC>2.0.CO;2. 
+  Jin et al. A new parameterization of spectral and broadband ocean surface albedo. 
+  2011. Optics Express. doi:10.1364/OE.19.026429. 
+

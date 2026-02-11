@@ -1,0 +1,32 @@
+%C =============================================================
+%C module: nds_um_machine
+%C
+%C In all scripts machine_class was replaced by SUBMIT_METHOD 
+%C (LoadLeveler, Linux, Other), but we still need UM_MACHINE
+%C for the location of machine config files (ibm-pwr6-meto etc.)
+%C This small include will allow to make change in one place
+%C from vn7.8 config file could be replaced for any submit method
+%C
+%C Module included in:
+%C  * EXTR_SCR via processing/nds_extract
+%C  * FCM_NEMOCICE_CFG via processing/fcm_nemocice_cfg
+%C =============================================================
+%C
+%TCL
+ set sub_mth [get_variable_value SUBMIT_METHOD]
+ set run_on [get_variable_value MACH_NAME] 
+ set l_mcfg [get_variable_value LMACHCFG]
+ 
+ if {$l_mcfg == "Y" || $sub_mth == "0" } {
+    set um_machine "[get_variable_value MACH_CFG]"    
+ } elseif {$sub_mth == "3"} {
+    set um_machine "ibm-pwr7-meto" 
+ } elseif {$sub_mth == "6"} {
+    set um_machine "cray-xc30-cce-archer"
+ } elseif {$sub_mth == "7"} {
+    set um_machine "cray-xc40-meto"
+ } else {
+    set um_machine "linux-intel64-meto" 
+ }
+ 
+%ENDTCL

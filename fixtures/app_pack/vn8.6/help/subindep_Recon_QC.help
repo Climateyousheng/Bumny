@@ -1,0 +1,30 @@
+Checking for non-uniform polar data will cause the reconfiguration to scan 
+the polar rows of every ancillary file using the P grid. If any polar row 
+contains non-uniform data the job will be aborted and an error message will 
+identify the field responsible. 
+
+This option only takes effect when the output dump lies on a global grid.
+
+Reset the specific humidity to a minimum value. If not selected then
+the specific humidity is restrained from being negative. Otherwise it
+raises all sub minima values to the specified minimum.
+
+Resetting w-components of wind to zero:
+a) Resets w-component of wind (Stash Code 150) and advected w-component
+   of wind (Stash Code 258) to zero
+b) Level 0 (surface) and top model level are always set to zero (default)
+c) First and last level enables a range or all the levels of
+   w-components to be set to zero.
+
+Sea Ice Surface Temperature Prognostics
+When reconfiguration involves changes of horizontal resolution or land-sea 
+mask it is currently sometimes necessary to force the reconfiguration code 
+to set the sea ice surface temperature fields (stash prognostics 49, and 
+for a coupled model with multiple sea-ice categories 415) to be equal to 
+the surface temperature field (stash prognostic 24). This imitates the 
+behaviour of the reconfiguration code when the start dump does not include 
+these fields.
+
+Reset convective cloud to zero
+To be used when reconfiguring from a configuration with parametrised 
+convective cloud (CCRad) to one without. 

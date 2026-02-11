@@ -1,0 +1,116 @@
+%C---------------------------------------------------------------------
+%C  File: fcm_scripts_cfg
+%C
+%C  Purpose: Generates FCM_SCRIPTS_CFG, which contains configuration
+%C           for extracting the UM scripts including branches
+%C
+%C  Include files:
+%C   * fcm_config      (common sections for the config files)
+%C---------------------------------------------------------------------
+%TCL
+  set subm "umscripts"
+
+# Header - Version and userID
+# ===========================
+   set usr_ver [string trim %FCM_USR_VER]
+   set umui_ver [get_variable_value VERSION]
+   if {%LFCM_USRTRNK=="Y" && $usr_ver!=""} {
+      set code_ver "$usr_ver"
+   } else {
+      putl "version::UM::base    vn$umui_ver" 
+      set code_ver "vn$umui_ver" 
+   }
+
+set header \
+"#---------------------------------------------------------------------
+# Script: FCM_SCRIPTS_CFG
+#---------------------------------------------------------------------
+#
+# Purpose: Configuration file for the UM scripts
+#
+# Created from umui vn%VERSION
+#---------------------------------------------------------------------
+"
+
+
+# Part 1 - Inherit from a Precompiled Build
+# =========================================
+   set part1 ""
+
+# Part 2 - Script build declarations (MANDATORY)
+# ==============================================
+   set part2a \
+"bld::excl_dep::UM::script  EXE
+bld::infile_ext::F90
+bld::infile_ext::H"
+
+   set br_flag N
+   if { %LFCM_CENSRCMOD=="Y" } {
+      for {set i 1} {$i <= %FCM_CMS_COUNT} {incr i} {
+         if { %FCM_CMSCR_VAL($i)!="" && %FCM_CMSCR_USE($i)=="Y" } {
+            set br_flag Y
+            break
+         }
+      } 
+   } 
+
+   if { $br_flag=="N" } {
+     set str "# Include script build targets "
+     append str "\ninc \$UM_SVN_URL/src/configs/script_build/script_targets.cfg@$code_ver"
+   } else {
+     set str "# Script build targets are included in the Optional Part 4b below"
+   }
+
+   set part2b "$str"
+
+
+# Part 3a - Model Specific Sections
+# =================================
+   # N/A
+   set part3a ""
+
+
+# Part 3b - Executable definition
+# ===============================
+   # N/A
+   set part3b ""
+
+
+# Part 3c - Optional Flags
+# ========================
+   # N/A
+   set part3c ""
+
+
+# Part 4 - Branches (OPTIONAL)
+# ============================   
+   set type 1
+
+
+# Part 4b - Central Scripts mods (OPTIONAL)
+# ========================================
+
+
+# Part 5 - Working copy (OPTIONAL)
+# ================================
+   set type_wc 1
+
+# Part 6a - Pre-bindings UMUI controlled Libraries (OPTIONAL)
+# ===========================================================
+   # N/A
+   set part6a ""
+
+
+# Part 6b - Bind File
+# ===================
+   # N/A
+   set part6b ""
+
+
+# Part 6c - Post-bindings UMUI controlled Libraries (OPTIONAL)
+# ============================================================
+   # N/A
+   set part6c ""
+  
+%ENDTCL
+%I fcm_config

@@ -1,0 +1,2689 @@
+<M001_S003_I024>
+(1, 3, 24) SURFACE TEMPERATURE AFTER B.LAYER
+   
+Grid-box surface temperature after call to boundary layer.
+
+Available on all timesteps.
+</M001_S003_I024>
+#
+<M001_S003_I025>
+Item:(1, 3, 025) BOUNDARY LAYER DEPTH AFTER B.LAYER
+
+Depth of surface-based mixed layer. For diagnosed convective situations
+(see STASH item (1, 3, 310)) this marks the height of the lifting condensation
+level. 
+
+See also (1, 3, 304) which marks the maximum height of turbulent mixing.
+
+Available on all timesteps.
+</M001_S003_I025>
+#
+<M001_S003_I026>
+Item:(1,3,026) ROUGHNESS LEN. AFTER B.L.
+
+A constant of integration in the logarithmic wind profile, as is assumed
+in the model close to the surface.  It is proportional to the average
+height of the roughness elements of the surface.
+
+</M001_S003_I026>
+#
+<M001_S003_I027>
+EFFECTIVE ROUGHNESS LENGTH FOR SCALARS
+
+A constant of integration in the logarithmic scalar (temperature or
+moisture) profile, as is assumed in the model close to the surface.
+Typically equal to a tenth of the roughness length for momentum,
+measured in metres.
+</M001_S003_I027>
+#
+<M001_S003_I028>
+ROUGHNESS LENGTH FOR MOMENTUM WITHOUT OROGRAPHIC ENHANCEMENT
+
+A constant of integration in the logarithmic wind profile, as stash 3,26
+but, in this diagnostic, the effective roughness of subgrid orography
+has been neglected (see also the orographic stress scheme selection
+under the Boundary Layer panel).
+</M001_S003_I028>
+#
+<M001_S003_I049>
+(1, 3, 49)SEA-ICE TEMPERATURE AFTER B. LAYER
+
+Sea-ice temperature after call to boundary layer.
+
+Only on sea points
+   
+Available on all timesteps.
+
+
+</M001_S003_I049>
+#
+<M001_S003_I051>
+Ratio of the aerodynamic resistance to the sum of the aerodynamic 
+and surface resistances (Ra/(Ra+Rs)). The surface resistance is a 
+combined stomatal and bare soil resistance. This is available on 
+all land surface tiles.
+</M001_S003_I051>
+#
+<M001_S003_I052>
+Ratio of the surface transfer coefficients for screen level and for 
+the first atmospheric model level. This is available on 
+all land surface tiles.
+</M001_S003_I052>
+#
+<M001_S003_I053>
+Gradient of the saturated specific humidity with respect to 
+temperature curve at the surface temperature. This is available on 
+all land surface tiles.
+
+Units: kg/kg/K
+</M001_S003_I053>
+#
+<M001_S003_I056>
+Ratio of the aerodynamic resistance to the sum of the aerodynamic 
+and surface resistances (Ra/(Ra+Rs)). The surface resistance is a 
+combined stomatal and bare soil resistance. This is an aggregated 
+diagnostic that is a weighted average of the surface tiles.
+</M001_S003_I056>
+#
+<M001_S003_I057>
+Ratio of the surface transfer coefficients for screen level and for 
+the first atmospheric model level. This is an aggregated diagnostic 
+that is a weighted average of the surface tiles.
+
+</M001_S003_I057>
+#
+<M001_S003_I058>
+Gradient of the saturated specific humidity with respect to 
+temperature curve at the surface temperature. This is an aggregated 
+diagnostic that is a weighted average of the surface tiles. The 
+diagnostic is the weighted average for each gradient calculated at 
+the tile surface temperatures, rather than being determined as the 
+gradient at the aggregated surface temperature.
+
+Units: kg/kg/K
+</M001_S003_I058>
+#
+<M001_S003_I060>
+Item: ( 1: 3:60)
+Text: Surface exchange coefficient (first level) and mixing coefficients
+(remaining levels).
+
+
+</M001_S003_I060>
+#
+<M001_S003_I061>
+Item: ( 1: 3:61)
+Text: Surface air density divided by aerodynamic resistance term (for S cycle).
+
+</M001_S003_I061>
+#
+<M001_S003_I062>
+Item: ( 1: 3:62)
+Text: Aerodynamic resistance term (for S cycle).
+
+</M001_S003_I062>
+#
+<M001_S003_I063>
+Item: ( 1: 3:63)
+Text: Resistance to passing through quasi-laminar layer next to surface
+(for S cycle).
+</M001_S003_I063>
+#
+<M001_S003_I064>
+Item: ( 1: 3:64)
+Text: DTRDZ_CHARNEY GRID
+</M001_S003_I064>
+#
+<M001_S003_I065>
+Item: ( 1: 3:65)
+Text: Grid level of surface mixed layer (kent).
+</M001_S003_I065>
+#
+<M001_S003_I066>
+Item: ( 1: 3:66)
+Text: rho*entrainment rate implied by placing of subsidence (we_lim).
+</M001_S003_I066>
+#
+<M001_S003_I067>
+Item: ( 1: 3:67)
+Text: Fraction of the timestep (t_frac). A fraction of timestep
+the inversion spends above a given level.
+</M001_S003_I067>
+#
+<M001_S003_I068>
+Item: ( 1: 3:68)
+Text: zrzi
+</M001_S003_I068>
+#
+<M001_S003_I069>
+Item: ( 1: 3:69)
+Text: Grid level of decoupled mixed layer (kent_dsc).
+</M001_S003_I069>
+#
+<M001_S003_I070>
+Item: ( 1: 3:70)
+Text: rho*entrainment rate implied by placing of subsidence (we_lim_dsc).
+</M001_S003_I070>
+#
+<M001_S003_I071>
+Item: ( 1: 3:71)
+Text: Fraction of the timestep (t_frac_dsc). A fraction of timestep
+the inversion spends above a given level.
+</M001_S003_I071>
+#
+<M001_S003_I072>
+Item: ( 1: 3:72)
+Text: zrzi_dsc
+</M001_S003_I072>
+#
+<M001_S003_I073>
+Item: ( 1: 3:73)
+Text: ZHSC. Cloud layer height (m).
+</M001_S003_I073>
+#
+<M001_S003_I074>
+Item: ( 1: 3:74)
+
+Surface layer resistance for mineral dust, division 1 (s/m)
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I074>
+#
+<M001_S003_I075>
+Item: ( 1: 3:75)
+
+Surface layer resistance for mineral dust, division 2 (s/m)
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I075>
+#
+<M001_S003_I076>
+Item: ( 1: 3:76)
+
+Surface layer resistance for mineral dust, division 3 (s/m)
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I076>
+#
+<M001_S003_I077>
+Item: ( 1: 3:77)
+
+Surface layer resistance for mineral dust, division 4 (s/m)
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I077>
+#
+<M001_S003_I078>
+Item: ( 1: 3:78)
+
+Surface layer resistance for mineral dust, division 5 (s/m)
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I078>
+#
+<M001_S003_I079>
+Item: ( 1: 3:79)
+
+Surface layer resistance for mineral dust, division 6 (s/m)
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I079>
+#
+<M001_S003_I130>
+Item:(1, 3, 130) COUNTER GRADIENT TERM OF TAUX 
+
+Counter gradient term of the x-direction stress (TAUX) 
+in the MY3 closure model (in the 1A BL).
+Unit: kg m**-1 s**-2
+Note that (:,:,K) denotes a theta level K-1.
+
+</M001_S003_I130>
+#
+<M001_S003_I131>
+Item:(1, 3, 131) COUNTER GRADIENT TERM OF TAUY 
+
+Counter gradient term of the y-direction stress (TAUY) 
+in the MY3 closure model (in the 1A BL).
+Unit: kg m**-1 s**-2
+Note that (:,:,K) denotes a theta level K-1.
+
+</M001_S003_I131>
+#
+<M001_S003_I132>
+Item:(1, 3, 132) COUNTER GRADIENT TERM OF FTL
+
+Counter gradient term of the turbulent sensible heat flux (FTL) 
+in the MY3 closure model (in the 1A BL).
+Unit: W m**-2
+Note that it is defined on rho levels.
+
+</M001_S003_I132>
+#
+<M001_S003_I133>
+Item:(1, 3, 133) COUNTER GRADIENT TERM OF FQW 
+
+Counter gradient term of the turbulent latent heat flux (FQW) 
+in the MY3 closure model (in the 1A BL).
+Unit: W m**-2
+Note that it is defined on rho levels.
+
+</M001_S003_I133>
+#
+<M001_S003_I134>
+Item:(1, 3, 134) MIXING LENGTH 
+
+Mixing length in the TKE based closure schemes (the 1A BL).
+Unit: m
+Note that (:,:,K) denotes a theta level K-1.
+
+</M001_S003_I134>
+#
+<M001_S003_I135>
+Item:(1, 3, 135) PRODUCTION RATE OF TKE BY SHEAR
+
+Production rate of TKE by shear in the TKE based closure schemes (the 1A BL).
+Unit: m**2 s**-3 
+Note that (:,:,K) denotes a theta level K-1.
+
+</M001_S003_I135>
+#
+<M001_S003_I136>
+Item:(1, 3, 136) PRODUCTION RATE OF TKE BY BUOYANCY
+
+Production rate of TKE by buoyancy in the TKE based closure schemes (the 1A BL).
+Unit: m**2 s**-3 
+Note that (:,:,K) denotes a theta level K-1.
+
+</M001_S003_I136>
+#
+<M001_S003_I137>
+Item:(1, 3, 137) DISSIPATION RATE OF TKE
+
+Dissipation rate of TKE in the TKE based closure schemes (the 1A BL).
+Unit: m**2 s**-3 
+Note that (:,:,K) denotes a theta level K-1.
+
+</M001_S003_I137>
+#
+<M001_S003_I138>
+Item:(1, 3, 138) NON-DIM DIFFUSION COEFS FOR UV (SM) 
+
+Non-dimensional diffusion coefficient for momentum (denoted by SM) 
+in the MY2.5 and 3 closure models (in the the 1A BL)
+Unit: non-dimensional
+Note that (:,:,K) denotes a theta level K-1.
+
+</M001_S003_I138>
+#
+<M001_S003_I139>
+Item:(1, 3, 139) NON-DIM DIFFUSION COEFS FOR TQ (SH) 
+
+Non-dimensional diffusion coefficient for scalars (denoted by SH) 
+in the MY2.5 and 3 closure models (in the the 1A BL)
+Unit: non-dimensional
+Note that (:,:,K) denotes a theta level K-1.
+
+</M001_S003_I139>
+#
+<M001_S003_I140>
+Item:(1, 3, 140) NON-GRADIENT BUOYANCY FLUX
+
+Non-gradient buoyancy flux associated with the skewness in shallow cumulus
+in the TKE based closure models (the 1A BL)
+Unit: m**2 s**-3 
+Note that (:,:,K) denotes a theta level K-1.
+
+</M001_S003_I140>
+#
+<M001_S003_I141>
+Item:(1, 3, 141) CLOUD FRACTION IN THE TKE SCHEMES
+
+Cloud fraction diagnosed in the TKE based closure models (the 1A BL).
+Is is used only to evaluate the buoyancy flux in the
+TKE production term.
+Unit: non-dimensional
+Note that (:,:,K) denotes a theta level K-1.
+
+</M001_S003_I141>
+#
+<M001_S003_I142>
+Item:(1, 3, 142) CONDENSED WATER IN THE TKE SCHEMES
+
+Condensed water content  diagnosed in the TKE based closure models (the 1A BL).
+It is used only to evaluate the buoyancy flux in the TKE production term.
+Unit: kg kg**-1 
+Note that (:,:,K) denotes a theta level K-1.
+
+</M001_S003_I142>
+#
+<M001_S003_I143>
+Item:(1, 3, 143) STD. DEV. OF GAUSSIAN
+
+The standard deviation of the bi-normal distribution function for fluctuation
+of thetal' and qw' in the TKE based closure models (the 1A BL).
+Unit: kg kg**-1 
+Note that (:,:,K) denotes a theta level K-1.
+
+</M001_S003_I143>
+#
+<M001_S003_I170>
+Item (1:3:170) QCL INCR: bdy layer positive
+
+%I pc2_diags 
+
+</M001_S003_I170>
+#
+<M001_S003_I171>
+Item (1:3:171) QCL INCR: bdy layer negative
+
+%I pc2_diags 
+
+</M001_S003_I171>
+#
+<M001_S003_I172>
+Item (1:3:172) QCF INCR: bdy layer positive
+
+%I pc2_diags 
+
+</M001_S003_I172>
+#
+<M001_S003_I173>
+Item (1:3:173) QCF INCR: bdy layer negative
+
+%I pc2_diags 
+
+</M001_S003_I173>
+#
+<M001_S003_I176>
+Item (1:3:176) LIQ CLOUD VOL INCR: bdy layer positive
+
+%I pc2_diags 
+
+</M001_S003_I176>
+#
+<M001_S003_I177>
+Item (1:3:177) LIQ CLOUD VOL INCR: bdy layer negative
+
+%I pc2_diags 
+
+</M001_S003_I177>
+#
+<M001_S003_I178>
+Item (1:3:178) ICE CLOUD VOL INCR: bdy layer positive
+
+%I pc2_diags 
+
+</M001_S003_I178>
+#
+<M001_S003_I179>
+Item (1:3:179) ICE CLOUD VOL INCR: bdy layer negative
+
+%I pc2_diags 
+
+</M001_S003_I179>
+#
+<M001_S003_I181>
+(1, 3, 181)  TEMPERATURE       INCR: bdy layer
+
+This is the increment across the boundary layer scheme to the gridbox mean
+temperature, in K.
+
+Note that if the PC2 condensation scheme is active, the increment will
+include a contribution due to condensation effects.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S003_I181>
+#
+<M001_S003_I182>
+(1, 3, 182)  SPECIFIC HUMIDITY INCR: bdy layer
+
+This is the increment across the boundary layer scheme to the gridbox mean
+specific humidity, in kg of vapour per kg of air.
+
+Note that if the PC2 condensation scheme is active, the increment will
+include a contribution due to condensation effects.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+WARNING : May change to mass mixing ratio from UM VN5.4.
+
+Available on all timesteps.
+
+</M001_S003_I182>
+#
+<M001_S003_I183>
+(1, 3, 183)  QCL               INCR: bdy layer
+
+This is the increment across the boundary layer scheme to the gridbox mean
+specific liquid cloud condensate, in kg of liquid per kg of air.
+
+Note that if the PC2 condensation scheme is active, the increment will
+include a contribution due to condensation effects.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+WARNING : May change to mass mixing ratio from UM VN5.4.
+
+Available on all timesteps.
+
+</M001_S003_I183>
+#
+<M001_S003_I184>
+(1, 3, 184) QCF               INCR: bdy layer   
+
+This is the increment across the boundary layer scheme to the gridbox mean
+specific ice content (cloud condensate), in kg of ice per kg of air.
+
+WARNING : May change to mass mixing ratio from UM VN5.4.
+
+Available on all timesteps.
+</M001_S003_I184>
+#
+<M001_S003_I188>
+Item: ( 1: 3:188)
+
+LIQUID WATER TEMP INCR: FRIC DISSIP
+
+This is the increment to the gridbox mean liquid water temperature
+( TL = T - [LC/CP]*qCL ), in K per timestep, arising from the frictional 
+dissipation of turbulence in the boundary layer parametrization which is 
+implemented using the UMUI switch on the BLay panel.  Note that this 
+increment is already included in the total boundary layer increment to liquid
+water temperature (1,3,189) and in the related temperature increment 
+from boundary layer and LS cloud (1,9,181) and so does NOT need to be included 
+to make budgets balance.
+
+Available on all timesteps.
+</M001_S003_I188>
+#
+<M001_S003_I189>
+(1, 3, 189) LIQUID WATER TEMP INCR: bdy layer   
+
+This is the increment across the boundary layer scheme to the gridbox mean
+liquid water temperature ( TL = T - [LC/CP]*qCL ), in K.
+
+The boundary layer scheme advects liquid water temperature rather than
+temperature and therefore does not produce a direct increment in temperature.
+However, see related variable (1, 9, 181) TEMPERATURE INC: bdy layer + ls cld.
+
+Available on all timesteps.
+</M001_S003_I189>
+#
+<M001_S003_I190>
+(1, 3, 190) TOTAL (LIQ) WATER INCR: bdy layer   
+
+This is the increment across the boundary layer scheme to the gridbox mean
+total specific water content ( qT = q + qCL ), in kg of moisture per kg of air.
+
+WARNING : May change to mass mixing ratio from UM VN5.4.
+
+The boundary layer scheme advects total water content rather than specific
+humidity and therefore does not produce a direct increment in specific
+humidity.
+However, see related variable (1, 9, 182) SPEC HUMIDITY INC: bdy layr + ls cld.
+
+Available on all timesteps.
+
+</M001_S003_I190>
+#
+<M001_S003_I192>
+(1, 3, 192)  BULK CLOUD VOL    INCR: bdy layer
+
+This is the increment across the boundary layer scheme to the gridbox mean
+total cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S003_I192>
+#
+<M001_S003_I193>
+(1,  3, 193)  LIQUID CLOUD VOL  INCR: bdy layer
+
+This is the increment across the boundary layer scheme to the gridbox mean
+liquid (including mixed phase) cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S003_I193>
+#
+<M001_S003_I194>
+(1, 3, 194)  FROZEN CLOUD VOL  INCR: bdy layer
+
+This is the increment across the boundary layer scheme to the gridbox mean
+frozen (including mixed phase) cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S003_I194>
+#
+<M001_S003_I201>
+(1, 3, 201) HT FLUX THROUGH SEAICE:SEA MEAN W/M2
+
+This item is the heat flux through the seaice. It is weighted
+by the total sea (ie open sea and sea-ice) fraction.
+
+ 
+</M001_S003_I201>
+#
+<M001_S003_I202>
+(1, 3, 202) HT FLUX FROM SURF TO DEEP SOIL LEV 1
+
+Flux of energy from the surface to deep soil level 1 for land points, or sea-ic
+e  
+for sea points. (W/m2)
+   
+Available on all timesteps.
+
+</M001_S003_I202>
+#
+<M001_S003_I208>
+Item (1,3,208)LOWEST LAYER BULK RICHARDSON NO. RIB
+
+A measure of the stability to turbulence of the lowest part of the
+atmosphere, used in the calculation of orographic form drag.
+</M001_S003_I208>
+#
+<M001_S003_I216>
+Item: (1:3:216)
+
+BOUNDARY LAYER    HEAT FLUXES   W/M2
+
+"3216 is the combined boundary and surface layer heat flux vertical
+profile. Due to the structure of STASH, the range of the levels in the
+domain must start from 1 and go up to TOP_BL or BL_LEVELS. The labelling
+of the resulting diagnostics will start at the first rho level (e.g. 10
+m for the 38 level model), although this will actually be the surface
+value. Thus, the user must provide a corrected set of levels, just
+replacing the first one with 0 m, when plotting this diagnostic. For
+example, for the 38 level version of the model, the levels of the heat
+flux would be at: 0,  50,  130,   250,  410,  610, 850, 1130,  1450, 
+1810, 2210, 2650 and 3130 metres. If you require just the  surface heat
+flux , use diagnostic  3217 which is correctly labelled."
+
+
+</M001_S003_I216>
+#
+<M001_S003_I217>
+Item(1, 3, 217) SURFACE SENSIBLE HEAT FLUX W/M2
+
+Sensible heat flux at the surface, single level field.
+Available on all timesteps.
+
+</M001_S003_I217>
+#
+<M001_S003_I219>
+Item: (1:3:219)
+
+X-COMP OF SURF & BL WIND STRESS N/M2
+
+"3219 and 3220 are the x and y components of the combined boundary layer
+and surface layer stress. Due to the structure of STASH, the range of
+the levels in the domain must start from 1 and go up to TOP_BL or
+BL_LEVELS. The labelling of the resulting diagnostics will start at the
+first theta level (e.g. 20 m for the 38 level model), although this will
+actually be the surface value. Thus, the user must
+provide a corrected set of levels starting at 0 m when plotting this
+diagnostic. For example, for the 38 level version of the model, the
+levels of the stress would be at: 0, 20, 80, 180,  320,  500,  720, 
+980,  1280,  1620, 2000,  2420 and 2880 metres. If you require just the 
+surface stress, use diagnostics  3460 and 3461 which are correctly
+labelled. "
+
+
+</M001_S003_I219>
+#
+<M001_S003_I220>
+Item: (1:3:220)
+
+Y-COMP OF SURF & BL WIND STRESS N/M2
+
+"3219 and 3220 are the x and y components of the combined boundary layer
+and surface layer stress. Due to the structure of STASH, the range of
+the levels in the domain must start from 1 and go up to TOP_BL or
+BL_LEVELS. The labelling of the resulting diagnostics will start at the
+first theta level (e.g. 20 m for the 38 level model), although this will
+actually be the surface value. Thus, the user must
+provide a corrected set of levels starting at 0 m when plotting this
+diagnostic. For example, for the 38 level version of the model, the
+levels of the stress would be at: 0, 20, 80, 180,  320,  500,  720, 
+980,  1280,  1620, 2000,  2420 and 2880 metres. If you require just the 
+surface stress, use diagnostics  3460 and 3461 which are correctly
+labelled. "
+
+
+</M001_S003_I220>
+#
+<M001_S003_I221>
+(1, 3, 221) MAG OF SURF & BL WIND STRESS B GRID
+
+Magnitude of surface and BL wind stress on B-grid [N/m2]
+</M001_S003_I221>
+#
+<M001_S003_I222>
+Item: (1:3:222)
+
+B.LAYER TOTAL MOISTURE FLUXS KG/M2/S
+
+"3222 is the combined boundary and surface layer total moisture flux
+vertical profile. Due to the structure of STASH, the range of the levels
+in the domain must start from 1 and go up to TOP_BL or BL_LEVELS. The
+labelling of the resulting diagnostics will start at the first rho level
+(e.g. 10 m for the 38 level model), although this will actually be the
+surface value. Thus, the user must provide a corrected set of levels,
+just replacing the first one with 0 m, when plotting this diagnostic.
+For example, for the 38 level version of the model, the levels of the
+flux would be at: 0,  50,  130,   250,  410,  610, 850, 1130,  1450, 
+1810, 2210, 2650 and 3130 metres. If you require just the  surface total
+moisture flux, use diagnostic  3223 which is correctly labelled."
+
+
+</M001_S003_I222>
+#
+<M001_S003_I223>
+Item(1, 3, 223) SURF & BL TOTL MOISTURE FLUX KG/M2/S
+
+Moisture flux profile, on model half levels, with the first 
+value being the surface moisture flux.
+
+Available on all timesteps.
+
+</M001_S003_I223>
+#
+<M001_S003_I224>
+Item (1,3,224)  WIND MIX EN'GY FL TO SEA:SEA MN W/M2
+
+This item is the wind mixing energy flux into the open sea. It is
+weighted by the total sea (ie open sea and sea-ice) fraction.
+
+
+</M001_S003_I224>
+#
+<M001_S003_I225>
+Item(1, 3, 225) 10 METRE WIND U-COMP
+
+Estimate of the westerly component of horizontal wind at 10m. 
+Calculated by integrating the similarity equations from the surface 
+to 10m (U_0 = westerly component of surface current if over sea, 
+0.0 if over land).
+
+Available on all timesteps.
+</M001_S003_I225>
+#
+<M001_S003_I226>
+Item(1, 3, 226) 10 METRE WIND V-COMP
+
+Estimate of the southerly component of horizontal wind at 10m. 
+Calculated by integrating the similarity equations from the surface 
+to 10m (V_0 = southerly component of surface current if over sea, 
+0.0 if over land).
+
+Available on all timesteps.
+
+</M001_S003_I226>
+#
+<M001_S003_I227>
+(1, 3,227) 10 METRE WIND SPEED ON B GRID 
+
+10m wind speed on B-grid [m/s]
+</M001_S003_I227>
+#
+<M001_S003_I228>
+(1, 3, 228) SFC SH FLX FROM OPEN SEA:SEA MN W/M2
+
+This item is the sensible heat flux from the open sea. It is weighted
+by the total sea (ie open sea and sea-ice) fraction.
+
+ 
+</M001_S003_I228>
+#
+<M001_S003_I230>
+Item: ( 1: 3:230)
+
+Text: 10 METRE WIND SPEED ON C GRID 
+
+ 
+</M001_S003_I230>
+#
+<M001_S003_I232>
+(1, 3, 232) EVAP FROM OPEN SEA: SEA MEAN KG/M2/S
+
+This item is the evaporative flux from the open sea. It is weighted
+by the total sea (ie open sea and sea-ice) fraction.
+
+ 
+</M001_S003_I232>
+#
+<M001_S003_I235>
+(1, 3, 235) SEAICE TOP MELT LH FLX:SEA MEAN W/M2
+
+This item is the latent heat flux due to melting at the upper sea-ice
+surface. It is weighted by the total sea (ie open sea and sea-ice)
+fraction.
+
+ 
+</M001_S003_I235>
+#
+<M001_S003_I236>
+Item(1, 3, 236) TEMPERATURE AT 1.5M 
+
+Estimate of atmospheric temperature (K) at 1.5m (screen level). 
+Calculated by integrating the similarity equations from the 
+surface to 1.5m.
+
+Available on all timesteps.
+</M001_S003_I236>
+#
+<M001_S003_I237>
+Item(1, 3, 237) SPECIFIC HUMIDITY  AT 1.5M 
+
+Estimate of atmospheric specific humidity (g/kg) at 1.5m. 
+Calculated by integrating the similarity equations from the 
+surface to 1.5m (surface value taken as saturated specific 
+humidity at the surface temperature).
+
+Available on all timesteps.
+</M001_S003_I237>
+#
+<M001_S003_I245>
+Item(1, 3, 245) RELATIVE HUMIDITY  AT 1.5M 
+
+Calculated from 1.5m q and saturated specific humidity at 1.5m T.  
+
+Available on all timesteps.
+
+</M001_S003_I245>
+#
+<M001_S003_I247>
+Item(1, 3, 247) VISIBILITY AT 1.5M M
+
+Calculated from 1.5m T, q, qcl, qcf using droplet growth equations and 
+assuming standard values for aerosol concentration, density, dry radius, 
+etc, found in comdeck C_VISBTY. Further details in:
+
+      Wright, B. J., 1997: Improvements to the Nimrod Visibility             
+         Analysis/Forecast System. FR-Div. Tech. Rep., No. 217.              
+      Wright, B. J., 1997: A New Visibility Analysis/Forecast System         
+         for Nimrod. Met. Office FR Tech Rep., No. 222.
+
+
+Available on all timesteps.
+
+</M001_S003_I247>
+#
+<M001_S003_I251>
+Item(1, 3, 251) Silhouette Orographic Roughness
+
+This field is used if either the "effective roughness" or 
+"distributed form drag" options are chosen in the UMUI window
+for the boundary layer scheme. 
+
+This field is dimensionless.
+
+
+</M001_S003_I251>
+#
+<M001_S003_I252>
+Item(1, 3, 252) Half of (peak to trough ht of orog)
+
+This field is used if either the "effective roughness" or 
+"distributed form drag" options are chosen in the UMUI window
+for the boundary layer scheme. 
+
+This diagnostic has units of metres.
+
+
+</M001_S003_I252>
+#
+<M001_S003_I256>
+Item (1:3:256) 
+
+Heat flux through sea ice on categories (W/m2)
+</M001_S003_I256>
+#
+<M001_S003_I257>
+Item (1:3:257) 
+
+Sea ice top melting latent heat flux on categories (W/m2)
+</M001_S003_I257>
+#
+<M001_S003_I258>
+(1, 3, 258) SURFACE SNOWMELT HEAT FLUX
+   
+Grid-box flux of energy required to melt the amount of snow calculated on the
+timestep (W/m2)
+
+Available on all timesteps.
+
+</M001_S003_I258>
+#
+<M001_S003_I259>
+(1, 3, 259) CANOPY CONDUCTANCE
+
+Grid-box average conductance for canopy evaporation (m/s)
+
+Available on all timesteps.
+
+</M001_S003_I259>
+#
+<M001_S003_I261>
+(1, 3, 261) GROSS PRIMARY PRODUCTIVITY
+
+Grid-box average uptake of vegetation carbon by photosythesis
+
+Subtraction of carbon loss by plant respiration (item 1, 3, 263)
+gives Net Primary Productivity (item 1, 3, 262).
+
+</M001_S003_I261>
+#
+<M001_S003_I262>
+(1, 3, 262) NET PRIMARY PRODUCTIVITY
+
+Grid-box average net increase in vegetation carbon, equal to the uptake by
+photosythesis (Gross Primary Productivity, item 1, 3, 261) minus carbon lost by
+plant respiration (item 1, 3, 263).
+</M001_S003_I262>
+#
+<M001_S003_I263>
+(1, 3, 263) PLANT RESPIRATION
+
+Grid-box average loss of carbon by plant respiration
+
+When subtracted from carbon uptake (Gross Primary Productivity, item 1, 3, 261)
+gives Net Primary Productivity (item 1, 3, 262).
+</M001_S003_I263>
+#
+<M001_S003_I270>
+(1, 3, 270)  SO2 SURFACE DRY DEP FLUX KG/M2/S    
+
+Available only if Sulphur Cycle on and supporting boundary layer 
+version selected. 
+
+Dry deposition flux of SO2 to surface.
+
+%I gen_prognostic
+</M001_S003_I270>
+#
+<M001_S003_I271>
+(1, 3, 271)  SO4 AIT SURF DRY DEP FLUX KG/M2/S    
+
+Available only if Sulphur Cycle on and supporting boundary layer 
+version selected. 
+
+Dry deposition flux of Aitken mode SO4 aerosol to surface.
+
+%I gen_prognostic
+</M001_S003_I271>
+#
+<M001_S003_I272>
+(1, 3, 272)  SO4 ACC SURF DRY DEP FLUX KG/M2/S    
+
+Available only if Sulphur Cycle on and supporting boundary layer 
+version selected. 
+
+Dry deposition flux of accumulation mode SO4 aerosol to surface.
+
+%I gen_prognostic
+</M001_S003_I272>
+#
+<M001_S003_I273>
+(1, 3, 273)  SO4 DIS SURF DRY DEP FLUX KG/M2/S    
+
+Available only if Sulphur Cycle on and supporting boundary layer 
+version selected. 
+
+'Dry' (occult) deposition flux of dissolved SO4 to surface.
+
+%I gen_prognostic
+</M001_S003_I273>
+#
+<M001_S003_I274>
+Accum. Nitrate Dry Dep. Flx (1:3:274) 
+
+Available only if nitrate aerosol is on. 
+
+Dry deposition flux of accumulation-mode ammonium nitrate aerosol 
+to surface. Given in kg of nitrogen per square metre per second. 
+Multiply by 5.714 to convert to kg of ammonium nitrate (NH4NO3) 
+per square metre per second.
+</M001_S003_I274>
+#
+<M001_S003_I275>
+DISS NITRATE DRY DEP FLUX (1:3:275) 
+
+Available only if nitrate aerosol is on. 
+
+Dry (occult) deposition flux of dissolved ammonium nitrate aerosol 
+to surface. Given in kg of nitrogen per square metre per second. 
+Multiply by 5.714 to convert to kg of ammonium nitrate (NH4NO3) 
+per square metre per second.
+</M001_S003_I275>
+#
+<M001_S003_I281>
+Item: (1, 3, 281)  VIS AT 1.5M  (incl precip)
+
+Calculated from 1.5m T, q, qcl, qcf using droplet growth equations and 
+assuming standard values for aerosol concentration, density, dry radius, 
+etc, found in comdeck C_VISBTY, plus the impact of precip.
+
+      Wright, B. J., 1997: Improvements to the Nimrod Visibility             
+         Analysis/Forecast System. FR-Div. Tech. Rep., No. 217.              
+      Wright, B. J., 1997: A New Visibility Analysis/Forecast System         
+         for Nimrod. Met. Office FR Tech Rep., No. 222.
+
+%I gen_prognostic
+</M001_S003_I281>
+#
+<M001_S003_I282>
+Item: (1, 3, 282) PROB OF VIS < 1 KM (incl precip)
+
+The visibility probability is similar to the cloud fraction
+except it records the fraction of a grid box with RH
+greater than that required for the critical visibility
+(e.g 1 km), taking into account precipitation.
+
+%I gen_prognostic
+</M001_S003_I282>
+#
+<M001_S003_I283>
+Item: (1, 3, 283) PROB OF VIS < 5 KM (incl precip)
+
+The visibility probability is similar to the cloud fraction
+except it records the fraction of a grid box with RH
+greater than that required for the critical visibility
+(e.g 1 km), taking into account precipitation.
+
+%I gen_prognostic
+</M001_S003_I283>
+#
+<M001_S003_I284>
+(1, 3, 284)  DRY DEP VEL FOR SO4 ACC AFTER TS M/S
+
+Available only if Sulphur Cycle on and supporting boundary layer 
+version selected. 
+
+The dry deposition velocity is calculated as 
+            1 / ( R(aerodyn)+R(B)+R(stomatal) )
+
+R(aerodyn)  STASH item (1, 3, 286),
+R(B)        STASH item (1, 3, 276),
+R(stomatal) STASH item (1, 3, 280),
+are therefore implied diagnostics when (1, 3, 284) is requested.
+
+%I gen_prognostic
+</M001_S003_I284>
+#
+<M001_S003_I285>
+(1, 3, 285)  DRY DEP VEL FOR SO4 DIS AFTER TS M/S
+
+Available only if Sulphur Cycle on and supporting boundary layer 
+version selected. 
+
+The dry deposition velocity is calculated as 
+            1 / ( R(aerodyn)+R(B)+R(stomatal) )
+
+R(aerodyn)  STASH item (1, 3, 286),
+R(B)        STASH item (1, 3, 277),
+R(stomatal) STASH item (1, 3, 281),
+are therefore implied diagnostics when (1, 3, 285) is requested.
+
+%I gen_prognostic
+</M001_S003_I285>
+#
+<M001_S003_I287>
+(1, 3, 287) CANOPY EVAPORATION ON NON-ICE TILES
+
+Evaporation of canopy water from each surface tiles
+</M001_S003_I287>
+#
+<M001_S003_I288>
+(1, 3, 289) GROSS PRIMARY PRODUCTIVITY ON PFTS
+
+Uptake of vegetation carbon by photosythesis, for each Plant Functional Type
+(PFT):
+
+1. Broadleaf tree
+2. Needleleaf tree
+3. C3 grass
+4. C4 grass
+5. Shrub
+
+Subtraction of carbon loss by plant respiration (item 1, 3, 292)
+gives Net Primary Productivity (item 1, 3, 291).
+
+</M001_S003_I288>
+#
+<M001_S003_I289>
+(1, 3, 289) GROSS PRIMARY PRODUCTIVITY ON PFTS
+
+Uptake of vegetation carbon by photosythesis, for each Plant Functional Type
+(PFT):
+
+1. Broadleaf tree
+2. Needleleaf tree
+3. C3 grass
+4. C4 grass
+5. Shrub
+
+Subtraction of carbon loss by plant respiration (item 1, 3, 292) 
+gives Net Primary Productivity (item 1, 3, 291).
+
+%I gen_prognostic
+</M001_S003_I289>
+#
+<M001_S003_I290>
+(1, 3, 290) SURFACE SENSIBLE HEAT FLUX ON TILES
+
+Flux of sensible heat from the surface, for each surface tile
+
+</M001_S003_I290>
+#
+<M001_S003_I291>
+(1, 3, 291) NET PRIMARY PRODUCTIVITY ON PFTS
+
+Net increase in vegetation carbon, equal to the uptake by photosythesis (Gross
+Primary Productivity, item 1, 3, 289) minus carbon lost by plant respiration
+(item 1, 3, 292).  Calculated for each Plant Functional Type (PFT):
+
+1. Broadleaf tree
+2. Needleleaf tree
+3. C3 grass
+4. C4 grass
+5. Shrub
+
+</M001_S003_I291>
+#
+<M001_S003_I292>
+(1, 3, 292) PLANT RESPIRATION ON PFTS
+
+Loss of carbon by plant respiration, for each Plant Functional Type (PFT):
+
+1. Broadleaf tree
+2. Needleleaf tree
+3. C3 grass
+4. C4 grass
+5. Shrub
+
+When subtracted from carbon uptake (Gross Primary Productivity, item 1, 3, 289)
+gives Net Primary Productivity (item 1, 3, 291).
+
+</M001_S003_I292>
+#
+<M001_S003_I293>
+(1, 3, 293) SOIL RESPIRATION           KG C/M2/S
+
+Rate of loss of carbon from soil by respiration.  When subtracted from gridbox
+mean
+Net Primary Productivity (mean of item 1, 3, 291) gives the net surface flux of
+carbon, the Net Ecosystem Productivity.
+
+</M001_S003_I293>
+#
+<M001_S003_I294>
+(1, 3, 294) BULK RICHARDSON NUMBER ON TILES
+
+Bulk Richardson number between the surface and the first atmospheric level, for
+each surface tiles
+
+</M001_S003_I294>
+#
+<M001_S003_I296>
+(1, 3, 296) EVAP FROM SOIL SURF : RATE
+
+Rate of evaporation from soil surface (kg/m2/s).
+    
+Available on land points only.
+
+</M001_S003_I296>
+#
+<M001_S003_I297>
+(1, 3, 297) EVAP FROM CANOPY : RATE
+
+Rate of evaporation from canopy (kg/m2/s).
+
+Available on land points only.
+
+</M001_S003_I297>
+#
+<M001_S003_I298>
+(1, 3, 298) SUBLIM. SURFACE (GBM) : RATE
+
+GridBox Mean rate of sublimation from the surface (kg/m2/s).
+
+On land points, this is the gridbox mean of the rate of sublimation from the 
+tiled surface types, weighted by the associated tile fraction. The sublimation 
+is from overlying snow, with a different rate for each surface type; these 
+can be output individually by diagnostic 
+(1, 3, 331): SUBLIMATION MOISTURE FLUX ON TILES.
+
+On ocean points it is the sublimation from sea-ice, if present, weighted by 
+the fraction of the ocean covered by ice. 
+
+On coastal points which are part-land and part-ocean, the sublimation 
+from each is combined, weighted by land / ocean fraction as appropriate.
+
+</M001_S003_I298>
+#
+<M001_S003_I300>
+(1, 3, 300)  NH3 SURFACE DRY DEP FLUX KG/M2/S    
+
+Available only if Sulphur Cycle on and ozone oxidation with ammonia as buffer
+included, and supporting boundary layer version selected. 
+
+Dry deposition flux of NH3 to surface.
+
+%I gen_prognostic
+</M001_S003_I300>
+#
+<M001_S003_I301>
+Item: (1:3:301)
+Text: The flux of fresh soot dry deposited to the surface (kg/m2/s)
+
+
+%I gen_prognostic
+</M001_S003_I301>
+#
+<M001_S003_I302>
+Item: (1:3:302)
+Text: The flux of aged soot dry deposited to the surface (kg/m2/s)
+
+%I gen_prognostic
+</M001_S003_I302>
+#
+<M001_S003_I303>
+Item: (1:3:303)
+Text: The flux of soot-in-cloud dry deposited to the surface
+      (occult deposition) (kg/m2/s)
+
+%I gen_prognostic
+</M001_S003_I303>
+#
+<M001_S003_I304>
+Item(1, 3, 304) TURBULENT MIXING HT AFTER B.LAYER m
+
+Maximum height of turbulent mixing. This will be the same as STASH item
+(1, 3, 025) for stable layers (see STASH item (1, 3, 305)), well-mixed
+boundary  layers (see STASH item (1, 3, 307)) and for cumulus layers (see
+STASH item (1, 3, 310)), with both marking the lifting condensation level
+in the latter case. For decoupled boundary layers (see STASH items (1, 3,
+306),(1, 3, 308) and (1, 3, 309)), this will mark the top of the
+decoupled layer.
+
+Available on all timesteps.
+
+</M001_S003_I304>
+#
+<M001_S003_I305>
+Item(1, 3, 305) STABLE BL INDICATOR
+
+Diagnostic indicator of a stable (surface buoyancy flux < 0.0) boundary
+layer. 
+
+Set to 1.0 if true, or 0.0 if false, each timestep for each gridpoint, so
+that the average indicates the fraction of time spend as this type. 
+
+Note that the 7 boundary layer types (STASH (1, 3, 305) to (1, 3, 310))
+and (1:3:340) are mutually exclusive and should sum to 1.0 for each 
+gridpoint (provided STASH packing is not used).
+
+Available on all timesteps.
+
+</M001_S003_I305>
+#
+<M001_S003_I306>
+Item(1, 3, 306) STRATOCUM. OVER STABLE BL INDICATOR
+
+Diagnostic indicator of a stable (surface buoyancy flux < 0.0) boundary
+layer with an overlying unstable cloud layer. STASH item (1, 3, 025)
+marks the maximum height of surface-driven mixing.
+
+Set to 1.0 if true, or 0.0 if false, each timestep for each gridpoint, so
+that the average indicates the fraction of time spend as this type. 
+
+Note that the 7 boundary layer types (STASH (1, 3, 305) to (1, 3, 310))
+and (1:3:340) are mutually exclusive and should sum to 1.0 for each 
+gridpoint (provided STASH packing is not used).
+
+Available on all timesteps.
+</M001_S003_I306>
+#
+<M001_S003_I307>
+Item(1, 3, 307) WELL_MIXED BL INDICATOR
+
+Diagnostic indicator of a well-mixed unstable (surface buoyancy flux >=
+0.0)  boundary layer. 
+
+Set to 1.0 if true, or 0.0 if false, each timestep for each gridpoint, so
+that the average indicates the fraction of time spend as this type. 
+
+Note that the 7 boundary layer types (STASH (1, 3, 305) to (1, 3, 310))
+and (1:3:340) are mutually exclusive and should sum to 1.0 for each 
+gridpoint (provided STASH packing is not used).
+
+Available on all timesteps.
+
+
+</M001_S003_I307>
+#
+<M001_S003_I308>
+Item(1, 3, 308) DECOUPLED SC. NOT OVER CU. INDICATOR
+
+Diagnostic indicator of an unstable (surface buoyancy flux >= 0.0)
+boundary layer with an overlying cloud layer in which mixing from the
+surface does not extend all the way to the cloud top. In this case, 
+STASH item (1, 3, 025) marks the maximum extent of surface-driven mixing. 
+
+Set to 1.0 if true, or 0.0 if false, each timestep for each gridpoint, so
+that the average indicates the fraction of time spend as this type. 
+
+Note that the 7 boundary layer types (STASH (1, 3, 305) to (1, 3, 310))
+and (1:3:340) are mutually exclusive and should sum to 1.0 for each 
+gridpoint (provided STASH packing is not used).
+
+Available on all timesteps.
+
+
+</M001_S003_I308>
+#
+<M001_S003_I309>
+Item(1, 3, 309) DECOUPLED SC. OVER CU. INDICATOR
+
+Diagnostic indicator of an unstable (surface buoyancy flux >= 0.0) boundary
+layer with an overlying cloud layer in which mixing from cloud
+top does not extend all the way to the surface, and in which cumulus
+convection is expected to operate (although note that the convection
+scheme is not forced to operate in this case). In this case, STASH item
+(1, 3, 025) marks the height of the lifting condensation level.  
+
+Set to 1.0 if true, or 0.0 if false, each timestep for each gridpoint, so
+that the average indicates the fraction of time spend as this type. 
+
+Note that the 7 boundary layer types (STASH (1, 3, 305) to (1, 3, 310))
+and (1:3:340) are mutually exclusive and should sum to 1.0 for each 
+gridpoint (provided STASH packing is not used).
+
+Available on all timesteps.
+
+
+</M001_S003_I309>
+#
+<M001_S003_I310>
+Item(1, 3, 310) CUMULUS-CAPPED BL INDICATOR
+
+Diagnostic indicator of an unstable (surface buoyancy flux >= 0.0)
+boundary layer with no overlying cloud, and in which cumulus convection
+is expected to operate (although note that the convection scheme is not
+forced to operate in this case). In this case, STASH items (1, 3, 025)
+and (1, 3, 304) both mark the height of the lifting condensation  level.
+
+Set to 1.0 if true, or 0.0 if false, each timestep for each gridpoint, so
+that the average indicates the fraction of time spend as this type. 
+
+Note that the 7 boundary layer types (STASH (1, 3, 305) to (1, 3, 310))
+and (1:3:340) are mutually exclusive and should sum to 1.0 for each 
+gridpoint (provided STASH packing is not used).
+
+Available on all timesteps.
+
+
+</M001_S003_I310>
+#
+<M001_S003_I313>
+(1, 3, 313) SOIL MOISTURE AVAILABILITY FACTOR ON PFTs
+
+Defines extent to which transpiration is limited by root zone soil
+moisture stress.  Has value between 0 and 1.  When no root zone soil
+moisture is available for transpiration, soil moisture availability
+factor = 0.  When there is no soil moisture stress, soil moisture
+availability factor = 1.
+   
+Has values for each plant functional type
+
+Available on all timesteps.
+
+</M001_S003_I313>
+#
+<M001_S003_I314>
+(1, 3, 314) SURFACE NET RADIATION ON TILES
+
+Net radiation (W/m2) used in surface energy balance for each surface tile
+
+Available on all timesteps.
+
+
+</M001_S003_I314>
+#
+<M001_S003_I316>
+(1, 3, 316) SURFACE TEMP ON TILES
+   
+Surface temperature on each surface tiles
+
+Available on all timesteps.
+
+</M001_S003_I316>
+#
+<M001_S003_I317>
+(1, 3, 317)  TILE FRACTIONS (B.LAYER)
+
+Fractions of "underlying" surface types (ie: without moving their
+snow-covered fraction to the ice tile).  Same as prognostic (1, 0, 216).
+
+The tiles are:
+1. Broadleaf tree 
+2. Needleleaf tree
+3. C3 grass
+4. C4 grass
+5. Shrub
+6. Urban
+7. Water
+8. Bare Soil
+9. Ice
+
+and all may include snow cover.
+
+Same as prognostics (1, 0, 216).
+
+Only available with A03_7A.
+Available on all timesteps.
+</M001_S003_I317>
+#
+<M001_S003_I318>
+(1, 3, 318) LEAF AREA INDEX ON PFTS (B.LAYER)
+
+Leaf area index of each Plant Functional Type (PFT):
+
+1. Broadleaf tree 
+2. Needleleaf tree
+3. C3 grass
+4. C4 grass
+5. Shrub
+
+Same as prognostic (1, 0, 217)
+
+Only available with A03_7A.
+Available on all timesteps.
+</M001_S003_I318>
+#
+<M001_S003_I319>
+(1, 3, 319) CANOPY HEIGHT ON PFTS (B.LAYER)   M
+
+Canopy height for each Plant Functional Type (PFT):
+
+1. Broadleaf tree 
+2. Needleleaf tree
+3. C3 grass
+4. C4 grass
+5. Shrub
+
+Same as prognostic (1, 0, 218)
+
+Only available with A03_7A.
+Available on all timesteps.
+</M001_S003_I319>
+#
+<M001_S003_I320>
+(1, 3, 320) SOIL CARBON CONTENT (B.LAYER) KGC/M2
+
+Carbon content of the soil (kg C / m2).
+Same as prognostic (1, 0, 223).
+
+Only available with A03_7A.
+Available on all timesteps.
+</M001_S003_I320>
+#
+<M001_S003_I321>
+(1, 3, 321) CANOPY WATER ON TILES  KG/M2  
+
+Canopy water content on each surface tile
+
+Same as prognostic (1, 0, 229).
+
+Available on all timesteps.
+
+</M001_S003_I321>
+#
+<M001_S003_I322>
+(1,3,322) CANOPY CAPACITY TILES  KG/M2   
+
+Canopy water capacity for each surface tile
+
+Same as prognostic (1, 0, 230).
+    
+Available on all timesteps.
+
+</M001_S003_I322>
+#
+<M001_S003_I324>
+(1,3,324) ROUGHNESS LENGTH ON TILES
+
+Roughness length of each surface tile.
+Different from prognostic (1, 0, 234) in that it is changed by the presence of
+snow
+
+Available on all timesteps.
+
+</M001_S003_I324>
+#
+<M001_S003_I325>
+(1, 3, 325) LEAF TURNOVER RATE ON PFTS
+    
+Leaf turnover rate for each Plant Functional Type (PFT):
+
+1. Broadleaf tree
+2. Needleleaf tree
+3. C3 grass
+4. C4 grass
+5. Shrub
+
+Available on all timesteps.
+
+</M001_S003_I325>
+#
+<M001_S003_I326>
+(1, 3, 326) CO2 LAND SURFACE FLUX
+
+This diagnostic is only available for coupled models with interactive
+carbon cycle switched on. It is the flux of CO2 from vegetation and
+land surface processes (in Kg Carbon per m2 per s) as calculated by
+the land carbon cycle model.
+
+</M001_S003_I326>
+#
+<M001_S003_I327>
+(1, 3, 327) CO2 TOTAL FLUX TO ATMOS
+
+This diagnostic is only available for coupled models with interactive
+carbon cycle switched on. It is the total flux of CO2 into the atmosphere
+from three sources: ocean carbon cycle, land carbon cycle and surface
+emissions file. It is the sum of diagnostics 0,250 0,251 and 3,326.
+
+</M001_S003_I327>
+#
+<M001_S003_I328>
+(1, 3, 328) 1.5M TEMPERATURE OVER TILES
+
+Temperature at 1.5 m. over each surface tile
+
+Available on all timesteps.
+
+</M001_S003_I328>
+#
+<M001_S003_I329>
+(1, 3, 329) 1.5M SPECIFIC HUMIDITY OVER TILES
+
+Specific humidity at 1.5 m. over each surface tile
+
+Available on all timesteps.
+
+</M001_S003_I329>
+#
+<M001_S003_I330>
+(1, 3, 330) SURFACE LATENT HEAT FLUX ON TILES
+
+Latent heat flux (W/m2) over each surface tile
+
+Available on all timesteps.
+
+</M001_S003_I330>
+#
+<M001_S003_I331>
+Item (1, 3, 331) 
+
+Snow sublimation moisture flux on tiles in kg/m2/s. 
+This was previously wrongly named as a heat flux. 
+
+Available on all timesteps.
+
+</M001_S003_I331>
+#
+<M001_S003_I332>
+(1, 3, 332) TOA OUTGOING LW RAD AFTER B.LAYER
+
+Outgoing longwave radiation at the top of the atmosphere after call to boundary
+layer (W/m2). This is adjusted to be consistent the change in surface temperatu
+re.
+
+Available on all timesteps.
+
+</M001_S003_I332>
+#
+<M001_S003_I333>
+(1, 3, 333) GRID-BOX AVERAGE SURF NET RAD
+
+Grid-box average net radiation for land points and net radiation over
+sea-ice for sea points (W/m2)
+
+Available on all timesteps.
+
+</M001_S003_I333>
+#
+<M001_S003_I334>
+Item: (01:03:334)
+
+Diagnostic of the land mean potential evaporation rate (kg/m2/s). 
+Potential evaporation here is defined as the evapotranspiration that 
+would occur if the soil and vegetation surfaces are saturated. 
+This is calculated by taking the ratio of the explicit actual and 
+potential evapotranspiration fluxes. This ratio is used to calculate 
+the total (i.e. explicit flux and implicit correction term to account 
+for changes during the timestep) potential evapotranspiration from the 
+total actual evapotranspiration. (The implicit correction for potential
+evapotranspiration cannot be calculated directly as the surface and
+boundary layer states are consistent with the actual evapotranspiration 
+and not the potential evaporation flux).
+</M001_S003_I334>
+#
+<M001_S003_I335>
+Item: (1:03:335) 
+
+Diagnostic of the potential evaporation rate (kg/m2/s) for each land tile. 
+
+Potential evaporation here is defined as the evapotranspiration that would 
+occur if the soil and vegetation surfaces are saturated. This is calculated 
+by taking the ratio of the explicit actual and potential evapotranspiration 
+fluxes. This ratio is used to calculate the total (i.e. explicit flux and 
+implicit correction term to account for changes during the timestep) potential
+evapotranspiration from the total actual evapotranspiration. (The implicit 
+correction for potential evapotranspiration cannot be calculated directly as 
+the surface and boundary layer states are consistent with the actual 
+evapotranspiration and not the potential evaporation flux).
+
+</M001_S003_I335>
+#
+<M001_S003_I338>
+(1, 3, 338) NET SURF SEA-ICE HT FLUX  (SEA MEAN)
+
+This item is the heat flux into the sea-ice. It is weighted
+by the total sea (ie open sea and sea-ice) fraction.
+
+ 
+</M001_S003_I338>
+#
+<M001_S003_I339>
+(1, 3, 339) LOWEST LAYER BULK RIB: SEA MEAN
+
+This item is the bulk Richardson number between the sea part (ie open
+sea and sea-ice) of the gridbox and lowest model layer.  
+
+ 
+</M001_S003_I339>
+#
+<M001_S003_I340>
+Items (1:3:340)		
+
+Diagnostic indicator of a shear-dominated unstable (surface buoyancy flux >=
+0.0) boundary layer. 
+
+Set to 1.0 if true, or 0.0 if false, each timestep for each gridpoint, so
+that the average indicates the fraction of time spend as this type. 
+
+Note that the 7 boundary layer types (STASH (1, 3, 305) to (1, 3, 310) and (1:3:340)
+
+are mutually exclusive and should sum to 1.0 for each gridpoint (provided
+STASH packing is not used).
+
+Available on all timesteps.
+</M001_S003_I340>
+#
+<M001_S003_I341>
+Item: (00:03:341)
+
+Diagnostic of the land mean 1.5 metre air temperature.
+</M001_S003_I341>
+#
+<M001_S003_I342>
+Item: (00:03:342) 
+
+Diagnostic of the land mean 1.5 metre air specific humidity 
+(kg water/ kg air).
+</M001_S003_I342>
+#
+<M001_S003_I343>
+(1, 3, 343) SFC SH FLUX: MEAN SEA:SEA MN KG/M2/S
+
+This item is the local mean sea (ie open sea and sea-ice) surface
+sensible heat flux.
+
+ 
+</M001_S003_I343>
+#
+<M001_S003_I347>
+(1, 3, 347) MOISTURE FLUX FROM MEAN SEA  KG/M2/S|
+
+This item is the local mean sea (ie open sea and sea-ice) surface
+moisture flux.
+
+ 
+</M001_S003_I347>
+#
+<M001_S003_I353>
+(1, 3, 353) SUBLIM. SEAICE:SEA MEAN RATE KG/M2/S
+
+This item is the sea-ice sublimation rate meaned over the sea portion of 
+the gridbox (ie open sea and sea-ice).
+ 
+</M001_S003_I353>
+#
+<M001_S003_I355>
+
+An estimate of the characteristic ascent rate of thermals in the convective 
+boundary layer, in units of ms-1. Single level available every timestep. 
+
+</M001_S003_I355>
+#
+<M001_S003_I356>
+HEIGHT OF SURFACE MIXED LAYER TOP (M)
+
+Height in metres of the surface mixed layer top, ie the top of the surface driven 
+K profile (equal to the height of the second rho level if a stable boundary layer).
+
+</M001_S003_I356>
+#
+<M001_S003_I357>
+HEIGHT OF DEC STRATOCU LAYER TOP (M)
+
+Height in metres of the top of the decoupled stratocumulus layer, ie the top 
+of the cloud-top driven K profile. Equal to zero if not present. 
+
+The frequency of occurrence of decoupled stratocumulus, for calculation of 
+time averages when present for example, can be obtained from the sum the 
+relevant boundary layer type occurrence diagnostics, ie 3308+3309. 
+
+</M001_S003_I357>
+#
+<M001_S003_I358>
+BL DEPTH DIAGNOSED FROM RICRIT (M)
+
+Boundary layer depth in metres diagnosed from where the Richardson number first 
+becomes critical above the surface.
+
+</M001_S003_I358>
+#
+<M001_S003_I359>
+HEIGHT OF DIAGNOSTIC PARCEL TOP  (M)
+
+Height in metres of the diagnostic parcel top.
+
+</M001_S003_I359>
+#
+<M001_S003_I360>
+Item: 3,360: 
+
+Height of decoupled layer base
+
+The height in metres of the base of the decoupled turbulently mixed 
+layer, when present; the top of the surface-based mixed layer if not.
+</M001_S003_I360>
+#
+<M001_S003_I361>
+Item: 3,361: 
+
+Height of stratocumulus cloud base
+
+The height of cloud-base in metres for a turbulently mixed
+stratocumulus cloud layer (either decoupled or not).  If there is no
+cloud layer present then this returns the top of the mixed layer.
+</M001_S003_I361>
+#
+<M001_S003_I362>
+Item: 3,362: 
+
+Parametrized entrainment rate for surface-based mixed layer
+
+The parametrized entrainment rate in m/s at the top of the surface
+based mixed layer.  
+</M001_S003_I362>
+#
+<M001_S003_I363>
+Item: 3,363: 
+
+Parametrized entrainment rate at the boundary layer top
+
+The parametrized entrainment rate in m/s at the top of the
+unstable boundary layer - at the top of the decoupled layer if there is
+one, or the top of the surface mixed layer if there isn't. 
+</M001_S003_I363>
+#
+<M001_S003_I381>
+(1, 3, 381) SFC NET RADN. OVER SEA-ICE:SEA MEAN
+
+This item is the surface net radiation over the sea-ice, meaned over
+the sea portion of the gridbox (ie open sea and sea-ice)
+
+ 
+</M001_S003_I381>
+#
+<M001_S003_I389>
+(1, 3, 389) SURFACE LAYER WIND SHEAR OVER LAND
+
+This item is the surface layer wind shear over the land part of the gridbox.
+
+ 
+</M001_S003_I389>
+#
+<M001_S003_I390>
+(1, 3, 390) MEAN SEA SURFACE LAYER WIND SHEAR
+
+This item is the surface layer wind shear over the sea (ie open sea
+and sea-ice) part of the gridbox.
+
+ 
+</M001_S003_I390>
+#
+<M001_S003_I391>
+(1, 3, 391) X-COMP OF LAND SURF WIND STRESS N/M2
+
+This item is the x component of the wind stress over the land surface.
+
+ 
+</M001_S003_I391>
+#
+<M001_S003_I392>
+(1, 3, 392) X-COMP OF MEAN SEA SURF STRESS N/M2
+
+This item is the x component of the wind stress over the mean sea (ie
+open sea and sea-ice) surface.
+
+ 
+</M001_S003_I392>
+#
+<M001_S003_I393>
+(1, 3, 393) Y-COMP OF LAND SURF WIND STRESS N/M2
+
+This item is the y component of the wind stress over the land surface.
+
+ 
+</M001_S003_I393>
+#
+<M001_S003_I394>
+(1, 3, 394) y-COMP OF MEAN SEA SURF STRESS N/M2
+
+This item is the y component of the wind stress over the mean sea (ie
+open sea and sea-ice) surface.
+
+ 
+</M001_S003_I394>
+#
+<M001_S003_I395>
+(1, 3, 395) FRACTION OF LAND
+
+This item is the fraction of land in the gridbox.
+
+ 
+</M001_S003_I395>
+#
+<M001_S003_I396>
+Item (1:3:396)
+
+The flux of fresh biomass smoke dry deposited to the surface
+(kg/m2/s).
+</M001_S003_I396>
+#
+<M001_S003_I397>
+Item (1:3:397)
+
+The flux of aged biomass smoke dry deposited to the surface
+(kg/m2/s).
+</M001_S003_I397>
+#
+<M001_S003_I398>
+Item (1:3:398)
+
+The flux of biomass smoke in cloud dry deposited to the surface
+(occult deposition) (kg/m2/s).
+</M001_S003_I398>
+#
+<M001_S003_I400>
+Item (1:3:400) Tile area fraction for dust emissions
+
+When the relevant options are switched on in the Aerosols, Dust panel, 
+dust can be emitted from surfaces other than bare soil. This diagnostic
+gives the fraction (of the land fraction) the dust emission treats as bare soil,
+on tiles. The method to calculate the emission from non bare soil surfaces 
+depends on the selected option.
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I400>
+#
+<M001_S003_I401>
+Item (1:3:401) 
+
+Dust emissions div 1 (kg/m2/s) 
+Mineral dust division 1 emission flux (kg m-2 s-1)
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I401>
+#
+<M001_S003_I402>
+Item (1:3:402) 
+
+Dust emissions div 2 (kg/m2/s) 
+Mineral dust division 2 emission flux (kg m-2 s-1)
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I402>
+#
+<M001_S003_I403>
+Item (1:3:403) 
+
+Dust emissions div 3 (kg/m2/s) 
+Mineral dust division 2 emission flux (kg m-2 s-1)
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I403>
+#
+<M001_S003_I404>
+Item (1:3:404) 
+
+Dust emissions div 4 (kg/m2/s) 
+Mineral dust division 4 emission flux (kg m-2 s-1)
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I404>
+#
+<M001_S003_I405>
+Item (1:3:405) 
+
+Dust emissions div 5 (kg/m2/s) 
+Mineral dust division 5 emission flux (kg m-2 s-1)
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I405>
+#
+<M001_S003_I406>
+Item (1:3:406) 
+
+Dust emissions div 6 (kg/m2/s) 
+Mineral dust division 6 emission flux (kg m-2 s-1)
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I406>
+#
+<M001_S003_I411>
+Item (1:3:411) Dust threshold U* on tiles  div 1 (m/s)
+
+Threshold friction velocity for generation of mineral dust 
+(division 1: radius 0.0316 - 0.1 microns). This is the threshold above
+which particles of this size contribute to saltation, leading to the 
+emission of particles with radius < 31.6 microns.
+Diagnostic on tiles.
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I411>
+#
+<M001_S003_I412>
+Item (1:3:412) Dust threshold U* on tiles  div 2 (m/s)
+
+Threshold friction velocity for generation of mineral dust 
+(division 2: radius 0.1 - 0.316 microns). This is the threshold above
+which particles of this size contribute to saltation, leading to the 
+emission of particles with radius < 31.6 microns. 
+Diagnostic on tiles. 
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I412>
+#
+<M001_S003_I413>
+Item (1:3:413) Dust threshold U* on tiles  div 3 (m/s)
+
+Threshold friction velocity for generation of mineral dust 
+(division 3: radius 0.316 - 1 microns). This is the threshold above
+which particles of this size contribute to saltation, leading to the 
+emission of particles with radius < 31.6 microns. 
+Diagnostic on tiles. 
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I413>
+#
+<M001_S003_I414>
+Item (1:3:414) Dust threshold U* on tiles  div 4 (m/s)
+
+Threshold friction velocity for generation of mineral dust 
+(division 4: radius 1 - 3.16 microns). This is the threshold above
+which particles of this size contribute to saltation, leading to the 
+emission of particles with radius < 31.6 microns. 
+Diagnostic on tiles. 
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I414>
+#
+<M001_S003_I415>
+Item (1:3:415) Dust threshold U* on tiles  div 5 (m/s)
+
+Threshold friction velocity for generation of mineral dust 
+(division 5: radius 3.16 - 10 microns). This is the threshold above
+which particles of this size contribute to saltation, leading to the 
+emission of particles with radius < 31.6 microns. 
+Diagnostic on tiles. 
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I415>
+#
+<M001_S003_I416>
+Item (1:3:416) Dust threshold U* on tiles  div 6 (m/s)
+
+Threshold friction velocity for generation of mineral dust 
+(division 6: radius 10 - 31.6 microns). This is the threshold above
+which particles of this size contribute to saltation, leading to the 
+emission of particles with radius < 31.6 microns. 
+Diagnostic on tiles. 
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I416>
+#
+<M001_S003_I417>
+Item: (1:3:417) Dust threshold U* on tiles  div 7 (m/s)
+
+Threshold friction velocity for generation of mineral dust 
+(division 7: radius 31.6 - 100 microns). This is the threshold above
+which particles of this size contribute to saltation, leading to the 
+emission of particles with radius < 31.6 microns. 
+Diagnostic on tiles. 
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I417>
+#
+<M001_S003_I418>
+Item: (1:3:418) Dust threshold U* on tiles  div 8 (m/s)
+
+Threshold friction velocity for generation of mineral dust 
+(division 8: radius 100 - 316 microns). This is the threshold above
+which particles of this size contribute to saltation, leading to the 
+emission of particles with radius < 31.6 microns. 
+Diagnostic on tiles. 
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I418>
+#
+<M001_S003_I419>
+Item: (1:3:419) Dust threshold U* on tiles  div 9 (m/s)
+
+Threshold friction velocity for generation of mineral dust 
+(division 1: radius 316 - 1000 microns). This is the threshold above
+which particles of this size contribute to saltation, leading to the 
+emission of particles with radius < 31.6 microns.
+Diagnostic on tiles. 
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I419>
+#
+<M001_S003_I421>
+Item (1:3:421) Dust dry threshold U* on tiles  div 1 (m/s)
+
+Dry threshold friction velocity for generation of mineral dust 
+(division 1: radius 0.0316 - 0.1 microns). This is the threshold above
+which in dry soils, particles of this size contribute to saltation, leading 
+to the emission of particles with radius < 31.6 microns.
+Diagnostic on tiles.
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I421>
+#
+<M001_S003_I422>
+Item (1:3:422) Dust dry threshold U* on tiles  div 2 (m/s)
+
+Dry threshold friction velocity for generation of mineral dust 
+(division 2: radius 0.1 - 0.316 microns). This is the threshold above
+which in dry soils, particles of this size contribute to saltation, leading 
+to the emission of particles with radius < 31.6 microns.
+Diagnostic on tiles.
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I422>
+#
+<M001_S003_I423>
+Item (1:3:423) Dust dry threshold U* on tiles  div 3 (m/s)
+
+Dry threshold friction velocity for generation of mineral dust 
+(division 3: radius 0.316 - 1 microns). This is the threshold above
+which in dry soils, particles of this size contribute to saltation, leading 
+to the emission of particles with radius < 31.6 microns.
+Diagnostic on tiles.
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I423>
+#
+<M001_S003_I424>
+Item (1:3:424) Dust dry threshold U* on tiles  div 4 (m/s)
+
+Dry threshold friction velocity for generation of mineral dust 
+(division 4: radius 1 - 3.16 microns). This is the threshold above
+which in dry soils, particles of this size contribute to saltation, leading 
+to the emission of particles with radius < 31.6 microns.
+Diagnostic on tiles.
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I424>
+#
+<M001_S003_I425>
+Item (1:3:425) Dust dry threshold U* on tiles  div 5 (m/s)
+
+Dry threshold friction velocity for generation of mineral dust 
+(division 5: radius 3.16 - 10 microns). This is the threshold above
+which in dry soils, particles of this size contribute to saltation, leading 
+to the emission of particles with radius < 31.6 microns.
+Diagnostic on tiles.
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I425>
+#
+<M001_S003_I426>
+Item (1:3:426) Dust dry threshold U* on tiles  div 6 (m/s)
+
+Dry threshold friction velocity for generation of mineral dust 
+(division 6: radius 10 - 31.6 microns). This is the threshold above
+which in dry soils, particles of this size contribute to saltation, leading 
+to the emission of particles with radius < 31.6 microns.
+Diagnostic on tiles.
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I426>
+#
+<M001_S003_I427>
+Item: (1:3:427) Dust dry threshold U* on tiles  div 7 (m/s)
+
+Dry threshold friction velocity for generation of mineral dust 
+(division 7: radius 31.6 - 100 microns). This is the threshold above
+which in dry soils, particles of this size contribute to saltation, leading 
+to the emission of particles with radius < 31.6 microns.
+Diagnostic on tiles.
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I427>
+#
+<M001_S003_I428>
+Item: (1:3:428) Dust dry threshold U* on tiles  div 8 (m/s)
+
+Dry threshold friction velocity for generation of mineral dust 
+(division 8: radius 100 - 316 microns). This is the threshold above
+which in dry soils, particles of this size contribute to saltation, leading 
+to the emission of particles with radius < 31.6 microns.
+Diagnostic on tiles.
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I428>
+#
+<M001_S003_I429>
+Item: (1:3:429) Dust dry threshold U* on tiles  div 9 (m/s)
+
+Dry threshold friction velocity for generation of mineral dust 
+(division 9: radius 316 - 1000 microns). This is the threshold above
+which in dry soils, particles of this size contribute to saltation, leading 
+to the emission of particles with radius < 31.6 microns.
+Diagnostic on tiles.
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I429>
+#
+<M001_S003_I430>
+Item (1:3:430) Dust Friction velocity (U*) on tiles (m/s)
+
+Friction velocity on tiles, as calculated by the boundary layer scheme
+for mineral dust generation. This value is usually tuned within the
+dust emission calculation itself. 
+
+This field is available even when the prognostic dust scheme is off if 
+the user has selected to diagnose mineral dust emissions only.
+
+</M001_S003_I430>
+#
+<M001_S003_I441>
+Item (1:3:441) 
+
+Dust dry dep flux from lev 1 div 1 
+Flux of mineral dust (division 1) deposited to ground from the first theta level
+by dry deposition processes. (kg m-2 s-1)
+
+</M001_S003_I441>
+#
+<M001_S003_I442>
+Item (1:3:442) 
+
+Dust dry dep flux from lev 1 div 2 
+Flux of mineral dust (division 2) deposited to ground from the first 
+theta level by dry deposition processes. (kg m-2 s-1) 
+
+
+</M001_S003_I442>
+#
+<M001_S003_I443>
+Item (1:3:443) 
+
+Dust dry dep flux from lev 1 div 3 
+Flux of mineral dust (division 3) deposited to ground from the first theta level
+by dry deposition processes. (kg m-2 s-1)
+
+
+</M001_S003_I443>
+#
+<M001_S003_I444>
+Item (1:3:444) 
+
+Dust dry dep flux from lev 1 div 4 
+Flux of mineral dust (division 4) deposited to ground from the first 
+theta level by dry deposition processes. (kg m-2 s-1)
+
+
+
+</M001_S003_I444>
+#
+<M001_S003_I445>
+Item (1:3:445) 
+
+Dust dry dep flux from lev 1 div 5 
+Flux of mineral dust (division 5) deposited to ground from the first 
+theta level by dry deposition processes. (kg m-2 s-1)
+
+
+
+</M001_S003_I445>
+#
+<M001_S003_I446>
+Item (1:3:446) 
+
+Dust dry dep flux from lev 1 div 6 
+Flux of mineral dust (division 6) deposited to ground from the first 
+theta level by dry deposition processes. (kg m-2 s-1)
+
+
+
+</M001_S003_I446>
+#
+<M001_S003_I451>
+Item (1:3:451) 
+
+Dust dry dep flux from lev 2 div 1  
+Flux of mineral dust (division 1) deposited to ground from the second 
+theta level by dry deposition processes. (kg m-2 s-1)
+
+
+
+</M001_S003_I451>
+#
+<M001_S003_I452>
+Item (1:3:452) 
+
+Dust dry dep flux from lev 2 div 2  
+Flux of mineral dust (division 2) deposited to ground from the second 
+theta level by dry deposition processes. (kg m-2 s-1)
+
+
+</M001_S003_I452>
+#
+<M001_S003_I453>
+Item (1:3:453) 
+
+Dust dry dep flux from lev 2 div 3  
+Flux of mineral dust (division 3) deposited to ground from the second 
+theta level by dry deposition processes. (kg m-2 s-1)
+
+
+</M001_S003_I453>
+#
+<M001_S003_I454>
+Item (1:3:454) 
+
+Dust dry dep flux from lev 2 div 4  
+Flux of mineral dust (division 4) deposited to ground from the second 
+theta level by dry deposition processes. (kg m-2 s-1)
+
+
+
+</M001_S003_I454>
+#
+<M001_S003_I455>
+Item (1:3:455) 
+
+Dust dry dep flux from lev 2 div 5  
+Flux of mineral dust (division 5) deposited to ground from the second 
+theta level by dry deposition processes. (kg m-2 s-1)
+
+
+</M001_S003_I455>
+#
+<M001_S003_I456>
+Item (1:3:456) 
+
+Dust dry dep flux from lev 2 div 6  
+Flux of mineral dust (division 6) deposited to ground from the second 
+theta level by dry deposition processes. (kg m-2 s-1)
+
+
+
+</M001_S003_I456>
+#
+<M001_S003_I460>
+Item: (1:3:460)
+
+The x component of the surface stress. This is included to allow
+correct diagnosis and labelling of surface stress without the need for a STASH work
+around.
+</M001_S003_I460>
+#
+<M001_S003_I461>
+Item: (1:3:461)
+
+The y component of the surface stress. This is included to allow
+correct diagnosis and labelling of surface stress without the need for a STASH work
+around.
+
+</M001_S003_I461>
+#
+<M001_S003_I462>
+Item (1:3:462) 
+
+Text: Stomatal Conductance on PFTS (m/s)
+
+
+</M001_S003_I462>
+#
+<M001_S003_I463>
+Item: (1:3:463)
+
+Maximum gust windspeed at 10m. Single level available every timestep.
+</M001_S003_I463>
+#
+<M001_S003_I464>
+Item: (1:3:464)
+
+The surface Obukhov length (units metres) is a length scale which combines 
+shear and buoyancy. A positive value 
+is for stable boundary layers (the smaller, the more stable). A negative
+value is for unstable boundary layers (the smaller the magnitude, the
+more unstable).
+</M001_S003_I464>
+#
+<M001_S003_I465>
+Item: (1:3:465)
+
+The friction velocity (units m/s). This gives a scalar measure of the 
+magnitude of the surface stress.
+</M001_S003_I465>
+#
+<M001_S003_I466>
+Item: (1:3:466)
+
+The convective boundary layer velocity scale (units m/s). This gives a
+measure of the degree of convective activity forced by a positive
+sensible heat flux.
+
+
+</M001_S003_I466>
+#
+<M001_S003_I467>
+Item: (1:3:467)
+
+The surface buoyancy flux.
+
+
+
+</M001_S003_I467>
+#
+<M001_S003_I468>
+Item: (1:3:468)
+
+The gradient Richardson number used in the calculation of stability
+functions in the local boundary layer diffusion scheme.
+
+
+
+</M001_S003_I468>
+#
+<M001_S003_I469>
+Item: (1:3:469)
+
+The vertical buoyancy gradient used in the calculation of gradient
+Richardson number.
+
+
+
+</M001_S003_I469>
+#
+<M001_S003_I470>
+Item: (1:3:470)
+
+The modulus of wind shear used in the calculation of gradient Richardson
+number.
+
+
+</M001_S003_I470>
+#
+<M001_S003_I471>
+Item: (1:3:471)
+
+Final diffusion coefficient (multiplied by density, units: kg/m/s) for 
+momentum from the boundary layer scheme.  
+
+Note that it is held on theta levels but indexed one level lower (so 
+the second element is really on the first theta-level).  
+Unfortunately STASH can't cope with this so data will appear to be one 
+level higher than it actually is.
+
+</M001_S003_I471>
+#
+<M001_S003_I472>
+Item: (1:3:472)
+
+Final diffusion coefficient (multiplied by density, units: kg/m/s) for 
+heat from the boundary layer scheme. 
+
+ Note that it is held on rho levels, except for level 1 which is 
+actually on the surface.
+
+</M001_S003_I472>
+#
+<M001_S003_I473>
+Item: (1:3:473)
+
+The turbulent kinetic energy (units m^2/s^2), calculated from the
+boundary layer momentum diffusion and an appropriate length
+scale for either convective or stable conditions.
+
+</M001_S003_I473>
+#
+<M001_S003_I474>
+Item: (1:3:474)
+
+The x component of the distributed orographic stress.
+
+</M001_S003_I474>
+#
+<M001_S003_I475>
+Item: (1:3:475)
+
+The y component of the distributed orographic stress.
+
+</M001_S003_I475>
+#
+<M001_S003_I476>
+Item: (1:3:476)
+
+This diagnostic combines the individual boundary layer types 1 to 7 into
+a single diagnostic for conciseness and to reduce the size of pp output.
+e.g. a value of 3.0 = boundary layer type 3.
+
+</M001_S003_I476>
+#
+<M001_S003_I477>
+Item: (1:3:477-480)
+
+(1, 3, 477) DPM SOIL CARBON POOL(B.LAYER) KGC/M2
+(1, 3, 478) RPM SOIL CARBON POOL(B.LAYER) KGC/M2
+(1, 3, 479) BIO SOIL CARBON POOL(B.LAYER) KGC/M2
+(1, 3, 480) HUM SOIL CARBON POOL(B.LAYER) KGC/M2
+
+Carbon content of individual soil pools (kg C / m2).
+
+Available on all timesteps.
+</M001_S003_I477>
+#
+<M001_S003_I478>
+Item: (1:3:477-480)
+
+(1, 3, 477) DPM SOIL CARBON POOL(B.LAYER) KGC/M2
+(1, 3, 478) RPM SOIL CARBON POOL(B.LAYER) KGC/M2
+(1, 3, 479) BIO SOIL CARBON POOL(B.LAYER) KGC/M2
+(1, 3, 480) HUM SOIL CARBON POOL(B.LAYER) KGC/M2
+
+Carbon content of individual soil pools (kg C / m2).
+
+Available on all timesteps.
+</M001_S003_I478>
+#
+<M001_S003_I479>
+Item: (1:3:477-480)
+
+(1, 3, 477) DPM SOIL CARBON POOL(B.LAYER) KGC/M2
+(1, 3, 478) RPM SOIL CARBON POOL(B.LAYER) KGC/M2
+(1, 3, 479) BIO SOIL CARBON POOL(B.LAYER) KGC/M2
+(1, 3, 480) HUM SOIL CARBON POOL(B.LAYER) KGC/M2
+
+Carbon content of individual soil pools (kg C / m2).
+
+Available on all timesteps.
+</M001_S003_I479>
+#
+<M001_S003_I480>
+Item: (1:3:477-480)
+
+(1, 3, 477) DPM SOIL CARBON POOL(B.LAYER) KGC/M2
+(1, 3, 478) RPM SOIL CARBON POOL(B.LAYER) KGC/M2
+(1, 3, 479) BIO SOIL CARBON POOL(B.LAYER) KGC/M2
+(1, 3, 480) HUM SOIL CARBON POOL(B.LAYER) KGC/M2
+
+Carbon content of individual soil pools (kg C / m2).
+
+Available on all timesteps.
+</M001_S003_I480>
+#
+<M001_S003_I481>
+Items:
+(1, 3, 481) DPM SOIL RESPIRATION       KG C/M2/S
+(1, 3, 482) RPM SOIL RESPIRATION       KG C/M2/S
+(1, 3, 483) BIO SOIL RESPIRATION       KG C/M2/S
+(1, 3, 484) HUM SOIL RESPIRATION       KG C/M2/S
+
+Rate of loss of carbon from each soil pool by respiration.  When the total of
+these four is subtracted from gridbox mean Net Primary Productivity (mean of
+item 1, 3, 291) gives the net surface flux of carbon, the Net Ecosystem
+Productivity.
+
+</M001_S003_I481>
+#
+<M001_S003_I482>
+Items:
+(1, 3, 481) DPM SOIL RESPIRATION       KG C/M2/S
+(1, 3, 482) RPM SOIL RESPIRATION       KG C/M2/S
+(1, 3, 483) BIO SOIL RESPIRATION       KG C/M2/S
+(1, 3, 484) HUM SOIL RESPIRATION       KG C/M2/S
+
+Rate of loss of carbon from each soil pool by respiration.  When the total of
+these four is subtracted from gridbox mean Net Primary Productivity (mean of
+item 1, 3, 291) gives the net surface flux of carbon, the Net Ecosystem
+Productivity.
+
+</M001_S003_I482>
+#
+<M001_S003_I483>
+Items:
+(1, 3, 481) DPM SOIL RESPIRATION       KG C/M2/S
+(1, 3, 482) RPM SOIL RESPIRATION       KG C/M2/S
+(1, 3, 483) BIO SOIL RESPIRATION       KG C/M2/S
+(1, 3, 484) HUM SOIL RESPIRATION       KG C/M2/S
+
+Rate of loss of carbon from each soil pool by respiration.  When the total of
+these four is subtracted from gridbox mean Net Primary Productivity (mean of
+item 1, 3, 291) gives the net surface flux of carbon, the Net Ecosystem
+Productivity.
+
+</M001_S003_I483>
+#
+<M001_S003_I484>
+Items:
+(1, 3, 481) DPM SOIL RESPIRATION       KG C/M2/S
+(1, 3, 482) RPM SOIL RESPIRATION       KG C/M2/S
+(1, 3, 483) BIO SOIL RESPIRATION       KG C/M2/S
+(1, 3, 484) HUM SOIL RESPIRATION       KG C/M2/S
+
+Rate of loss of carbon from each soil pool by respiration.  When the total of
+these four is subtracted from gridbox mean Net Primary Productivity (mean of
+item 1, 3, 291) gives the net surface flux of carbon, the Net Ecosystem
+Productivity.
+
+</M001_S003_I484>
+#
+<M001_S003_I501>
+MIXING LENGTH - MOMENTUM (M)
+
+Mixing length in metres for momentum from the local Richardson number scheme, 
+on theta levels.
+
+</M001_S003_I501>
+#
+<M001_S003_I502>
+MIXING LENGTH FOR SCALARS (M)
+
+Mixing length in metres for scalars (such as heat, moisture, aerosols, UKCA tracers, 
+etc) from the local Richardson number scheme, on rho levels. 
+</M001_S003_I502>
+#
+<M001_S003_I503>
+RHOKM DIFF COEFF - LOCAL SCHEME 
+
+Diffusion coefficient (multiplied by density, units: kg/m/s) for momentum from the 
+local boundary layer scheme.  Note that it is held on theta levels but indexed one 
+level lower (so the second element is really on the first theta-level).  
+Unfortunately STASH can't cope with this so data will appear to be one level higher 
+than it actually is.
+
+</M001_S003_I503>
+#
+<M001_S003_I504>
+RHOKH DIFF COEFF - LOCAL SCHEME
+
+Diffusion coefficient (multiplied by density, units: kg/m/s) for scalars from the 
+local boundary layer scheme. 
+Held on rho levels, except for level 1 which is actually on the surface.
+
+</M001_S003_I504>
+#
+<M001_S003_I505>
+RHOKM DIFF COEFF - SURF-DRIVEN TURB
+
+Diffusion coefficient (multiplied by density, units: kg/m/s) for momentum for surface 
+driven turbulence from the non-local boundary layer scheme. Note that it is held on 
+theta levels but indexed one level lower (so the second element is really on the first 
+theta-level).  Unfortunately STASH can't cope with this so data will appear to be one 
+level higher than it actually is.
+
+</M001_S003_I505>
+#
+<M001_S003_I506>
+RHOKH DIFF COEFF - SURF-DRIVEN TURB
+
+Diffusion coefficient (multiplied by density, units: kg/m/s) for scalars for surface 
+driven turbulence from the non-local boundary layer scheme. 
+Held on rho levels, except for level 1 which is actually on the surface.
+
+</M001_S003_I506>
+#
+<M001_S003_I507>
+RHOKM DIFF COEFF - CLD-TOP-DRIVEN
+
+Diffusion coefficient (multiplied by density, units: kg/m/s) for momentum for top-down 
+mixing from the non-local boundary layer scheme. Note that it is held on theta levels 
+but indexed one level lower (so the second element is really on the first theta-level).  
+Unfortunately STASH can't cope with this so data will appear to be one level higher 
+than it actually is.
+
+</M001_S003_I507>
+#
+<M001_S003_I508>
+RHOKH DIFF COEFF - CLD-TOP-DRIVEN
+
+Diffusion coefficient (multiplied by density, units: kg/m/s) for scalars for top-down 
+mixing from the non-local boundary layer scheme. 
+Held on rho levels, except for level 1 which is actually on the surface.
+
+</M001_S003_I508>
+#
+<M001_S003_I509>
+BLENDING WEIGHT FOR 1D BL SCHEME
+
+The section 13 subgrid turbulence scheme has an option to blend with the 
+boundary layer mixing parametrization. This diagnostic is the weighting 
+(non-dimensional, between 0 and 1) that is applied to the boundary layer 
+mixing coefficients. Held on theta-levels but staggered by 1 level, so 
+level k is held on theta-level k-1. 
+</M001_S003_I509>
+#
+<M001_S003_I510>
+STABILITY FUNCTION FOR MOMENTUM
+
+The local, Richardson number based, diffusion coefficient is a product 
+of the wind shear, a mixing length squared and a stability function. 
+This diagnostic is the stability function for momentum, Fm, and is 
+dimensionless. Held on theta-levels but staggered by 1 level, so level 
+k is held on theta-level k-1. 
+</M001_S003_I510>
+#
+<M001_S003_I511>
+STABILITY FUNCTION FOR SCALARS
+
+The local, Richardson number based, diffusion coefficient is a product 
+of the wind shear, a mixing length squared and a stability function. 
+This diagnostic is the stability function for scalars, Fh, and is 
+dimensionless. Held on theta-levels but staggered by 1 level, so level 
+k is held on theta-level k-1. 
+</M001_S003_I511>
+#

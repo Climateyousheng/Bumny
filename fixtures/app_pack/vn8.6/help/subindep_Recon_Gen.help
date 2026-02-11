@@ -1,0 +1,62 @@
+This panel allows you to set some general options for reconfiguration.
+
+The reconfiguration step is used to generate a reconfigured initial
+dump. If a suitable initial dump already exists, this step can be
+skipped. Details of the initial dump are set in the Atmosphere Start
+Dump panel.
+
+Running the reconfiguration in the VAR suite allows the reconfiguration
+to pick up prognostics used by VAR.
+
+Running the reconfiguration on multiple processors is done to gain the
+same speed and memory improvements as it would when used for the model.
+The number of processors used should not exceed the number allocated
+for the model and in practice 3 by 3 is suitable for a N48 resolution
+model and 4 by 4 is fine for a N216 resolution model.
+
+The reconfiguration step will run as a separate job. The time limit and
+memory limit for the reconfiguration job can be specified. The time setting
+is a "wall-clock" time (i.e. total real time for the job to complete) and
+is specified in seconds. The memory limit on the IBM is a value in units of 
+gigabytes (Gb). If the input value is a fraction, it is converted to units 
+of megabytes (Mb) when the job is processed. 
+
+NB! Remember to reduce or increase the time and memory limits appropriately 
+when changing processor configuration.
+
+On UNIX machines, only the stack limit may be set. This is the maximum stack
+size available to reconfiguration processes, and should be a value in
+gigabytes. Fractions are allowed, but "unlimited" is not accepted as on some 
+systems this sets a pre-defined value which is large but nevertheless too small
+to run the reconfiguration.
+
+Runs will fail if the start date does not match the date in the start
+dump. However, the year of the dump can be changed to the same year as
+the start date in the reconfiguration by selecting to "Override year
+in dump with year in model basis time". 
+
+If you choose to reset the verification time this will affect the values
+of the records in the dump header.
+This is useful when you want the start date of all dumps to relative
+to a starting dump produced from an integration rather than an analysis.
+
+Spiral coastal adjustment: attempts to set a value at points which are
+unresolved when interpolating between one grid and another.  A value is set
+by finding the mean of surrounding points which do have data
+set within a search radius determined by NSEARCH.
+
+Switch on "Avoid rotating grid when interpolating" if you want to limit 
+the rotations which are performed when interpolating between LAMs with the 
+same rotated pole. If switched off grids are rotated to the standard pole 
+which requires a rotation of the winds to and from the rotated pole which 
+is not required if using the same pole and can introduce unnecessary error. 
+
+Canopy snow throughfall
+-------------------------
+For n-tile runs with canopy snow processes activated (through CAN_MODEL 
+and CANSNOWPFT), reconfiguration from another dump, e.g. with 1 tile, may 
+initialise the run with all snow on the canopy and none on the ground. 
+This may cause degraded model temperature prediction until the model has 
+redistributed the snow during the run. This option adds throughfall on
+to reconfiguration, so that the run begins with most snow on the ground 
+for the selected tiles.

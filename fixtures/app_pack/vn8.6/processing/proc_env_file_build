@@ -1,0 +1,17 @@
+%C  This function is used to avoid problems with files called "/"
+%C  when using %PATH/%FILE.
+%TCL
+proc env_file_build { path file {ext_path PATH} {ext_file FILE} } {
+  if { $path == ""  || $file == "" } {
+    return ""
+  } elseif { ($path == "EXTERNAL") || ($file == "EXTERNAL") } {
+    set path $ext_path
+    set file $ext_file
+  }
+  if { $file != "#NULL" } {
+     return "$path/$file"
+  } else { 
+     return "$path"
+  }
+}
+%ENDTCL

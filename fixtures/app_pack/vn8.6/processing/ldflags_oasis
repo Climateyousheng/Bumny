@@ -1,0 +1,21 @@
+%C ======================================================
+%C module: ldflags_oasis
+%C
+%C Load flags for OASIS
+%C
+%C Module included in:
+%C  * FCM_NEMOCICE_CFG   via processing/fcm_nemocice_cfg  
+%C ======================================================
+%TCL
+   append part3c \
+"
+# OASIS load flags
+# ----------------"
+
+   for {set j 1} {$j <= %NEMOFL_CNT} {incr j} {
+      if { %NEMOFL_VAL($j)!="" && %NEMOFL_USE($j)=="Y" } {
+         append part3c "\nbld::tool::ldflags %%bld::tool::ldflags     %NEMOFL_VAL($j)"
+      }
+   } 
+%ENDTCL
+

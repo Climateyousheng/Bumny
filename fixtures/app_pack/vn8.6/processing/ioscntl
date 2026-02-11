@@ -1,0 +1,79 @@
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C IO Server only NAMELISTS:    
+%C   IOSCNTL
+%C
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+ &IOSCNTL
+%T if { [inactive_var NTHR_TASK] == 0 && %NTHR_TASK > 1 } {
+ IOS_Spacing= %IOS_SPACE,
+%T    if { %IOS_NPROC > 0 } {
+ IOS_tasks_per_server= %IOS_NTASK,
+%T    } else {
+ IOS_tasks_per_server= 1,
+%T    }
+ IOS_Offset= %IOS_OFFSET,
+ IOS_buffer_size= %IOS_BUFFER,
+ IOS_use_async_stash= %TCL replacep IOS_ASYNCSTSH Y .TRUE. N .FALSE. %ENDTCL,
+ IOS_use_async_dump= %TCL replacep IOS_ASYNCDUMP Y .TRUE. N .FALSE. %ENDTCL,
+ IOS_serialise_mpi_calls= %TCL replacep IOS_SERIALIZE Y .TRUE. N .FALSE. %ENDTCL,
+ IOS_thread_0_calls_mpi= %TCL replacep IOS_THREAD0 Y .TRUE. N .FALSE. %ENDTCL,
+ IOS_Verbosity= %IOS_VERBOSE,
+ IOS_backoff_interval= %IOS_BACKOFF,
+ IOS_timeout= %IOS_TIMEOUT,
+ IOS_acquire_model_prsts= %TCL replacep IOS_PRINTMOD Y .TRUE. N .FALSE. %ENDTCL,
+ IOS_local_ro_files= %TCL replacep IOS_OPNLOCAL Y .TRUE. N .FALSE. %ENDTCL,
+ IOS_concurrency= %IOS_CONCUR,
+%T   if { [inactive_var IOS_ACCPAYLD]==0 } {
+ IOS_as_concurrency= %IOS_ACCPAYLD,
+%T   } else {
+ IOS_as_concurrency= 20,
+%T   }
+ IOS_Unit_Alloc_Policy= %IOS_ALLOC,
+%T  if { [inactive_var IOS_ACCPAYLD]==0 } {
+ IOS_async_levs_per_pack= %IOS_COALESCE,
+%T   } else {
+ IOS_async_levs_per_pack= 76,
+%T   }
+%T   if { %IOS_ASYNCSTSH=="Y" || %IOS_ASYNCDUMP=="Y" } {
+ IOS_async_stats= %TCL replacep IOS_ASYNCSTAT Y .TRUE. N .FALSE. %ENDTCL,
+ IOS_async_send_null= %TCL replacep IOS_ASYNCNULL Y .TRUE. N .FALSE. %ENDTCL,
+ IOS_debug_no_write= %TCL replacep IOS_NOWRITE Y .TRUE. N .FALSE. %ENDTCL,
+ IOS_debug_no_packing= %TCL replacep IOS_NOPACK Y .TRUE. N .FALSE. %ENDTCL,
+ IOS_debug_no_subdomaining= %TCL replacep IOS_NOSUBDOM Y .TRUE. N .FALSE. %ENDTCL,
+%T   }
+ IOS_Lock_Meter= %TCL replacep IOS_LOCK Y .TRUE. N .FALSE. %ENDTCL,
+%T   if { [inactive_var IOS_INTER]==0 } {
+ IOS_Interleave= %TCL replacep IOS_INTER Y .TRUE. N .FALSE. %ENDTCL,
+%T   }
+%T }
+%T if { %IOS_FTHR_MOD != "IMDI" } {
+ IOS_FORCE_THREADING_MODE=%IOS_FTHR_MOD,
+%T }
+ IOS_USE_HELPERS = %TCL replacep IOS_USE_HELPERS Y .TRUE. N .FALSE. %ENDTCL,
+ IOS_concurrency_max_mem=%IOS_CMAXMEM,
+ IOS_RelayToSlaves=%TCL replacep IOS_RLTOSLAV Y .TRUE. N .FALSE. %ENDTCL,
+ IOS_Decomp_Model=%IOS_DECOMPMOD,
+ /
+
+ &IO_CONTROL
+%T if { [inactive_var LIO_DEFS] == 0 && %LIO_DEFS=="Y" } {
+ IO_WBUFFER_SIZE   = %IO_BUFFSIZE,
+ IO_RBUFFER_SIZE   = %IO_RBUFFSIZE,
+ IO_RBUFFER_COUNT  = %IO_RBUFFER_COUNT,
+ IO_RBUFFER_UPDATE = %TCL replacep IO_RBUFFER_UPDATE Y 1 N 0 %ENDTCL,
+ IO_RBUFFER_PREFETCH = %IO_RBUFFER_PREFETCH,
+ IO_DATA_ALIGNMENT = %IO_DATAALIGN,
+ IO_FIELD_PADDING  = %IO_FIELDPAD,
+%T }
+ io_timing = %TCL replacep LIOTIMER Y 1 N 0 %ENDTCL,
+ io_external_control = %TCL replacep IOS_EXTCNTL Y .TRUE. N .FALSE. %ENDTCL,
+ /
+
+ &PRNT_CONTROL
+ prnt_src_pref = %TCL replacep PR_SRC_PREF Y .TRUE. N .FALSE. %ENDTCL,
+ prnt_split_lines = %TCL replacep PR_SPL_LINES Y .TRUE. N .FALSE. %ENDTCL,
+ prnt_force_flush = %TCL replacep PR_FRC_FLUSH Y .TRUE. N .FALSE. %ENDTCL, 
+ prnt_paper_width  = %PR_PAP_WD,
+ prnt_writers = %PR_NT_WRT,
+ /

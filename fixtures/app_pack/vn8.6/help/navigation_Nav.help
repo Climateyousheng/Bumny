@@ -1,0 +1,76 @@
+  About Navigation.
+
+  The navigation window is in two parts:
+
+  The upper part consists of two areas that list elements that help you find
+  "entry windows". See the help on entry windows.
+
+  The lower part, along the base defines navigation action buttons that allow
+  you to perform actions on this job. See the specific help panels in this set
+  for the definition of individual actions.
+
+  This help describes the upper part, the navigation system. Each action is
+  described in its own help.
+
+  The left half of the navigation system defines nodes of a tree that can be
+  expanded.
+  The right half of the navigation system defines windows that can be entered.
+  These are known as "entry windows" and are the means of defining a run of
+  the UM.
+
+  It looks a bit like a file manager, the nodes being like directories the
+  windows being like files. 
+  If you think of the system as an editor on a database, the navigation system
+  splits the database up into directories and files. However, some bits of
+  information exist simultaneously in several windows (whereas information
+  would not usually exist simultaneously in more than one file).
+  Changing a value in a window will change its value everywhere.
+
+  Each node defines a category of information that is subdivided further into
+  lower nodes and eventually into windows allowing you to define items of
+  information.
+
+  Nodes can contain a mixture of lower nodes and windows.
+
+  The fact that "items" can be repeated in other windows causes confusion at
+  first, especially if you are going through all the windows for the first
+  time. You will think "Have I seen this question before?". However, most
+  session require you to only change a few of the responses. 
+  In this case you will want to find the items as quickly as possible. Some
+  items may be thought of as being related to several categories and are
+  repeated in all the windows that deal with each of those categories. This
+  helps you find the item quicker.
+
+  On entry, the navigation system will display the top node on the left hand
+  side. Click on the box (or wording) to open up the node. You will see other
+  nodes below it and, possibly some windows will be displayed on the right.
+
+  Click on an open node and it will collapse that node.
+
+  Most nodes appear the same colour. The odd ones, in a different colour,  are
+  node that have appeared elsewhere. The primary occurrence is in the standard
+  colour (red), the secondary occurrence is in the other colour (blue).
+
+  Click various nodes to find a window that you want to look at. The windows
+  for that node are displayed on the right and the wording for the node
+  changes to white.
+
+  Click on the window to open it. The wording of the window goes white and
+  remains white even when you exit the window. This leaves a marker to say
+  which window you entered last. This is useful if you are working through the
+  windows in order.
+
+  You can open as many windows as you like, but this will add to your
+  confusion. Avoid opening more than one window at once.
+
+  You can also build the navigation node tree to be as big as you like, but
+  this will make things harder for you. Collapse unused nodes as you finish
+  with them. You can use the scroll bar to reach nodes and windows off your
+  screen, or the middle button on your mouse.
+
+  The STASH windows for each internal-model are special and take some time to
+  open. They should be entered last when setting up each internal model. Read
+  the help carefully for these windows as they look and act differently.
+
+
+

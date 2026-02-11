@@ -1,0 +1,115 @@
+Section 5: CONVECTION SCHEME
+
+The convection scheme consists of 2 parts;
+  (1) The diagnosis routine "conv_diag".
+  (2) The convection scheme.
+
+
+(1) The diagnosis routine "conv_diag".
+----------------------------------------
+  Output from the diagnosis routine is required by both the convection
+  scheme and the boundary layer scheme. The diagnosis determines which
+  grid points have a  convective boundary layer. The diagnosis detemines
+  whether convection from the boundary layer is deep or shallow.
+  
+Switches relating to this part of the code;
+
+Convective diagnosis method
+
+0A scheme - only 1 option allowed at present 
+
+1 - undilute parcel diagnosis scheme.
+Other switches mentioned after 5A/6A apply to the 0A scheme. 
+
+4A scheme
+
+0 is the original undilute parcel diagnosis scheme. 
+1 is the new improved (uncorrected) undilute parcel diagnosis scheme.
+2 is a new corrected dilute parcel diagnosis scheme using a 0.55/z entrainment
+  rate. 
+3 is a new corrected dilute parcel diagnosis scheme using a 1.0/z entrainment 
+  rate. 
+4 - not an allowed option.
+5 is the same new improved (uncorrected) undilute parcel diagnosis scheme as
+  in option 1 but it allows convection to be diagnosed when the lifting
+  condensation level is very low. Lifting condensation level set to at least
+  150m even when very low.
+6 Corrected improved undilute parcel diagnosis scheme with additions;
+  requirement that the cloud layer be at least 400m.
+  Lifting condensation level set to at least 150m even when very low.
+  Users are recommended to use option 6.
+7 Simplified convection diagnosis: as 6 but removes the inversion tests and 
+  relaxes the w-test for shallow convection to w < 0.02 m/s.
+
+5A & 6A schemes
+
+1 is the corrected undilute parcel diagnosis scheme with all changes to 
+  improve the diagnosis; cloud layer at least 400m, lifting condensation level
+  at least 150m thick. Users are advised to use this.
+2 is a new dilute parcel diagnosis scheme using a 0.55/z entrainment rate 
+3 is a new dilute parcel diagnosis scheme using a 1.0/z entrainment rate 
+4 is a new dilute parcel diagnosis scheme using 0.55/z over the sea and 
+  a variable rate n/z over land where n is dependent on the boundary layer 
+  depth. Option 4 is aimed at improving the diurnal cycle of convection over 
+  land. Choosing option 4 also alters the entrainment rates used in the 
+  convection scheme over land. 
+5 is a new dilute parcel diagnosis scheme using undilute entrainment over the 
+  sea and a variable rate n/z over land where n is dependent on the boundary 
+  layer depth. Option 5 like option 4 is aimed at improving the diurnal cycle 
+  of convection over land. Choosing option 5 also alters the entrainment rates 
+  used in the convection scheme over land.
+
+Std Dev level 1 virtual temperature option. 
+
+This switch defines the method for 
+calculating the standard deviation of the level 1 virtual temperature 
+in the convection diagnosis which is used to calculate the parcel buoyancy tolerance.
+  0 - original setting that uses an assumed boundary layer depth of 300m.
+  1 - improved option that uses the boundary layer depth from the previous timestep.
+  2 - as (1) but further improved by including parametrized roughness lengths  
+ 	     for sea, a realistic stability dependence and area-weighted contributions 
+ 	     for the sea, sea-ice and land components calculated separately. 
+
+Water loading options for convective diagnosis 5A and 6A schemes.
+
+Same set of values available for both undilute and dilute plumes
+  0 - water loading kept for whole of parcel ascent - default option
+  1 - if water loading exceeds 1g/kg it is removed from the plume.
+  2 - if water loading exceeds a profile based on qsat it is removed from the
+plume.
+
+
+w test value for shallow convection.
+
+Original value used 0.0m/s Now recommend a value of 0.02m/s.
+
+
+Inversion test for determining shallow convection.
+
+  0 - no inversion test for determining shallow convection
+  1 - original inversion test for shallow convection
+  2 and above - future tests (none at present). 
+
+
+
+  The convection scheme can be called several times per model physics 
+  timestep.
+  Originally this was done without rediagnosing (calling conv_diag) the 
+  locations of shallow and deep convection. Also the original method applies all 
+  the timestep increments from slow physics and semi-lagrangian dynamics to the 
+  profile seen on the first call to convection.
+  A new method of sub-stepping the convection calls the diagnosis routine 
+  conv_diag every convection sub-call and drip feeds the slow physics plus 
+  dynamics increments so that only 1/n is seen by the first call to convection, 
+  where n is the number of convection calls. 1/n of the increments are 
+  added to the profile for each subsequent convection sub-step.  
+  The new method is thought to be a better approach to sub-stepping convection.
+  The new method is essential if the new turbulence based schemes are chosen with 
+  the 5A scheme.
+  Currently operational and climate models use the old method of sub-stepping 
+  convection. 
+
+
+(2) The convection scheme.
+---------------------------
+ Please see main Convection panel help file.

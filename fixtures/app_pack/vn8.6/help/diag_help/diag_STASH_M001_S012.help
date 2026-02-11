@@ -1,0 +1,289 @@
+<M001_S012_I170>
+Item (1:12:170) QCL INCR: advect positive
+
+%I pc2_diags 
+
+</M001_S012_I170>
+#
+<M001_S012_I171>
+Item (1:12:171) QCL INCR: advect negative
+
+%I pc2_diags 
+
+</M001_S012_I171>
+#
+<M001_S012_I172>
+Item (1:12:172) QCF INCR: advect positive
+
+%I pc2_diags 
+
+</M001_S012_I172>
+#
+<M001_S012_I173>
+Item (1:12:173) QCF INCR: advect negative
+
+%I pc2_diags 
+
+</M001_S012_I173>
+#
+<M001_S012_I176>
+Item (1:12:176) LIQ CLOUD VOL INCR: advect positive
+
+%I pc2_diags 
+
+</M001_S012_I176>
+#
+<M001_S012_I177>
+Item (1:12:177) LIQ CLOUD VOL INCR: advect negative
+
+%I pc2_diags 
+
+</M001_S012_I177>
+#
+<M001_S012_I178>
+Item (1:12:178) FROZEN CLOUD VOL INCR:advect positive
+
+%I pc2_diags 
+
+</M001_S012_I178>
+#
+<M001_S012_I179>
+Item (1:12:179) FROZEN CLOUD VOL INCR:advect negative
+
+%I pc2_diags 
+
+</M001_S012_I179>
+#
+<M001_S012_I181>
+STASH item specific help for 
+(1, 12, 181) "TEMPERATURE INCR: advect K/Timestep "
+
+Increments from section 12 (12181-12187)-  Semi-lagrangian advection.
+
+Note the increments from the semi-lagrangain advection include
+both the basic advection increment ie the increment to q say purely based on 
+the start of timestep value and the calculation to determine the new value
+at the location, and  a part due to the advection of the sum of the increments
+to q (dq) calculated by atmos_phys1. The part due to the advection of the 
+increments is usually much smaller. All increments have units of change in 
+the field per timestep.
+</M001_S012_I181>
+#
+<M001_S012_I182>
+STASH item specific help for 
+(1, 12, 182) "Q INCR: advect      kg/kg/timestep  "
+
+Increments from section 12 (12181-12187)  Semi-lagrangian advection.
+
+Note the increments from the semi-lagrangain advection include
+both the basic advection increment ie the increment to q say purely based on 
+the start of timestep value and the calculation to determine the new value
+at the location, and  a part due to the advection of the sum of the increments
+to q (dq) calculated by atmos_phys1. The part due to the advection of the 
+increments is usually much smaller. All increments have units of change in 
+the field per timestep.
+</M001_S012_I182>
+#
+<M001_S012_I183>
+STASH item specific help for 
+(1, 12, 183) "QCL INCR: advect    kg/kg/timestep  "
+
+Increments from section 12 (12181-12187)  Semi-lagrangian advection.
+
+Note the increments from the semi-lagrangain advection include
+both the basic advection increment ie the increment to q say purely based on 
+the start of timestep value and the calculation to determine the new value
+at the location, and  a part due to the advection of the sum of the increments
+to q (dq) calculated by atmos_phys1. The part due to the advection of the 
+increments is usually much smaller. All increments have units of change in 
+the field per timestep.
+
+</M001_S012_I183>
+#
+<M001_S012_I184>
+STASH item specific help for 
+(1, 12, 184) "QCF INCR: advect    kg/kg/timestep  "
+
+Increments from section 12 (12181-12187)  Semi-lagrangian advection.
+
+Note the increments from the semi-lagrangain advection include
+both the basic advection increment ie the increment to q say purely based on 
+the start of timestep value and the calculation to determine the new value
+at the location, and  a part due to the advection of the sum of the increments
+to q (dq) calculated by atmos_phys1. The part due to the advection of the 
+increments is usually much smaller. All increments have units of change in 
+the field per timestep.
+</M001_S012_I184>
+#
+<M001_S012_I185>
+STASH item specific help for 
+(1, 12, 185) "U WIND            INCR: advection   "
+
+Increments from section 12 (12181-12187)  Semi-lagrangian advection.
+
+Note the increments from the semi-lagrangain advection include
+both the basic advection increment ie the increment to q say purely based on 
+the start of timestep value and the calculation to determine the new value
+at the location, and  a part due to the advection of the sum of the increments
+to q (dq) calculated by atmos_phys1. The part due to the advection of the 
+increments is usually much smaller. All increments have units of change in 
+the field per timestep.
+</M001_S012_I185>
+#
+<M001_S012_I186>
+STASH item specific help for 
+(1, 12, 186) "V WIND            INCR: advection   "
+
+Increments from section 12 (12181-12187)  Semi-lagrangian advection.
+
+Note the increments from the semi-lagrangain advection include
+both the basic advection increment ie the increment to q say purely based on 
+the start of timestep value and the calculation to determine the new value
+at the location, and  a part due to the advection of the sum of the increments
+to q (dq) calculated by atmos_phys1. The part due to the advection of the 
+increments is usually much smaller. All increments have units of change in 
+the field per timestep.
+</M001_S012_I186>
+#
+<M001_S012_I187>
+STASH item specific help for 
+(1, 12, 187) "W INCR: advect        m/s/timestep  "
+
+Increments from section 12 (12181-12187)  Semi-lagrangian advection.
+
+Note the increments from the semi-lagrangain advection include
+both the basic advection increment ie the increment to q say purely based on 
+the start of timestep value and the calculation to determine the new value
+at the location, and  a part due to the advection of the sum of the increments
+to q (dq) calculated by atmos_phys1. The part due to the advection of the 
+increments is usually much smaller. All increments have units of change in 
+the field per timestep.
+</M001_S012_I187>
+#
+<M001_S012_I189>
+RAIN  INCR: advect   kg/kg/timestep
+
+Increment to prognostic rain from semi-lagrangian advection. 
+Units kq/kq/timestep.
+</M001_S012_I189>
+#
+<M001_S012_I190>
+GRAUPEL  INCR: advect kg/kg/timestep
+
+Increment to prognostic graupel from semi-lagrangian advection. 
+Units kq/kq/timestep.
+</M001_S012_I190>
+#
+<M001_S012_I191>
+QCF2    INCR: advect kg/kg/timestep
+
+Increment to prognostic qcf2 (second ice type) from semi-lagrangian advection.
+Units kq/kq/timestep.
+</M001_S012_I191>
+#
+<M001_S012_I192>
+Stash Diagnostic Help for Section 12 Item 192
+
+STASH item specific help for
+(1, 12, 192)  BULK CLOUD VOL    INCR: advect
+
+This is the increment across the dynamic advection scheme to the gridbox mean
+total cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S012_I192>
+#
+<M001_S012_I193>
+Stash Diagnostic Help for Section 12 Item 193
+
+STASH item specific help for
+(1, 12, 193)  LIQUID CLOUD VOL  INCR: advect
+
+This is the increment across the dynamic advection scheme to the gridbox mean
+liquid (including mixed phase) cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S012_I193>
+#
+<M001_S012_I194>
+Stash Diagnostic Help for Section 12 Item 194
+
+STASH item specific help for
+(1, 12, 194)  FROZEN CLOUD VOL  INCR: advect
+
+This is the increment across the dynamic advection scheme to the gridbox mean
+frozen (including mixed phase) cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S012_I194>
+#
+<M001_S012_I203>
+STASH item specific help for 
+(1, 12, 203) "dz to w departure point   m"
+
+Departure point diagnostics (12203-12205).
+As part of the semi-lagrangain advection scheme the departure points for 
+determining the new values of w, q, qcl, qcf are evaluated. The departure
+point is the location where the new value at a grid point comes from.
+In the case of q, qcl and qcf the departure point is the same as the departure
+point for w.
+ 
+12203 - instead of outputing the height of the departure point the vertical
+        distance, dz, from the grid point to its departure point is  output.
+        If dz is positive then the departure point is above the gridpoint.
+
+Long term means of these diagnostics may not be very meaningful if the 
+departure point oscillates from East to West or from North to South or 
+from above to below.
+</M001_S012_I203>
+#
+<M001_S012_I204>
+STASH item specific help for 
+(1, 12, 204) "lambda w departure point  radians"
+
+Departure point diagnostics (12203-12205).
+As part of the semi-lagrangain advection scheme the departure points for 
+determining the new values of w, q, qcl, qcf are evaluated. The departure
+point is the location where the new value at a grid point comes from.
+In the case of q, qcl and qcf the departure point is the same as the departure
+point for w. 
+
+12204 - the longitude of the departure point is output in radians. 
+        To determine the distance from the grid point the location 
+        of the grid point must be evaluated and subtracted from the 
+        departure point.
+
+Long term means of these diagnostics may not be very meaningful if the 
+departure point oscillates from East to West or from North to South or 
+from above to below.
+
+</M001_S012_I204>
+#
+<M001_S012_I205>
+STASH item specific help for 
+(1, 12, 205) "phi w departure point     radians"
+
+Departure point diagnostics (12203-12205).
+As part of the semi-lagrangain advection scheme the departure points for 
+determining the new values of w, q, qcl, qcf are evaluated. The departure
+point is the location where the new value at a grid point comes from.
+In the case of q, qcl and qcf the departure point is the same as the departure
+point for w. 
+
+12205 - the latitude of the departure point in radians. Use in the same 
+        way as the longitude.
+
+Long term means of these diagnostics may not be very meaningful if the 
+departure point oscillates from East to West or from North to South or 
+from above to below.
+</M001_S012_I205>
+#

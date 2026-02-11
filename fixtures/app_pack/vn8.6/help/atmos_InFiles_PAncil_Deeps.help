@@ -1,0 +1,18 @@
+  This window allows users to specify the use of the deep soil
+  temperature ancillary file.  For Boundary layer option 5A use deep
+  soil temperature ancillary file with 4 deep soil temperature
+  levels and for all other options use file with 3 deep soil
+  temperature levels.  NOTE FOR OPTION 5A - FOR ALL CONFIGURATIONS -
+  if this is the first time you are using option 5A then you will
+  need to configure  this ancillary file as you will only have 3
+  deep soil temperatures in your initial dump and this version
+  requires 4.
+
+  Standard files hold time-varying fields, but periodic updating
+  would prohibit interactive surface processes from responding
+  fully.
+
+  Fields should be configured when changing resolution or moving to
+  a new land-sea mask.
+
+%I ancill_gen

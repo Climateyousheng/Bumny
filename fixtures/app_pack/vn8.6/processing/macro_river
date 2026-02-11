@@ -1,0 +1,28 @@
+ ### Start of River Flow Model Macro. ###
+%TCL
+ set mean %IRIVMEAN
+ set start %IRIVSTRT
+ set end %IRIVEND
+%ENDTCL
+ &STASHNUM NUM_REQ= 2, NUM_DOM=1,  NUM_TIM=1, NUM_USE=1 /  
+
+ &STREQ IMOD= 1, ISEC=8, ITEM=234, IDOM=1, ITIM=1, IUSE=1 /  
+ &STREQ IMOD= 1, ISEC=8, ITEM=235, IDOM=1, ITIM=1, IUSE=1 /  
+
+ &TIME NAME="RFMTimes", ITYP=3 
+%TCL putl " INTV=$mean,UNT1=\"T\",IOFF=0,ISAM=1,UNT2=\"T \"," %ENDTCL
+ IOPT=1,
+%TCL putl " ISTR=$start,IEND=$end,IFRE=$mean,UNT3=\"T \"," %ENDTCL
+ /
+
+ &DOMAIN NAME="DRFM", IOPL=5 
+ PLT=0, 
+ IOPA=1, 
+ IMSK=1, IMN=0, IWT=0, 
+ TS="N",TSNUM=0, 
+ /
+
+ &USE NAME="RFMOUT" LOCN=3
+ IUNT=103,
+ /
+ ### End of River Flow Model macro ###

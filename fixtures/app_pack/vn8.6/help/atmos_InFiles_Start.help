@@ -1,0 +1,36 @@
+This window allows users to specify the start dump to be used in the run. 
+This is the file that defines the initial conditions to a run. 
+ 
+There are several circumstances that would require such a file to be 
+reconfigured: 
+1. To change domain. Vertical or horizontal. 
+2. To configure ancillary fields into the dump (those that do not need to be 
+updated from climatology). 
+3. To allow an alternative set of prognostic variables to be used. 
+4. To convert from an ECMWF GRIB format dump to a UM dump. 
+ 
+If the job includes a reconfiguration step this will create a new dump in 
+the specified directory. 
+ 
+If you choose not to reconfigure then no action will be taken on any of the 
+ancillary files that are defined as CONFIGURED. The run will start from the 
+initial dump without any changes being made. 
+ 
+ 
+Interpolation options: 
+---------------------- 
+ 
+Linear vertical interpolation in the reconfiguration usually extrapolates 
+at the top and bottom of the domain. If you are significantly altering the 
+orography (through ancillary files) or the height at the top of the model, 
+it may be more appropriate to use vertical interpolation without 
+extrapolation. 
+ 
+Bilinear horizontal interpolation is the standard method of interpolation and  
+was the only option available pre-UM 4.0. 
+ 
+%I dump_pack 
+ 
+%I gen_suite 
+ 
+

@@ -1,0 +1,33 @@
+#!/bin/ksh
+
+JOBDIR=$1
+
+ls $JOBDIR/job*.gz > /dev/null 2>&1
+CC=$?
+
+if test $CC -ne 0; then
+
+  if ! test -f $JOBDIR/mkset.lock
+  then
+
+    cd $JOBDIR
+    tar -cf jobdescription.tar $JOBDIR/ 
+    RC=$?
+    if test $RC -eq 0 ; then 
+      echo MOOSE_JOB_SNAP: tar command is OK
+    else
+      echo MOOSE_JOB_SNAP: tar command failed >&2
+    fi
+
+    gzip jobdescription.tar
+    RC=$?
+    if test $RC -eq 0 ; then 
+      echo MOOSE_JOB_SNAP: gzip command is OK
+    else
+      echo MOOSE_JOB_SNAP: gzip command failed >&2
+    fi
+
+    mv jobdescription* jobdesc`date +%%H%%M%%d%%m%%y`.tar.gz
+  fi
+
+fi

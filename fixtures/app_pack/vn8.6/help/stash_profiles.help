@@ -1,0 +1,109 @@
+PROFILES.
+~~~~~~~~~
+Profiles define requirements for diagnostics. They have names to help
+you remember what they are for. You "attach" profiles to the
+diagnostics to define how you want the diagnostics. One diagnostic can
+have more than one set of profiles attached to it. In this case the
+diagnostic needs to be CLONED and alternative profiles attached to the
+clone.  All chosen diagnostics must have all three types of profiles
+attached.
+
+TIME PROFILES.
+~~~~~~~~~~~~~~
+Define temporal processing requirements and output requirements. Examples are
+time means and accumulations.
+Some diagnostics are not available every timestep and can only have time
+profiles attached that reflect this.
+See the help windows in the time profiles.
+
+DOMAIN PROFILES.
+~~~~~~~~~~~~~~~~
+Define spatial processing requirements as well as the output domain (sub areas
+and levels). Examples of spatial processing are vertical and full field means.
+STASH cannot change the vertical coordinate type of a diagnostic (or the
+pseudo level type). Hence the right profiles must be used with the right
+diagnostics.
+See the help windows in the domain profiles.
+
+USAGE PROFILES.
+~~~~~~~~~~~~~~~
+Usage profiles define the "output" destination of the diagnostics to which
+they are attached.
+Diagnostics can be written to:
+	PPfile output streams: for later analysis.
+	Mean PP files:         for later analysis.
+	Internal space:   for use in other parts of the UM (such as coupling).
+Particular care needs to be taken with climate mean diagnostics.	
+See the help windows in the usage profiles.
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+PROFILE LISTS.
+~~~~~~~~~~~~~~
+The three sets of boxes at the top of the STASH windows list the available
+profiles. 
+The boxes with names in them represent defined profiles.
+The empty boxes represent possible new profiles that you may create.
+There is a fixed number of each type of profile, as indicated by the number of
+boxes.
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+PROFILE ACTIONS.
+~~~~~~~~~~~~~~~~
+
+There are various profile actions that allow you to manage your
+profiles. These are accessed from the Profiles menu.  Highlight the
+profile that you want to act on by a single click and choose the
+appropriate action and profile type from the available drop-down
+menu.
+
+DELETE PROFILE.
+~~~~~~~~~~~~~~~
+This deletes the highlighted profile of the type chosen from the menu.
+You will be warned if the profile is attached to any diagnostics in the list.
+If you continue, it will delete any references to the profile in the list.
+
+COPY PROFILE.
+~~~~~~~~~~~~~
+This copies the highlighted profile of the type chosen from the menu.
+Choose a new name.
+You can then redefine the profile using the EDIT PROFILE option. This allows
+you to create a new profile similar to another on with the minimum effort.
+
+EDIT PROFILE.
+~~~~~~~~~~~~~
+This takes you into the highlighted profile of the type chosen from the menu.
+You can change the attributes of the profile, including the NAME.
+You should always VERIFY after doing this to avoid problems with diagnostics
+being attached to profiles that have been renamed. This will also check that
+the profile definition does not clash with any diagnostics to which it is
+attached.
+
+If you change the name, this name change will also apply where the
+profile has been attached to the diagnostics list. NOTE if you change
+a name but then "Abandon" STASH, the name in the diagnostics table
+will revert to the original, but the name of the profile won't. So
+always use Close after doing this.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ATTACHING PROFILES.
+~~~~~~~~~~~~~~~~~~~
+
+Attach profiles with the mouse or the space key. Click on the
+profile(s) that you want to attach and then double click on the
+diagnostic that you want to attach them to.  Double click on the
+diagnostic name to attach all three profiles.  Double click on the
+relevant profile column to attach just one profile.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+
+

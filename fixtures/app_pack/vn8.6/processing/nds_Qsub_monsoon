@@ -1,0 +1,176 @@
+%C ======================================================
+%C module: nds_Qsub_monsoon
+%C
+%C Includes variables required when using MONSooN Cray
+%C ====================================================== 
+%C
+########################################
+#                                 Qsub #
+########################################
+# TARGET_MC is used in path to small execs and scripts
+%T if {%LTRGMACH != "Y"} {
+export TARGET_MC=cray
+%T } else {
+export TARGET_MC=%USR_TARGET_MC
+%T }
+
+# Submission command and output file names
+export SUB_CMD="qsub"
+export SUB_OUT_RCF=""
+export SUB_OUT_RUN=""
+export SUB_OUT_CMP=""
+
+############################################
+# Threads and cores                   QSUB #
+############################################
+integer N_SMT
+N_SMT=0
+%T if { [inactive_var NTHR_TASK] == 0 } {
+NTHREADS_PER_TASK=%NTHR_TASK
+%T } else {
+NTHREADS_PER_TASK=1
+%T }
+
+%T if {%HYPERTHREAD == "T"} {
+NTASKS_PER_NODE=64
+export HYPERTHREADS=2
+%T } else {
+NTASKS_PER_NODE=32
+%T }
+NNODES=$(( (TOTAL_PE_REQ * $NTHREADS_PER_TASK + ($NTASKS_PER_NODE - 1)) / $NTASKS_PER_NODE )) 
+
+echo "NOTE: You are requesting the use of $NNODES node(s) on the CRAY XC40"
+
+########################################
+# Qsub Class Name                 QSUB #
+########################################
+%TCL
+  if {[inactive_var QCRAY]==0} {
+     if {%QCRAY=="other"} {
+        set qclass %CJOTHER2
+     } else {
+        set qclass %QCRAY
+     }
+     putl "Q_CLASS=$qclass"
+  }
+%ENDTCL
+
+########################################
+# Reconf: Time Limit & Memory     QSUB #
+########################################
+
+%TCL
+   set hoursMinsSecs [secsToHoursMinsSecs %RCFJTLIM]
+   putl "RCF_TIME_LIMIT=$hoursMinsSecs"
+%ENDTCL
+
+((RCF_NNODES=(RCF_NPES*NTHREADS_PER_TASK+(NTASKS_PER_NODE-1))/NTASKS_PER_NODE))
+
+############################################
+# Comp, NRUN and CRUN Time Limits     QSUB #
+############################################
+
+%T if { (%COMPTLIM == -1)} {
+COMP_TIME_LIMIT=01:00:00
+%T } else {
+%T    set hoursMinsSecs [secsToHoursMinsSecs %COMPTLIM]
+%T    putl "COMP_TIME_LIMIT=$hoursMinsSecs"
+%T }
+%T set hoursMinsSecs [secsToHoursMinsSecs %CJTLIM2]
+%T putl "NRUN_TIME_LIMIT=$hoursMinsSecs"
+%C
+%T if { %JRESUB == "Y" } {
+%C Use Automatic resubmit settings for CRUNS if autoresubmit on
+%T    set cr_hoursMinsSecs [secsToHoursMinsSecs %CJTLIMR]
+%T    putl "CRUN_TIME_LIMIT=$cr_hoursMinsSecs"
+%T } else {
+%C Use the same as NRUN settings
+%T    putl "CRUN_TIME_LIMIT=$hoursMinsSecs"
+%T }
+
+ACCOUNT=%ACCGRP_OTHR
+
+###################################################
+# Memory for compilation                          #
+###################################################
+%TCL
+  if { %CMEMO != "" } {
+     set cmemo %CMEMO
+  } else {
+     set cmemo 2000
+  }
+  set mem_compile "[format $cmemo]mb"
+  putl "# You have requested $mem_compile memory for compilation"
+%ENDTCL
+
+###################################################
+# Create compilation header                  QSUB #
+###################################################
+
+  cat >>$comp_header<<EOF
+#!/bin/ksh
+#PBS -N ${RUNID}_build
+#PBS -q shared
+%T if {%ACCGRP_OTHR != ""} {
+#PBS -P ${ACCOUNT}
+%T }
+#PBS -l select=1:ncpus=%TCL if_active NPROC %NPROC 4 %ENDTCL:mem=%TCL put "$mem_compile" %ENDTCL 
+#PBS -l walltime=${COMP_TIME_LIMIT}
+#PBS -j oe
+#PBS -o ${COMP_OUTPUT_FILE}
+#PBS -W umask=0022
+. /etc/profile
+
+EOF
+
+###################################################
+# Create reconfiguration header              QSUB #
+###################################################
+
+  cat >>$rcf_header<<EOF
+#!/bin/ksh
+#PBS -N ${RUNID}_rcf
+#PBS -q ${Q_CLASS}
+%T if {%ACCGRP_OTHR != ""} {
+#PBS -P ${ACCOUNT}
+%T }
+#PBS -l select=${RCF_NNODES}:ompthreads=${NTHREADS_PER_TASK}
+#PBS -l walltime=${RCF_TIME_LIMIT}
+#PBS -j oe
+#PBS -o ${RCF_OUTPUT_FILE}
+#PBS -W umask=0022
+. /etc/profile
+
+%T if {%HYPERTHREAD == "T"} {
+export HYPERTHREADS=2
+%T }
+EOF
+
+###################################################
+# Create run header                          QSUB #
+###################################################
+
+  if [[ $TYPE = "NRUN" ]]; then
+    TIME=$NRUN_TIME_LIMIT
+  else
+    TIME=$CRUN_TIME_LIMIT
+  fi
+
+  cat >>$run_header<<EOF
+#!/bin/ksh
+#PBS -N ${RUNID}_run
+#PBS -q ${Q_CLASS}
+%T if {%ACCGRP_OTHR != ""} {
+#PBS -P ${ACCOUNT}
+%T }
+#PBS -l select=${NNODES}:ompthreads=${NTHREADS_PER_TASK}
+#PBS -l walltime=${TIME}
+#PBS -j oe
+#PBS -o ${RUN_OUTPUT_FILE}
+#PBS -W umask=0022
+. /etc/profile
+
+%T if {%HYPERTHREAD == "T"} {
+export HYPERTHREADS=2
+%T }
+EOF

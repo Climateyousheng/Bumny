@@ -1,0 +1,1840 @@
+<M001_S005_I010>
+Item (1:5:10)                
+
+Specific humidity after convection in kg/kg.
+The model timestep is nolonger sequential so this field has
+limited use and little meaning. It gives on timestep n+1
+qn+q* where qn is the value of q at the end of timestep n, and
+q* is the value of all increment up to and including the convection.
+
+
+</M001_S005_I010>
+#
+<M001_S005_I140>
+Item (1:5:140) QCL INCR: conv inhom positive
+
+%I pc2_diags 
+
+</M001_S005_I140>
+#
+<M001_S005_I141>
+Item (1:5:141) QCL INCR: conv inhom negative
+
+%I pc2_diags 
+
+</M001_S005_I141>
+#
+<M001_S005_I142>
+Item (1:5:142) QCF INCR: conv inhom positive
+
+%I pc2_diags 
+
+</M001_S005_I142>
+#
+<M001_S005_I143>
+Item (1:5:143) QCF INCR: conv inhom negative
+
+%I pc2_diags 
+
+</M001_S005_I143>
+#
+<M001_S005_I146>
+Item (1:5:146) LIQ CLOUD VOL INCR: conv inhom positive
+
+%I pc2_diags 
+
+</M001_S005_I146>
+#
+<M001_S005_I147>
+Item (1:5:147) LIQ CLOUD VOL INCR: conv inhom negative
+
+%I pc2_diags 
+
+</M001_S005_I147>
+#
+<M001_S005_I148>
+Item (1:5:148) ICE CLOUD VOL INCR: conv inhom positive
+
+%I pc2_diags 
+
+</M001_S005_I148>
+#
+<M001_S005_I149>
+Item (1:5:149) ICE CLOUD VOL INCR: conv inhom negative
+
+%I pc2_diags 
+
+</M001_S005_I149>
+#
+<M001_S005_I150>
+Item (1:5:150) QCL INCR: pc2 turbulence
+
+%I pc2_diags 
+
+</M001_S005_I150>
+#
+<M001_S005_I151>
+Item (1:5:151) QCL INCR: pc2 turbulence positive
+
+%I pc2_diags 
+
+</M001_S005_I151>
+#
+<M001_S005_I152>
+Item (1:5:152) QCL INCR: pc2 turbulence negative
+
+%I pc2_diags 
+
+</M001_S005_I152>
+#
+<M001_S005_I156>
+Item (1:5:156) LIQ CLOUD VOL INCR: pc2 turbulence
+
+%I pc2_diags 
+
+</M001_S005_I156>
+#
+<M001_S005_I157>
+Item (1:5:157) LIQ CLOUD VOL INCR: pc2 turb positive
+
+%I pc2_diags 
+
+</M001_S005_I157>
+#
+<M001_S005_I158>
+Item (1:5:158) LIQ CLOUD VOL INCR: pc2 turb negative
+
+%I pc2_diags 
+
+</M001_S005_I158>
+#
+<M001_S005_I161>
+Item:(1:5:161) 
+
+Temperature increments from convection only in Kelvin per model timestep. 
+In one model timestep there can be several sweeps of convection. 
+This diagnostic gives the total increment from  convection per model timestep.
+
+</M001_S005_I161>
+#
+<M001_S005_I162>
+Item:(1:5:162) 
+
+Specific humidity increments from convection only in kg/kg per model timestep. 
+In one model timestep there can be several sweeps of convection. 
+This diagnostic gives the total increment from  convection per model timestep.
+
+</M001_S005_I162>
+#
+<M001_S005_I163>
+Items (1:5:163)		
+
+QCL               INCR: conv inhom							
+
+This is the increment from the convection inhomogeneous forcing component of PC2
+to the gridbox mean specific liquid cloud condensate, 
+in kg of liquid per kg of air.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+WARNING : May change to mass mixing ratio from UM VN6.0.
+
+Available on all timesteps.
+
+</M001_S005_I163>
+#
+<M001_S005_I164>
+Items (1:5:164)		
+
+QCL               INCR: conv inhom							
+
+This is the increment from the convection inhomogeneous forcing component of PC2
+to the gridbox mean specific ice cloud condensate, in kg of ice per kg of air.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+WARNING : May change to mass mixing ratio from UM VN6.0.
+
+Available on all timesteps.
+
+</M001_S005_I164>
+#
+<M001_S005_I172>
+Items (1:5:172)		
+
+BULK CLOUD VOL    INCR: conv inhom						
+
+This is the increment from the convection inhomogeneous forcing component of PC2
+to the gridbox mean total cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S005_I172>
+#
+<M001_S005_I173>
+Items (1:5:173)		
+
+LIQUID CLOUD VOL  INCR: conv inhom						
+
+This is the increment from the convection inhomogeneous forcing component of PC2
+to the gridbox mean liquid (including mixed phase) cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S005_I173>
+#
+<M001_S005_I174>
+Items (1:5:174)		
+
+FROZEN CLOUD VOL  INCR: conv inhom					
+
+This is the increment from the convection inhomogeneous forcing component of PC2
+to the gridbox mean frozen (including mixed phase) cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S005_I174>
+#
+<M001_S005_I181>
+Item (1:5:181)                
+
+Temperature increment from convection section in Kelvin per model timestep. 
+This may include increments from PC2 inhomogeneous forcing as well as 
+convection if PC2 is switched on.
+
+In one model timestep there can be several sweeps of convection. This
+diagnostic gives the total increment across convection per model timestep.
+
+</M001_S005_I181>
+#
+<M001_S005_I182>
+Item (1:5:182)                
+
+Total increment to specific humidity from the convection section in
+kg/kg per model physics time step. This may include increments from 
+PC2 inhomogeneous forcing as well as convection if PC2 is switched on.
+
+Convection can have several sweeps per model timestep, this diagnostic
+holds the total increment. Available every model physics timestep.
+
+</M001_S005_I182>
+#
+<M001_S005_I183>
+Item (1:5:183) 
+
+This is the increment across the convection section  to the gridbox mean
+specific liquid cloud condensate, in kg of liquid per kg of air. 
+May contains increments from PC2 inhomogeneous forcing as well as convection.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+</M001_S005_I183>
+#
+<M001_S005_I184>
+Item (1:5:184) 
+
+This is the increment across the convection section 5 to the gridbox mean
+specific ice cloud condensate, in kg of ice per kg of air. 
+May contains increments from PC2 inhomogeneous forcing as well as convection.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+</M001_S005_I184>
+#
+<M001_S005_I185>
+Item (1:5:185)                
+
+U increment from convection in m/s per model timestep on u grid.
+In one model timestep there can be several sweeps of convection. This
+diagnostic gives the total increment across convection per model timestep.
+
+</M001_S005_I185>
+#
+<M001_S005_I186>
+Item (1:5:186)                
+
+V increment from convection in m/s per model timestep on v grid.
+In one model timestep there can be several sweeps of convection. This
+diagnostic gives the total increment across convection per model timestep.
+
+
+</M001_S005_I186>
+#
+<M001_S005_I187>
+Item (1:5:187)
+
+TEMPERATURE INCRIMENT: convection (no shallowc)
+
+temperature increment inserted by convection scheme for the time step
+in collumns with no shallow convection. It is zero in collumns where
+shallow convection is active and identical with (1, 5, 187)
+otherwise. This stash variable was created for use in the
+PF model convection scheme of the 4D-VAR system.
+
+Available on all timesteps.
+</M001_S005_I187>
+#
+<M001_S005_I188>
+Item (1:5:188)
+
+SPECIFIC HUMIDITY INCREMENT:convection (no shallowc)
+
+Specific humidity increment inserted by convection scheme for the time
+step
+in collumns with no shallow convection. It is zero in collumns where
+shallow convection is active and identical with (1, 5, 187)
+otherwise. This stash variable was created for use in the
+PF model convection scheme of the 4D-VAR system.
+
+Available on all timesteps.
+</M001_S005_I188>
+#
+<M001_S005_I192>
+Stash Diagnostic Help for Section 5 Item 192
+
+STASH item specific help for
+(1, 5, 192)  BULK CLOUD VOL    INCR: convection
+
+This is the increment across the convection scheme to the gridbox mean
+total cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S005_I192>
+#
+<M001_S005_I193>
+Stash Diagnostic Help for Section 5 Item 193
+
+STASH item specific help for
+(1, 5, 193)  LIQUID CLOUD VOL  INCR: convection
+
+This is the increment across the convection scheme to the gridbox mean
+liquid (including mixed phase) cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+
+</M001_S005_I193>
+#
+<M001_S005_I194>
+Stash Diagnostic Help for Section 5 Item 194
+
+STASH item specific help for
+(1, 5, 194)  FROZEN CLOUD VOL  INCR: convection
+
+This is the increment across the convection scheme to the gridbox mean
+frozen (including mixed phase) cloud volume fraction.
+
+This increment is only available via the PC2 cloud/condensation scheme.
+
+Available on all timesteps.
+</M001_S005_I194>
+#
+<M001_S005_I196>
+(Convective vertical velocity)^2 [(m/s)^2]
+
+DEVELOPMENT DIAGNOSTIC, subject to change.
+Consult convection group prior to use.
+
+Parcel vertical velocity in a convective updraught. This
+is assumed "relative" to the large-scale vertical velocity.
+
+The current implementation of the convective vertical velocity 
+equation means that it is possible for negative values of 
+this diagnostic (unrealistic) to occur.
+
+This diagnostic is intended to identify where the current
+algorithm breaks down.
+
+Available in the 5a/6a convection schemes for UM/SCM
+</M001_S005_I196>
+#
+<M001_S005_I197>
+Convective vertical velocity, [(m/s)]
+
+DEVELOPMENT DIAGNOSTIC, subject to change.
+Consult convection group prior to use.
+
+Parcel vertical velocity in a convective updraught. This
+is assumed "relative" to the large-scale vertical velocity.
+
+The current implementation of the convective vertical velocity
+equation means that it is possible for unrealistic negative values
+of diagnostic 5,196 (convective vertical velocity)^2 to occur.
+
+This diagnostic is the square-root of non-negative values
+of diagnostic 5,196. Points in diagnostic 5,197 will be set to 
+to 0.0 where corresponding points in diagnostic 5,196 hold
+negative values.
+
+Available in the 5a/6a convection schemes for UM/SCM
+</M001_S005_I197>
+#
+<M001_S005_I201>
+Item (1:5:201)                
+
+Convective rainfall amount at the surface in kg/m2 per model timestep
+Users are advised to use 205 instead.
+
+</M001_S005_I201>
+#
+<M001_S005_I202>
+Item (1:5:202)                
+
+Convective snowfall amount at the surface in kg/m2 per model timestep
+Users are advised to use 206 instead.
+
+</M001_S005_I202>
+#
+<M001_S005_I205>
+Item (1:5:205)                
+
+Convective rainfall rate at the surface in kg/m2/s.
+If several model sweeps of convection per model timestep, this gives the
+mean value. 
+</M001_S005_I205>
+#
+<M001_S005_I206>
+Item (1:5:206)                
+
+Convective snowfall rate at the surface in kg/m2/s.
+If several model sweeps of convection per model timestep, this gives the
+mean value.  
+</M001_S005_I206>
+#
+<M001_S005_I207>
+Item (1:5:207)                
+
+Pressure at convective cloud base in Pa.
+Value from last sweep of convection per timestep. May be of 
+limited value.
+</M001_S005_I207>
+#
+<M001_S005_I208>
+Item (1:5:208)                
+
+Pressure at convective cloud top in Pa.
+Value from last sweep of convection per timestep. May be of 
+limited value.
+</M001_S005_I208>
+#
+<M001_S005_I209>
+Item (1:5:209)                
+
+Temperature after convection in Kelvin.
+The model timestep is nolonger sequential so this field has
+limited use and little meaning. It gives on timestep n+1
+Tn+T* where Tn is the value of T at the end of timestep n, and
+T* is the value of all increments up to and including the convection.
+</M001_S005_I209>
+#
+<M001_S005_I210>
+Item (1:5:210)                
+
+ICAO height of convective cloud base. 1000's feet
+Value from last sweep of convection per timestep. May be of 
+limited value.
+</M001_S005_I210>
+#
+<M001_S005_I211>
+Item (1:5:211)                
+
+ICAO height of convective cloud base. 1000's feet
+Value from last sweep of convection per timestep. May be of 
+limited value.
+</M001_S005_I211>
+#
+<M001_S005_I212>
+Item (1:5:212)                
+
+Convective cloud amount on each model level (fraction).
+Mean from all sweeps on convection. Same as prognostic
+variable section 0 item 211. You are advised to use 0 211
+instead.
+</M001_S005_I212>
+#
+<M001_S005_I213>
+Item (1:5:213)                
+
+Convective cloud condensed water on model levels kg/kg.
+Diagnostic value of CCW.
+</M001_S005_I213>
+#
+<M001_S005_I214>
+Item (1:5:214)                
+
+Total rainfall rate at the surface in kg/m2/s.
+This is the sum of the large scale and convective rainfall at the surface.
+
+</M001_S005_I214>
+#
+<M001_S005_I215>
+Item (1:5:215)                
+
+Total snowfall rate at the surface in kg/m2/s.
+This is the sum of the large scale and convective snowfall at the surface.
+
+</M001_S005_I215>
+#
+<M001_S005_I216>
+Item (1:5:216)                
+
+Total precipitation rate at the surface in kg/m2/s.
+This is the sum of the large scale and convective rainfall and snowfall
+at the surface.e.
+
+</M001_S005_I216>
+#
+<M001_S005_I217>
+Item: (1:5:217)
+
+Text: CAPE calculated by convection scheme. Note if more than one lot
+of convection in a column eg mid with mid level above, the diagnostic
+will be for the second part.
+
+</M001_S005_I217>
+#
+<M001_S005_I218>
+Item (1:5:218)                
+
+Lowest convective cloud base level number. Model level
+Value from last sweep of convection per timestep. May be of 
+limited value. 
+
+</M001_S005_I218>
+#
+<M001_S005_I219>
+Item (1:5:219)                
+
+Lowest convective cloud top level number. Model level
+Value from last sweep of convection per timestep. May be of 
+limited value.
+</M001_S005_I219>
+#
+<M001_S005_I220>
+Item (1:5:220)                
+
+Lowest convective cloud amount. fraction
+Value from last sweep of convection per timestep. May be of 
+limited value.
+</M001_S005_I220>
+#
+<M001_S005_I222>
+Item (1:5:222)                
+
+Pressure at lowest convective cloud base in Pa.
+Value from last sweep of convection per timestep. May be of 
+limited value.
+</M001_S005_I222>
+#
+<M001_S005_I223>
+Item (1:5:223)                
+
+Pressure at lowest convective cloud top in Pa.
+Value from last sweep of convection per timestep. May be of 
+limited value.
+</M001_S005_I223>
+#
+<M001_S005_I224>
+Item (1:5:224)                
+
+ICAO height of lowest convective cloud base. 1000's feet
+Value from last sweep of convection per timestep. May be of 
+limited value.
+
+</M001_S005_I224>
+#
+<M001_S005_I225>
+Item (1:5:225)                
+
+ICAO height of lowest convective cloud top. 1000's feet
+Value from last sweep of convection per timestep. May be of 
+limited value.
+
+</M001_S005_I225>
+#
+<M001_S005_I226>
+Item (1:5:226)                
+
+Total precipitation amount at the surface in kg/m2 per timestep.
+This is the sum of the large scale and convective rainfall and snowfall
+at the surface. You are advised to used 216 instead.
+
+</M001_S005_I226>
+#
+<M001_S005_I227>
+Item: (1, 5, 227)
+
+Name: NOMINAL 3D CONVECTIVE RAINFALL RATE
+Text: Rate at which convective rainfall is falling through the model layer
+      in kg/m2/sec
+</M001_S005_I227>
+#
+<M001_S005_I228>
+Item: (1, 5, 228)
+
+Name: NOMINAL 3D CONVECTIVE SNOWFALL RATE
+Text: Rate at which convective snowfall is falling through the model layer
+      in kg/m2/sec
+</M001_S005_I228>
+#
+<M001_S005_I231>
+Stash Diagnostic Help for Section 5 Item 231
+
+(1:5:231) CAPE TIMESCALE (DEEP)
+
+Many of the convective closure options reduce the basic CAPE timescale.
+
+This diagnostic outputs the actual CAPE timescale used by deep convection on a timestep 
+so the user can tell whether the chosen closure has reduced the basic CAPE timescale. 
+
+If deep convection is not diagnosed then diagnostic is set to zero. 
+</M001_S005_I231>
+#
+<M001_S005_I232>
+Stash Diagnostic Help for Section 5 Item 232
+
+(1:5:232) INDICATOR REDUCED CAPE TIMESCALE
+
+Many of the convective closure options reduce the basic CAPE timescale.
+
+This diagnostic outputs 1.0 if the basic CAPE timescale has been reduced 
+for deep convection otherwise the field is zero.
+</M001_S005_I232>
+#
+<M001_S005_I233>
+Item: (1:5:234)
+
+CIN (Convective INhibition) calculated from an undilute parcel
+ascent in the convective diagnosis routine. This is the negative potential
+energy near the base of the undilute parcel ascent which convection needs to
+overcome to convect. 
+</M001_S005_I233>
+#
+<M001_S005_I234>
+Item (1:5:246) 
+
+UDRAFT MFLUX on rho levels, Component A (Pa/s)
+
+This STASH entry was required for the PF model convection scheme
+of the 4D-VAR system (and probably of little interest for other users).
+It is the Updraught mass flux on rho levels at levels where the mass
+flux
+is increasing with height (more entrainment than detrainment) and in 
+ collumns with no shallow convection. It is derived from (1, 5, 249).  
+Units: Pascals/sec
+
+Available on all timesteps.
+</M001_S005_I234>
+#
+<M001_S005_I235>
+Item (1:5:235)                
+
+U after convection in Kelvin.
+The model timestep is nolonger sequential so this field has
+limited use and little meaning. It gives on timestep n+1
+Un+U* where Un is the value of U at the end of timestep n, and
+U* is the value of all increments up to and including the convection.
+</M001_S005_I235>
+#
+<M001_S005_I236>
+Item (1:5:236)                
+
+V after convection in Kelvin.
+The model timestep is nolonger sequential so this field has
+limited use and little meaning. It gives on timestep n+1
+Vn+V* where Vn is the value of V at the end of timestep n, and
+V* is the value of all increments up to and including the convection.
+</M001_S005_I236>
+#
+<M001_S005_I237>
+STASH item specific help for 
+(1, 5, 237)  NH3 SCAVENGED BY CONV PPN KG/M2/S
+
+Available only if Sulphur Cycle on and ozone oxidation with ammonia as buffer
+included,and supporting convection version selected. 
+
+Column integrated flux per sec of NH3 removed by in_cloud and
+below_cloud scavenging by convective rainfall.
+
+%I gen_prognostic
+</M001_S005_I237>
+#
+<M001_S005_I238>
+STASH item specific help for 
+(1, 5, 238)  SO2 SCAVENGED BY CONV PPN KG/M2/S
+
+Available only if Sulphur Cycle on and supporting convection 
+version selected. 
+
+Column integrated flux per sec of SO2 removed by in_cloud and
+below_cloud scavenging by convective rainfall.
+
+%I gen_prognostic
+</M001_S005_I238>
+#
+<M001_S005_I239>
+STASH item specific help for 
+(1, 5, 239)  SO4 AIT SCAVNGD BY CONV PPN KG/M2/S
+
+Available only if Sulphur Cycle on and supporting convection 
+version selected. 
+
+Column integrated flux per sec of Aitken mode SO4 removed due to 
+in_cloud scavenging by convective ppn.
+
+%I gen_prognostic
+</M001_S005_I239>
+#
+<M001_S005_I240>
+STASH item specific help for 
+(1, 5, 240)  SO4 ACC SCAVNGD BY CONV PPN KG/M2/S
+
+Available only if Sulphur Cycle on and supporting convection 
+version selected. 
+
+Column integrated flux per sec of accumulation mode SO4 removed due to
+in_cloud scavenging by convective ppn.
+
+%I gen_prognostic
+</M001_S005_I240>
+#
+<M001_S005_I241>
+STASH item specific help for 
+(1, 5, 241)  SO4 DIS SCAVNGD BY CONV PPN KG/M2/S
+
+Available only if Sulphur Cycle on and supporting convection 
+version selected. 
+
+Column integrated flux per sec of dissolved SO4 removed due to
+in_cloud scavenging by convective ppn.
+
+%I gen_prognostic
+</M001_S005_I241>
+#
+<M001_S005_I242>
+STASH item specific help for 
+Item: (1:5:242)
+Text: The flux of aged soot deposited to the surface (kg/m2/s)
+
+%I gen_prognostic
+</M001_S005_I242>
+#
+<M001_S005_I243>
+Item (1:5:243)
+
+The flux of aged biomass smoke transported to the surface by 
+convective scavenging (kg/m2/s).
+</M001_S005_I243>
+#
+<M001_S005_I244>
+Item (1:5:244)
+
+The flux of aged ocff smoke transported to the surface by 
+convective scavenging (kg/m2/s).
+</M001_S005_I244>
+#
+<M001_S005_I246>
+Item (1:5:246) 
+
+UDRAFT MFLUX on rho levels, Component A (Pa/s)
+
+This STASH entry was required for the PF model convection scheme
+of the 4D-VAR system (and probably of little interest for other users).
+It is the Updraught mass flux on rho levels at levels where the mass
+flux
+is increasing with height (more entrainment than detrainment) and in 
+ collumns with no shallow convection. It is derived from (1, 5, 249).  
+Units: Pascals/sec
+
+Available on all timesteps.
+</M001_S005_I246>
+#
+<M001_S005_I247>
+ACC NIT SCVGD BY CONV PPN (1:5:247) 
+
+Available only if nitrate aerosol is on. 
+
+Column integrated flux per second of accumulation-mode nitrate 
+removed due to in-cloud scavenging by convective precipitation. 
+Given in kg of nitrogen per square metre per second. Multiply by 
+5.714 to convert to kg of ammonium nitrate (NH4NO3) per 
+square metre per second.
+</M001_S005_I247>
+#
+<M001_S005_I248>
+DISS NIT SCVGD BY CONV PPN (1:5:248) 
+
+Available only if nitrate aerosol is on. 
+Column integrated flux per second of dissolved nitrate removed due 
+to in-cloud scavenging by convective precipitation. Given in kg of 
+nitrogen per square metre per second. Multiply by 5.714 to convert 
+to kg of ammonium nitrate (NH4NO3) per square metre per second.
+</M001_S005_I248>
+#
+<M001_S005_I249>
+Item: (1:5:249)
+
+Updraught mass flux on rho (half) levels, Pa/s
+
+
+</M001_S005_I249>
+#
+<M001_S005_I250>
+
+STASH item specific help for
+(1, 5, 250) UPDRAUGHT MASS FLUX (PA/S)
+
+Updraught mass flux in Pascals/sed
+
+Available on all timesteps.
+
+
+</M001_S005_I250>
+#
+<M001_S005_I251>
+
+STASH item specific help for
+(1, 5, 251) DOWNDRAUGHT MASS FLUX (PA/S)
+
+Downdraught mass flux in Pascals/sed
+
+Available on all timesteps.
+
+
+</M001_S005_I251>
+#
+<M001_S005_I252>
+
+STASH item specific help for
+(1, 5, 252) UPDRAUGHT ENTRAINMENT RATE (S-1)
+
+Entrainment rate at each convecting level in the updraught.
+
+Available on all timesteps.
+
+
+</M001_S005_I252>
+#
+<M001_S005_I253>
+
+STASH item specific help for
+(1, 5, 253) UPDRAUGHT DETRAINMENT RATE (S-1)
+
+Detrainment rate at each convecting level in the updraught.
+
+Available on all timesteps.
+
+
+</M001_S005_I253>
+#
+<M001_S005_I254>
+
+STASH item specific help for
+(1, 5, 254) DOWNDRAUGHT ENTRAINMENT RATE (S-1)
+
+Entrainment rate at each convecting level in the downdraught.
+
+Available on all timesteps.
+
+
+</M001_S005_I254>
+#
+<M001_S005_I255>
+
+STASH item specific help for
+(1, 5, 255) DOWNDRAUGHT DETRAINMENT RATE (S-1)
+
+Detrainment rate at each convecting level in the downdraught.
+
+Available on all timesteps.
+
+
+</M001_S005_I255>
+#
+<M001_S005_I256>
+
+STASH item specific help for
+(1, 5, 256)  U INCREMENT MS-2 ( P GRID)
+
+Zonal wind increment from convection on the P-grid (with theta, q, w and rho).
+This is where the increments are calculated originally. See 5185 for the
+increment interpolated to the U,V grid.
+
+Available on all timesteps.
+
+
+</M001_S005_I256>
+#
+<M001_S005_I257>
+
+STASH item specific help for
+(1, 5, 257)  V INCREMENT MS-2 ( P GRID)
+
+Meridional wind increment from convection on the P-grid (with theta, q, w and rho). 
+This is where the increments are calculated originally. See 5186 for the
+increment interpolated to the U,V grid.
+
+Available on all timesteps.
+
+</M001_S005_I257>
+#
+<M001_S005_I258>
+
+STASH item specific help for
+(1, 5, 258)  DEEP UW STRESS KG M-1 S-2  P GRID
+
+Zonal wind stress at convecting points diagnosed to be deep convection. 
+On the P-grid (with theta, q, w and rho).
+
+Available on all timesteps.
+
+
+</M001_S005_I258>
+#
+<M001_S005_I259>
+
+STASH item specific help for
+(1, 5, 259)  DEEP VW STRESS KG M-1 S-2  P GRID
+
+Meridional wind stress at convecting points diagnosed to be deep convection. 
+On the P-grid (with theta, q, w and rho).
+
+Available on all timesteps.
+
+
+</M001_S005_I259>
+#
+<M001_S005_I260>
+
+STASH item specific help for
+(1, 5, 260)  SHALLOW UW STRESS KG M-1 S-2  P GRID
+
+Zonal wind stress at convecting points diagnosed to be shallow convection. 
+On the P-grid (with theta, q, w and rho).
+
+Available on all timesteps.
+
+
+</M001_S005_I260>
+#
+<M001_S005_I261>
+
+STASH item specific help for
+(1, 5, 261)  SHALLOW VW STRESS KG M-1 S-2  P GRID
+
+Meridional wind stress at convecting points diagnosed to be shallow convection. 
+On the P-grid (with theta, q, w and rho).
+
+Available on all timesteps.
+
+</M001_S005_I261>
+#
+<M001_S005_I262>
+Item (1:5:262)                
+
+2D convective cloud amount (fraction)
+If the anvil cloud option is switched on this field has no meaning. 
+With no anvil the convective cloud in a columna has the same value from
+cloud top to cloud bottom. You are advised to output section 0 item 211
+for convective cloud and not use this diagnostic.
+</M001_S005_I262>
+#
+<M001_S005_I263>
+(1:5:263): MID UW STRESS KG M-1 S-2  P GRID 
+
+The diffusive version of the mid_level convective momentum transport 
+scheme involves calculating the UW stress profile on model theta 
+levels. This profile is available as a diagnostic. 
+</M001_S005_I263>
+#
+<M001_S005_I264>
+(1:5:264): MID VW STRESS KG M-1 S-2  P GRID
+
+The diffusive version of the mid_level convective momentum transport 
+scheme involves calculating the VW stress profile on model theta 
+levels. This profile is available as a diagnostic.
+</M001_S005_I264>
+#
+<M001_S005_I267>
+DEEP CONVECTION CFL LIMITED 
+
+Set to 1.0 if deep convection in the column is CFL limited for the timestep. 
+A deep convective event is CFL limited if the deep convection scheme would 
+try to remove more mass than is present in a layer. The mass flux of layer k 
+is adjusted in this case to ensure that 
+
+     mass flux(k)  < pressure difference of layer (k)/timestep
+
+</M001_S005_I267>
+#
+<M001_S005_I268>
+MID-LEVEL CONVECTION CFL LIMITED
+
+Set to 1.0 if mid-level convection in the column is CFL limited for the 
+timestep. A mid-level convective event is CFL limited if the mid-level 
+convection scheme would try to remove more mass than is present in a 
+layer. The mass flux of layer k is adjusted in this case to ensure that 
+
+     mass flux(k)  < pressure difference of layer (k)/timestep
+
+</M001_S005_I268>
+#
+<M001_S005_I269>
+Item: (1:5:269) DEEP CONVECTION INDICATOR
+
+Deep convection indicator, set to 1.0 if deep convection occurs and 0.0 if not.
+Note as convection is often called more than once per model timestep this may
+take a value between 0.0 and 1.0 if rediagnosis is called for every convection
+sub-step.
+</M001_S005_I269>
+#
+<M001_S005_I270>
+
+STASH item specific help for
+(1, 5, 270)  SHALLOW CONVECTION INDICATOR
+
+Type indicator for diagnosed shallow convection. Similar to boundary layer type indicators (3305 to 3310). 
+Set to 1.0 if true, 0.0 if not. Non-exclusive: shallow is a subset of total convection (3309+3310)
+
+Available on all timesteps.
+
+
+</M001_S005_I270>
+#
+<M001_S005_I271>
+
+STASH item specific help for
+(1, 5, 271)  CUMULUS OVER OROGRAPHY INDICATOR
+
+Type indicator for convection diagnosed over steep (HO2R2_OROG > 900.0) orography. 
+Similar to boundary layer type indicators (3305 to 3310). Set to 1.0 if true, 0.0 if not.
+Exclusive: a distinct boundary layer/convection type. It is NOT a subset of total 
+convection, since it is treated separately.
+
+Available on all timesteps.
+
+</M001_S005_I271>
+#
+<M001_S005_I272>
+Item: (1:5:272)
+
+Text: Indicates whether mid level convection occurs in the column
+at a grid point. 1 if true, 0 if false.
+
+</M001_S005_I272>
+#
+<M001_S005_I273>
+Item: (1:5:273)
+
+Text: Top level surface mixing layer level number (NTML in the convection
+code). Defines the starting level for shallow convection.
+
+</M001_S005_I273>
+#
+<M001_S005_I274>
+Item: (1:5:274)
+
+Text: Top level initial parcel calculation level number (NTPAR in the convection
+code). This defines the top level for shallow convection. It is calculated in
+CONV_Diag and used in the diagnosis of deep and shallow convection.
+
+
+</M001_S005_I274>
+#
+<M001_S005_I275>
+Item: (1:5:275)
+
+Text: Model freezing level number as calculated in convection code.
+</M001_S005_I275>
+#
+<M001_S005_I276>
+Item: (1:5:276)
+
+Text: Termination level for deep convection. Actual level at which deep 
+convection terminates. This may be different from NTPAR. If the convection 
+scheme is called several times per model timestep this diagnostic will be the
+value for the last call.
+
+</M001_S005_I276>
+#
+<M001_S005_I277>
+Item: (1:5:277)
+
+Text: Total precipitation from deep convection (rain + snow). 
+
+
+</M001_S005_I277>
+#
+<M001_S005_I278>
+Item: (1:5:278)
+
+Text: Total precipitation from shallow convection (rain + snow)
+
+
+</M001_S005_I278>
+#
+<M001_S005_I279>
+Item: (1:5:279)
+
+Text: Total precipitation from mid level convection (rain + snow)
+
+</M001_S005_I279>
+#
+<M001_S005_I280>
+Item (1:5:280)                
+
+Surface precipitation rate from congestus kg/m2/s.
+Only available from 5A scheme. Will only be non-zero in the congestus
+option has been switched on.
+</M001_S005_I280>
+#
+<M001_S005_I281>
+Item (1:5:281) 
+
+Dust wet dep flux conv precip div 1
+Flux of mineral dust (division 1) deposited to ground due to convective
+precipitation. (kg m-2 s-1)
+
+
+
+</M001_S005_I281>
+#
+<M001_S005_I282>
+Item (1:5:282) 
+
+Dust wet dep flux conv precip div 2
+Flux of mineral dust (division 2) deposited to ground due to convective
+precipitation. (kg m-2 s-1)
+
+
+
+</M001_S005_I282>
+#
+<M001_S005_I283>
+Item (1:5:283) 
+
+Dust wet dep flux conv precip div 3
+Flux of mineral dust (division 3) deposited to ground due to convective
+precipitation. (kg m-2 s-1)
+
+
+</M001_S005_I283>
+#
+<M001_S005_I284>
+Item (1:5:284) 
+
+Dust wet dep flux conv precip div 4
+Flux of mineral dust (division 4) deposited to ground due to convective
+precipitation. (kg m-2 s-1)
+
+
+</M001_S005_I284>
+#
+<M001_S005_I285>
+Item (1:5:285) 
+
+Dust wet dep flux conv precip div 5
+Flux of mineral dust (division 5) deposited to ground due to convective
+precipitation. (kg m-2 s-1)
+
+
+</M001_S005_I285>
+#
+<M001_S005_I286>
+Item (1:5:286) 
+
+Dust wet dep flux conv precip div 6
+Flux of mineral dust (division 6) deposited to ground due to convective
+precipitation. (kg m-2 s-1)
+
+
+</M001_S005_I286>
+#
+<M001_S005_I290>
+Item (1:5:290)                
+
+wqt flux on model uv levels p grid kg m/s
+total water flux
+5A scheme only non-zero if new turbulence based shallow scheme
+requested. 
+</M001_S005_I290>
+#
+<M001_S005_I291>
+Item (1:5:291)                
+
+wql flux on model uv levels p grid kg m/s
+liquid water flux.
+5A scheme only non-zero if new turbulence based shallow scheme
+requested.
+</M001_S005_I291>
+#
+<M001_S005_I292>
+Item (1:5:292)                
+
+wthetal flux on model uv levels p grid K m/s
+liquid water potential temperature flux. 
+5A scheme only non-zero if new turbulence based shallow scheme
+requested. 
+</M001_S005_I292>
+#
+<M001_S005_I293>
+Item (1:5:293)                
+
+wthetav flux on model uv levels p grid K m/s
+virtual potential temperature flux. 
+5A scheme only non-zero if new turbulence based shallow scheme
+requested. 
+</M001_S005_I293>
+#
+<M001_S005_I300>
+Item (1:5:300)                
+
+Sub cloud layer velocity scale m/s
+5A scheme only non-zero if new turbulence based shallow scheme
+requested.
+</M001_S005_I300>
+#
+<M001_S005_I301>
+Item (1:5:301)                
+
+Cumulus layer velocity scale m/s
+5A scheme only non-zero if new turbulence based shallow scheme
+requested.
+</M001_S005_I301>
+#
+<M001_S005_I302>
+Item (1:5:302)                
+
+Cloud base mass flux 1 m/s
+5A scheme only non-zero if new turbulence based shallow scheme
+requested.  mb= 0.04x subcloud layer velocity scale.
+</M001_S005_I302>
+#
+<M001_S005_I303>
+Item (1:5:303)                
+
+Cloud base mass flux 2 m/s
+5A scheme only non-zero if new turbulence based shallow scheme
+requested.   mb = 0.2 wthetav_surface/ dthetav_cloud base
+</M001_S005_I303>
+#
+<M001_S005_I304>
+Item (1:5:304)                
+
+wqt at cloud base, kg/kg m/s
+5A scheme only non-zero if new turbulence based shallow scheme
+requested.   
+</M001_S005_I304>
+#
+<M001_S005_I305>
+Item (1:5:305)                
+
+wthetal at cloud base, K m/s
+5A scheme only non-zero if new turbulence based shallow scheme
+requested. 
+</M001_S005_I305>
+#
+<M001_S005_I306>
+Item (1:5:306)                
+
+wqt at inversion (cloud top), kg/kg m/s
+5A scheme only non-zero if new turbulence based shallow scheme
+requested.
+</M001_S005_I306>
+#
+<M001_S005_I307>
+Item (1:5:307)                
+
+wthetal at inversion (cloud top), K m/s
+5A scheme only non-zero if new turbulence based shallow scheme
+requested. 
+</M001_S005_I307>
+#
+<M001_S005_I308>
+Item (1:5:308)                
+
+height of top of shallow convection, m 
+5A scheme only
+</M001_S005_I308>
+#
+<M001_S005_I309>
+Item (1:5:309)                
+
+height of base of shallow convection, m
+5A scheme only
+</M001_S005_I309>
+#
+<M001_S005_I310>
+Item (1:5:310)                
+
+Congestus indicator (value of 1 or 0 on a convection timestep)
+5A scheme only - only non zero value if congestus convection requested.
+</M001_S005_I310>
+#
+<M001_S005_I311>
+Item (1:5:311)                
+
+Congestus indicator 2(value of 1 or 0 on a convection timestep)
+5A scheme only - only non zero value if congestus convection requested.
+Subset of congestus points - currently those where the air is descending.
+</M001_S005_I311>
+#
+<M001_S005_I312>
+Item (1:5:312)                
+
+Congestus termination level, model level 
+5A scheme only - only non zero value if congestus convection requested.
+Gives model level where congestus terminates.
+</M001_S005_I312>
+#
+<M001_S005_I313>
+Item (1:5:313)                
+
+Height of top of Congestus , m
+5A scheme only - only non zero value if congestus convection requested.
+</M001_S005_I313>
+#
+<M001_S005_I314>
+Item (1:5:314)                
+
+Height of base of Congestus , m
+5A scheme only - only non zero value if congestus convection requested.
+</M001_S005_I314>
+#
+<M001_S005_I319>
+FREQ DEEP CONVECTION TERM HERE
+
+If deep convection occurs in the time step then a value of 1.0 is put in 
+the diagnostic at the model level the deep convection terminates. This 
+diagnostic is designed to be useful when meaned over a period. To make 
+use of this diagnostic you also need to request 5 269 (deep convection 
+indicator) with the same meaning period. If you then divide this 
+diagnostic on model levels by the frequency deep convection occurs you 
+will get information on how frequently deep convection terminates at 
+various model levels.
+
+</M001_S005_I319>
+#
+<M001_S005_I320>
+Item (1:5:320)                
+
+Mass flux from deep convection Pa/s or m/s ?
+5A scheme only  
+Mass flux from deep convection units and definition may depend on 
+scheme chosen. ie updraught mass flux if mass flux scheme (Pa/s) but
+total mass flux if turbulence scheme (m/s)?
+       
+</M001_S005_I320>
+#
+<M001_S005_I321>
+Item (1:5:321)                
+
+Mass flux from congestus convection Pa/s or m/s ?
+5A scheme only  
+Mass flux from deep convection units and definition may depend on 
+scheme chosen. ie updraught mass flux if mass flux scheme (Pa/s) but
+total mass flux if turbulence scheme (m/s)?
+       
+</M001_S005_I321>
+#
+<M001_S005_I322>
+Item (1:5:322)                
+
+Mass flux from shallow convection Pa/s or m/s 
+5A scheme only  
+Mass flux from deep convection units and definition will depend on 
+scheme chosen. ie updraught mass flux if mass flux scheme (Pa/s) but
+total mass flux if turbulence scheme (m/s)
+       
+</M001_S005_I322>
+#
+<M001_S005_I323>
+Item (1:5:323)                
+
+Mass flux from mid-level convection Pa/s or m/s ?
+5A scheme only  
+Mass flux from deep convection units and definition may depend on 
+scheme chosen. ie updraught mass flux if mass flux scheme (Pa/s) but
+total mass flux if turbulence scheme (m/s)?
+       
+</M001_S005_I323>
+#
+<M001_S005_I324>
+Item (1:5:324)                
+
+dT increment from deep convection K/s
+5A scheme only 
+       
+</M001_S005_I324>
+#
+<M001_S005_I325>
+Item (1:5:325)                
+
+dT increment from congestus convection K/s
+5A scheme only  
+       
+</M001_S005_I325>
+#
+<M001_S005_I326>
+Item (1:5:326)                
+
+dT increment from shallow convection K/s
+5A scheme only  
+       
+</M001_S005_I326>
+#
+<M001_S005_I327>
+Item (1:5:327)                
+
+dT increment from mid-level convection K/s
+5A scheme only
+       
+</M001_S005_I327>
+#
+<M001_S005_I328>
+Item (1:5:328)                
+
+dq increment from deep convection Kg/kg/s
+5A scheme only
+       
+</M001_S005_I328>
+#
+<M001_S005_I329>
+Item (1:5:329)                
+
+dq increment from congestus convection kg/kg/s
+5A scheme only  
+       
+</M001_S005_I329>
+#
+<M001_S005_I330>
+Item (1:5:330)                
+
+dq increment from shallow convection kg/kg/s
+5A scheme only   
+       
+</M001_S005_I330>
+#
+<M001_S005_I331>
+Item (1:5:331)                
+
+dq increment from mid-level convection kg/kg/s
+5A scheme only   
+       
+</M001_S005_I331>
+#
+<M001_S005_I332>
+Item (1:5:332)                
+
+du increment from deep convection m/s/s
+5A scheme only  
+       
+</M001_S005_I332>
+#
+<M001_S005_I333>
+Item (1:5:333)                
+
+du increment from congestus convection m/s/s
+5A scheme only  
+       
+</M001_S005_I333>
+#
+<M001_S005_I334>
+Item (1:5:334)                
+
+du increment from shallow convection m/s/s
+5A scheme only  
+       
+</M001_S005_I334>
+#
+<M001_S005_I335>
+Item (1:5:335)                
+
+du increment from mid-level convection m/s/s
+5A scheme only  
+       
+</M001_S005_I335>
+#
+<M001_S005_I336>
+Item (1:5:336)                
+
+dv increment from deep convection m/s/s
+5A scheme only 
+       
+</M001_S005_I336>
+#
+<M001_S005_I337>
+Item (1:5:337)                
+
+dv increment from congestus convection m/s/s
+5A scheme only 
+       
+</M001_S005_I337>
+#
+<M001_S005_I338>
+Item (1:5:338)                
+
+dv increment from shallow convection m/s/s
+5A scheme only 
+</M001_S005_I338>
+#
+<M001_S005_I339>
+Item (1:5:339)                
+
+dv increment from mid-level convection m/s/s
+5A scheme only
+</M001_S005_I339>
+#
+<M001_S005_I400>
+Item (1:5:400) CONV_TYPE INDICATOR
+
+Type indicator for diagnosed convection with WTCS scheme. 
+Similar to boundary layer type indicator 3476.
+
+E.g. a value of 3.0 = convection type 3. Available on all timesteps.
+
+</M001_S005_I400>
+#
+<M001_S005_I401>
+Item (1:5:401) CONV_TYPE INDICATOR 1
+
+Diagnostic indicator for diagnosed convection of type 1 for WTCS scheme.
+
+Set to 1.0 if true, or 0.0 if false, each timestep for each gridpoint, 
+so that the average indicates the fraction of time spend as this type.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I401>
+#
+<M001_S005_I402>
+Item (1:5:402) CONV_TYPE INDICATOR 2 
+
+Diagnostic indicator for diagnosed convection of type 2 for WTCS scheme.
+
+Set to 1.0 if true, or 0.0 if false, each timestep for each gridpoint, 
+so that the average indicates the fraction of time spend as this type.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I402>
+#
+<M001_S005_I403>
+Item (1:5:403) CONV_TYPE INDICATOR 3
+
+Diagnostic indicator for diagnosed convection of type 3 for WTCS scheme.
+
+Set to 1.0 if true, or 0.0 if false, each timestep for each gridpoint, 
+so that the average indicates the fraction of time spend as this type.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I403>
+#
+<M001_S005_I404>
+Item (1:5:404) CONV_TYPE INDICATOR 4
+
+Diagnostic indicator for diagnosed convection of type 4 for WTCS scheme.
+
+Set to 1.0 if true, or 0.0 if false, each timestep for each gridpoint, 
+so that the average indicates the fraction of time spend as this type.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I404>
+#
+<M001_S005_I405>
+Item (1:5:405) CONV_TYPE 1 PRECIP RATE     KG/M2/S
+
+Precipitation rate on points which are diagnosed as convection type 1 
+for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I405>
+#
+<M001_S005_I406>
+Item (1:5:406) CONV_TYPE 2 PRECIP RATE     KG/M2/S
+
+Precipitation rate on points which are diagnosed as convection type 2 
+for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I406>
+#
+<M001_S005_I407>
+Item (1:5:407) CONV_TYPE 3 PRECIP RATE     KG/M2/S
+
+Precipitation rate on points which are diagnosed as convection type 3 
+for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I407>
+#
+<M001_S005_I408>
+Item (1:5:408) CONV_TYPE 4 PRECIP RATE     KG/M2/S
+
+Precipitation rate on points which are diagnosed as convection type 4 
+for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I408>
+#
+
+<M001_S005_I409>
+Item (1:5:409) DT FROM CONV_TYPE 1      K/S  
+
+DT increment from convection on points which are diagnosed as 
+convection type 1 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I409>
+#
+<M001_S005_I410>
+Item (1:5:410) DT FROM CONV_TYPE 2      K/S
+
+Temperature tendancy K/s from convection on points which are 
+diagnosed as convection type 2 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I410>
+#
+<M001_S005_I411>
+Item (1:5:411) DT FROM CONV_TYPE 3      K/S 
+
+Temperature tendancy K/s from convection on points which are 
+diagnosed as convection type 3 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I411>
+#
+<M001_S005_I412>
+Item (1:5:412) DT FROM CONV_TYPE 4      K/S
+	
+Temperature tendancy K/s from convection on points which are 
+diagnosed as convection type 4 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I412>
+#
+<M001_S005_I413>
+Item (1:5:413) DQ FROM CONV_TYPE 1   KG/KG/S
+
+Moisture tendancy kg/kg/s from convection on points which are 
+diagnosed as convection type 1 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I413>
+#
+<M001_S005_I414>
+Item (1:5:414) DQ FROM CONV_TYPE 2   KG/KG/S
+  
+Moisture tendancy kg/kg/s from convection on points which are 
+diagnosed as convection type 2 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I414>
+#
+<M001_S005_I415>
+Item (1:5:415) DQ FROM CONV_TYPE 3   KG/KG/S
+
+Moisture tendancy kg/kg/s from convection on points which are 
+diagnosed as convection type 3 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I415>
+#
+<M001_S005_I416>
+Item (1:5:416) DQ FROM CONV_TYPE 4   KG/KG/S
+
+Moisture tendancy kg/kg/s from convection on points which are 
+diagnosed as convection type 4 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I416>
+#
+<M001_S005_I417>
+Item (1:5:417) MASS FLUX CONV_TYPE 1
+
+Mass flux Pa/s from convection on points which are diagnosed as 
+convection type 1 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I417>
+#
+<M001_S005_I418>
+Item (1:5:418) MASS FLUX CONV_TYPE 2 
+
+Mass flux Pa/s from convection on points which are diagnosed as 
+convection type 2 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I418>
+#
+<M001_S005_I419>
+Item (1:5:419) MASS FLUX CONV_TYPE 3
+
+Mass flux Pa/s from convection on points which are diagnosed as 
+convection type 3 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I419>
+#
+<M001_S005_I420>
+Item (1:5:420) MASS FLUX CONV_TYPE 4
+
+Mass flux Pa/s from convection on points which are diagnosed as 
+convection type 4 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I420>
+#
+<M001_S005_I421>
+Item (1:5:421) CONV_TYPE 1 HEIGHT
+
+Top level initial parcel calculation level number (NTPAR in the 
+convection code) on points which are diagnosed as convection type 1 
+for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I421>
+#
+<M001_S005_I422>
+Item (1:5:422) CONV_TYPE 2 HEIGHT
+
+Top level initial parcel calculation level number (NTPAR in the 
+convection code) on points which are diagnosed as convection type 2 
+for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I422>
+#
+<M001_S005_I423>
+Item (1:5:423) CONV_TYPE 3 HEIGHT
+
+Top level initial parcel calculation level number (NTPAR in the 
+convection code) on points which are diagnosed as convection type 3 
+for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I423>
+#
+<M001_S005_I424>
+Item (1:5:424) CONV_TYPE 4 HEIGHT
+
+Top level initial parcel calculation level number (NTPAR in the 
+convection code) on points which are diagnosed as convection type 4 
+for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I424>
+#
+<M001_S005_I425>
+Item (1:5:425) WTHETA_L CONV_TYPE 1
+
+Liquid water potential temperature flux on model uv levels p grid K m/s 
+on points which are diagnosed as convection type 1 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I425>
+#
+<M001_S005_I426>
+Item (1:5:426) WTHETA_L CONV_TYPE 2
+
+Liquid water potential temperature flux on model uv levels p grid K m/s 
+on points which are diagnosed as convection type 2 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I426>
+#
+<M001_S005_I427>
+Item (1:5:427) WTHETA_L CONV_TYPE 3
+
+Liquid water potential temperature flux on model uv levels p grid K m/s 
+on points which are diagnosed as convection type 3 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I427>
+#
+<M001_S005_I428>
+Item (1:5:428) WTHETA_L CONV_TYPE 4
+
+Liquid water potential temperature flux on model uv levels p grid K m/s 
+on points which are diagnosed as convection type 4 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I428>
+#
+<M001_S005_I429>
+Item (1:5:429) WQT CONV_TYPE 1
+
+Total water flux on model uv levels p grid kg/kg m/s on points which 
+are diagnosed as convection type 1 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I429>
+#
+<M001_S005_I430>
+Item (1:5:430) WQT CONV_TYPE 2
+
+Total water flux on model uv levels p grid kg/kg m/s on points which 
+are diagnosed as convection type 2 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I430>
+#
+<M001_S005_I431>
+Item (1:5:431) WQT CONV_TYPE 3
+
+Total water flux on model uv levels p grid kg/kg m/s on points which 
+are diagnosed as convection type 3 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I431>
+#
+<M001_S005_I432>
+Item (1:5:432) WQT CONV_TYPE 4
+
+Total water flux on model uv levels p grid kg/kg m/s on points which 
+are diagnosed as convection type 4 for WTCS scheme.
+
+Available on all timesteps. 6A only
+
+</M001_S005_I432>
+#

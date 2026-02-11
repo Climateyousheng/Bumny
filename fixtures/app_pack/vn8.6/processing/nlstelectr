@@ -1,0 +1,20 @@
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C FILE: nlstelect
+%C NAMELIST &RUN_Electric will be added to CNTLATM and SHARED control files
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ &RUN_Electric
+%T if {[inactive_var LUSE_ELECTR]==0} {
+ l_use_electric=%TCL replacep LUSE_ELECTR T .TRUE. * .FALSE. %ENDTCL,
+%T if {%LUSE_ELECTR=="T"} {
+ electric_method=%ELMETHOD,
+%T     if { %ELMETHOD=="2" } {
+ k1=%K1_EL,
+ k2=%K2_EL,
+%T     } elseif { %ELMETHOD=="1" } {
+ g1=%G1,
+ g2=%G2,
+%T     }
+%T   }
+%T }
+ /

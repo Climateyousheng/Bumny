@@ -1,0 +1,11 @@
+%TCL 
+  if {%ATMOS == "T" && %ATMOS_SR(18)!="0A" && (%AAS_AC=="Y" || %AAS_IAU=="Y")} {
+        set masmode {'Atmosphere'}
+        set rasmode {'Atmosphere'}
+        set asdef %AASMDEF
+  } else {
+        set masmode {'None      '}
+        set rasmode {'None      '}
+        set asdef 0
+  } 
+%ENDTCL

@@ -1,0 +1,68 @@
+SKEB2 - Stochastic Kinetic Energy Backscatter 2
+-----------------------------------------------
+ 
+Setting L_SKEB2=.true. will activate version 2 of the Stochastic Kinetic
+Energy Backscatter scheme (SKEB1 was never lodged with the UM trunk and
+is only available via a development branch). SKEB2 runs independently of
+the Random Parameters schemes, except in the case of the Random Seed File
+utility (see below).
+
+SKEB2 calculates the expected energy dissipation in the model due to the
+semi-lagrangian numerical scheme and convective processes. These can be
+controlled individually, but usually both are included. Convection energy
+dissipation is calculated using a CAPE-based scheme or a Massflux-based
+scheme. Only one should be used (default is CAPE-based scheme)
+ L_SKEB2_PSISDISP=.TRUE.   (include numerical dissipation)
+ L_SKEB2_SKEB1DISP=.TRUE.  (include SKEB1-type energy dissipation patterns
+                            based on the jet stream)
+ L_SKEB2_PSICDISP=.TRUE.   (include convective dissipation)
+ L_SKEB2_CDISP = 4 (use CAPE-based scheme - traditiional choice)
+ L_SKEB2_CDISP = 5 (use Massflux-based scheme - suitable for the
+                       new turbulence-based UM convection scheme)
+           alphac = 2.0E-3 (portion of the gridbox with updraught columns
+                            when using Massflux-based scheme above)
+ SKEB2_TOPLEV=33|50   (top model level of SKEB2 calculations: MAX=ModLev - 1)
+                       Recommended value for L38 = 33, L70 = 50, L85 = 51;
+                       which is roughly in the lower stratosphere ~18km.
+ SKEB2_BOTLEV=2       (bottom model level of SKEB2 calculations: MIN=2)
+ L_SKEB2_VELPOT=.FALSE.  (include velocity potential forcing pattern to
+                          calculate divergent wind increments)
+
+The dissipation energy is backscattered into the model through wind-increments
+that are derived from a streamfunction forcing field. The spatio-temporal
+characteristics of the streamfunction field are controlled by N1, N2
+and tau.
+ N1 = 5     (minimum wavenumber)
+ N2 = 60    (maximum wavenumber - smaller than the model resolution, e.g. N144)
+ tau = 2.E04 (decorrelation time ~ 5.5 hrs)
+
+The amount of energy backscattered to the model is scaled by the total
+backscatter amount and the fraction used is set by the backscatter ratio
+ tot_backscat = 1.0E-4   (total backscatter)
+ bR = 0.0275             (backscatter ratio)
+
+The relative contribution of each type of energy dissipation estimate
+towards the total energy field is controlled by the factors:
+ sdispfac = 3.0   (numerical dissipation)
+ cdispfac = 1.0   (convective dissipation)
+ kdispfac = 0.75  (SKEB1-type dissipation)
+The suggested values are for a N216L70 global configuration. The total
+energy field is smoothed "NSMOOTH" times (default = 5).
+
+To reduce the amount of energy backscattered around grid points with high
+dissipation rates (> 1e3 * total backscatter rate), select option
+"Use advanced smoothing of local dissipation".
+
+Printing global dissipation rates is controlled by the option
+"Print global dissipation values".
+
+Biharmonic dissipation (controled by l_skeb2_biharm)
+Computes the numerical dissipation as function of the modulus of the gradient 
+of vorticy times a stress constant K, this ensures better scalability across 
+different horizontal resolutions. If biharmonic dissipation is activate then 
+smagorinsky (default one) is not computed.
+
+The convective dissipation resolution dependent factor is a simple scaling 
+factor equal to the square root of 216 / N to reduce the contribution of 
+the convective part of SKEB2 for higher resolutions.
+

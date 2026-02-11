@@ -1,0 +1,88 @@
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C NAMELIST dynamic allocation.
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C used procedures
+%C proc_max
+%C imbedded files nsubmodl
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C Include files:
+%C nsubmodl - Submodel namelist:   NSUBMODL
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+%I nsubmodl
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ &NLSIZES
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%T if { %ATMOS == "T" } {
+ CLOUD_LEVELS=%CLRAD,
+ LAND_FIELD=%NLAND,
+ MODEL_LEVELS=%NLEVSA, WET_LEVELS=%NWLEVA,
+%T   if { %OCAAA == 1} {
+%T     set row_len %NCOLSAG ; set rows %NROWSAG  
+ global_ROW_LENGTH=%NCOLSAG, global_ROWS=%NROWSAG,
+%T   } elseif { %OCAAA == 2||%OCAAA==3||%OCAAA==4} {
+%T     set row_len %NCOLSAL ; set rows %NROWSAL  
+ global_ROW_LENGTH=%NCOLSAL, global_ROWS=%NROWSAL,
+%T   } elseif { %OCAAA == 5 } {
+%T     set row_len 1 ; set rows 1
+ global_ROW_LENGTH=1, global_ROWS=1, 
+%T   } 
+ ST_LEVELS=%NDSLV,
+ BL_LEVELS=%NBLLV,
+ OZONE_LEVELS=%NOZLEV, 
+%T } else {
+ global_ROW_LENGTH=1, global_ROWS=1,
+ LAND_FIELD=1,
+ MODEL_LEVELS=1, WET_LEVELS=1,
+ N_AOBS=0,
+ ST_LEVELS=1,
+ BL_LEVELS=1,
+ OZONE_LEVELS=1, 
+ THETA_PV_P_LEVS=1,
+ NTILES=1,
+%T } 
+ /
+
+ &ATM_SIZES
+%T if {%ATMOS=="T"} {
+ NICE=%NCICECAT,
+ NANCIL_LOOKUPSA=%NANCILA,
+%T   if { %OCAAA == 1 || %OCAAA == 5} {
+ NRIM_TIMESA=1,
+%T   } elseif { %OCAAA == 2||%OCAAA==3||%OCAAA==4 } {
+ NRIM_TIMESA=%TCL put [ max %NBOUNDA 1 ] %ENDTCL,
+%T   }
+%T } else {
+ NANCIL_LOOKUPSA=0,
+ NRIM_TIMESA=1,
+%T }
+%T if { [inactive_var NSMAX] == 0 } {
+ NSMAX=%NSMAX,
+%T }
+ /
+
+%C JULES specific namelists 
+%T if { %JULES == "T" } {
+ &JULES_NSTYPES
+ NPFT=%JI_PFTYPE,
+ NNVG=%JI_NVTYPE, 
+ /
+%T }
+
+%C new namelist for atmos_sr
+ &UMSECTIONS
+%TCL 
+%C list of sections in use
+   set indep_lst {70 72 80 82 84 92 94 95 96 97 98}
+   set i 0
+   foreach sec %INDEP_SR {
+      if { $sec != "" && [lsearch $indep_lst $i] != -1} {
+         set str_work [format SECTION_C%%02d%%6s $i "='$sec',"]
+         putl " $str_work"  
+      } 
+      incr i
+    }    
+%ENDTCL
+ /
+

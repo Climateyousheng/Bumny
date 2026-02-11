@@ -1,0 +1,56 @@
+%C ======================================================
+%C module: nds_run_vars
+%C
+%C will set up run switches in the $models_run list
+%C
+%C Module included in:
+%C  * SUBMIT   via processing/nds_submit
+%C
+%C Arrays:  models_run
+%C             These are set up via processing/proc_switches
+%C ======================================================
+%C
+%TCL
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Initialise all model switches to false 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   foreach item $models_run {
+      set run($item) "false"
+   }
+   
+   # Get flags for model settings
+   set atm  [get_variable_value ATMOS] 
+   set nemo [get_variable_value NEMO] 
+   set cice [get_variable_value CICE]  
+   set mask $nemo$cice
+
+   if { %ATMOS == "T" } {
+      if { %RUN_ATM == "Y" && $mask=="FF" } { 
+         set run(atm) "true"
+      } elseif { %RUN_ATM == "Y" && $mask=="TT" } { 
+         set run(um_nemo_cice) "true" 
+      }
+      if { %ARECON == "Y" } { 
+         set run(rcf) "true"
+      }
+   } else {
+      if { $mask=="TT" && (%NEMOC==1 || %NEMOC==2) } {
+         set run(nemo_cice) "true"
+      } elseif { $mask == "TF" && (%NEMOC==1 || %NEMOC==2) } {
+         set run(nemo) "true"
+      } elseif { $mask == "FT" && (%CICEC==1 || %CICEC==2) } {
+         set run(cice) "true" 
+      }
+   }
+    
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Print run switches
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   
+   putl "# Run switches for all models"
+   foreach item $models_run {
+      set item_cap [string toupper $item]
+      putl "RUN_$item_cap=$run($item)"
+   }   
+%ENDTCL

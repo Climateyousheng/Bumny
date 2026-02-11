@@ -1,0 +1,33 @@
+.winid "subindep_PostProc_Gen"
+.title "Post Processing"
+.wintype entry
+
+.panel
+  .gap
+  .basrad "Is automatic post processing required" L 2 h AUTOPP
+    "Yes" Y
+    "No" N
+  .gap  
+  .text "Basic post processing allows for optional deletion of superseded files and" L
+  .text "periodic submission of user defined scripts. Archiving is defined below." L
+  .gap
+  .case AUTOPP=="Y"
+    .check "Delete superseded restart dumps" L GDDEL Y N
+    .check "Delete superseded PP files"      L GPDEL Y N
+    .check "Delete superseded climate means files" L GCMDEL Y N
+    .gap
+    .basrad "Specify archiving system required" L 2 v SYSTM
+       "No archiving system." 0
+       "The new system (MOOSE) " 2
+    .case SYSTM==2 
+       .block 1
+       .entry "Path to the archiving script" L ARCH_SCR_PATH 50 
+       .entry "Name of the archiving script" L ARCH_SCR_NAME 25 
+       .blockend
+    .caseend
+    .gap
+  .caseend
+  .gap
+.panend
+
+

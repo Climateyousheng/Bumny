@@ -1,0 +1,34 @@
+Export
+------
+
+The "Export" button is a navigation action button that allows users to
+save externally a job description that can be imported into another existing 
+job. See also "Import"
+
+The facility is useful for copying jobs from one site to another.
+
+The sender would use the "Export" facility to make a copy of the basis
+information that defines a job and put it into a file.
+
+The file can then be sent to the receiver who would use the import facility to
+read the file into memory. 
+
+A user can also use the Export facility to archive a job description and 
+archive it by hand.
+
+The job can then be deleted from the system and imported into a new job at a
+later date.
+
+The user may also want to use the export facility to make a temporary copy
+of a job before making extensive changes. The user can then easily revert by
+using the import facility.
+
+"Create attachment of hand edit and user stash files" switch
+------------------------------------------------------------
+In the same directory, where the basis file should be placed, a tar file 
+consisting of hand edits and user stash files will be created. The name of 
+the file will be the same as requested for the exported job with the extention
+"attach.tar" added at the end.
+
+
+

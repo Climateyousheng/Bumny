@@ -1,0 +1,32 @@
+Section 11 : Atmospheric Tracer Advection
+see below for a description of sections.
+
+Only one version of Tracer Advection is available, and this should be
+chosen for any runs involving atmospheric tracers. Most users will not
+be using tracers and do not need to include atmospheric tracer
+advection.
+
+
+Tracer advection must be specified if running with the mixed phase
+precipitation scheme or the sulphur cycle.
+
+The conservative tracer advection option in the panel should only ever 
+be applied to global models. It works by calculating the total tracer 
+mass before and after advection and applying a global scaling after 
+advection to match the tracer mass before advection. In a global model 
+this is not ideal but works to maintain tracer mass, which can occasionally 
+be altered by numerical effect in the advection scheme. 
+In  standard Local Area Models, any tracer mass which leaves the model 
+domain has a totally unphysical affect of scaling the tracer mass left 
+in the model domain. Bi-cyclic LAMs, used in idealised experiments, 
+can use the conservative tracer advection.
+
+See the Basic Users Guide for a description of Tracers and see UMDP 11
+for a discussion of the options for the limiter. The choices are too
+complicated to describe in this help text.
+
+The choice of tracer advection for ThetaL and QT is for experimental
+runs only.
+
+-------------
+%I compile_modes

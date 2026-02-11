@@ -1,0 +1,25 @@
+This window controls the behaviour of the JULES snowpack model.
+
+Maximum number of layers in the snowpack (NSMAX)
+-------------------------------------------------
+The maximum number of layers in the snowpack should generally be set to
+either 0 or 3.
+
+A value of 0 turns off most of the functionality. In this case the model
+reverts to a single-layer scheme, with behaviour that ought to be similar to
+that of the old MOSES scheme.
+
+A value of 3 indicates that the snowpack will consist of at most 3 layers,
+which is the recommended model complexity required for NWP purposes.
+
+Use the equivalent canopy snow depth in surface calculations
+(L_SNOWDEP_SURF)
+-------------------------------------------------------------
+When separate on-canopy and below-canopy snow stores are implemented
+through the Land Surface panel, the value of snowdepth generally
+corresponds to the depth of the below-canopy store.
+
+Outside the snow scheme, there are some calculations using snowdepth
+(e.g. of albedo, roughness) which should for preference consider
+on-canopy snow. This switch introduces an equivalent 'depth' for the
+on-canopy snow, and implements it where appropriate.

@@ -1,0 +1,111 @@
+%C------------------------------------------------------------------------------
+%C  File:  ext_script
+%C------------------------------------------------------------------------------
+%C
+%C  Purpose: Generates EXT_SCRIPT - Processes user handedits
+%C
+%C  Include files:
+%C   * proc_conv_RUNID (parses RUNID)
+%C------------------------------------------------------------------------------
+%C ---------------- Begin hand-edit scripts ---------------
+%C
+%C Hand edits will be processed here and output will should be caught
+%C and appended to the logfile 
+%C
+%T putl "-------------------------"
+%T putl "Executing Hand edits:"
+%T putl ""
+%C
+%I proc_conv_RUNID
+%C #find out where $HOME is (need access to env)
+%T global env
+%T set homedir $env(HOME)
+%C #find our processed output directory
+%T set procdir "$homedir/umui_jobs/%RUN_ID"
+%C #find what our current directory is
+%T set initdir [pwd]
+%C #get the list of commands to be processed
+%T set mylist {}
+%T for {set i 1} {$i <= 25} {incr i} {
+%T     set item %HEDFILE($i)
+%T     if {%USE_HEDFILE($i) != "Y" || %HEDFILE($i) == ""} {
+%T        # Do not add to list!
+%T     } else {
+%T          if {[string match *RUNID* $item]} {
+%T              set item [conv_RUNID $item]
+%T          }
+%T        lappend mylist $item
+%T     }
+%T }
+
+%C # Add standard Coupling Macro
+%T if { [inactive_var OASIS] == 0} {
+%T if {%OASIS=="T" && %STDCPLMACRO != ""} {
+%T    set macroname %STDCPLMACRO
+%T    lappend mylist $macroname
+%T }
+%T }
+
+%TCL 
+set msg_1 "For more information look at EXT_SCRIPT_LOG file"
+foreach elm_a $mylist {
+   if {[file exists $elm_a]} {
+      if {![file executable $elm_a]} {
+         dialog .d_1 "Hand Edit or OASIS Macro File Problem" \
+		    "$elm_a is not an executable. $msg_1" warning 0 {OK}
+#          return    
+      } 
+   } else {
+      dialog .d_2 "Hand Edit or OASIS Macro File Problem" \
+	     "$elm_a does not exist. $msg_1" warning 0 {OK}
+#          return
+   }
+}
+%ENDTCL
+
+%T set runid [get_variable_value RUN_ID]
+%T cd $procdir
+%T foreach item $mylist {
+%T    putl "Now running $item"
+%T    set cmd "$item </dev/null"
+%T    set retcode [catch {exec /bin/sh -c $cmd} response]
+%T    putl "$response"
+%T    putl "----- End of $item -----"
+%T    putl ""
+%C    if {$retcode} {
+%C      puts stderr "Error when using hand edit file: \n$response"  
+%C    }
+%T } 
+%T putl "End of Hand edits"
+%T putl "-------------------------"
+%C #return to the directory we started in to avoid confusion.
+%T cd $initdir
+%C ---------------------- End hand-edit scripts -------------------------
+%C
+%C The SCS setup script should be the last thing done, since it copies
+%C all of the created files to a separate directory for SCS
+%C manipulation.  There's not much point modifying the original and
+%C not having them also applied to the SCS directory!
+%C Also, when "standard generalised suite component" is selected the basis 
+%C job file is copied into umui_jobs directory.
+%C
+%T    set gen_suite [get_variable_value GEN_SUITE]
+    
+%T    if {$gen_suite=="1"} {
+
+%T        set runid [get_variable_value RUN_ID]
+%T        set download_file [set_output_dir]/$runid/basis_$runid
+%T        write_database $download_file
+%T    }
+
+%C# ======================================== 
+%C ------------------ Begin SCS script (moved from TOP) -----------------
+%T if { %GEN_SUITE != 0 } {
+%T     global env
+%T putl "-------------------------"
+%T putl "Running SCS setup script:"
+%T putl "$env(SCSDIR)/bin/ScsScr_SetupUMtaskInterface $env(HOME)/umui_jobs/%RUN_ID %EXPATH %EXNAME %LOPUSE"
+%T catch {exec $env(SCSDIR)/bin/ScsScr_SetupUMtaskInterface $env(HOME)/umui_jobs/%RUN_ID %EXPATH %EXNAME %LOPUSE </dev/null} retcode
+%T putl "Output from SCS setup-script follows:"
+%T putl "$retcode"
+%T }

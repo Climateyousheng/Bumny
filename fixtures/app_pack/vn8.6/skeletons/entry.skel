@@ -1,0 +1,20 @@
+.comment This file defines what is automatically put onto every entry window.
+.comment It is used by windows file defined as ".wintype entry."
+.skeleton entry
+
+.top
+  .openwin
+.topend
+
+.mid
+  .panel
+.midend
+
+.bottom 
+  .pushhelp  "Help"
+  .pushquit  "Abandon changes"  
+  .pushclose "Close"
+  .closewin
+.bottomend
+
+.skelend

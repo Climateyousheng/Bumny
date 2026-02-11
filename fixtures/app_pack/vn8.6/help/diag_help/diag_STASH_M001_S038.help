@@ -1,0 +1,2396 @@
+<M001_S038_I201>
+PRIMARY SO4 TO AITKEN (SOL)
+
+Primary emissions flux of sulphate aerosol mass to
+Aitken mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I201>
+#
+<M001_S038_I202>
+PRIMARY SO4 TO ACCUMULATION (SOL)
+
+Primary emissions flux of sulphate aerosol mass to 
+accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I202>
+#
+<M001_S038_I203>
+PRIMARY SO4 TO COARSE (SOL)
+
+Primary emissions flux of sulphate aerosol mass to 
+coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I203>
+#
+<M001_S038_I204>
+PRIMARY SEA-SALT TO ACCUMULTN (SOL)
+
+Primary emissions flux of sea salt aerosol mass to 
+accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I204>
+#
+<M001_S038_I205>
+PRIMARY SEA-SALT TO COARSE (SOL)
+
+Primary emissions flux of sea salt aerosol mass to 
+coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I205>
+#
+<M001_S038_I206>
+PRIMARY BLACK CARBON TO AITKEN (SOL)
+
+Primary emissions flux of black carbon aerosol mass 
+to Aitken mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I206>
+#
+<M001_S038_I207>
+PRIMARY BLACK CARBON TO AITKEN (INS)
+
+Primary emissions flux of black carbon aerosol mass 
+to Aitken mode (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I207>
+#
+<M001_S038_I208>
+PRIMARY ORG. CARBON TO AITKEN (SOL)
+
+Primary emissions flux of organic matter aerosol mass 
+to Aitken mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I208>
+#
+<M001_S038_I209>
+PRIMARY ORG.  CARBON TO AITKEN (INS)
+
+Primary emissions flux of organic matter aerosol mass 
+to Aitken mode (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I209>
+#
+<M001_S038_I210>
+PRIMARY DUST TO ACCUMULATION (SOL)
+
+Primary emissions flux of dust aerosol mass to 
+accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I210>
+#
+<M001_S038_I211>
+PRIMARY DUST TO ACCUMULATION (INS)
+
+Primary emissions flux of dust aerosol mass to 
+accumulation mode (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I211>
+#
+<M001_S038_I212>
+PRIMARY DUST TO COARSE (SOLUBLE)
+
+Primary emissions flux of dust aerosol mass to coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I212>
+#
+<M001_S038_I213>
+PRIMARY DUST TO COARSE (SOLUBLE)
+
+Primary emissions flux of dust aerosol mass to coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I213>
+#
+<M001_S038_I214>
+DRY DEPOSITION SO4 NUCLEATION (SOL)
+
+Dry deposition flux of sulphate aerosol mass from 
+nucleation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I214>
+#
+<M001_S038_I215>
+DRY DEPOSITION SO4 AITKEN (SOL)
+Dry deposition flux of sulphate aerosol mass from 
+Aitken mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I215>
+#
+<M001_S038_I216>
+DRY DEPOSITION SO4 ACCUMULTN (SOL)
+
+Dry deposition flux of sulphate aerosol mass from 
+accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I216>
+#
+<M001_S038_I217>
+DRY DEPOSITION SO4 COARSE (SOL)
+
+Dry deposition flux of sulphate aerosol mass from 
+coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I217>
+#
+<M001_S038_I218>
+DRY DEPOSITION SEA-SALT ACC (SOL)
+
+Dry deposition flux of sea salt aerosol mass from 
+accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I218>
+#
+<M001_S038_I219>
+DRY DEPOSITION SEA-SALT COARSE (SOL)
+
+Dry deposition flux of sea salt aerosol mass from 
+coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I219>
+#
+<M001_S038_I220>
+DRY DEPOSITION BLK CARB AITKEN (SOL)
+
+Dry deposition flux of black carbon aerosol mass 
+from Aitken mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I220>
+#
+<M001_S038_I221>
+DRY DEPOSITION BLK CARB ACCUM. (SOL)
+
+Dry deposition flux of black carbon aerosol mass from 
+accumulation mode (soluble) 
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I221>
+#
+<M001_S038_I222>
+DRY DEPOSITION BLK CARB COARSE (SOL)
+
+Dry deposition flux of black carbon aerosol mass 
+from coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I222>
+#
+<M001_S038_I223>
+DRY DEPOSITION BLK CARB AITKEN (INS)
+
+Dry deposition flux of black carbon aerosol mass from 
+Aitken mode (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I223>
+#
+<M001_S038_I224>
+DRY DEPOSITION ORG CARB NUCLN. (SOL)
+
+Dry deposition flux of organic matter aerosol mass from 
+nucleation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I224>
+#
+<M001_S038_I225>
+DRY DEPOSITION ORG CARB AITKEN (SOL)
+
+Dry deposition flux of organic matter aerosol mass 
+from Aitken mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I225>
+#
+<M001_S038_I226>
+DRY DEPOSITION ORG CARB ACCUM. (SOL)
+
+Dry deposition flux of organic matter aerosol mass from 
+accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I226>
+#
+<M001_S038_I227>
+DRY DEPOSITION ORG CARB COARSE (SOL)
+
+Dry deposition flux of organic matter aerosol mass from 
+coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I227>
+#
+<M001_S038_I228>
+DRY DEPOSITION ORG CARB AITKEN (INS)
+
+Dry deposition flux of organic matter aerosol mass from 
+Aitken mode (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I228>
+#
+<M001_S038_I229>
+DRY DEPOSITION 2ND ORGC NUCLN. (SOL)
+
+Dry deposition flux of 2nd organic matter aerosol mass 
+from nucleation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I229>
+#
+<M001_S038_I230>
+DRY DEPOSITION 2ND ORGC AITKEN (SOL)
+
+Dry deposition flux of 2nd organic matter aerosol mass 
+from Aitken mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I230>
+#
+<M001_S038_I231>
+DRY DEPOSITION 2ND ORGC ACCUM. (SOL)
+
+Dry deposition flux of 2nd organic matter aerosol mass 
+from accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I231>
+#
+<M001_S038_I232>
+DRY DEPOSITION 2ND ORGC COARSE (SOL)
+
+Dry deposition flux of 2nd organic matter aerosol mass 
+from coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I232>
+#
+<M001_S038_I233>
+DRY DEPOSITION DUST ACCUMULATN (SOL)
+
+Dry deposition flux of dust aerosol mass from 
+accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I233>
+#
+<M001_S038_I234>
+DRY DEPOSITION DUST COARSE (SOL)
+
+Dry deposition flux of dust aerosol mass from coarse mode 
+(soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I234>
+#
+<M001_S038_I235>
+DRY DEPOSITION DUST ACCUMULATN (INS)
+
+Dry deposition flux of dust aerosol mass from accumulation 
+mode (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I235>
+#
+<M001_S038_I236>
+DRY DEPOSITION DUST COARSE (INS)
+
+Dry deposition flux of dust aerosol mass from coarse
+mode (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I236>
+#
+<M001_S038_I237>
+NUC SCAVENGING SO4 NUCLEATION (SOL)
+
+Nucleation scavenging flux of sulphate aerosol mass 
+from nucleation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I237>
+#
+<M001_S038_I238>
+NUC SCAVENGING SO4 AITKEN (SOL)
+
+Nucleation scavenging flux of sulphate aerosol mass 
+from Aitken mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I238>
+#
+<M001_S038_I239>
+NUC SCAVENGING SO4 ACCUMULTN (SOL)
+
+Nucleation scavenging flux of sulphate aerosol mass from 
+accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I239>
+#
+<M001_S038_I240>
+NUC SCAVENGING SO4 COARSE (SOL)
+
+Nucleation scavenging flux of sulphate aerosol mass from 
+coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I240>
+#
+<M001_S038_I241>
+NUC SCAVENGING SEA-SALT ACCUM. (SOL)
+
+Nucleation scavenging flux of sea salt aerosol mass from 
+accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I241>
+#
+<M001_S038_I242>
+NUC SCAVENGING SEA-SALT COARSE (SOL)
+
+Nucleation scavenging flux of sea salt aerosol mass from 
+coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I242>
+#
+<M001_S038_I243>
+NUC SCAVENGING BLK CARB AITKEN (SOL)
+
+Nucleation scavenging flux of black carbon aerosol mass 
+from Aitken mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I243>
+#
+<M001_S038_I244>
+NUC SCAVENGING BLK CARB ACCUM. (SOL)
+
+Nucleation scavenging flux of black carbon aerosol mass 
+from accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I244>
+#
+<M001_S038_I245>
+NUC SCAVENGING BLK CARB COARSE (SOL)
+
+Nucleation scavenging flux of black carbon aerosol mass 
+from coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I245>
+#
+<M001_S038_I246>
+NUC SCAVENGING BLK CARB AITKEN (INS)
+
+Nucleation scavenging flux of black carbon aerosol mass 
+from Aitken mode (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I246>
+#
+<M001_S038_I247>
+NUC SCAVENGING ORG CARB NUCLN. (SOL)
+
+Nucleation scavenging flux of organic matter aerosol mass 
+from nucleation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I247>
+#
+<M001_S038_I248>
+NUC SCAVENGING ORG CARB AITKEN (SOL)
+
+Nucleation scavenging flux of organic matter aerosol mass 
+from Aitken mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I248>
+#
+<M001_S038_I249>
+NUC SCAVENGING ORG CARB ACCUM. (SOL)
+
+Nucleation scavenging flux of organic matter aerosol mass 
+from accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I249>
+#
+<M001_S038_I250>
+NUC SCAVENGING ORG CARB COARSE (SOL)
+
+Nucleation scavenging flux of organic matter aerosol mass 
+from coarse mode (soluble) 
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I250>
+#
+<M001_S038_I251>
+NUC SCAVENGING ORG CARB AITKEN (INS)
+
+Nucleation scavenging flux of organic matter aerosol mass 
+from Aitken mode (insoluble) 
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I251>
+#
+<M001_S038_I252>
+NUC SCAVENGING 2ND ORGC NUCLN. (SOL)
+
+Nucleation scavenging flux of 2nd organic matter aerosol mass 
+from nucleation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I252>
+#
+<M001_S038_I253>
+NUC SCAVENGING 2ND ORGC AITKEN (SOL)
+
+Nucleation scavenging flux of 2nd organic matter aerosol mass 
+from Aitken mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I253>
+#
+<M001_S038_I254>
+NUC SCAVENGING 2ND ORGC ACCUM. (SOL)
+
+Nucleation scavenging flux of 2nd organic matter aerosol mass 
+from accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I254>
+#
+<M001_S038_I255>
+NUC SCAVENGING 2ND ORGC COARSE (SOL)
+
+Nucleation scavenging flux of 2nd organic matter aerosol mass 
+from coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I255>
+#
+<M001_S038_I256>
+NUC SCAVENGING 2ND ORGC AITKEN (INS)
+
+Nucleation scavenging flux of 2nd organic matter aerosol mass 
+from Aitken mode (insoluble) 
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I256>
+#
+<M001_S038_I257>
+NUC SCAVENGING DUST ACCUMULTN. (SOL)
+
+Nucleation scavenging flux of dust aerosol mass from 
+accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I257>
+#
+<M001_S038_I258>
+NUC SCAVENGING DUST COARSE (SOL)
+
+Nucleation scavenging flux of dust aerosol mass from 
+coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I258>
+#
+<M001_S038_I259>
+NUC SCAVENGING DUST ACCUMULTN. (INS)
+
+Nucleation scavenging flux of dust aerosol mass from 
+accumulation mode (insoluble) 
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I259>
+#
+<M001_S038_I260>
+NUC SCAVENGING DUST COARSE (INS)
+
+Nucleation scavenging flux of dust aerosol mass from 
+coarse mode (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I260>
+#
+<M001_S038_I261>
+IMP SCAVENGING SO4 NUCLN. (SOL)
+
+Impaction scavenging flux of sulphate aerosol mass from 
+nucleation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I261>
+#
+<M001_S038_I262>
+IMP SCAVENGING SO4 AITKEN (SOL)
+
+Impaction scavenging flux of sulphate aerosol mass from 
+Aitken mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I262>
+#
+<M001_S038_I263>
+IMP SCAVENGING SO4 ACCUMULTN (SOL)
+
+Impaction scavenging flux of sulphate aerosol mass from 
+accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I263>
+#
+<M001_S038_I264>
+IMP SCAVENGING SO4 COARSE (SOL)
+
+Impaction scavenging flux of sulphate aerosol mass from 
+coarse mode (soluble) 
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I264>
+#
+<M001_S038_I265>
+IMP SCAVENGING SEA-SALT ACCUM. (SOL)
+
+Impaction scavenging flux of sea salt aerosol mass from 
+accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I265>
+#
+<M001_S038_I266>
+IMP SCAVENGING SEA-SALT COARSE (SOL)
+
+Impaction scavenging flux of sea salt aerosol mass from 
+coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I266>
+#
+<M001_S038_I267>
+IMP SCAVENGING BLK CARB AITKEN (SOL)
+
+Impaction scavenging flux of black carbon aerosol mass 
+from Aitken mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I267>
+#
+<M001_S038_I268>
+IMP SCAVENGING BLK CARB ACCUM. (SOL)
+
+Impaction scavenging flux of black carbon aerosol mass 
+from accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I268>
+#
+<M001_S038_I269>
+IMP SCAVENGING BLK CARB COARSE (SOL)
+
+Impaction scavenging flux of black carbon aerosol mass 
+from coarse mode (soluble) 
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I269>
+#
+<M001_S038_I270>
+IMP SCAVENGING BLK CARB AITKEN (INS)
+Impaction scavenging flux of black carbon aerosol mass 
+from Aitken mode (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I270>
+#
+<M001_S038_I271>
+IMP SCAVENGING ORG CARB NUCLN. (SOL)
+Impaction scavenging flux of organic matter aerosol mass 
+from nucleation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I271>
+#
+<M001_S038_I272>
+IMP SCAVENGING ORG CARB AITKEN (SOL)
+
+Impaction scavenging flux of organic matter aerosol mass 
+from Aitken mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I272>
+#
+<M001_S038_I273>
+IMP SCAVENGING ORG CARB ACCUM. (SOL)
+
+Impaction scavenging flux of organic matter aerosol mass 
+from accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I273>
+#
+<M001_S038_I274>
+IMP SCAVENGING ORG CARB COARSE (SOL)
+
+Impaction scavenging flux of organic matter aerosol mass 
+from coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I274>
+#
+<M001_S038_I275>
+IMP SCAVENGING ORG CARB AITKEN (INS)
+
+Impaction scavenging flux of organic matter aerosol mass 
+from Aitken mode (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I275>
+#
+<M001_S038_I276>
+IMP SCAVENGING 2ND ORGC NUCLN. (SOL)
+
+Impaction scavenging flux of 2nd organic matter aerosol mass 
+from nucleation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I276>
+#
+<M001_S038_I277>
+IMP SCAVENGING 2ND ORGC AITKEN (SOL)
+
+Impaction scavenging flux of 2nd organic matter aerosol mass 
+from Aitken mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I277>
+#
+<M001_S038_I278>
+IMP SCAVENGING 2ND ORGC ACCUM. (SOL)
+
+Impaction scavenging flux of 2nd organic matter aerosol mass 
+from accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I278>
+#
+<M001_S038_I279>
+IMP SCAVENGING 2ND ORGC COARSE (SOL)
+
+Impaction scavenging flux of 2nd organic matter aerosol mass 
+from coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I279>
+#
+<M001_S038_I280>
+IMP SCAVENGING DUST ACCUMULTN. (SOL)
+
+Impaction scavenging flux of dust aerosol mass from 
+accumulation mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I280>
+#
+<M001_S038_I281>
+IMP SCAVENGING DUST COARSE (SOL)
+
+Impaction scavenging flux of dust aerosol mass from 
+coarse mode (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I281>
+#
+<M001_S038_I282>
+IMP SCAVENGING DUST ACCUMULTN. (INS)
+
+Impaction scavenging flux of dust aerosol mass from 
+accumulation mode (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I282>
+#
+<M001_S038_I283>
+IMP SCAVENGING DUST COARSE (INS)
+
+Impaction scavenging flux of dust aerosol mass from 
+coarse mode (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I283>
+#
+<M001_S038_I284>
+INCLOUD SO4 (H2O2) TO AITKEN (SOL)
+
+In-cloud sulphate aerosol mass production flux to Aitken mode 
+(soluble) via aqueous reaction of dissolved SO2 and H2O2
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I284>
+#
+<M001_S038_I285>
+INCLOUD SO4 (H2O2) TO ACCUMLTN (SOL)
+
+In-cloud sulphate aerosol mass production flux to accumulation 
+mode (soluble) via aqueous reaction of dissolved SO2 and H2O2
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I285>
+#
+<M001_S038_I286>
+INCLOUD SO4 (H2O2) TO COARSE (SOL)
+
+In-cloud sulphate aerosol mass production flux to coarse mode 
+(soluble) via aqueous reaction of dissolved SO2 and H2O2
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I286>
+#
+<M001_S038_I287>
+INCLOUD SO4 (O3) TO AITKEN (SOL)
+
+In-cloud sulphate aerosol mass production flux to Aitken mode 
+(soluble) via aqueous reaction of dissolved SO2 and O3
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I287>
+#
+<M001_S038_I288>
+INCLOUD SO4 (O3) TO ACCUMULTN (SOL)
+
+In-cloud sulphate aerosol mass production flux to accumulation 
+mode (soluble) via aqueous reaction of dissolved SO2 and O3
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I288>
+#
+<M001_S038_I289>
+INCLOUD SO4 (O3) TO COARSE (SOL)
+
+In-cloud sulphate aerosol mass production flux to coarse mode 
+(soluble) via aqueous reaction of dissolved SO2 and O3
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I289>
+#
+<M001_S038_I290>
+CLOUDPROC SU AITSOL --> ACCSOL
+
+Cloud-processing flux transferring sulphate aerosol mass 
+from Aitken (soluble) to accumulation (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I290>
+#
+<M001_S038_I291>
+CLOUDPROC BC AITSOL --> ACCSOL
+
+Cloud-processing flux transferring black carbon aerosol mass 
+from Aitken (soluble) to accumulation (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I291>
+#
+<M001_S038_I292>
+CLOUDPROC OC AITSOL --> ACCSOL
+
+Cloud-processing flux transferring organic matter aerosol mass 
+from Aitken (soluble) to accumulation (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I292>
+#
+<M001_S038_I293>
+CLOUDPROC SO AITSOL --> ACCSOL
+
+Cloud-processing flux transferring 2nd organic matter aerosol 
+mass from Aitken (soluble) to accumulation (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I293>
+#
+<M001_S038_I294>
+CONDENSATION SO4 TO NUCLEATION (SOL)
+Condensation flux of sulphate aerosol mass to nucleation 
+(soluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I294>
+#
+<M001_S038_I295>
+CONDENSATION SO4 TO AITKEN (SOL)
+Condensation flux of sulphate aerosol mass to Aitken 
+(soluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I295>
+#
+<M001_S038_I296>
+CONDENSATION SO4 TO ACCUMULTN (SOL)
+
+Condensation flux of sulphate aerosol mass to accumulation 
+(soluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I296>
+#
+<M001_S038_I297>
+CONDENSATION SO4 TO COARSE (SOL)
+
+Condensation flux of sulphate aerosol mass to coarse 
+(soluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I297>
+#
+<M001_S038_I298>
+CONDENSATION SO4 TO AITKEN (INSOL)
+
+Condensation flux of sulphate aerosol mass to Aitken 
+(insoluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I298>
+#
+<M001_S038_I299>
+CONDENSATION SO4 TO ACCUM. (INSOL)
+
+Condensation flux of sulphate aerosol mass to accumulation 
+(insoluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I299>
+#
+<M001_S038_I300>
+CONDENSATION SO4 TO COARSE (INSOL)
+
+Condensation flux of sulphate aerosol mass to coarse 
+(insoluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I300>
+#
+<M001_S038_I301>
+CONDENSATION OC1 TO NUCLEATION (SOL)
+
+Condensation flux of organic matter aerosol mass to 
+nucleation (soluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I301>
+#
+<M001_S038_I302>
+CONDENSATION OC1 TO AITKEN (SOL)
+
+Condensation flux of organic matter aerosol mass to 
+Aitken (soluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I302>
+#
+<M001_S038_I303>
+CONDENSATION OC1 TO ACCUMULTN (SOL)
+
+Condensation flux of organic matter aerosol mass to 
+accumulation (soluble) mode 
+
+Total flux (as moles/s) in the gridbox
+
+</M001_S038_I303>
+#
+<M001_S038_I304>
+CONDENSATION OC1 TO COARSE (SOL)
+
+Condensation flux of organic matter aerosol mass to 
+coarse (soluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I304>
+#
+<M001_S038_I305>
+CONDENSATION OC1 TO AITKEN (INSOL)
+
+Condensation flux of organic matter aerosol mass to 
+Aitken (insoluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I305>
+#
+<M001_S038_I306>
+CONDENSATION OC1 TO ACCUM. (INSOL)
+
+Condensation flux of organic matter aerosol mass to 
+accumulation (insoluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I306>
+#
+<M001_S038_I307>
+CONDENSATION OC1 TO COARSE (INSOL)
+
+Condensation flux of organic matter aerosol mass to 
+coarse (insoluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I307>
+#
+<M001_S038_I308>
+CONDENSATION OC2 TO NUCLEATION (SOL)
+
+Condensation flux of 2nd organic matter aerosol mass to 
+nucleation (soluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I308>
+#
+<M001_S038_I309>
+CONDENSATION OC2 TO AITKEN (SOL)
+
+Condensation flux of 2nd organic matter aerosol mass to
+Aitken (soluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I309>
+#
+<M001_S038_I310>
+CONDENSATION OC2 TO ACCUMULTN (SOL)
+
+Condensation flux of 2nd organic matter aerosol mass to 
+accumulation (soluble) mode
+Total flux (as moles/s) in the gridbox
+</M001_S038_I310>
+#
+<M001_S038_I311>
+CONDENSATION OC2 TO COARSE (SOL)
+
+Condensation flux of 2nd organic matter aerosol mass to 
+coarse (soluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I311>
+#
+<M001_S038_I312>
+CONDENSATION OC2 TO AITKEN (INSOL)
+
+Condensation flux of 2nd organic matter aerosol mass to 
+Aitken (insoluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I312>
+#
+<M001_S038_I313>
+CONDENSATION OC2 TO ACCUM. (INSOL)
+
+Condensation flux of 2nd organic matter aerosol mass to 
+accumulation (insoluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I313>
+#
+<M001_S038_I314>
+CONDENSATION OC2 TO COARSE (INSOL)
+
+Condensation flux of 2nd organic matter aerosol mass to 
+coarse (insoluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I314>
+#
+<M001_S038_I315>
+HETOX ON DUST {SO2 -> SO4} (ACC-SOL)
+
+Heterogenous sulphate aerosol mass production via SO2 
+oxidation on dust to accumulation (soluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I315>
+#
+<M001_S038_I316>
+HETOX ON DUST {SO2 -> SO4} (COR-SOL)
+
+Heterogenous sulphate aerosol mass production via SO2 
+oxidation on dust to coarse (soluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I316>
+#
+<M001_S038_I317>
+HETOX ON DUST {SO2 -> SO4} (ACC-INS)
+
+Heterogenous sulphate aerosol mass production via SO2 
+oxidation on dust to accumulation (insoluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I317>
+#
+<M001_S038_I318>
+HETOX ON DUST {SO2 -> SO4} (COR-INS)
+
+Heterogenous sulphate aerosol mass production via SO2 
+oxidation on dust to coarse (insoluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I318>
+#
+<M001_S038_I319>
+NUCLEATION OF SO4 (TO NUC-SOL)
+
+Nucleation flux of sulphate aerosol mass to nucleation 
+(soluble) mode
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I319>
+#
+<M001_S038_I320>
+COAG SO4 NUCLTN-SOL TO AITKEN-SOL
+
+Coagulation flux transferring sulphate aerosol mass from 
+nucleation (soluble) to Aitken (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I320>
+#
+<M001_S038_I321>
+COAG SO4 NUCLTN-SOL TO ACCUMULN-SOL
+
+Coagulation flux transferring sulphate aerosol mass from 
+nucleation (soluble) to accumulation (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I321>
+#
+<M001_S038_I322>
+COAG SO4 NUCLTN-SOL TO COARSE-SOL
+
+Coagulation flux transferring sulphate aerosol mass from 
+nucleation (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I322>
+#
+<M001_S038_I323>
+COAG SO4 NUCLTN-SOL TO AITKEN-INSOL
+Coagulation flux transferring sulphate aerosol mass from 
+nucleation (soluble) to Aitken (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I323>
+#
+<M001_S038_I324>
+COAG SO4 NUCLTN-SOL TO ACCUM.-INSOL
+
+Coagulation flux transferring sulphate aerosol mass from 
+nucleation (soluble) to accumulation (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I324>
+#
+<M001_S038_I325>
+COAG SO4 NUCLTN-SOL TO COARSE-INSOL
+
+Coagulation flux transferring sulphate aerosol mass from 
+nucleation (soluble) to coarse (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I325>
+#
+<M001_S038_I326>
+COAG OC1 NUCLTN-SOL TO AITKEN-SOL
+
+Coagulation flux transferring organic matter aerosol mass 
+from nucleation (soluble) to Aitken (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I326>
+#
+<M001_S038_I327>
+COAG OC1 NUCLTN-SOL TO ACCUMULN-SOL
+
+Coagulation flux transferring organic matter aerosol mass 
+from nucleation (soluble) to accumulation (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I327>
+#
+<M001_S038_I328>
+COAG OC1 NUCLTN-SOL TO COARSE-SOL
+
+Coagulation flux transferring organic matter aerosol mass 
+from nucleation (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I328>
+#
+<M001_S038_I329>
+COAG OC1 NUCLTN-SOL TO AITKEN-INSOL
+
+Coagulation flux transferring organic matter aerosol mass 
+from nucleation (soluble) to Aitken (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I329>
+#
+<M001_S038_I330>
+COAG OC1 NUCLTN-SOL TO ACCUM.-INSOL
+
+Coagulation flux transferring organic matter aerosol mass 
+from nucleation (soluble) to accumulation (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I330>
+#
+<M001_S038_I331>
+COAG OC1 NUCLTN-SOL TO COARSE-INSOL
+
+Coagulation flux transferring organic matter aerosol mass 
+from nucleation (soluble) to coarse (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I331>
+#
+<M001_S038_I332>
+COAG OC2 NUCLTN-SOL TO AITKEN-SOL
+
+Coagulation flux transferring 2nd organic matter aerosol mass 
+from nucleation (soluble) to Aitken (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I332>
+#
+<M001_S038_I333>
+COAG OC2 NUCLTN-SOL TO ACCUMULN-SOL
+
+Coagulation flux transferring 2nd organic matter aerosol mass 
+from nucleation (soluble) to accumulation (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I333>
+#
+<M001_S038_I334>
+COAG OC2 NUCLTN-SOL TO COARSE-SOL
+
+Coagulation flux transferring 2nd organic matter aerosol mass 
+from nucleation (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I334>
+#
+<M001_S038_I335>
+COAG OC2 NUCLTN-SOL TO AITKEN-INSOL
+
+Coagulation flux transferring 2nd organic matter aerosol mass 
+from nucleation (soluble) to Aitken (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I335>
+#
+<M001_S038_I336>
+COAG OC2 NUCLTN-SOL TO ACCUM.-INSOL
+
+Coagulation flux transferring 2nd organic matter aerosol mass 
+from nucleation (soluble) to accumulation (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I336>
+#
+<M001_S038_I337>
+COAG OC2 NUCLTN-SOL TO COARSE-INSOL
+
+Coagulation flux transferring 2nd organic matter aerosol mass 
+from nucleation (soluble) to coarse (insoluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I337>
+#
+<M001_S038_I338>
+COAG SO4 AITKEN-SOL TO ACCUMULN-SOL
+
+Coagulation flux transferring sulphate aerosol mass from 
+Aitken (soluble) to accumulation (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I338>
+#
+<M001_S038_I339>
+COAG SO4 AITKEN-SOL TO COARSE-SOL
+
+Coagulation flux transferring sulphate aerosol mass from 
+Aitken (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I339>
+#
+<M001_S038_I340>
+</M001_S038_I340>
+#
+<M001_S038_I341>
+</M001_S038_I341>
+#
+<M001_S038_I342>
+COAG BC  AITKEN-SOL TO ACCUMULN-SOL
+
+Coagulation flux transferring black carbon aerosol mass 
+from Aitken (soluble) to accumulation (soluble)
+Total flux (as moles/s) in the gridbox
+</M001_S038_I342>
+#
+<M001_S038_I343>
+COAG BC  AITKEN-SOL TO COARSE-SOL
+
+Coagulation flux transferring black carbon aerosol mass 
+from Aitken (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I343>
+#
+<M001_S038_I344>
+</M001_S038_I344>
+#
+<M001_S038_I345>
+</M001_S038_I345>
+#
+<M001_S038_I346>
+COAG OC1 AITKEN-SOL TO ACCUMULN-SOL
+
+Coagulation flux transferring organic matter aerosol mass 
+from Aitken (soluble) to accumulation (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I346>
+#
+<M001_S038_I347>
+COAG OC1 AITKEN-SOL TO COARSE-SOL
+
+Coagulation flux transferring organic matter aerosol mass 
+from Aitken (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I347>
+#
+<M001_S038_I348>
+</M001_S038_I348>
+#
+<M001_S038_I349>
+</M001_S038_I349>
+#
+<M001_S038_I350>
+COAG OC2 AITKEN-SOL TO ACCUMULN-SOL
+
+Coagulation flux transferring 2nd organic matter aerosol mass 
+from Aitken (soluble) to accumulation (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I350>
+#
+<M001_S038_I351>
+COAG OC2 AITKEN-SOL TO COARSE-SOL
+
+Coagulation flux transferring 2nd organic matter aerosol mass 
+from Aitken (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I351>
+#
+<M001_S038_I352>
+</M001_S038_I352>
+#
+<M001_S038_I353>
+</M001_S038_I353>
+#
+<M001_S038_I354>
+COAG SO4 ACCUMULN-SOL TO COARSE-SOL
+
+Coagulation flux transferring sulphate aerosol mass from 
+accumulation (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I354>
+#
+<M001_S038_I355>
+</M001_S038_I355>
+#
+<M001_S038_I356>
+COAG BC  ACCUMULN-SOL TO COARSE-SOL
+
+Coagulation flux transferring black carbon aerosol mass 
+from accumulation (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I356>
+#
+<M001_S038_I357>
+</M001_S038_I357>
+#
+<M001_S038_I358>
+COAG OC1 ACCUMULN-SOL TO COARSE-SOL
+
+Coagulation flux transferring organic matter aerosol mass 
+from accumulation (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I358>
+#
+<M001_S038_I359>
+</M001_S038_I359>
+#
+<M001_S038_I360>
+COAG SEA-SALT ACC-SOL TO COARSE-SOL
+
+Coagulation flux transferring sea salt aerosol mass from 
+accumulation (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I360>
+#
+<M001_S038_I361>
+</M001_S038_I361>
+#
+<M001_S038_I362>
+COAG OC2 ACCUMULN-SOL TO COARSE-SOL
+
+Coagulation flux transferring 2nd organic matter aerosol mass 
+from accumulation (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I362>
+#
+<M001_S038_I363>
+</M001_S038_I363>
+#
+<M001_S038_I364>
+COAG DU  ACCUMULN-SOL TO COARSE-SOL
+
+Coagulation flux transferring dust aerosol mass from 
+accumulation (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I364>
+#
+<M001_S038_I365>
+</M001_S038_I365>
+#
+<M001_S038_I366>
+COAG BC  AITKEN-INS TO ACCUMULN-SOL
+
+Coagulation flux transferring black carbon aerosol mass 
+from Aitken (insoluble) to accumulation (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I366>
+#
+<M001_S038_I367>
+COAG OC1 AITKEN-INS TO ACCUMULN-SOL
+
+Coagulation flux transferring organic matter aerosol mass 
+from Aitken (insoluble) to accumulation (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I367>
+#
+<M001_S038_I368>
+COAG BC  AITKEN-INS TO COARSE-SOL
+
+Coagulation flux transferring black carbon aerosol mass 
+from Aitken (insoluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I368>
+#
+<M001_S038_I369>
+COAG OC1 AITKEN-INS TO COARSE-SOL
+
+Coagulation flux transferring organic matter aerosol mass 
+from Aitken (insoluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I369>
+#
+<M001_S038_I370>
+COAG DU  ACCUM.-INS TO COARSE-SOL
+
+Coagulation flux transferring dust aerosol mass from 
+accumulation (insoluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I370>
+#
+<M001_S038_I371>
+AGEING SO4 AITKEN-INS TO AITKEN-SOL
+
+Ageing flux transferring sulphate aerosol mass from
+Aitken (insoluble) to Aitken (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I371>
+#
+<M001_S038_I372>
+AGEING BC  AITKEN-INS TO AITKEN-SOL
+
+Ageing flux transferring black carbon aerosol mass from 
+Aitken (insoluble) to Aitken (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I372>
+#
+<M001_S038_I373>
+AGEING OC1 AITKEN-INS TO AITKEN-SOL
+
+Ageing flux transferring organic matter aerosol mass from 
+Aitken (insoluble) to Aitken (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I373>
+#
+<M001_S038_I374>
+AGEING OC2 AITKEN-INS TO AITKEN-SOL
+
+Ageing flux transferring 2nd organic matter aerosol mass from
+Aitken (insoluble) to Aitken (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I374>
+#
+<M001_S038_I375>
+MERGE SO4 NUCLTN-SOL TO AITKEN-SOL
+
+Mode-merging flux transferring sulphate aerosol mass from 
+nucleation (soluble) to Aitken (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I375>
+#
+<M001_S038_I376>
+MERGE OC1 NUCLTN-SOL TO AITKEN-SOL
+
+Mode-merging flux transferring organic matter aerosol mass 
+from nucleation (soluble) to Aitken (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I376>
+#
+<M001_S038_I377>
+MERGE OC2 NUCLTN-SOL TO AITKEN-SOL
+
+Mode-merging flux transferring 2nd organic matter aerosol mass 
+from nucleation (soluble) to Aitken (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I377>
+#
+<M001_S038_I378>
+MERGE SO4 AITKEN-SOL TO ACCUMULN-SOL
+
+Mode-merging flux transferring sulphate aerosol mass from 
+Aitken (soluble) to accumulation (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I378>
+#
+<M001_S038_I379>
+MERGE BC  AITKEN-SOL TO ACCUMULN-SOL
+
+Mode-merging flux transferring black carbon aerosol mass from 
+Aitken (soluble) to accumulation (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I379>
+#
+<M001_S038_I380>
+MERGE OC1 AITKEN-SOL TO ACCUMULN-SOL
+
+Mode-merging flux transferring organic matter aerosol mass 
+from Aitken (soluble) to accumulation (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I380>
+#
+<M001_S038_I381>
+MERGE OC2 AITKEN-SOL TO ACCUMULN-SOL
+
+Mode-merging flux transferring 2nd organic matter aerosol mass 
+from Aitken (soluble) to accumulation (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I381>
+#
+<M001_S038_I382>
+MERGE SO4 ACCUMULN-SOL TO COARSE-SOL
+
+Mode-merging flux transferring sulphate aerosol mass from 
+accumulation (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I382>
+#
+<M001_S038_I383>
+MERGE SEA_SALT ACC-SOL TO COARSE-SOL
+
+Mode-merging flux transferring sea salt aerosol mass from 
+accumulation (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I383>
+#
+<M001_S038_I384>
+MERGE BC  ACCUMULN-SOL TO COARSE-SOL
+
+Mode-merging flux transferring black carbon aerosol mass from 
+accumulation (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I384>
+#
+<M001_S038_I385>
+MERGE OC1 ACCUMULN-SOL TO COARSE-SOL
+
+Mode-merging flux transferring organic matter aerosol mass from 
+accumulation (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I385>
+#
+<M001_S038_I386>
+MERGE DU  ACCUMULN-SOL TO COARSE-SOL
+
+Mode-merging flux transferring dust aerosol mass from 
+accumulation (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I386>
+#
+<M001_S038_I387>
+MERGE OC2 ACCUMULN-SOL TO COARSE-SOL
+
+Mode-merging flux transferring 2nd organic matter aerosol mass 
+from accumulation (soluble) to coarse (soluble)
+
+Total flux (as moles/s) in the gridbox
+</M001_S038_I387>
+#
+<M001_S038_I388>
+</M001_S038_I388>
+#
+<M001_S038_I389>
+</M001_S038_I389>
+#
+<M001_S038_I390>
+</M001_S038_I390>
+#
+<M001_S038_I391>
+</M001_S038_I391>
+#
+<M001_S038_I392>
+</M001_S038_I392>
+#
+<M001_S038_I393>
+</M001_S038_I393>
+#
+<M001_S038_I394>
+</M001_S038_I394>
+#
+<M001_S038_I395>
+</M001_S038_I395>
+#
+<M001_S038_I396>
+</M001_S038_I396>
+#
+<M001_S038_I397>
+</M001_S038_I397>
+#
+<M001_S038_I398>
+</M001_S038_I398>
+#
+<M001_S038_I399>
+</M001_S038_I399>
+#
+<M001_S038_I400>
+</M001_S038_I400>
+#
+<M001_S038_I401>
+DRY PARTICLE DIAMETER NUCLEATION-SOL
+
+Geometric (number) mean dry diameter for particles in 
+nucleation mode (soluble) : metres 
+</M001_S038_I401>
+#
+<M001_S038_I402>
+DRY PARTICLE DIAMETER AITKEN-SOL
+
+Geometric (number) mean dry diameter for particles in 
+Aitken mode (soluble) : metres
+</M001_S038_I402>
+#
+<M001_S038_I403>
+DRY PARTICLE DIAMETER ACCUMULATN-SOL
+
+Geometric (number) mean dry diameter for particles in 
+accumulation mode (soluble) : metres
+</M001_S038_I403>
+#
+<M001_S038_I404>
+DRY PARTICLE DIAMETER COARSE-SOL
+
+Geometric (number) mean dry diameter for particles in 
+coarse mode (soluble) : metres 
+</M001_S038_I404>
+#
+<M001_S038_I405>
+DRY PARTICLE DIAMETER AITKEN-INS
+
+Geometric (number) mean dry diameter for particles in 
+Aitken mode (insoluble) : metres
+</M001_S038_I405>
+#
+<M001_S038_I406>
+DRY PARTICLE DIAMETER ACCUMULATN-INS
+
+Geometric (number) mean dry diameter for particles in 
+accumulation mode (insoluble) : metres
+</M001_S038_I406>
+#
+<M001_S038_I407>
+DRY PARTICLE DIAMETER COARSE-INS
+
+Geometric (number) mean dry diameter for particles in 
+coarse mode (insoluble) : metres 
+</M001_S038_I407>
+#
+<M001_S038_I408>
+WET PARTICLE DIAMETER NUCLEATION-SOL
+
+Geometric (number) mean wet diameter for particles in 
+nucleation mode (soluble) : metres
+</M001_S038_I408>
+#
+<M001_S038_I409>
+WET PARTICLE DIAMETER AITKEN-SOL
+
+Geometric (number) mean wet diameter for particles in 
+Aitken mode (soluble) : metres
+</M001_S038_I409>
+#
+<M001_S038_I410>
+WET PARTICLE DIAMETER ACCUMULATN-SOL
+
+Geometric (number) mean wet diameter for particles in 
+accumulation mode (soluble) : metres 
+</M001_S038_I410>
+#
+<M001_S038_I411>
+WET PARTICLE DIAMETER COARSE-SOL
+
+Geometric (number) mean wet diameter for particles in 
+coarse mode (soluble) : metres
+</M001_S038_I411>
+#
+<M001_S038_I412>
+WATER CONTENT FOR NUCLEATION-SOLUBLE
+
+Water content for particles in nucleation mode (soluble)
+
+(moles per particle) 
+</M001_S038_I412>
+#
+<M001_S038_I413>
+WATER CONTENT FOR AITKEN-SOLUBLE
+
+Water content for particles in Aitken mode (soluble)
+
+(moles per particle)
+</M001_S038_I413>
+#
+<M001_S038_I414>
+WATER CONTENT FOR ACCUMULTN.-SOLUBLE
+
+Water content for particles in accumulation mode (soluble)
+
+(moles per particle)
+</M001_S038_I414>
+#
+<M001_S038_I415>
+WATER CONTENT FOR COARSE-SOLUBLE
+
+Water content for particles in coarse mode (soluble)
+
+(moles per particle)
+</M001_S038_I415>
+#
+<M001_S038_I416>
+SURFACE AREA CONC NUCLN.-SOL (WET)
+
+Surface area concentration (wet) for nucleation mode (soluble)
+
+(m^2/cm^3)
+</M001_S038_I416>
+#
+<M001_S038_I417>
+SURFACE AREA CONC AITKEN-SOL (WET)
+
+Surface area concentration (wet) for Aitken mode (soluble)
+
+(m^2/cm^3)
+</M001_S038_I417>
+#
+<M001_S038_I418>
+SURFACE AREA CONC ACCUM.-SOL (WET)
+
+Surface area concentration (wet) for accumulation mode (soluble)
+
+(m^2/cm^3)
+</M001_S038_I418>
+#
+<M001_S038_I419>
+SURFACE AREA CONC COARSE-SOL (WET)
+
+Surface area concentration (wet) for coarse mode (soluble)
+
+(m^2/cm^3)
+</M001_S038_I419>
+#
+<M001_S038_I420>
+SURFACE AREA CONC AITKEN-INS
+
+Surface area concentration for Aitken mode (insoluble)
+
+(m^2/cm^3)
+</M001_S038_I420>
+#
+<M001_S038_I421>
+SURFACE AREA CONC ACCUM.-INS
+
+Surface area concentration for accumulation mode (insoluble)
+
+(m^2/cm^3)
+</M001_S038_I421>
+#
+<M001_S038_I422>
+SURFACE AREA CONC COARSE-INS
+
+Surface area concentration for coarse mode (insoluble)
+
+(m^2/cm^3)
+</M001_S038_I422>
+#
+<M001_S038_I423>
+VOLUME CONCENTRN. NUCLN.-SOL (WET)
+
+Volume concentration (Wet) for nucleation mode (soluble)
+
+(m^3/cm^3)
+</M001_S038_I423>
+#
+<M001_S038_I424>
+VOLUME CONCENTRN. AITKEN-SOL (WET)
+
+Volume concentration (Wet) for Aitken mode (soluble)
+
+(m^3/cm^3)
+</M001_S038_I424>
+#
+<M001_S038_I425>
+VOLUME CONCENTRN. ACCUM.-SOL (WET)
+
+Volume concentration (Wet) for accumulation mode (soluble)
+
+(m^3/cm^3)
+</M001_S038_I425>
+#
+<M001_S038_I426>
+VOLUME CONCENTRN. COARSE-SOL (WET)
+
+Volume concentration (Wet) for coarse mode (soluble)
+
+(m^3/cm^3)
+</M001_S038_I426>
+#
+<M001_S038_I427>
+VOLUME CONCENTRN. AITKEN-INS
+
+Volume concentration for Aitken mode (insoluble)
+
+(m^3/cm^3)
+</M001_S038_I427>
+#
+<M001_S038_I428>
+VOLUME CONCENTRN. ACCUM.-INS
+
+Volume concentration for accumulation mode (insoluble)
+
+(m^3/cm^3)
+</M001_S038_I428>
+#
+<M001_S038_I429>
+VOLUME CONCENTRN. COARSE-INS
+
+Volume concentration for coarse mode (insoluble)
+
+(m^3/cm^3)
+</M001_S038_I429>
+#
+<M001_S038_I430>
+PTCL MASS DENSITY NUCLN.-SOL (WET)
+
+Particle mass density (Wet) for nucleation mode (soluble)
+
+(kg/m^3) 
+</M001_S038_I430>
+#
+<M001_S038_I431>
+PTCL MASS DENSITY AITKEN-SOL (WET)
+
+Particle mass density (Wet) for Aitken mode (soluble)
+
+(kg/m^3) 
+</M001_S038_I431>
+#
+<M001_S038_I432>
+PTCL MASS DENSITY ACCUM.-SOL (WET)
+
+Particle mass density (Wet) for accumulation mode (soluble)
+
+(kg/m^3) 
+</M001_S038_I432>
+#
+<M001_S038_I433>
+PTCL MASS DENSITY COARSE-SOL (WET)
+
+Particle mass density (Wet) for coarse mode (soluble) 
+
+(kg/m^3) 
+</M001_S038_I433>
+#
+<M001_S038_I434>
+PTCL MASS DENSITY AITKEN-INS
+
+Particle mass density for Aitken mode (insoluble)
+
+(kg/m^3) 
+</M001_S038_I434>
+#
+<M001_S038_I435>
+PTCL MASS DENSITY ACCUM.-INS
+
+Particle mass density for accumulation mode (insoluble)
+
+(kg/m^3) 
+</M001_S038_I435>
+#
+<M001_S038_I436>
+PTCL MASS DENSITY COARSE-INS
+
+Particle mass density for coarse mode (insoluble)
+
+(kg/m^3) 
+</M001_S038_I436>
+#
+<M001_S038_I437>
+CN  NUMBER CONCENTRATION
+
+Number concentration of condensation nuclei, 
+CN (dry diameter > 3nm)
+
+(cm^-3) 
+</M001_S038_I437>
+#
+<M001_S038_I438>
+CCN NO. CONCENTRN. (ACC+COR)
+
+Number concentration of cloud condensation nuclei, 
+CCN (dry diameter > 2*ACT)
+
+(cm^-3)
+</M001_S038_I438>
+#
+<M001_S038_I439>
+CCN NO. CONCENTRN. (ACC+COR+AIT>25r)
+
+Number concentration of cloud condensation nuclei, 
+CCN (dry diameter > 50nm )
+
+(cm^-3) 
+</M001_S038_I439>
+#
+<M001_S038_I440>
+CCN NO. CONCENTRN. (ACC+COR+AIT>35r)
+
+Number concentration of cloud condensation nuclei, 
+CCN (dry diameter > 70nm )
+
+(cm^-3)
+</M001_S038_I440>
+#
+<M001_S038_I441>
+CD NUMBER CONCENTRATION
+
+Cloud droplet number density diagnosed from Jones01 
+driven by CCN (dry diameter > 2*ACT)
+
+(m^-3)  
+</M001_S038_I441>
+#
+<M001_S038_I442>
+SO4 PARTIAL VOLUME CONC (NUC-SOL)
+
+Partial volume of sulphate aerosol in nucleation mode (soluble)
+
+(m^3 per particle)
+</M001_S038_I442>
+#
+<M001_S038_I443>
+OC1 PARTIAL VOLUME CONC (NUC-SOL)
+
+Partial volume of organic matter aerosol in nucleation mode 
+(soluble)
+
+(m^3 per particle) 
+</M001_S038_I443>
+#
+<M001_S038_I444>
+OC2 PARTIAL VOLUME CONC (NUC-SOL)
+
+Partial volume of 2nd organic matter aerosol in nucleation 
+mode (soluble)
+
+(m^3 per particle) 
+</M001_S038_I444>
+#
+<M001_S038_I445>
+H2O PARTIAL VOLUME CONC (NUC-SOL)
+
+Partial volume of aerosol water in nucleation mode (soluble)
+
+(m^3 per particle)
+</M001_S038_I445>
+#
+<M001_S038_I446>
+SO4 PARTIAL VOLUME CONC (AIT-SOL)
+
+Partial volume of sulphate aerosol in Aitken mode (soluble)
+
+(m^3 per particle) 
+</M001_S038_I446>
+#
+<M001_S038_I447>
+BC  PARTIAL VOLUME CONC (AIT-SOL)
+
+Partial volume of black carbon aerosol in Aitken mode (soluble)
+
+(m^3 per particle) 
+</M001_S038_I447>
+#
+<M001_S038_I448>
+OC1 PARTIAL VOLUME CONC (AIT-SOL)
+
+Partial volume of organic matter aerosol in Aitken mode (soluble)
+
+(m^3 per particle) 
+</M001_S038_I448>
+#
+<M001_S038_I449>
+OC2 PARTIAL VOLUME CONC (AIT-SOL)
+
+Partial volume of 2nd organic matter aerosol in Aitken mode 
+(soluble)
+
+(m^3 per particle) 
+</M001_S038_I449>
+#
+<M001_S038_I450>
+H2O PARTIAL VOLUME CONC (AIT-SOL)
+
+Partial volume of aerosol water in Aitken mode (soluble)
+
+(m^3 per particle) 
+</M001_S038_I450>
+#
+<M001_S038_I451>
+SO4 PARTIAL VOLUME CONC (ACC-SOL)
+
+Partial volume of sulphate aerosol in accumulation mode 
+(soluble)
+
+(m^3 per particle) 
+</M001_S038_I451>
+#
+<M001_S038_I452>
+BC PARTIAL VOLUME CONC (ACC-SOL)
+
+Partial volume of black carbon aerosol in accumulation
+mode (soluble)
+
+(m^3 per particle) 
+</M001_S038_I452>
+#
+<M001_S038_I453>
+OC1 PARTIAL VOLUME CONC (ACC-SOL)
+
+Partial volume of organic matter aerosol in accumulation 
+mode (soluble)
+
+(m^3 per particle) 
+</M001_S038_I453>
+#
+<M001_S038_I454>
+SS PARTIAL VOLUME CONC (ACC-SOL)
+
+Partial volume of sea salt aerosol in accumulation mode 
+(soluble)
+
+(m^3 per particle) 
+</M001_S038_I454>
+#
+<M001_S038_I455>
+DU  PARTIAL VOLUME CONC (ACC-SOL)
+
+Partial volume of dust carbon aerosol in accumulation mode 
+(soluble)
+
+(m^3 per particle) 
+</M001_S038_I455>
+#
+<M001_S038_I456>
+OC2 PARTIAL VOLUME CONC (ACC-SOL)
+
+Partial volume of 2nd organic matter aerosol in accumulation 
+mode (soluble)
+
+(m^3 per particle) 
+</M001_S038_I456>
+#
+<M001_S038_I457>
+H2O PARTIAL VOLUME CONC (ACC-SOL)
+
+Partial volume of aerosol water in accumulation mode (soluble)
+
+(m^3 per particle) 
+</M001_S038_I457>
+#
+<M001_S038_I458>
+SO4 PARTIAL VOLUME CONC (COR-SOL)
+
+Partial volume of sulphate aerosol in coarse mode (soluble)
+
+(m^3 per particle) 
+</M001_S038_I458>
+#
+<M001_S038_I459>
+BC  PARTIAL VOLUME CONC (COR-SOL)
+
+Partial volume of black carbon aerosol in coarse mode (soluble)
+
+(m^3 per particle) 
+</M001_S038_I459>
+#
+<M001_S038_I460>
+OC1 PARTIAL VOLUME CONC (COR-SOL)
+
+Partial volume of organic matter aerosol in coarse mode 
+(soluble)
+
+(m^3 per particle) 
+</M001_S038_I460>
+#
+<M001_S038_I461>
+SSALT PARTIAL VOLUME CONC (COR-SOL)
+
+Partial volume of sea salt aerosol in coarse mode (soluble)
+
+(m^3 per particle)
+</M001_S038_I461>
+#
+<M001_S038_I462>
+DU  PARTIAL VOLUME CONC (COR-SOL)
+
+Partial volume of dust carbon aerosol in coarse mode 
+(soluble)
+
+(m^3 per particle)
+</M001_S038_I462>
+#
+<M001_S038_I463>
+OC2 PARTIAL VOLUME CONC (COR-SOL)
+
+Partial volume of 2nd organic matter aerosol in coarse mode 
+(soluble)
+
+(m^3 per particle)
+</M001_S038_I463>
+#
+<M001_S038_I464>
+H2O PARTIAL VOLUME CONC (COR-SOL)
+
+Partial volume of aerosol water in coarse mode (soluble)
+
+(m^3 per particle) 
+</M001_S038_I464>
+#
+<M001_S038_I465>
+BC PARTIAL VOLUME CONC (AIT-INS)
+
+Partial volume of black carbon aerosol in Aitken mode 
+(insoluble)
+
+(m^3 per particle) 
+</M001_S038_I465>
+#
+<M001_S038_I466>
+OC1 PARTIAL VOLUME CONC (AIT-INS)
+
+Partial volume of organic matter aerosol in Aitken mode 
+(insoluble)
+
+(m^3 per particle) 
+</M001_S038_I466>
+#
+<M001_S038_I467>
+DU  PARTIAL VOLUME CONC (ACC-INS)
+
+Partial volume of dust carbon aerosol in accumulation mode 
+(insoluble)
+
+(m^3 per particle) 
+</M001_S038_I467>
+#
+<M001_S038_I468>
+DU  PARTIAL VOLUME CONC (COR-INS)
+
+Partial volume of dust carbon aerosol in coarse mode 
+(insoluble)
+
+(m^3 per particle)
+</M001_S038_I468>
+#
+<M001_S038_I469>
+ACTIVE CLOUD DROP NO CONC (NUC-SOL)
+
+Active Cloud Droplet Number Concentration (Nucleation 
+mode-Soluble) (m^-3) .  Potential number concentration 
+of soluble nucleation mode aerosols that could activate.  
+
+Note that this is a potential number, which simply contains 
+the number of aerosol particles in that mode, in that 
+grid-box, that could activate, irrespective of whether 
+that grid-box (or those below) contain liquid cloud or not. 
+</M001_S038_I469>
+#
+<M001_S038_I470>
+ACTIVE CLOUD DROP NO CONC (AIT-SOL)
+
+Active Cloud Droplet Number Concentration (Aitken mode-Soluble) 
+(m^-3).  
+
+Note that this is a potential number, which simply contains 
+the number of aerosol particles Potential number concentration 
+of soluble aitken mode aerosols that could activate.   
+</M001_S038_I470>
+#
+<M001_S038_I471>
+ACTIVE CLOUD DROP NO CONC (ACC-SOL)
+
+Active Cloud Droplet Number Concentration (Accumulation 
+mode-Soluble) (m^-3) .  Potential number concentration of 
+soluble accumulatiom mode aerosols that could activate.  
+
+Note that this is a potential number, which simply contains 
+the number of aerosol particles 
+</M001_S038_I471>
+#
+<M001_S038_I472>
+ACTIVE CLOUD DROP NO CONC (COR-SOL)
+
+Active Cloud Droplet Number Concentration (Coarse mode-Soluble) 
+(m^-3) .  Potential number concentration of soluble coarse mode 
+aerosols that could activate.  
+
+Note that this is a potential number, which simply contains 
+the number of aerosol particles
+</M001_S038_I472>
+#
+<M001_S038_I473>
+Maximum Supersaturation (percent)
+
+Maximum Supersaturation (percent). Maximum supersaturation 
+predicted by the aerosol activation scheme. This is the 
+potential maximum supersaturation, if activation were to 
+occur in a grid-box, irrespective of whether that grid-box 
+(or those below) contain liquid cloud or not. 
+</M001_S038_I473>
+#
+<M001_S038_I474>
+Cloud base for aerosol activation
+
+Cloud base for aerosol activation (no units)
+
+=1 if at cloud base, or 0 if not.  (i.e. For lowest model level, 
+=1 if cloudy (i.e. IF liquid cloud fraction > 0 AND LWC > 0 kg kg^-1.) 
+Above lowest level, =1 if cloudy AND level below not cloudy, =0  otherwise. ) 
+</M001_S038_I474>
+#
+<M001_S038_I475>
+Sigmaw Updraught Velocity
+
+Sigmaw Updraught Velocity (m s^-1)
+
+Standard deviation of pdf of updraught velocity, 
+irresepctive of whether grid-box is cloudy or not. 
+</M001_S038_I475>
+#
+<M001_S038_I476>
+CLOUD LIQUID FRACTION
+
+Direct copy of Section 0 Item 267 (Liquid cloud fraction by 
+volume) passed into UKCA.   
+</M001_S038_I476>
+#
+<M001_S038_I477>
+TOTAL CDNC * CLOUD LIQ FRACTION
+
+Total Cloud Droplet No. Conc * Cloud Liq Fraction (m^-3) 
+
+Cloud droplet number concentration (CDNC), weighted by liquid 
+cloud fraction.  For vertically-contiguous cloudy levels 
+(i.e. vertically adjacent grid-boxes with liquid cloud 
+fraction > 0 and LWC > 0 kg kg^-1), this equates to the number 
+of aerosols activated at cloud-base (the lowest of these 
+cloudy levels), weighted by the liquid cloud fraction. 
+
+For grid boxes containing no liquid cloud, CDNC is set to 0.  
+(Divide time average through by <CLOUD LIQUID FRACTION> 
+for in-cloud value.) 
+</M001_S038_I477>
+#
+<M001_S038_I478>
+CLOUD FLAG
+
+Cloud flag required for correct in-cloud values in time 
+averages of items 479, 480 and 481.  =1 IF liquid cloud 
+fraction > 0 AND LWC > 0 kg kg^-1;  =0 otherwise.
+
+(1/0)
+</M001_S038_I478>
+#
+<M001_S038_I479>
+TOTAL CDNC * CLOUD FLAG (m^-3)
+
+Total Cloud Droplet No. Conc * Cloud Flag (m^-3).  
+
+Cloud droplet number concentration (CDNC). 
+Zero in non-cloudy gridboxes.  
+For vertically-contiguous cloudy levels (i.e. vertically 
+adjacent grid-boxes with liquid cloud fraction > 0 and 
+LWC > 0 kg kg^-1), this equates to the number of aerosols
+activated at cloud-base (the lowest of these cloudy levels). 
+
+For grid boxes containing no liquid cloud, this is set to 0.  
+(Divide time average through by <CLOUD FLAG> for in-cloud value.)
+</M001_S038_I479>
+#
+<M001_S038_I480>
+Max SuperSaturation*CLD FLAG (perc)
+
+Maximum SuperSaturation * Cloud Flag (percent).  
+
+Maximum supersaturation predicted by the aerosol activation 
+scheme. Zero in non-cloudy grid boxes.  
+For vertically-contiguous cloudy levels (i.e. vertically 
+adjacent grid-boxes with liquid cloud fraction > 0 and 
+LWC > 0 kg kg^-1), this equates to the maximum supersaturation 
+at cloud-base (the lowest of these cloudy levels).  
+
+(Divide time average through by <CLOUD FLAG> for in-cloud value.)  
+</M001_S038_I480>
+#
+<M001_S038_I481>
+Charac updraft * CLD FLAG (m s^-1)
+
+Characteristic Updraft * Cloud Flag (m s^-1).  
+
+If a pdf of updraught velocity (w) is used, this tells 
+you w*, the value of w that would yield N(w*) closest 
+to the expected value of CDNC over the range of the pdf, 
+if you had only run the activation scheme once, at this 
+value of w*. Zero in non-cloudy grid-boxes.  
+
+For vertically-contiguous cloudy levels (i.e. vertically 
+adjacent grid-boxes with liquid cloud fraction > 0 and 
+LWC > 0 kg kg^-1), this equates to the maximum supersaturation 
+at cloud-base (the lowest of these cloudy levels).  
+(Divide time average through by <CLOUD FLAG> for in-cloud value.) 
+</M001_S038_I481>
+#
+<M001_S038_I482>
+Sigmaw * CLOUD FLAG (m s^-1)
+
+Standard deviation of pdf of updraught velocity. 
+Zero in non-cloudy grid boxes.  
+
+For vertically-contiguous cloudy levels (i.e. vertically 
+adjacent grid-boxes with liquid cloud fraction > 0 and 
+LWC > 0 kg kg^-1), this equates to sigma_w at cloud-base 
+(the lowest of these cloudy levels). 
+(Divide time average through by <CLOUD FLAG> for in-cloud value.)
+</M001_S038_I482>
+#
+<M001_S038_I483>
+BL TKE * CLOUD FLAG (m^2 s^-2)
+
+Boundary Layer Total Kinetic Energy * Cloud Flag (m^2 s^-2).  
+
+Turbulent kinetic energy from BL scheme. 
+Zero in non-cloudy grid boxes.  
+
+For vertically-contiguous cloudy levels (i.e. vertically 
+adjacent grid-boxes with liquid cloud fraction > 0 and 
+LWC > 0 kg kg^-1), this equates to the turbulent kinetic 
+energy at cloud-base (the lowest of these cloudy levels).  
+(Divide time average through by <CLOUD FLAG> for in-cloud value.)     
+</M001_S038_I483>
+#
+<M001_S038_I484>
+CCN at fixed Supersaturation (m^-3)
+
+Cloud Condensation Nuclei at fixed Supersaturation (m^-3).  
+
+Number concentration of cloud condensation nuclei that could 
+form on aerosol in the lowest model level.  
+</M001_S038_I484>
+#
+<M001_S038_I485>
+</M001_S038_I485>
+#
+<M001_S038_I486>
+</M001_S038_I486>
+#
+<M001_S038_I487>
+</M001_S038_I487>
+#
+<M001_S038_I488>
+</M001_S038_I488>
+#
+<M001_S038_I489>
+</M001_S038_I489>
+#
+<M001_S038_I490>
+</M001_S038_I490>
+#

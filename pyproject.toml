@@ -1,0 +1,38 @@
+[project]
+name = "umui-next"
+version = "0.1.0"
+description = "Modern rebuild of the UMUI experiment/job management tool"
+requires-python = ">=3.12"
+
+[tool.uv.workspace]
+members = ["core", "connectors", "api"]
+
+[tool.uv.sources]
+umui-core = { workspace = true }
+umui-connectors = { workspace = true }
+umui-api = { workspace = true }
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "A", "SIM", "TCH", "RUF"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+testpaths = ["core/tests", "connectors/tests", "api/tests"]
+addopts = "--tb=short -q"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.19.1",
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+    "ruff>=0.15.0",
+]

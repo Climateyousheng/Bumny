@@ -1,0 +1,31 @@
+%C ======================================================
+%C module: cplflags_nemo
+%C
+%C Coupling flags for NEMO submodel
+%C
+%C Module included in:
+%C  * FCM_NEMOCICE_CFG   via processing/fcm_nemocice_cfg  
+%C ======================================================
+%TCL
+   append part3c \
+"# NEMO Coupling flags
+# -------------------
+# We deliberately completely override the fflags 
+# because the order they appear in is critical.
+"
+
+   if {[inactive_var OASISWHICH]==0 && %OASISWHICH=="3"} {
+      append part3c \
+"
+bld::tool::fflags::nemo     %%bld::tool::fflags::nemo  -I%%prism_home/build/lib/mpp_io \\
+                            -I%%prism_home/build/mod/oasis3.MPI1 \\
+                            -I%%prism_home/build/lib/psmile.MPI1
+"
+  } elseif {[inactive_var OASISWHICH]==0 && %OASISWHICH=="4"} {
+     append part3c \
+"
+bld::tool::fflags::nemo     %%bld::tool::fflags::nemo  -I%%prism_home/build/lib/mpp_io \\
+                            -I%%prism_home/build/lib/psmile.MPI1
+"
+  }
+%ENDTCL

@@ -1,0 +1,23 @@
+
+Rather than specifying level ranges in numbers in domain profiles it
+is possible to specify them in terms of a level name. A level name is
+is simply a string of letters that stands for a particular level
+related setting as input in the vertical domain panels for the various
+submodels. A list of valid names and their current values is
+below. The benefit of using names is that domain profiles will change
+appropriately if the number of levels that they are intended to cover
+changes.
+
+Level names can only be used in certain entry boxes. These are
+identified by the fact that to the right of the box there will be a
+"Converts to:" label which shows what the current input will be
+converted to when the job is processed.
+
+It is possible to specify an arithmetic sum. For example, if one felt
+one needed to, one could specify the top level but one with 
+
+"ATMOS_TOP - 1".
+
+If you feel that a new name could be usefully defined or if you feel
+that names ought to be allowed to be input into more boxes then please
+make your case to the UMUI team.

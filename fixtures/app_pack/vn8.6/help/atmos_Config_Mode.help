@@ -1,0 +1,9 @@
+This window has a collection of questions that affect the mode of running for
+the Unified Model.
+
+The "Stratospheric" lower boundary condition defines the model as being driven
+from a lower  boundary condition file. This is an untried configuration and work
+would be required to get this going. 
+
+The option to grow orography is a relic from an old model. This option is
+untested and should only be used with caution.

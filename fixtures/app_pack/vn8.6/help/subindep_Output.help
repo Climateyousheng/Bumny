@@ -1,0 +1,100 @@
+This panel allows you to specify various control options that cut
+across all sub-models regarding output choices.
+
+Subroutine timer diagnostics give useful output on model efficiency. The output
+  is not excessive, but there will be a small efficiency loss.
+  They can only be used if the section of code is included. See
+	Sub-model independent --> Section Options --> Miscellaneous Sections
+
+
+The "Copy job sheet to job library" option allows additional information
+  to be output to the job library when the job is processed. Optionally, 
+  this includes the JOBSHEET, which is a formatted description of the questions 
+  and answers from the user interface. 
+
+The Jobsheet is fully comprehensive, but there are two options available 
+which exclude certain sections. 
+   - the first relates to options for dumping and climate meaning, 
+     and also LBCs. 
+   - the second relates to the contents of  the STASH profiles.
+
+See bottom of this help for information as to how the jobsheet is
+produced.
+
+The level of print output determines how many messages are required
+  from the model executable. Most users will select "Normal". Setting
+  "Minimum" should reduce the length of output for long running stable
+  jobs, but you may need to be prepared to rerun parts of a job with
+  "Normal" should it run into trouble. "Operational" level is for
+  operational forecast use. "Extra Diag messages" can be selected, 
+  which will produce STASH diagnostics messages to aid the user in
+  understanding why diagnostics have not appeared where expected.
+
+Without the need to compile or relink, DrHook can be turned on/off,
+and the amount and type of information produced can be
+configured by the user. See the follow-on panel.
+
+Prefix output with originating file
+  Output from the model should be prefixed with the name of the file generating 
+  the output (helpful for tracing and debugging).
+
+Split long lines
+  Lines longer than the stated maximum should be broken up over multiple 
+  lines of the required size. 
+
+Force the model to flush output
+  after each line. Fortran implementations may buffer output, which may not  
+  be visible after an application failure. Enable this to maximise chances  
+  of seeing all prior output in case of failure. (Will reduce performance
+  significantly)
+
+Maximum width of output
+  The number of columns available in the output medium.
+
+Tasks for output
+  Selects whether all tasks in the application write, or just pe0.
+
+DrHook is a library written by ECMWF which can produce run-time information such as:
+
+  - Per-routine profiling information based on walltime, CPU-time and MFlops.
+  - Tracebacks in the event of code failure. A developer can force a traceback
+    at any point in the code with an appropriate call to the DrHook library.
+  - Memory usage information.
+
+---------------------------------------------------------------------------
+JOBSHEET - Further details
+---------------------------------------------------------------------------
+
+If selected, a jobsheet (text description of the job) is created when
+the job is processed. The jobsheet takes a few minutes to execute. For
+this reason it is executed as an independent process which means that
+you can continue to submit or edit your job once the jobsheet process
+starts. However, while the jobsheet is being created you will not be
+able to reprocess - first you will need to quit the current jobsheet
+process.
+
+This is how the job sheet is created:
+-  The output is based on mainly the contents of the windows. The order of
+   output is based on the order of the navigation tree.
+-  The output is comprehensive - all active variables should be output 
+   except those specifically excluded by the options on this output panel.
+-  For a given window, the output excludes inactive variables (those 
+   greyed out) and variables not on their home panel (so that variables
+   listed on more than one panel are only listed twice).
+-  Entry boxes, check boxes and radiobuttons are output with a question on
+   the left and the answer on the right. Radio buttons are either 'ON' or 
+   'OFF'.
+-  Wide tables may be split into two or more. If tables are split then 
+   some columns may be repeated to improve readability.
+-  Because the output is comprehensive, it is very long so avoid
+   making hard copies. Without profiles a typical coupled job is some 
+   2000 lines long.
+-  WARNING if you absolutely must get a hard copy from a laser printer: 
+   output is 79 characters wide. On the Hadley Centre printers this is
+   suitable for output on 2 pages per side of A4 using
+         lp -o2 -oportrait JOBSHEET
+   However, you are advised to test your printer with part of the document
+   first. If there are printers in the Met Office for which 79 columns is
+   too wide then it is a minor change for the development team to reduce 
+   the width of the output.
+

@@ -1,0 +1,91 @@
+Warning!
+--------
+Users are advised to consult the aerosol modelling group in CCE before
+using these panels to set up experiments including aerosols.
+
+
+General information:
+-------------------
+The Sulphur Cycle and/or Soot scheme may be selected independently of each
+other, and may also be run with free tracers (but see * below). Extra
+prognostic variables will be included in the run and extra code executed in
+various parts of the model when aerosol modelling is included, so memory and
+run time requirements will be increased. The aerosol 'chemistry' is carried out
+in section 17 of the model, and only one version (2B) is currently available. 
+
+If Sulphur Cycle is selected, the SULP button must be used to enter more 
+information in the atmos_Science_Section_Aero_Sulphur panel. 
+
+The model will fail if nitrate is selected without selecting a UKCA chemistry 
+scheme. The failure will be associated with runtime error message At least 
+one UKCA oxidant not found in D1 array.
+
+If Soot Scheme is selected, the SOOT button must be used to enter more 
+information in the atmos_Science_Section_Aero_Soot panel. 
+
+Diagnose mineral dust emissions only: This option allows the model 
+to calculate mineral dust emissions (as well as other fields such 
+as U*, U*t) without the cost of the full prognostic dust scheme. 
+This should be used with caution because these emissions also include 
+dust that would fall back to the surface in the same timestep in the 
+full prognostic scheme. Obviously, it also contains no information 
+on the vertical distribution of dust or where it would be advected 
+in the full prognostics scheme. 
+
+The AERO FX button may be used to select various direct and indirect aerosol 
+effects via the panel atmos_Science_Section_Aero_Effects (including those of 
+sea-salt, which is generated internally within the model).
+
+Care must be taken to select compatible versions of the model physics, as
+the following sections contain code necessary for the aerosol modelling:
+
+Radiation
+Boundary Layer 
+Large Scale Precipitation
+Convection
+Tracer Advection 
+  
+Generate LBCs
+-------------
+The LBCs button may be used to select which aerosol LBCs to generate 
+(dust, sulphates, DMS, NH3, soot, biomass, and OCFF) via the 
+atmos_Science_Section_Aero_LBC panel.
+
+
+Ancillary files
+---------------
+If using Sulphur Cycle or Soot modelling, various extra ancillary files will be 
+required (see SULP and SOOT panels); the Ancillary file header record maximum 
+size must be set to 5000  (In window atmos_InFiles_Options_Headers) 
+
+
+Initialisation of prognostics
+------------------------------
+Sulphur Cycle and Soot prognostic variables must be initialised either from 
+existing values in a model dump, or by providing a user-STASHmaster file for
+the variables and initialising them (usually to zero) as user prognostics 
+through the UMUI (in panel atmos_STASH_UserProgs).
+
+
+Settings in this panel:
+----------------------
+The substep division can be used to run the Sulphur Cycle chemistry with a
+shorter timestep than that of the model; however this is not generally
+necessary or recommended, and this parameter should be set to 1.
+
+
+Buffering with NH3
+------------------
+There are various options available for treating dimethyl sulphide and sulphur
+dioxide oxidation by ozone. Some of these options require emitting ammonia
+(NH3) as part of surface emissions (follow-on window SUR). If the ammonium
+nitrate aerosol has not been selected, one can choose to include, or not
+include, ozone oxidation of DMS and/or SO2. NH3 emissions are only required 
+when DMS oxidation by ozone is selected and SO2 oxidation by ozone uses NH3 
+buffering.
+If however ammonium nitrate aerosol is required, one must include ozone in
+both the DMS and SO2 oxidation schemes. The only choice is thus whether NH3
+buffers SO2 oxidation or not: in both cases, however, NH3 emissions will be 
+required since they are needed by the ammonium nitrate scheme itself.
+
+

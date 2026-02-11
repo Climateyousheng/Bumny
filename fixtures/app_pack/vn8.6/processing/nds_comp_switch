@@ -1,0 +1,25 @@
+%C ======================================================
+%C module: nds_comp_switch
+%C
+%C Set RUN_COMPILE variable
+%C
+%C Module included in:
+%C  * MAIN_SCR via processing/nds_main
+%C  * SUBMIT   via processing/nds_submit
+%C ======================================================
+
+# Loop through all submodels and set up RUN_COMPILE
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%T set model_list [string toupper $models_compile]
+run_compile=false
+for item
+in %TCL putl "$model_list" %ENDTCL
+do
+  eval compval=\$COMP_${item}
+  if test $compval = "true" ; then
+    run_compile=true
+    break
+  fi
+done
+
+RUN_COMPILE=$run_compile

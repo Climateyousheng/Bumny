@@ -1,0 +1,146 @@
+Section 5: CONVECTION SCHEME - Convective Cloud Options
+
+  Science options  4A, 5A & 6A (mass flux options)
+---------------------------------------------------
+
+  (i) Use a phase change other than 0 degrees - choose this if running 
+      with PC2. Values commonly used with PC2 are;
+      Phase change temperature   263.15
+      qsat at phase change    3.5e-3
+
+ (ii) Critical convective cloud condensate options:
+          0) Original code: after a critical depth is reached the critical cloud 
+             condensate, which is the maximum cloud condensate that can be retained 
+             in a layer, is set to MIN(MPARWTR, fac_qsat*QSatEnv). Condensate above 
+             this limit is converted to precipitation. By default the critical depths 
+             are 1 km for ice cloud, 4 km for liquid cloud over land, and 1.5 km for 
+             liquid cloud over the ocean. The differences in critical depths are an 
+             attempt to take account of different aerosol concentrations over 
+             continental and oceanic regions, and the differences in the microphysics 
+             between liquid and ice clouds. If PC2 is switched on then a minimum 
+             value (qlmin) is also applied to the critical cloud condensate.
+
+          1) As option 0 but removes the critical depths and doubles the critical 
+             cloud condensate for liquid clouds over land.
+
+          2) As option 1 but replaces MPARWTR with 
+                       MPARWTR*(2.0+tanh((1500-depth)/1000)) 
+             where depth is the current depth within the convective cloud.
+
+          3) As option 1 but replaces MPARWTR with 
+                       MPARWTR*(1.5+0.5*tanh((3000-depth)/800)) 
+             where depth is the current depth within the convective cloud.
+
+          4) Sets the critical cloud condensate to be 
+                       MIN(MAX(fac_qsat*QSat_Env, qlmin),mparwtr) 
+             The same profile is used over both land and sea and no attempt is made 
+             to take account differences in aerosol concentrations.
+
+(iii) Minimum critical cloud condensate in kg/kg. This sets the minimum value of the 
+      critical cloud condensate profile, qlmin. This will always be applied for 
+      option 4 but will only be applied to options 0-3 if PC2 is switched on. The 
+      default value is 2.00e-4 kg/kg and this appears to be reasonable when compared 
+      to observations and CRM simulations.
+
+ (iv) QSat factor for critical cloud condensate. This sets fac_qsat which is the 
+      critical cloud condensate profile expressed as a proportion of the saturated 
+      specific humidity of environment, QSatEnv. This is applied for all critical 
+      convective cloud condensate options. The default value is 0.5 and options 0-3 
+      have always used this value; however, comparisons with observations and CRM 
+      simulations suggests that this may be too high and a value of 0.2-0.3 may be 
+      more appropriate.
+
+ (v)  Maximum critical cloud condensate in kg/kg (MPARWTR). This sets the maximum 
+      value of the critical cloud condensate profile, mparwtr. This will always be 
+      the maximum value for option 4. mparwtr will always be used in options 0-3 
+      but because of the critical cloud depths (option 0) or other scalings 
+      (options 1-3) it will not always directly equate to the maximum value of the 
+      critical cloud condensate. The default value is 1.00e-3 kg/kg and this appears 
+      to be within the range suggested by observations and CRM simulations.
+
+ (vi) The cloud water can be modified without changing the precip. efficiency
+      through use of the updraught factor. A value ~0.1 is recommended for
+      use with the anvil scheme (1.0 otherwise). This is intended to represent
+      the fraction of the convective cloud occupied by the strong updraught.
+      This factor is only applied to grid-levels where convective
+      precipitation is formed, unless the switch "Apply updraught factor to
+      whole column is selected.
+
+      NOTE: CCRad removes the original application of the updraught
+      factor and uses Convective Cloud Water (CCW) scalings
+      instead. However, if the switch "Apply updraught factor to
+      whole column" is used with CCRad, then both updraught factor
+      and CCW scalings are applied to the CCW profile. 
+
+ (vii) Efficiency of liquid/frozen cloud creation. This defines the efficiency 
+       by which liquid/frozen cloud fraction is created from detrained liquid/frozen 
+       convective cloud condensate. A larger value will create a larger cloud fraction 
+       for a given amount of detrained condensate. Values will typically be between 
+       0.1 and 1.0.
+
+(viii)Time decay of convective clouds: this option applies a simple
+      quasi exponential time-decay to both convective cloud cover and water
+      content, with a specified fixed timescale (default 7200.0). The
+      cloud seen by radiation is then taken to be the greater of the
+      cloud diagnosed by the convection scheme this model timestep
+      and the decayed cloud from the previous timesteps. If cloud
+      cover at any level falls below a threshold of 2%, then the 
+      cloud in that level is set to zero.
+      Settings;
+          0 - no cloud decay 
+          1 - for cloud decay as described above.
+          2 - for cloud decay, but decays on the convective substep
+              (only available with CCRad)
+
+ (ix) Use 3D Convective Cloud Field - Convective Cloud Amount to use a 3D field 
+      so that vertical structures are retained from timestep to timestep.  If this  
+      is UNSET, convective cloud amount is collapsed to a single-level field which 
+      is derived from total column condensed cloud water (cclwp) or total convective 
+      surface precipitation (see CCRad ref CCA2D). 
+
+ (x)  The radiative representation of anvils modifies the convective cloud 
+      amount (CCA) to vary with height during deep convection. 
+ 	 
+      This option REQUIRES a 3D Convective Cloud Field, see (vii) above. 
+	 
+      The CCA is multiplied by the tower factor from the cloud base to the 
+      freezing level, and increased linearly from the freezing level to the 
+      cloud top.  The cloud top value is equal to the original CCA multiplied 
+      by the anvil factor.  The anvil profile basis selects the vertical property 
+      with which to apply the anvil profile: 
+ 	
+          0)   Pressure        
+  	  1)   Height 
+	  2)   Model levels (Pre-6.6) (default if anvil basis not specified).  
+	  3-9) For future use, will default to Pressure if used. 
+	 
+
+      The modified fraction is used by the radiation scheme.
+
+      Edwards-Slingo (vn3C) radiation must be chosen. 
+      Recommended values are (at PS22): 
+ 	
+          Anvil factor = 2.6 
+          Tower factor = 1.0 
+ 	  Anvil Basis  = 0 
+ 
+      When the depth criterion is applied, clouds have to be more 
+      than 500mb deep to be modified by the anvil scheme. 
+     
+
+
+ (xi) CCA 2D is currently based on Total Condensed Water(TCW). Though
+      this assumes that there is only one contigious cloud in the
+      vertical per gridbox. However, mid-level cloud is allowed on
+      the same timestep and gridbox as shallow or deep convection. by
+      using a 2D field such as TCW, lower cloud (shallow,deep) is able
+      to affect the CCA of higher cloud(mid-level). CCRad decouples
+      mid-level convection from shallow and deep by using TCW from the
+      respective cloud type to determines its particular CCA profile.
+      The 2D field to base CCA 2D can be set via "CCA 2D Basis" for
+      the given convective cloud type:
+         0)   Use TCW
+         1)   Use Surface convective rain rate
+         2)   (Available for shallow convection only) Use cloud base mass flux divided by convective velocity scale 
+         3-9) For future use, will default to TCW if used    
+

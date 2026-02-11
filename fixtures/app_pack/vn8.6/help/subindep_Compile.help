@@ -1,0 +1,68 @@
+This panel enables users to 'control' the UM job; which executables to compile/use 
+and whether to run the model and/or RCF.
+
+For runs using the generalised suite system for external control, you must run with 
+pre-built executables.
+
+
+Type of model run: A normal run (NRUN) is required to start any integration.
+ 
+A continuation run (CRUN) can be used to continue a long, automatically resubmitting  
+integration, or to continue an integration that has failed for some reason.
+You cannot select a compilation step for any component (Atmosphere, Ocean or Sea-ice) 
+at the same time as a continuation run. (i.e. when performing a CRUN you must always 
+run using existing executable components.)
+You cannot select a CRUN when running or compiling the reconfiguration. 
+
+
+The reconfiguration step is used to generate a reconfigured initial dump. If a 
+suitable initial dump already exists, this step can be skipped. Details of the 
+initial dump are set in the Atmosphere Start Dump panel.
+
+The executables made can be kept and used in subsequent runs. Care should be taken 
+if using an executable for two different runs (rather than a continuation of the 
+same run). There are no checks in the model that a named executable agrees with user 
+choices such as which version of the Convection code to use! It is safest to only
+re-use model executables for "continuations" of the same run. If in doubt re-build.
+
+If the executables are to be re-compiled you can specify the number of independent 
+compilation processes that can be run simultaneously, and the queue time limit. If 
+the executable is not to be re-compiled this part of the window cannot be seen.  
+This option is set externally for those using generalised suite control.
+
+In either case the name and location of the executables need to be defined. 
+Generally $RUNID.exe is the standard model executable name, but this can be changed. 
+$DATAW/bin is the standard location for the executable. If the location is changed, 
+care must be taken to ensure that the user has write access to the new location.
+
+Recommended resources for the Met Office IBM Power 7:
+
+The default value for processes is 1. Users should be mindful that using the default 
+value of 1 can mean extremely long build times (> default time limit of 1 hours). 
+Requesting 3 or 4 processes will give good throughput. Asking for more doesn't help 
+much as the minimum time for compilation is limited by compilation of a few 
+large subroutines. The default time limit is one hour. If compilation fails 
+to complete within this time it suggests that one or more subroutines has 
+an inappropriate optimisation option applied. This should be investigated before a
+higher time limit is requested.
+
+Level of Optimisation
+---------------------
+
+This refers to the amount of automatic optimisation that the compiler is
+allowed to do. Generally, lower optimisation equals longer runs but less chance
+of bit comparison being affected. Higher optimisation results in faster runs but
+at the potential expense of the scientific results being changed.
+The Safe option is generally used for climate work and is equivalent
+to applying -Cvopt compiler flag. High is used for NWP and operational work
+and equates to -Chopt. Debug equates to -Cdebug -g and is used for disabling
+all optimisation and to enable interactive debugging on the code.
+Please note that if you are using a prebuild, ensure that the corresponding 
+option here is set. e.g. if you are using the 'global_atmos_high' prebuild
+that high is set here.If you use a different optimisation then the whole
+of the source code will be re-compiled thus losing the benefit of the prebuild.
+When using the Intel compiler on Linux, results run using high optimisation will
+not bit compare with the IBM. The debug and safe optimisation levels should use
+stricter optimisations which may reduce the differences between Linux and the 
+IBM.
+

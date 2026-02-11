@@ -1,0 +1,55 @@
+Help for window : subindep_Compile_User 
+
+The UM compile system is currently based on the FCM configuration 
+management system.
+
+Information about compiler tools and flags is set in standard 
+machine configuration files held in the UM's FCM repository
+(typically on a "per machine" basis since compiler options will 
+differ from platform to platform).
+
+Similarly, default file-specific (i.e. subroutine or module -specific) 
+compiler overrides are also held in central files (e.g. in order to 
+apply certain safe levels of optimisations to particular subroutines).  
+
+Specifications of certain standard code libraries is also defined in 
+these central configuration files (e.g. gcom, netcdf, oasis3, etc.)
+Particular libraries may be necessary in all cases (e.g. GCOM) or
+optional (e.g. OASIS3) and are linked to the UM executable during 
+the load phase of the compilation. 
+
+
+The user may provide their own overrides to these default machine and 
+file specific compiler and load options via the entries in this window
+under "User Machine Overrides" and "User File Overrides" respectively. 
+The full path and file name must be specified in each case. The user
+will need to be reasonably familiar with the structure and contents 
+of the UM configuration files in order to employ this facility. 
+
+
+The user is also able to override any of the default path names
+associated with the standard code libraries which may be linked
+to the UM build. This functionality allows alternative versions of 
+libraries to be employed (e.g. for compatibility reasons or to 
+assess new releases of particular packages).   
+
+Path names to code libraries are overridden in the "User paths overrides"
+section by specifying the path name variable, in the form %path_name and 
+the full absolute path to be used in place of the default location. 
+
+
+The "Include Y/N" switches allow easy activation or deactivation 
+of each of these overrides.
+
+
+For more information, please consult UMDP Z52 relevant to the UM
+release you are running at. This document explains in more detail,
+with examples, how to create both machine and file specific override
+files.
+
+
+
+
+
+
+

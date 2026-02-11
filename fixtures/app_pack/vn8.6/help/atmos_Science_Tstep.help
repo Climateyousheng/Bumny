@@ -1,0 +1,129 @@
+Help for window : atmos_Science_Tstep 
+
+This window allows users to specify parameters related to the atmospheric
+timestep.
+
+The basic timestep of the model must divide into one hour at present. The 
+value chosen depends mostly on horizontal resolution. The value is normally 
+chosen to give the longest timestep that retains stability. 
+See UMDP 15. 
+
+The physics timestep defines the basic atmospheric timestep. 
+
+Operational global model (432x325) uses 72 physics timesteps per day. 
+Operational mesoscale model (146x182) uses 288 physics timesteps per day.
+Standard climate configurations (96x73, 192x145) use 48 physics timesteps 
+per day.
+Assimilation, when requested, is carried out with the same timestep as the
+physics.
+For other resolutions see the job owner.
+
+Other parameters have specific help on the windows relating to the relevant 
+code section.
+
+
+New unconditionally stable and non-oscillatory BL solver
+========================================================
+   
+The new BL solver is very effective in eliminating the noise which 
+appears in BL increments, fluxes, and other related model fields 
+in regions of stable BL type. In these areas the underlying vertical
+diffusion problem can be strongly nonlinear and when the timescale
+is fast the standard scheme is no longer unconditionally stable.
+The new scheme is: (i) unconditionally stable (ii) non-oscillatory 
+(iii) monotonically damping. These are good properties for problems 
+with fast timescale (stiff). To ensure that these properties are 
+maintained in a run the user parameters should be appropriately set. 
+Using 1.5 in the "P parameter (nonlinearity degree) for stable BL" is 
+an appropriate setting. For high BL vertical resolution (e.g. 22 levels 
+instead of 13) when a SHARPEST type mixing scheme is used this may 
+have to be increased to 2.0 for noise free solutions. Using 0.5 or 
+0.25 in the "P parameter (nonlinearity degree) for unstable BL" is 
+recommended. In general, the higher these values are, the more stable 
+the scheme becomes. However, running with great nonlinear stability at 
+an area which is not required (where a weakly nonlinear is problem is 
+solved) results in lower accuracy. 
+
+The time weights for BL levels specified in "Boundary layer and Surface 
+processess" window should also be set as they are required by the surface 
+scheme to work properly. Using 2.0 in the first level and 1.5 above is a 
+good choice. 
+ 
+
+Time weights for boundary layer levels
+======================================
+The number of boundary layer levels is set in the "Vertical" panel under 
+"Model resolution  and domain".  A time  weight must  be given  for each 
+boundary layer level. 
+Note that  level 1 applies  to the surface energy  budget equation and a 
+value of 2 is recommended, independent of the values in the other levels.  
+
+
+Time weights for tracers
+========================
+Because there is no dependence of the diffusion coefficients on the tracer 
+fields, it is safe and more accurate to use time weights of unity for all 
+tracer fields.  See also the panels on tracers under configuration and UM 
+Basic Users Guide on tracers. 
+
+
+Background to cycling (iterating semi-implicit semi-Lagrangian dynamics)
+========================================================================
+
+The New Dynamics scheme is one iteration towards convergence
+of the nonlinear and semi-implicit discretized model equations.
+This currently works well in practice but permits some weak 
+instabilities. Iterating (cycling) the model could have the 
+following benefits:
+
+(1) Permit a more stable departure point calculation. In the
+standard (1 iteration model) the midpoint velocity U_adv, 
+used in Ritchie for finding the departure points, is computed
+using 2nd order time extrapolation which could be weakly unstable.
+When iterating (cycling), in the 2nd and subsequent cycles (if any) 
+2nd order time interpolation is used instead. This enhances stability. 
+
+(2) Permit use of more implicit predictors, for calculating the 
+nonlinear implicit dynamical terms. The effect of this is to further 
+enhance stability. The current practice is to use explicit predictors 
+for weakening the implicit nonlinear products to linearly implicit ones 
+and thus reducing the cost of solving the associated equations. When 
+cycling, explicit predictors can be replaced by more accurate 
+approximations at t_{n+1} obtained at the end of the last cycle. 
+For example, in the 2-cycle case, at the end of the 1st cycle a 
+solution estimate is available and this is the one normally accepted 
+(where normally implies the standard 1-iteration model). 
+
+
+HOW TO ACTIVATE CYCLING
+=======================
+
+* Switch on radio button labeled "Cycle model" and set number of cycles.
+  When 2 cycles (or more) are chosen then (1) above, i.e. the time 
+  interpolated scheme for the departure point calculation, is activated.
+* If you wish to activate (2), i.e. use implicit predictors for the 
+  implicit nonlinear dynamical terms, switch on radio button labelled:
+  "Activate improved implicit time scheme when cycling".
+* The bottom radio button could be switched on when cycling (cycles>1).
+  The effect will be to compute U_adv using first order time extrapolation
+  which could further increase stability. Although this is not 
+  recommended with the 1-cycle model, as it could have a negative impact
+  on forecast accuracy, it may be useful in some cases of high 
+  resolution modelling where high vertical Courant numbers are expected.
+* Visit section by section choices, "section 10: Dynamical Adjustment" 
+  and switch on radio button labelled: "Use last soln as initial guess 
+  after 1st cycle". This will often accelerate the convergence of the 
+  Helmholtz solver after the 1st cycle. In the same window, in 
+  "Convergence criterion" section, fill in the tolerance "Value after 
+  1st cycle". It is recommended to use the same as in the entry above.
+* Visit section by section choices, "section 12: Primary Field Advection"
+  and click NEXT button at the bottom of the window. This will bring 
+  a window which enables the user to set the values of the alpha weights
+  for the 2nd (and subsequent) cycles. One sensible option is to use the 
+  same values used for the standard (1st cycle) alpha weights. However,
+  due to the enhanced stability of the cycling scheme it may be possible
+  to reduce these and to improve accuracy. Please contact thr DR team for 
+  further advice.
+  
+
+

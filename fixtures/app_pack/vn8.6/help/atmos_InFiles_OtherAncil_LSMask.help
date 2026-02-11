@@ -1,0 +1,14 @@
+This window allows users to specify the use of the land-sea mask ancillary file.
+
+The land-sea mask is the field defining which points are land and which are sea.
+It is not time-variant and so can only be configured. It is always safe to
+configure this from the standard file at the correct resolution, but if the
+field varies from that in your start dump coastal adjustment and interpolations
+will be performed that will affect results slightly.
+
+You should include an ancillary file if changing resolution.
+
+River catchments are only required for coupled atmos/ocean models to specify
+fresh-water outflow from the land to the sea.
+
+%I ancill_gen

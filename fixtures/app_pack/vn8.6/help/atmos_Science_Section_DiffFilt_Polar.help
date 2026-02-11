@@ -1,0 +1,17 @@
+See below for a description of sections.
+
+polar_filter_latitude_limit is the absolute value of latitude given by
+the start latitude + number of sweeps * filter step per sweep
+
+northern_latitude_limit is the latitude north of which
+polar filter is to be active. Set in degrees.
+
+southern_latitude_limit is the latitude south of which
+polar filter is to be active. Set in degrees.
+
+number_of_sweeps is the number of times to apply the 1-2-1 filter.
+
+filter_coefficient should be set to 0.25 for full 1-2-1 filtering.
+
+filter_step_per_sweep is the distance polewards in degrees to
+move start latitude for 1-2-1 filtering area between successive sweeps.

@@ -1,0 +1,42 @@
+"Select which group(s) of aerosol tracers you would like to generate LBCs 
+for (the default setting is false).
+
+If "Generate dust LBCs?" is selected, LBCs for the six tracers 
+DUST_DIV1, DUST_DIV2, DUST_DIV3, DUST_DIV4, DUST_DIV5, DUST_DIV6 will be 
+generated. 
+The logicals L_DUST_DIV1_LBC_OUT, L_DUST_DIV2_LBC_OUT, L_DUST_DIV3_LBC_OUT, 
+L_DUST_DIV4_LBC_OUT, L_DUST_DIV5_LBC_OUT and L_DUST_DIV6_LBC_OUT will be 
+set to true in namelist &NLSTCATM. 
+
+If "Generate sulphate LBCs?" is selected, LBCs for the four tracers 
+SO2, SO4_AITKEN, SO4_ACCU, SO4_DISS will be generated. 
+The logicals L_SO2_LBC_OUT, L_SO4_AITKEN_LBC_OUT, L_SO4_ACCU_LBC_OUT 
+and L_SO4_DISS_LBC_OUT will be set to true in namelist &NLSTCATM. 
+
+If "Generate DMS LBCs?" is selected, LBCs for the tracer DMS (Dimethyl Sulphide) 
+will be generated. 
+The logical L_DMS_LBC_OUT will be set to true in namelist &NLSTCATM. 
+
+If "Generate NH3 LBCs?" is selected, LBCs for the tracer NH3 (ammonia) 
+will be generated. 
+The logical L_NH3_LBC_OUT will be set to true in namelist &NLSTCATM. 
+
+If "Generate soot LBCs?" is selected, LBCs for the three tracers 
+SOOT_NEW, SOOT_AGD, SOOT_CLD will be generated. 
+The logicals L_SOOT_NEW_LBC_OUT, L_SOOT_AGD_LBC_OUT, L_SOOT_CLD_LBC_OUT 
+will be set to true in namelist &NLSTCATM. 
+
+If "Generate biomass LBCs?" is selected, LBCs for the three tracers 
+BMASS_NEW, BMASS_AGD, BMASS_CLD will be generated. 
+The logicals L_BMASS_NEW_LBC_OUT, L_BMASS_AGD_LBC_OUT, L_BMASS_CLD_LBC_OUT 
+will be set to true in namelist &NLSTCATM. 
+
+If "Generate OCFF LBCs?" is selected, LBCs for the three tracers 
+OCFF_NEW, OCFF_AGD, OCFF_CLD will be generated. 
+The logicals L_OCFF_NEW_LBC_OUT, L_OCFF_AGD_LBC_OUT, L_OCFF_CLD_LBC_OUT 
+will be set to true in namelist &NLSTCATM.
+
+If "Generate nitrate LBCs?" is selected, LBCs for the two tracers 
+NITR_ACC and NITR_DISS will be generated. 
+The logicals L_NITR_ACC_LBC_OUT and L_NITR_DISS_LBC_OUT 
+will be set to true in namelist &NLSTCATM.

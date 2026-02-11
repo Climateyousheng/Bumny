@@ -1,0 +1,22 @@
+%C ======================================================
+%C module: nds_target_vars
+%C
+%C will set up variables UM_ROUTDIR, UM_RDATADIR on a remote machine
+%C as well common use variables USERID, RUNID, UM_EXENAME
+%C
+%C Module included in:
+%C  * MAIN_SCR via processing/nds_main
+%C  * EXTR_SCR via processing/nds_extract
+%C  * FCM_BLD_COMMAND via processing/nds_bld_gencmd
+%C ====================================================== 
+%C
+
+#---------------------------------------------
+# Job specific variables
+#---------------------------------------------
+export RUNID=%RUN_ID
+export USERID=%USERID
+export DATAW=%DATAW
+
+UM_ROUTDIR=%UMFCM_ROUTDIR/$RUNID
+UM_RDATADIR=%DATAW

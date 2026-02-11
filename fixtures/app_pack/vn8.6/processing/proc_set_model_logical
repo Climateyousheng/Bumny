@@ -1,0 +1,21 @@
+%TCL
+proc set_model_logical {number} {
+    # Procedure for setting model_incl(sm) to T or F for each sub-model
+    # from ATMOS, OCEAN, etc                                          
+    # OCEAN, WAVE and SLAB now removed, so "F" always returned for these.
+    # Called from the top of top.
+    
+    if { $number == 1 } { 
+      return  %ATMOS 
+    } elseif { $number == 2 } { 
+      return  "F"
+    } elseif { $number == 3 } { 
+      return  "F"
+    } elseif { $number == 4 } { 
+      return  "F"
+    } else {
+      error "set_model_logical needs updating for new model number $number."
+      return  F
+    } 
+}
+%ENDTCL

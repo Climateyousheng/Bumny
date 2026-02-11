@@ -1,0 +1,20 @@
+This window allows users to specify options that affect the
+prognostic variables that are used in the run for the atmospheric
+sub-model.
+
+SST Anomalies are used by long-range forecast configurations. This
+allows anomalies to be added to the sea-surface temperature
+climatologies at each updating point. 
+See also the window under ancillary files describing sea-surface
+temperatures.
+
+The "Total aerosol field" can be used for visibility forecasting, with 
+source/sink terms, advection of the aerosol and supply of boundary aerosol 
+data for the UK mes domain.  Additionally, transport by parametrized convection 
+can be included and the radiative effects of these aerosols can be accounted 
+for in an approximate fashion, in both the short-wave and long-wave.
+
+See the Chemistry (Sulphur Cycle) window for options that include the
+Sulphur Cycle prognostic variables.
+
+	   

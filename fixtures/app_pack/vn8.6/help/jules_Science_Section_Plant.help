@@ -1,0 +1,57 @@
+This panel allows the setting of some physiological parameters for
+Plant Functional Types (PFTs).
+
+The default table settings are for for the 5 usual PFTs, and the variables 
+listed below. 
+The number of rows (NPFT) is set in panel jules_Science_Section_LSurf.
+
+The PFTs are, in order:
+ broadleaf trees
+ needleleaf trees
+ C3 (temperate) grass
+ C4 (tropical) grass
+ shrubs
+
+The calculation of albedo for a tile interpolates between the values
+in the table, on the basis of other tile variables such as leaf-area
+index (LAI), snow cover etc.
+
+
+VEG SURFACE TYPE PARAMETERS
+----------------------------
+  ALBSNC_MAX_IO  = max snow-covered albedo
+    default values: 0.15, 0.15, 0.60, 0.60, 0.40
+
+  ALBSNC_MIN_IO  = min snow-covered albedo
+    default values: 0.30, 0.30, 0.80, 0.80, 0.80
+
+  ALBSNF_MAX_IO  = max snow-free albedo
+    default values: 0.10, 0.10, 0.20, 0.20, 0.20
+
+  EMIS_PFT_IO  = surface emissivity
+    default values: 0.97, 0.97, 0.97, 0.97, 0.97
+
+  DZ0V_DH_IO     = d/dt Vegetation roughness length with ht
+    default values: 0.05, 0.05, 0.10, 0.10, 0.10
+
+  CATCH0_IO      = Minimum canopy capacity (kg/m^2)
+    default values: 0.50, 0.50, 0.50, 0.50, 0.50
+
+  DCATCH_DLAI_IO = Rate of change of canopy capacity with LAI
+    default values: 0.05, 0.05, 0.05, 0.05, 0.05
+
+  INFIL_F_IO     = Infiltration enhancement factor
+    default values: 4.00, 4.00, 2.00, 2.00, 2.00
+
+  KEXT_IO        = Light extinction factor
+    default values: 0.50, 0.50, 0.50, 0.50, 0.50
+
+  ROOTD_FT_IO    = Rootdepth (m)
+    default values: 3.00, 1.00, 0.50, 0.50, 0.50
+
+  Z0HM_PFT_IO    = roughness length ratio z0H/z0M
+    default values: 0.10, 0.10, 0.10, 0.10, 0.10
+
+  Z0HM_CLASSIC_PFT_IO = roughness length ratio used in CLASSIC aerosol deposition 
+    default values: 0.10, 0.10, 0.10, 0.10, 0.10 
+

@@ -1,0 +1,20 @@
+GLOBAL RIVER ROUTING (1A) SCHEME
+
+This window is used to specify two ancillary files which define the river 
+routing network (sequence and direction) and initial river water storage values 
+for the global (1A) river routing scheme. If the global river routing scheme is 
+in use, then the user must specify both of these files/fields to be configured.
+
+River direction and sequence are specified together in a single ancillary file, 
+and initial river water storage is specified in a second ancillary file.
+
+Initial river water storage files should have zero values for long climate model 
+spinup runs. Faster spinup times can be achieved by using values from a previous 
+model run.
+
+NOTE: See 'Help for window : atmos_Science_Section_River ' for information on 
+ancillary files needed at UMvn7.5.
+
+The global river routing scheme is undergoing further development at present. 
+For further information on using the scheme please contact 
+pete.falloon@metoffice.gov.uk or andy.wiltshire@metoffice.gov.uk 

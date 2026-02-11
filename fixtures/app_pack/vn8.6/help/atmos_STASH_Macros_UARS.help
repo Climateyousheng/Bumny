@@ -1,0 +1,12 @@
+This window allows users to specify a STASHmacro to use for stratospheric 
+UARS purposes.  
+
+The macro writes UARS relevant fields to Units 86 and 87.
+
+UARS requests these diagnostics in the first 6 hours output to file UARSOUT1, 
+and at T+30 and T+54 to file UARSOUT2.
+
+Most users will not require such output.
+
+%I macros
+

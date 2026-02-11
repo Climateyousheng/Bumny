@@ -1,0 +1,69 @@
+UKCA Lower Boundary conditions and Trace gases
+==============================================
+
+This panel controls the specification of values for lower boundary conditions
+for Stratospheric/ Tropospheric (surface) models and trace gases for the
+stratospheric model.
+By default these values are obtained either from the simulation (e.g. emissions)
+or prescribed in atmos_Science_Section_LW* panels for radiation.
+
+The panel is activated only if the user selects the top-level option:
+"Override default Trace gases and Lower boundary conditions?"
+
+
+Choose UMUI panels:
+atmos => Scientific Parameters and Sections => Spec of trace gases
+to set the appropriate gas concentrations.
+
+
+Prescribed Surface CH4 Concentration:
+-------------------------------------
+The option to prescribe the surface ch4 concentration can be selected when UKCA
+itself is on and when the option in UMUI panel atmos_Science_Section_LW_Meth is
+included (either with a constant value or with a complex method of
+specification). When it is selected, the logical L_ukca_prescribech4 is set to
+true, ch4 emissions are not added to the ch4 tracer, and instead the global
+surface concentration of ch4 in UKCA is overwritten with a prescribed scalar
+value. That value can be either time-invariant or time-varying depending on the
+specification in the UMUI panel atmos_Science_Section_LW_Meth.
+
+
+Choose where to take CO2, N2O, CH4, and CFC concentrations
+----------------------------------------------------------
+
+This option is available only for stratospheric configurations.
+* On selecting the option 'Use prescribed CO2, N2O, CFC concentrations from 
+  the UMUI', the lower boundary mass mixing ratios of CO2, N2O, CH4, CFC-11, 
+  CFC-12, CFC113, CFC114, HFCF22, HFC125 and HFC134A are set to the values 
+  specified for these species in the LW Radiation Gas section. The values for 
+  the CFCs (MeBr,MeCl,..) not set in LW radiation but required by UKCA are 
+  activated by this switch.
+* On selecting the option 'Use prescribed CO2, N2O, CFC concentrations from 
+  the WMO A1(b) scenario (1950-2100)' the values for these gases are taken 
+  from the WMO A1(b) scenario. This is only valid for model years 1950-2100.
+* On selection the option 'Use prescribed CO2, N2O, CFC concentrations from 
+  a file in RCP format' the values from these gases are read-in from a user-
+  defined file which must be of the RCPDAT format and can be downloaded from 
+  the CMIP5 website. A standard copy of the files is maintained in the UM 
+  repository and extracted to the folder: '$UMDIR/$VN/ctldata/UKCA/scenario' 
+  on the computing system. Files of format RCPDAT which can be downloaded 
+  from the CMIP5 website  (although dos2unix may need to be run on these 
+  files before first use). This file should specify the volume mixing ratios 
+  of the various trace gases, with values defined for the middle of the years 
+  considered. Daily time points between the years specified will be linearly 
+  interpolated from the data provided, and time-points outside the range given 
+  will just use the initial/final concentration. Currently this functionality 
+  cannot cope with sub-yearly data.
+
+
+Specify Values for Trace gases:
+-------------------------------
+This option allows the user to specify the lower boundary mass mixing ratios
+of H2 and N2, not covered in the 'Spec of trace gases' panel, but required by
+UKCA. On selecting this option, the L_UKCA_SET_TRACE_GASES logical is set and
+user can prescribe the MMR values for these species.
+
+
+The default values for H2, N2 and the CFCs in this panel are either 0.0 or
+pre-industrial concentrations and will be reflected through relevant warning
+messages. See in the UKCA_TRACE_GAS_MIXRATIO routine.

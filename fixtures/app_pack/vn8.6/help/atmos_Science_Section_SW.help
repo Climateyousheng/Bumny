@@ -1,0 +1,180 @@
+Section 1 : SW Radiation
+
+See UMDP 23 for a description of the Radiation Schemes.
+
+Options for multiple calls to radiation
+---------------------------------------
+On a given time-step multiple calls to the radiation scheme can be made
+in order to either:
+i) "Diagnose radiative forcings": calculate radiative forcing diagnostics
+with respect to variation of certain abundances (see panel Gen2 -> SLW_Forc).
+ii) "Timestepping scheme": calculate approximate radiative increments on
+timesteps in-between full radiation timesteps.
+
+Incremental time-stepping for improved sampling of cloud
+-------------------------------------------------------- 
+This is used if the "Timestepping scheme" option above is selected. 
+Approximate radiative increments will be made on time-steps in-between full 
+radiation time-steps. Spectral files tuned to account for changes in cloud 
+condensate should be used. These are entered in the Gen2 window as the second 
+spectral file. The recommended SW file is spec3c_sw_cloud. See "Manners et al. 
+2009, Q. J. R. Meteorol. Soc. 135: 457-468, DOI:10.1002/qj.385" for further details.
+
+Use mixing ratio formulation
+----------------------------
+This option allows the model to use mixing ratios for its moist
+variables in the parallel part of the physics code (otherwise it
+will use specific humidities). This includes
+large-scale-precipitation, radiation, and the call to large-scale
+cloud associated with the microphysics. If the PC2 cloud scheme is
+being used, this will also use the mixing ratio code (if selected)
+in the parallel physics part of the model, including the PC2 cloud
+erosion code.
+If this option is selected the model will convert between the
+mixing ratio and specific humidity formulations before and after
+the parallel physics call. Note that the diagnostics from the
+parallel physics part of the timestep will be in the form of
+mixing ratios (and not specific humidities) if this code is selected.
+
+Segmentation
+------------
+The choice of segmenting depends on the ratio between CPU and memory capacity
+of the machine that you are running on. This facility allows the routines to
+split the domain into several segments and work on one at a time. This
+reduces the memory requirements of the job by allowing smaller work-arrays.
+1 segment is most efficient on CPU but uses more memory. This needs to be
+tuned for each configuration, machine and version of the code.
+It is possible to specify the segment size rather than number of segments.
+This allows tuning in a manner that should be invariant to decomposition
+(unlike number of segments). On the IBM Power 6 it is recommended that the
+segment size is specified and set to 80 for LW and SW. This can give a useful
+improvement in runtimes.
+
+Number of bands
+---------------
+The number of bands should be set for the spectral file selected from the
+panel "GEN2".
+
+Number of times per day to calculate increments (Prognostic)
+------------------------------------------------------------
+SW Radiation is expensive and in all standard configurations and so full
+calculations are only done periodically, with the increments re-scaled to
+allow for the sun's motion across the sky. The rescaling is done every
+timestep. Frequency of calling needs to be a multiple of the timestep and
+depends on the required temporal resolution of the run.
+
+Number of times per day to calculate increments (Diagnostic)
+------------------------------------------------------------
+Where "Diagnose radiative forcings" has been selected the number of
+"diagnostic" increments per day must also be given. The diagnostic increments
+must coincide with full prognostic increments but may be less often.
+
+Where "Timestepping scheme" has been selected the number of approximate
+radiative increments per day must be given. These must be a multiple of the
+number of full radiative increments.
+
+Sea-ice options
+---------------
+Two formulations of sea-ice albedo are available. Before 4.4, the only
+formulation was the one which does not take account of the presence of snow
+on sea-ice; this is used in HADCM3, HADAM3 and previous models.  In this
+formulation, the standard values for sea-ice constants are as follows:
+  Constant       Val 1        Val 2        Val 3
+  Min albedo     0.5          0.6          0.5
+  Max albedo     0.8          0.85         0.8
+  Range          5.0          5.0         10.0
+ Where  Val1 is pre-UM3.4 coded value for versions 1A and 1B.
+        Val2 is pre-UM3.4 coded value for version 2A
+        Val3 modified values (CH080993) used with 2A for climate run.
+Values <Val 3> are the current recommended values.     
+
+From 4.5, a new formulation is available, introduced for HADCM4. This does
+take into account the effect on albedo of snow lying on sea-ice. Because
+atmosphere-only models do not have snow on sea-ice, it should generally
+only be used in coupled models. The recommended values for the constants are
+as follows:
+  Constant
+  Snow-free ice albedo        0.50
+  Deep melting snow albedo    0.65
+  Deep cold snow albedo       0.80
+  Temperature range           2.00
+The albedos are based on work by Ebert and Curry, and the temperature range
+(and masking depth, which is hard-coded) are as used for land snow albedo.
+
+A switch is available to including a semi-implicit scheme which
+calculates the heat flux through sea ice, over the default explicit
+scheme.  The benefit of the semi-implicit  scheme is that, unlike the
+explicit scheme, it is stable for very small sea ice thicknesses
+(which have caused crashes in the explicit scheme). The use of this
+option is recommended  for any version of the model for which ice
+thickness is not prescribed (Slab, Coulpled) but will also be
+beneficial for atmosphere only simulations which use ice thickness
+from ancillary files.
+
+Equation of time & secular variation
+------------------------------------
+The equation of time relates to the difference between apparent and mean
+solar time and can amount to 16 minutes in November: it's inclusion is
+recommended. Most users should not invoke secular variations of the
+astronomy, relying instead on the default values, currently for the epoch
+J2000. Users of secular variations should seek advice.
+
+Spatial degradation
+-------------------
+Switching on the spatial degradation of radiation calculations will do
+full radiation calculations on every other point, in a chequerboard
+pattern, and those points on which a radiation calculation is not done
+will use data interpolated from their neighbours which did do a full
+calculation.
+
+Open sea albedo
+---------------
+The modified Barker albedo and spectrally dependent sea albedos have been
+introduced for HadGEM1. The Barker albedo is a formulation of the direct SW
+albedo for the open sea taken from "Barker & Li, 1995, J. Climate, 8, 2213".
+Coefficients have been altered to agree with observations from OBR.
+Spectrally dependent sea albedos must only be used where the spectral file
+contains 6 SW bands identical to those used in HadGEM1.
+
+Orographic correction
+---------------------
+This corrects the direct SW radiation absorbed and reflected at the surface
+for the angle of the surface slope with respect to the position of the sun.
+Options using smoothed orography will calculate a slope from the heights of the
+surrounding grid-boxes.
+Options using ancillary gradient fields require that X and Y gradient fields are
+present in the orography ancillary file and that they are set to be
+configured in the window atmos_InFiles_OtherAncil_Orog.
+
+Terrain shading and LW sky-view correction
+------------------------------------------
+Corrects the direct SW radiation at the surface for shading by surrounding
+terrain. Also corrects for the insulating effect of surrounding terrain on
+the LW net surface flux. Horizon angles used for these corrections may be
+calculated from the standard (generally smoothed) orographic heights or
+using the "unfiltered orography" if this is present in the dump or in the
+ancillary orography file and has been configured in the window
+atmos_InFiles_OtherAncil_Orog.
+
+Transmission based solar zenith angle correction
+------------------------------------------------
+This will take into account the change in optical path length through the
+atmosphere when correcting the surface (and TOA) fluxes for the change in
+solar zenith angle between radiation time-steps. See "Manners et al. 2009,
+Q. J. R. Meteorol. Soc. 135: 457-468, DOI:10.1002/qj.385" for further
+details.
+
+Fast but larger-memory radiation
+--------------------------------
+If you are not running on an MPP machine you will
+given an option to run with "Fast but larger-memory radiation".
+The  "Fast but larger-memory radiation" option allows you to
+avoid reading and writing the radiation increments at the expense of
+holding them in memory. This may be an issue on small memory machines
+such as work-stations. The option does not affect bit reproducibility.
+The amount of space saved is a number slightly larger than 2 3-D fields
+on the pressure grid.
+On an MPP machine this option is automatically set on for you.
+
+-------------
+%I compile_modes

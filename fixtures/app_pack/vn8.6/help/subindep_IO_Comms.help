@@ -1,0 +1,17 @@
+You can choose the level of MPI threading the model uses.
+
+On the IBM the highest level available will be used whatever the variable 
+is set to.
+
+On systems using MPICH you will get the THREAD_LEVEL asked for. If this 
+is not available you will get the highest available thread level; e.g 
+asking for serialized threading will give you multithreading on the IBM 
+and serialised threading on the Linux boxes.
+
+The second question on the panel should not be touched unless you know what 
+you are doing. You can FORCE the level of MPI threading the model uses.
+
+Originally this is for users of OpenMPI where level of MPI support given is 
+incorrect. It may be useful for other users but should be used with extreme 
+care.
+

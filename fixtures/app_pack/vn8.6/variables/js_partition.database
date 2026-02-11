@@ -1,0 +1,38 @@
+############################################################################
+# This file is concerned with specifying partitions whose output to 
+# the Job Sheet function is optional. Inclusion of this file is optional 
+# whether or not the application uses the jobsheet function. By default, 
+# all partitions are included in the jobsheet output.
+#
+# 
+# Those partitions whose output is optional should be listed here with the 
+# condition for NOT outputting the variable.
+# When the Job Sheet function reads a window it makes the following test.
+#    Is there at least one variable which is in an active partition 
+#    (as defined by the main partition database) AND in an active 
+#    partition as defined by this database.
+# If the answer is no, the window is not output.
+# However if the answer is yes then all variables on the window will 
+# be output regardless of whether or not they pass the above test UNLESS:
+#    1. They are within an inactive case or invisible construct
+# or 2. The window is not the variable's home window as defined in the 
+#       variable register.
+#
+# This file has a similar format to the partition.database. The differences 
+# are that firstly, the full partition number is required in this database,
+# secondly, cross-partition variables are treated in the same way as
+# single partition variables - use only one condition per partition - 
+# thirdly, not all partitions need to be listed.
+##############################################################################
+#
+# Partitions relating to the time, domain and usage profile definitions
+a2321    atmos           SECTST!="Y"
+o2321    ocean           SECTST!="Y"
+s2321    slab            SECTST!="Y"
+w2321    wave            SECTST!="Y"
+#
+# Partitions relating to the post processing and data file variables
+a2323    atmos           SECTFL!="Y"
+y2323    ysubmod         SECTFL!="Y"
+# System variables - one or two are included on windows
+SYSTEM   SYSTEM          ALWAYS

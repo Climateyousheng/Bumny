@@ -1,0 +1,405 @@
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C Atmos only NAMELISTS:    
+%C   NLSTCATM
+%C
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C used "procedures" microphy_set
+%C totime
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C Control variables used across all sub-models.
+ &NLSTCATM
+ MODEL_DOMAIN=%OCAAA ,
+ LCAL360=%TCL replacep CAL360 Y .TRUE. N .FALSE. %ENDTCL,  
+%C ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%T if {  [inactive_var TRAM ] == 0 } {
+ L_BL_TRACER_MIX=%TCL replacep TRAM    Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_BL_TRACER_MIX=.FALSE.,
+%T }
+%T if { %ES_RAD == 3 } {
+ L_USE_SULPC_DIRECT=%TCL   replacep SULP_RAD_DIR Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_SULPC_DIRECT=.FALSE.,
+%T }
+%T if { [ inactive_var L_CONSISTENT_CDNC ] == 0 } {
+ l_consistent_cdnc=%TCL replacep L_CONSISTENT_CDNC Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ l_consistent_cdnc=.FALSE.,
+%T }
+%T if { [inactive_var SULP_SW_IND ] == 0 } {
+ L_USE_SULPC_INDIRECT_SW=%TCL replacep SULP_SW_IND Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_SULPC_INDIRECT_SW=.FALSE.,
+%T }
+%T if { [inactive_var SULP_LW_IND ] == 0 } {
+ L_USE_SULPC_INDIRECT_LW=%TCL replacep SULP_LW_IND Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_SULPC_INDIRECT_LW=.FALSE.,
+%T }
+%T if { [inactive_var SULP_AUTOCONV ] == 0 } {
+ L_USE_SULPHATE_AUTOCONV=%TCL replacep SULP_AUTOCONV Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_SULPHATE_AUTOCONV=.FALSE.,
+%T }
+%C Nitrate Aerosol Processing
+%T if { [inactive_var NITRDRCT] == 0 } {
+ L_USE_NITRATE_DIRECT=%TCL replacep NITRDRCT Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_NITRATE_DIRECT=.FALSE.,
+%T }
+%T if { [inactive_var NITRINDRCT] == 0 } {
+ L_USE_NITRATE_INDIRECT=%TCL replacep NITRINDRCT Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_NITRATE_INDIRECT=.FALSE.,
+%T }
+%T if { [inactive_var NITRACONV] == 0 } {
+ L_USE_NITRATE_AUTOCONV=%TCL replacep NITRACONV Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_NITRATE_AUTOCONV=.FALSE.,
+%T }
+%C~~~~~~~~~~
+%T if { [inactive_var SEA_IND] == 0 } {
+ L_USE_SEASALT_INDIRECT=%TCL replacep SEA_IND Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_SEASALT_INDIRECT=.FALSE.,
+%T }
+%T if { [inactive_var SEA_AUTOCONV ] == 0 } {
+ L_USE_SEASALT_AUTOCONV=%TCL replacep SEA_AUTOCONV Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_SEASALT_AUTOCONV=.FALSE.,
+%T }
+%T if { [inactive_var SEA_RAD_DIR ] == 0 } {
+ L_USE_SEASALT_DIRECT=%TCL replacep SEA_RAD_DIR Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_SEASALT_DIRECT=.FALSE.,
+%T }
+%T if {  [inactive_var EMSOOT ] == 0} {
+%T   if { %ES_RAD == 3 } {
+ L_USE_SOOT_DIRECT=%TCL   replacep SOOT_RAD_DIR Y .TRUE. N .FALSE. %ENDTCL,
+%T   } else {
+ L_USE_SOOT_DIRECT=.FALSE.,
+%T   }
+%T } else {
+ L_USE_SOOT_DIRECT=.FALSE.,
+%T }
+%C~~~~~~~~~~ Always since 5.5 ~~~~~~~~~~
+ L_USE_SOOT_INDIRECT=.FALSE.,
+ L_USE_SOOT_AUTOCONV=.FALSE.,
+%C~~~~~~~~~~
+%C Biomass Processing
+%T if {%ATMOS_SR(17)== "0A" || %CHEM_BIOM== "N" } {
+ L_USE_BMASS_DIRECT=.FALSE.,
+ L_USE_BMASS_INDIRECT=.FALSE.,
+ L_USE_BMASS_AUTOCONV=.FALSE.,
+%T } else {
+ L_USE_BMASS_DIRECT=%TCL replacep BMASSDRCT Y .TRUE. N .FALSE. %ENDTCL,
+ L_USE_BMASS_INDIRECT=%TCL replacep BMASSINDRCT Y .TRUE. N .FALSE. %ENDTCL,
+ L_USE_BMASS_AUTOCONV=%TCL replacep BMASSACONV Y .TRUE. N .FALSE. %ENDTCL,
+%T }
+%C~~~~~~~~~~
+%C Aerosol Climatologies
+%T if { [inactive_var LUSEBIOGEN ] == 0 } {
+ L_USE_BIOGENIC=%TCL replacep LUSEBIOGEN Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_BIOGENIC=.FALSE.,
+%T }
+%T if { [inactive_var LUARCLBIOM ] == 0 } {
+ L_USE_ARCLBIOM=%TCL replacep LUARCLBIOM Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_ARCLBIOM=.FALSE.,
+%T }
+%T if { [inactive_var LUARCLBLCK ] == 0 } {
+ L_USE_ARCLBLCK=%TCL replacep LUARCLBLCK Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_ARCLBLCK=.FALSE.,
+%T }
+%T if { [inactive_var LUARCLSSLT ] == 0 } {
+ L_USE_ARCLSSLT=%TCL replacep LUARCLSSLT Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_ARCLSSLT=.FALSE.,
+%T }
+%T if { [inactive_var LUARCLSULP ] == 0 } {
+ L_USE_ARCLSULP=%TCL replacep LUARCLSULP Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_ARCLSULP=.FALSE.,
+%T }
+%T if { [inactive_var LUARCLDUST ] == 0 } {
+ L_USE_ARCLDUST=%TCL replacep LUARCLDUST Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_ARCLDUST=.FALSE.,
+%T }
+%T if { [inactive_var LUARCLOCFF ] == 0 } {
+ L_USE_ARCLOCFF=%TCL replacep LUARCLOCFF Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_ARCLOCFF=.FALSE.,
+%T }
+%T if { [inactive_var LUARCLDLTA ] == 0 } {
+ L_USE_ARCLDLTA=%TCL replacep LUARCLDLTA Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_USE_ARCLDLTA=.FALSE.,
+%T }
+%C~~~~~~~~~~ commented on 01.11.07
+%C OCFF Processing
+%T if {%ATMOS_SR(17)== "0A" || %CHEM_OCFF== "N" } {
+ L_USE_OCFF_DIRECT=.FALSE.,  
+ L_USE_OCFF_INDIRECT=.FALSE.,  
+ L_USE_OCFF_AUTOCONV=.FALSE.,
+%T } else {
+ L_USE_OCFF_DIRECT=%TCL replacep OCFF_RAD_DIR Y .TRUE. N .FALSE. %ENDTCL,
+ L_USE_OCFF_INDIRECT=%TCL replacep OCFFINDRCT Y .TRUE. N .FALSE. %ENDTCL,  
+ L_USE_OCFF_AUTOCONV=%TCL replacep OCFFACONV Y .TRUE. N .FALSE. %ENDTCL,
+%T }
+%C~~~~~~~~~~
+%C Dust Processing
+%T if {%ATMOS_SR(17)== "0A"} {
+ L_USE_DUST=.FALSE.,
+%T } else {
+ L_USE_DUST=%TCL replacep DUST_DRCT Y .TRUE. N .FALSE. %ENDTCL,
+%T }
+%C~~~~~~~~~~
+%C LBCs processing OUT put variables
+%T if { ([inactive_var I_DUST]==0)&&([inactive_var LDUSTLBC]==0) } {
+ L_DUST_DIV1_LBC_OUT=%TCL replacep LDUSTLBC Y .TRUE. N .FALSE. %ENDTCL,
+ L_DUST_DIV2_LBC_OUT=%TCL replacep LDUSTLBC Y .TRUE. N .FALSE. %ENDTCL,
+%T   if { %SIZEDIST != "3" } {
+ L_DUST_DIV3_LBC_OUT=%TCL replacep LDUSTLBC Y .TRUE. N .FALSE. %ENDTCL,
+ L_DUST_DIV4_LBC_OUT=%TCL replacep LDUSTLBC Y .TRUE. N .FALSE. %ENDTCL,
+ L_DUST_DIV5_LBC_OUT=%TCL replacep LDUSTLBC Y .TRUE. N .FALSE. %ENDTCL,
+ L_DUST_DIV6_LBC_OUT=%TCL replacep LDUSTLBC Y .TRUE. N .FALSE. %ENDTCL,
+%T   } else {
+ L_DUST_DIV3_LBC_OUT=.FALSE.,
+ L_DUST_DIV4_LBC_OUT=.FALSE.,
+ L_DUST_DIV5_LBC_OUT=.FALSE.,
+ L_DUST_DIV6_LBC_OUT=.FALSE.,
+%T   }
+%T } else {
+ L_DUST_DIV1_LBC_OUT=.FALSE.,
+ L_DUST_DIV2_LBC_OUT=.FALSE.,
+ L_DUST_DIV3_LBC_OUT=.FALSE.,
+ L_DUST_DIV4_LBC_OUT=.FALSE.,
+ L_DUST_DIV5_LBC_OUT=.FALSE.,
+ L_DUST_DIV6_LBC_OUT=.FALSE.,
+%T }
+%T if { ([inactive_var CHEM_SULPC]==0)&&([inactive_var LSULPLBC]==0) } {
+ L_SO2_LBC_OUT=%TCL replacep LSULPLBC Y .TRUE. N .FALSE. %ENDTCL,
+ L_SO4_AITKEN_LBC_OUT=%TCL replacep LSULPLBC Y .TRUE. N .FALSE. %ENDTCL,
+ L_SO4_ACCU_LBC_OUT=%TCL replacep LSULPLBC Y .TRUE. N .FALSE. %ENDTCL,
+ L_SO4_DISS_LBC_OUT=%TCL replacep LSULPLBC Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_SO2_LBC_OUT=.FALSE.,
+ L_SO4_AITKEN_LBC_OUT=.FALSE.,
+ L_SO4_ACCU_LBC_OUT=.FALSE.,
+ L_SO4_DISS_LBC_OUT=.FALSE.,
+%T }
+%T if { ([inactive_var CHEM_SULPC]==0)&&([inactive_var LDMSLBC]==0) } {
+ L_DMS_LBC_OUT=%TCL replacep LDMSLBC Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_DMS_LBC_OUT=.FALSE.,
+%T }
+%T if { ([inactive_var CHEM_SULPC]==0)&&([inactive_var LNH3LBC]==0) } {
+ L_NH3_LBC_OUT=%TCL replacep LNH3LBC Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_NH3_LBC_OUT=.FALSE.,
+%T }
+%T if { ([inactive_var CHEM_SOOT]==0)&&([inactive_var LSOOTLBC]==0) } {
+ L_SOOT_NEW_LBC_OUT=%TCL replacep LSOOTLBC Y .TRUE. N .FALSE. %ENDTCL,
+ L_SOOT_AGD_LBC_OUT=%TCL replacep LSOOTLBC Y .TRUE. N .FALSE. %ENDTCL,
+ L_SOOT_CLD_LBC_OUT=%TCL replacep LSOOTLBC Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_SOOT_NEW_LBC_OUT=.FALSE.,
+ L_SOOT_AGD_LBC_OUT=.FALSE.,
+ L_SOOT_CLD_LBC_OUT=.FALSE.,
+%T }
+%T if { ([inactive_var CHEM_BIOM]==0)&&([inactive_var LBIOLBC]==0) } {
+ L_BMASS_NEW_LBC_OUT=%TCL replacep LBIOLBC Y .TRUE. N .FALSE. %ENDTCL,
+ L_BMASS_AGD_LBC_OUT=%TCL replacep LBIOLBC Y .TRUE. N .FALSE. %ENDTCL,
+ L_BMASS_CLD_LBC_OUT=%TCL replacep LBIOLBC Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_BMASS_NEW_LBC_OUT=.FALSE.,
+ L_BMASS_AGD_LBC_OUT=.FALSE.,
+ L_BMASS_CLD_LBC_OUT=.FALSE.,
+%T }
+%T if { ([inactive_var LOCFFLBC]==0) } {
+ L_OCFF_NEW_LBC_OUT=%TCL replacep LOCFFLBC Y .TRUE. N .FALSE. %ENDTCL,
+ L_OCFF_AGD_LBC_OUT=%TCL replacep LOCFFLBC Y .TRUE. N .FALSE. %ENDTCL,
+ L_OCFF_CLD_LBC_OUT=%TCL replacep LOCFFLBC Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_OCFF_NEW_LBC_OUT=.FALSE.,
+ L_OCFF_AGD_LBC_OUT=.FALSE.,
+ L_OCFF_CLD_LBC_OUT=.FALSE.,
+%T }
+%C~~~~~~~~~~
+%C LBCs processing IN put variables
+%T if { ([inactive_var I_DUST]==0)&&([inactive_var LDUSTLBC_IN]==0)&&(%OCAAA==2) } {
+ L_DUST_DIV1_LBC=%TCL replacep LDUSTLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+ L_DUST_DIV2_LBC=%TCL replacep LDUSTLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+%T   if { %SIZEDIST != "3" } {
+ L_DUST_DIV3_LBC=%TCL replacep LDUSTLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+ L_DUST_DIV4_LBC=%TCL replacep LDUSTLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+ L_DUST_DIV5_LBC=%TCL replacep LDUSTLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+ L_DUST_DIV6_LBC=%TCL replacep LDUSTLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+%T   } else {
+ L_DUST_DIV3_LBC=.FALSE.,
+ L_DUST_DIV4_LBC=.FALSE.,
+ L_DUST_DIV5_LBC=.FALSE.,
+ L_DUST_DIV6_LBC=.FALSE.,
+%T   }
+%T } else {
+ L_DUST_DIV1_LBC=.FALSE.,
+ L_DUST_DIV2_LBC=.FALSE.,
+ L_DUST_DIV3_LBC=.FALSE.,
+ L_DUST_DIV4_LBC=.FALSE.,
+ L_DUST_DIV5_LBC=.FALSE.,
+ L_DUST_DIV6_LBC=.FALSE.,
+%T }
+%T if { ([inactive_var CHEM_SULPC]==0)&&([inactive_var LSULPLBC_IN]==0)&&(%OCAAA==2) } {
+ L_SO2_LBC=%TCL replacep LSULPLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+ L_SO4_AITKEN_LBC=%TCL replacep LSULPLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+ L_SO4_ACCU_LBC=%TCL replacep LSULPLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+ L_SO4_DISS_LBC=%TCL replacep LSULPLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_SO2_LBC=.FALSE.,
+ L_SO4_AITKEN_LBC=.FALSE.,
+ L_SO4_ACCU_LBC=.FALSE.,
+ L_SO4_DISS_LBC=.FALSE.,
+%T }
+%T if { ([inactive_var CHEM_SULPC]==0)&&([inactive_var LDMSLBC_IN]==0)&&(%OCAAA==2) } {
+ L_DMS_LBC=%TCL replacep LDMSLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_DMS_LBC=.FALSE.,
+%T }
+%T if { ([inactive_var CHEM_SULPC]==0)&&([inactive_var LNH3LBC_IN]==0)&&(%OCAAA==2) } {
+ L_NH3_LBC=%TCL replacep LNH3LBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_NH3_LBC=.FALSE.,
+%T }
+%T if { ([inactive_var CHEM_SOOT]==0)&&([inactive_var LSOOTLBC_IN]==0) } {
+ L_SOOT_NEW_LBC=%TCL replacep LSOOTLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+ L_SOOT_AGD_LBC=%TCL replacep LSOOTLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+ L_SOOT_CLD_LBC=%TCL replacep LSOOTLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_SOOT_NEW_LBC=.FALSE.,
+ L_SOOT_AGD_LBC=.FALSE.,
+ L_SOOT_CLD_LBC=.FALSE.,
+%T }
+%T if { ([inactive_var CHEM_BIOM]==0)&&([inactive_var LBIOLBC_IN]==0)&&(%OCAAA==2) } {
+ L_BMASS_NEW_LBC=%TCL replacep LBIOLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+ L_BMASS_AGD_LBC=%TCL replacep LBIOLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+ L_BMASS_CLD_LBC=%TCL replacep LBIOLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_BMASS_NEW_LBC=.FALSE.,
+ L_BMASS_AGD_LBC=.FALSE.,
+ L_BMASS_CLD_LBC=.FALSE.,
+%T }
+%T if { ([inactive_var LOCFFLBC_IN]==0)&&(%OCAAA==2) } {
+ L_OCFF_NEW_LBC=%TCL replacep LOCFFLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+ L_OCFF_AGD_LBC=%TCL replacep LOCFFLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+ L_OCFF_CLD_LBC=%TCL replacep LOCFFLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+%T } else {
+ L_OCFF_NEW_LBC=.FALSE.,
+ L_OCFF_AGD_LBC=.FALSE.,
+ L_OCFF_CLD_LBC=.FALSE.,
+%T }
+%T if { ([inactive_var LNITRLBC_IN]==0)&&(%OCAAA==2) } {
+ L_NITR_ACC_LBC=%TCL replacep LNITRLBC_IN Y .TRUE. N .FALSE. %ENDTCL,
+ L_NITR_DISS_LBC=%TCL replacep LNITRLBC_IN Y .TRUE. N .FALSE. %ENDTCL, 
+%T } else {
+ L_NITR_ACC_LBC=.FALSE.,
+ L_NITR_DISS_LBC=.FALSE.,
+%T }
+%C~~~~~~~~~~
+ NPMSL_HEIGHT=%NPMSLHGH,
+ L_PMSL_SOR=%TCL replacep LPMSL 1 .TRUE. * .FALSE. %ENDTCL,
+ L_AUTO_DEBIAS=%TCL replacep DEBIAS Y .TRUE. * .FALSE. %ENDTCL,
+ i_co2_opt=%CO2OPT,
+ L_CO2_EMITS= %T if {%CO2OPT == 3 && %CO2EMISOPT == 1} {putl .TRUE.,} else {putl .FALSE.,}
+ L_Q10= %T if {%ATMOS_SR(19)=="2A" && %LQ10==1} {putl .FALSE.,} else {putl .TRUE.,}
+ L_VEG_FRACS=%TCL replacep VEG_TYPE  0 .FALSE.  1 .TRUE.  2 .TRUE. %ENDTCL,
+ L_TRIFFID=%TCL replacep VEG_TYPE  0 .FALSE.  1 .FALSE.  2 .TRUE. %ENDTCL,
+%T if { %ATMOS_SR(19) != "0A" } {
+ L_PHENOL=%TCL replacep INC_VEGLPF Y .TRUE. N .FALSE. %ENDTCL,
+%T   if { %ATMOS_SR(19) == "2A" } {
+ L_TRIF_EQ=%TCL replacep VEGTEQ Y .TRUE. N .FALSE. %ENDTCL,
+%T   } else {
+ L_TRIF_EQ=.FALSE.,
+%T   }
+%T } else {
+ L_PHENOL=.FALSE.,
+ L_TRIF_EQ=.FALSE.,
+%T }
+%T if { [inactive_var VEGSTRT] == 0  } {
+ L_NRUN_MID_TRIF=%TCL replacep VEGSTRT  N .FALSE.  Y .TRUE. %ENDTCL,
+%T } else {
+ L_NRUN_MID_TRIF=.FALSE.,
+%T }
+%T if { [inactive_var LVEGDIST] == 0} {
+ L_DISTURB=%TCL replacep LVEGDIST T .TRUE. F .FALSE. %ENDTCL,
+%T } else {
+ L_DISTURB=.FALSE.,
+%T }
+%T if { [inactive_var VEGLPF] == 0 } {
+ PHENOL_PERIOD=%VEGLPF,
+%T } else {
+ PHENOL_PERIOD=0,
+%T }
+%T if { [inactive_var VEGIVF] == 0 } {
+ TRIFFID_PERIOD=%VEGIVF,
+%T } else {
+ TRIFFID_PERIOD=0,
+%T }
+%T if {(%ATMOS_SR(18)!="0A")&&(%AAS_AC=="Y")} {
+ A_ASSIM_START_MIN=%ACSTART,
+ A_ASSIM_END_MIN=%ACEND,
+%C A_ASSIM_START_HR=%ACSTART,
+%C A_ASSIM_END_HR=%ACEND,
+%T }
+%C----
+%T if {%LIDEAL=="Y"} {
+ problem_number=%IPROBNUM,
+%T } else {
+ problem_number=0,
+%T }
+%C----
+%T if { [inactive_var USE_METHOX ] == 0 } {
+ L_USE_METHOX=%TCL replacep USE_METHOX Y .TRUE. * .FALSE. %ENDTCL,
+%T } else {
+ L_USE_METHOX=.FALSE.,
+%T }
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%T if {(%OCAAA==2)&&(%UPD97=="Y")} {
+ L_int_uvw_lbc=%TCL replacep LIUVWLBC Y .TRUE. * .FALSE.  %ENDTCL,
+%T } else {
+ L_int_uvw_lbc=.FALSE.,
+%T } 
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ L_MR_PHYSICS1=%TCL replacep LMRPHYSICS1 Y .TRUE. * .FALSE. %ENDTCL,
+ L_MR_PHYSICS2=%TCL replacep LMRPHYSICS2 Y .TRUE. * .FALSE. %ENDTCL,
+ L_HYDROLOGY=%TCL replacep L_HYDROLOGY N .TRUE. Y .FALSE. %ENDTCL,
+ L_USE_AOD= %TCL replacep LUSEAOD Y .TRUE. * .FALSE. %ENDTCL,
+%T if { [inactive_var OASIS] == 0  } { 
+ L_OASIS=%TCL replacep OASIS T .TRUE. * .FALSE. %ENDTCL,
+%T } else {
+ L_OASIS=.FALSE.,
+%T }
+%T if {[inactive_var LCPLMASTER] == 0} {
+ L_COUPLE_MASTER=%TCL replacep LCPLMASTER T .TRUE. * .FALSE. %ENDTCL, 
+ OASIS_COUPLE_FREQ=%OASCPLFREQ,
+%T } else {
+ L_COUPLE_MASTER=.FALSE.,
+%T } 
+ L_endgame=%TCL replacep L_ENDGAME T .TRUE. * .FALSE. %ENDTCL,
+%T if { %ATMOS_SR(12)!="0A" } {
+ L_regular=%TCL replacep LVARGRID Y .FALSE. N .TRUE.  %ENDTCL,  
+%T } else {
+ L_regular=.TRUE.,
+%T }
+%T if {[inactive_var UPD97] == 0} { 
+ l_lateral_boundary=%TCL replacep UPD97 Y .TRUE. * .FALSE. %ENDTCL, 
+%T } else {
+ l_lateral_boundary=.FALSE.,
+%T }
+ l_oasis_timers=%TCL replacep OASIS_TIMERS T .TRUE. * .FALSE. %ENDTCL,
+%T if {[inactive_var LOASIS_ICECLV] == 0} {
+ l_oasis_icecalve=%TCL replacep LOASIS_ICECLV T .TRUE. * .FALSE. %ENDTCL,
+%T }
+ /

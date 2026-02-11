@@ -1,0 +1,28 @@
+For submission methods "Other" than LoadLeveler or Linux (UNIX), a submission 
+command must be provided.  Two entry boxes are available - a prefix and suffix 
+to the runscript which is being submitted.  Examples are:
+
+  "at -f [$rundirectory/runscript] now"
+  "qsub [$rundirectory/runscript]"
+
+where "at -f" or "qsub" should be entered in the prefix box and the suffix 
+should either contain "now" or be left blank as required. 
+
+A table has been provided to allow the user to create his own machine specific
+headers.
+Text in the "Statement" column could be variable declaration, comment or lines
+of shell script. The length of the column is 80 characters and the table itself
+has 80 rows. 
+
+   "Where" column indicates the place, where the statement must be included:
+
+   "BFR" in submit file before header files, 
+   "CMP" in compilation header file, 
+   "RCF" in reconfiguration header file, 
+   "RUN" in run header file, 
+   "AFT" in submit file after header files
+
+   The "Use" column indicates whether this statement should be included when 
+processing this job, and should contain either Y or N.
+
+

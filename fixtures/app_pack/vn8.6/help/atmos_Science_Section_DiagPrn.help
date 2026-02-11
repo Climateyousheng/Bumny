@@ -1,0 +1,58 @@
+The diagnostic print options are a means of monitoring results from a
+  run or to aid debugging code. The frequency of printing the
+  information can be set to any value but note that for long runs or
+  regular printing this could produce a large output file. Most users
+  should use the Diagnostic prints option but for production purposes
+  Operational prints is slightly more efficient and will only do a
+  limited set of the options.
+
+  When a run fails, any text in a partially filled print buffer is lost
+  unless the buffer is flushed before the failure. To ensure that all
+  print information is received then set the button to flush the print
+  buffer. This should not be done in production jobs since the buffer is
+  flushed after every print/write statement and is therefore
+  inefficient.
+  
+  Normally, the prints will only be sent to processor 0 unless the
+  option Print output on all processors is set. This includes the
+  timestep number at each timestep. The option is included because some
+  platforms (e.g. HPCx) send all the processors output to processor 0
+  which can result in a massive output file.
+   
+  Most of the diagnostic options are self explanatory. The printing of
+  max or mins is done for each level together with the processor id and
+  the location (lat/lon for global; as a fraction of the domain for
+  LAMs with 0%=Western or Southern boundary, 100%=Eastern or Northern
+  boundary e.g. middle of domain is 50% East, 50% North).
+  Some of the information on max/mins is for the current timestep and
+  some is for the run. Diagnostic calculation frequency should normally
+  be set to 1 so that every timestep is sampled for the run diagnostics
+  (e.g. to check for the maximum w for the whole run) but users might
+  wish to reduce run time by not sampling so frequently.
+  Note that  when running different decompositions the processor id's
+  usually differ and the position could contain slight rounding
+  differences. However, the diagnostic routines do not change any
+  model variables so runs should bit-reproduce whether the
+  diagnostic printing is active or not. Some of the diagnostic 
+  calculations (e.g. noise) are not done in a bit-reproducible way
+  since they are designed only to monitor the behaviour of a particular
+  run.
+  
+  The printing of two norms (root-mean-square) is to aid debugging and 
+  to better test bit-comparability.
+  Selecting printing of fields and increments will print the two norms
+  of Exner pressure, theta, moisture, u, v, w at the start of the
+  timestep and theta_star, q_star, R_u, R_v, R_w after calls to
+  Atmos_Phys1, sl_thermo, advection and before and after the solver.
+  Selecting printing of solver coefficients will print the two norms
+  of all the coefficents and the right-hand side of the Helmholtz
+  equation. The number of levels included in the two norm calculation
+  can be set between 1 and all the levels. Specific levels might be
+  used to limit the search for bugs. Note that some of the solver
+  coefficents have fewer than model_levels because the elements are 0
+  when surfaces are horizontal. The norm calculations handle this
+  automatically.
+  The norm calculation routines can be used to calculate norms for any
+  arrays in the model and can include halos, all polar points or LAM
+  domain boundaries. The subroutines print_l2norms and print_L2nhelm
+  show how the Two_Norm_levels subroutine is accessed.

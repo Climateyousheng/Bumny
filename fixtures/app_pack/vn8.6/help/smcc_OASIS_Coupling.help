@@ -1,0 +1,124 @@
+This window allows you to specify the location and options for use with the
+OASIS coupler(s). Currently, only OASIS3 is in general use. The OASIS coupler is
+only required when running a fully coupled UM atmosphere-NEMO-CICE model at UM
+7.1 or later. 
+
+Perform atmosphere/ocean coupling through master PE: These switches allow you
+   to define whether coupling data is explicitly gathered or scattered to/from
+   a single master processor at the point of exchanging coupling data. 
+   In principle, there should be a slight performance benefit when not
+   using a master processor. The master processor facility is employed partly 
+   as a means of validating the behaviour of OASIS. These switches are 
+   only available when using OASIS3.   
+   
+Coupling Frequency (hours): This is the copling frequecy of exchanges between 
+   the atmosphere and NEMO-CICE. (Internal NEMO-CICE coupling frequency is 
+   dealt with internally).   
+   
+Standard coupling Macro: A STASH macro defining the diagnostic fields 
+   employed in coupling. 
+
+OASIS version: Currently only OASIS3 is supported. 
+
+The OASIS3 coupler
+------------------
+
+Location of OASIS3 build: This is the path to the driver executable.
+   This may either be a standard mono-process build of OASIS3 or 
+   a psudo-parallel build (available at OASIS3 vn3.0 onwards). 
+
+Time coupling operations : Use UM inclusive timers to measure coupling 
+   operation times. GCOM synchronisations are added in entrance and
+   exit of relevant routines to remove load imbalance.
+   
+Location of namcouple: The path of the directory holding the OASIS3 namcouple
+   and cf_name_table files. Parts of the namcouple file will be automatically
+   modified at run time to reflect the number of processors used.
+
+   In the case where a pseudo-parallel OASIS3 build is employed, this 
+   directory will need to hold a namcouple file for each instance of 
+   OASIS3. The contents of these files must be mutually exclusive in terms
+   of coupling field definitions (e.g. if coupling using 38 fields and 
+   four OASIS3 processes, you may split the fields into four files 
+   containing, say, 10, 10, 9 and 9 fields.
+
+   Additionally, in the pseudo-parallel case, the namcouple files must conform
+   to the convention of having a trailing underscore follwoed by the processor
+   rank. E.g. when using four OASIS3 instances, this directory must 
+   contain:
+
+   namcouple_0, namcoupl_1, namcouple_2 and namcouple_3 
+   
+   
+Controlling namcouple file: The name of the namcouple to be used.
+   In the case of pseudo-parallel OASIS3, only enter the stub of the name
+   common to all files. i.e. typically just "namcouple". The UM control
+   scripts will automatically set up the correct names and update the 
+   contents to reflect the run length etc. 
+   
+Location of remapping weights files: This is the directory containing 
+   pre-computed weights files. These conform to their own OASIS-defined
+   naming convention. Names should not be changed. It is recommended 
+   thaht these files are created prior to a run (in practice as set of
+   centrally maintained files will usually be employed). However, 
+   in pronciple, if you don't have a set of pre-calculated weights, 
+   you can leave this blank and allow OASIS to calculate it for you. 
+   This is not recommended as the process can be extremely slow and
+   the underlying SCRIP routines are unreliable when dealing with polar 
+   rows. 
+
+   
+Use existing grids files: Grids, masks and areas files are usually supplied
+   as existing files. However it is possible (but not recommended )
+   to uncheck this box and leave the components/OASIS to generate these files
+   at the start of the run. 
+ 
+NEMO load flags: These are compiler load options which allow the NEMO-CICE
+   component to be compiled with extra load flags. Principally, this is 
+   designed to allow the appropriate prism and netcdf libraries to be
+   employed. However it can also be used to include other options (e.g. 
+   optimised maths libraries, debug options, etc).  
+
+The OASIS3-MCT Coupler
+----------------------
+
+   The OASIS3-MCT coupler is now available for general use. Please be 
+   aware that its behaviour and performance are still under assessment.
+
+   You should usually ensure that "Perform atmosphere coupling through 
+   master PE" and  "Perform NEMO coupling through master PE" are both 
+   switched off - i.e. coupling is usually performed directly from component 
+   model sub-domains without the need to gather or scatter global data.
+
+   Settings are exactly the same as for standard OASIS3 above except that 
+   OASIS3-MCT does not require a separate process. (Hence there is no 
+   concept of a "pseudo-parallel" version of OASIS3-MCT.)
+
+   OASIS3-MCT requires a slightly different format of namcouple file 
+   compared with OASIS3 (see the OASIS3-MCT user guide), hence namcouple 
+   files are not interchangeable between OASIS3 and OASIS3-MCT. 
+
+   You may wish to distribute atmosphere and nemo-cice component tasks
+   evenly across all nodes (rather than assigning all atmosphere tasks 
+   contiguously followed by all nemo-cice tasks contiguously). This can be 
+   used, for example, to obtain an even load balance of memory use across 
+   all nodes on IBM power series machines or to test alternative task 
+   positioning for optimisation purposes. To achieve this, set the 
+   "Task spacing repeat interval" to a suitable value, e.g. a value of 32 
+   ensures that your pattern of tasks repeats at intervals of 32 (i.e. the 
+   number of cores in one IBM Power7 node.)  
+
+   Note also when switching between OASIS3 and OASIS3-MCT that the libraries 
+   specified in the "NEMO Load Flags" entries will need to be changed. 
+   Typically, OASIS3 requires libraries: 
+
+        -lanaisg -lanaism -lpsmile.MPI1 -lfscint -lmpp_io -lscrip
+
+   Whereas OASIS3-MCT usually requires:
+
+        -lmct -lpsmile.MPI1 -lmpeu -lscrip
+
+
+IOS
+---------------------------------------------------
+IOS currently only works with Oasis3. See IO Services panel help for more details.

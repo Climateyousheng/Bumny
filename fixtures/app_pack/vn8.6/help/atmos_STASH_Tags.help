@@ -1,0 +1,4 @@
+This panel is for setting the include status of sets of tagged
+diagnostics. Each tag can be given a description.
+
+%I gen_STASH_Tags

@@ -1,0 +1,39 @@
+The Save button.
+Saves the basis information back to the database.
+It is only active if the job is entered read-write. A job can only be entered
+read-write once at any time.
+
+You should "Save":
+	Before pressing "Quit" if you want to save the changes this session.
+	Periodically in a long session. There is no automatic save feature.
+	Before processing.
+	Before making changes that you are not sure about, so that you can
+	undo them.
+	
+You should not "Save":
+	If the button is grey. The job is not open read-write.
+	If you want to undo any changes since you last pressed save. Use
+	"Quit".
+
+This windows facility allows users to set up and define jobs within
+experiments. The definition of these jobs is held in a central database.
+
+The system is essentially a means of editing the contents of the central
+database.
+
+On choosing an experiment, the system reads the information from the database
+into memory and the windows allow the user to edit the information.
+
+The "Save" button saves any edits made in the current session.
+
+Like most editors, it is possible to exit from an edit session without saving
+the changes made in that session. Use the "Quit" button.
+
+If you have entered any windows the system will warn you if you try to "Quit"
+without saving first. This will happen even if you have not changed any
+variables. 
+
+The same will happen with processing. However, if you go ahead and process
+this will used the CHANGED variables, as at this point in the session.
+You will still be able to "Quit" without saving to undo any changes since the
+last save.

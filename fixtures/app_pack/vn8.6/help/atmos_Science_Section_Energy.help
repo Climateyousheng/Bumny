@@ -1,0 +1,65 @@
+Section 14 : Energy, dry mass and total water adjustments.
+------------------------------------------------------------
+The energy adjustment section can be left out if not required
+
+This section of code is designed to ensure conservation of certain
+basic quantities important in long climate integrations. If the code
+is not included there is no guarantee energy, dry mass and total water
+will be conserved.
+
+For details of the formulation of the energy, mass and possible total
+water adjustments see the UM documentation on the energy correction.
+
+Energy conservation
+---------------------
+
+>From UM 5.0 onwards the basic dynamics of the model no longer
+conserves dry energy. Prior to UM 5.0 the old Eulerian dynamics of the
+model could have been coded to conserve energy. (In practice this was
+not the case.)
+
+Even if the dynamics of the model conserves energy the UM lacks a
+physical parametrization for frictional heating and therefore the
+model will not conserve energy. The missing energy is corrected for by
+including an energy correction in the form of a uniform increment to
+temperature, of the form Cv(dT/dt).
+
+The energy adjustment works by evaluating the total energy of the
+model at the beginning of a model run and then again at the end of the
+period specified by the user. Prior to UM 5.1 this period should
+always have been set to 24 hours to work correctly. Now, the period
+can take any value which is a multiple of the radiation
+timestep. During the period the energy fluxes into the atmosphere from
+the physical parametrization which include radiation are
+accumulated. At the end of each period the sum of the change in energy
+due to parametrizations is compared to the total change in energy. The
+difference is the error and is used to work out the correction
+required for the next period.
+
+Dry Mass conservation.
+-----------------------
+
+The dynamics of the model should conserved dry mass (see UM
+documentation on the model dynamics). In very long integrations
+numerical rounding can result in a drift in the mass of the
+atmosphere. This can be corrected if the user chooses to set the
+switch for dry mass correction.
+
+At the beginnng of a run the total dry mass of the atmosphere is
+evaluated and stored. In every energy correction period any drift away
+from the initial value is evaluated and the dry density of the model
+is adjusted to correct for this drift.
+
+Switch for additional printout
+-------------------------------
+
+Additional information in the job output can be obtained by setting
+this switch. The total moisture and mass conservation is then checked
+and results printed even if the corrections are not applied. Also the
+components making up the total energy will be printed separately.
+
+
+---------------
+%I compile_modes
+
+

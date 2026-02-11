@@ -1,0 +1,27 @@
+<M001_S010_I185>
+Item (1:10:185) 
+
+Increments from the Helmholtz solver du, dv, dw are on model levels on the
+same grids as u, v, and w resepctively. The increments are the changes in u,
+v, or w per timestep. Tests suggest the increments from the Helmholtz solver
+are small relative to wind increments from advection or physics schemes.
+</M001_S010_I185>
+#
+<M001_S010_I186>
+Item (1:10:185) 
+
+Increments from the Helmholtz solver du, dv, dw are on model levels on the
+same grids as u, v, and w resepctively. The increments are the changes in u,
+v, or w per timestep. Tests suggest the increments from the Helmholtz solver
+are small relative to wind increments from advection or physics schemes.
+</M001_S010_I186>
+#
+<M001_S010_I187>
+Item (1:10:185) 
+
+Increments from the Helmholtz solver du, dv, dw are on model levels on the
+same grids as u, v, and w resepctively. The increments are the changes in u,
+v, or w per timestep. Tests suggest the increments from the Helmholtz solver
+are small relative to wind increments from advection or physics schemes.
+</M001_S010_I187>
+#

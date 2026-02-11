@@ -1,0 +1,22 @@
+# default compile options
+@define    COMP_CMD=f90
+@cdefault  COMP_OPTS=
+@cdefault  f90_DISABLE=
+@cdefault  f90_ENABLE=
+@cdefault  f90_OPTIM=
+@cdefault  f90_OPTS=
+@cdefault  f90_ROPTS=
+@define    LOAD_CMD=f90
+@ldefault  LOAD_OPTS=
+@ldefault  f90_LIBS=-lgrib -lgcom_pvm_11
+@ldefault  f90_OPTS=-Wl-Dpermok=yes
+@ldefault  f90_PATH=-L.
+@ldefault  f90_FILE=
+@ldefault  cld_LIBS=-lgrib -lgcom_pvm_11
+@ldefault  cld_OPTS=-Wl-Dpermok=yes
+@ldefault  cld_PATH=-L.
+@ldefault  cld_FILE=
+@define    CCOM_CMD=cc
+@define    CCOM_OPTS=
+@define    cc_OPTIM=
+# Compile options for particular decks (if different from the default):

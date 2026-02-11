@@ -1,0 +1,17 @@
+This window allows users to specify various parameters associated with the
+dynamics.
+See UMDP 10 for a general discussion on the dynamics.
+
+Most users will run with the Linear Approximation to Reference Temp Profile.
+For a discussion of this and the more expensive alternative, see Appendix 2 of 
+UMDP 10.
+
+Use of the extra terms in 2*omega*cos(phi) is the standard choice for most
+users. See UM DOC 10. Extra costs are minimal and this gives a more accurate
+solution, especially for longer runs.
+
+The tests for half timestep dynamics are to avoid stability problems. Such test
+should only be used after extensive tuning of the resolution dependent
+parameters. Even then, problems should not be masked by such solutions except in
+operational configurations where failures cause problems in the real-time
+environment. See standard operational jobs for typical threshold values.

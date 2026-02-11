@@ -1,0 +1,68 @@
+Photolysis Scheme Selection:
+============================
+
+The are three currently photolysis schemes available for UKCA.
+
+2-D Photolysis:
+---------------
+The 2D photolysis scheme uses tropospheric photolysis rates from a data set
+developed using the Cambridge 2-D model (Law and Pyle 1993).  For the
+stratospheric schemes, photolysis rates are calculated from UV fluxes and
+the appropriate cross sections.
+The directory containing these data is specified in the entry box
+"directory pathname for the 2D photolysis rates". The standard files are
+maintained in the UM repository and extracted to the folder:
+'$UMDIR/$VN/ctldata/UKCA/tropdata/photol' on the computing system.
+
+
+Fast-J Photolysis Scheme:
+-------------------------
+The Fast-J scheme (Wild et al 2000) calculates photolysis rates in the
+presence of an arbitrary mix of cloud and aerosol layers. It is a flexible
+and accurate scheme, with an algorithm fast enough to allow hourly updating
+of the photolysis rates.
+The scheme uses aerosols from CLASSIC and hence it will work only when the
+CLASSIC aerosol scheme is switched ON.
+This 7-bin scheme is currently used in the operational Air Quality model but is
+likely to be retired soon in favour of the new Fast-JX Scheme.
+
+The entry boxes "directory pathname for Fast-J spectral file" and
+"filename for Fast-J spectral file" are used to set the path for the Fast-J
+spectral file (usually jv_spec.dat) containing the required cross-sections.
+The standard copy of the file is maintained in the UM repository and
+extracted to the folder: '$UMDIR/$VN/ctldata/UKCA/tropdata/fastj'
+on the computing system.
+
+
+Fast-JX Photolysis Scheme:
+--------------------------
+The Fast-JX scheme (Neu et al 2007) is based on the Fast-J scheme and 
+uses 11-bins, making it suitable to be used in stratospheric configurations. 
+The current implementation of Fast-JX in the UM is ver 6.5 (09/2009).
+
+The entry boxes "directory pathname for Fast-J spectral file",
+"filename for Fast-J spectral file" and "filename for FAST-JX scatter file"
+are used to specify the location of files containing the cross-section and
+scatterrer data respectively.
+A standard copy of the files is maintained in the UM repository and
+extracted to the folder: '$UMDIR/$VN/ctldata/UKCA/tropdata/fastj'
+on the computing system.
+
+It is possible to choose 8, 12 or 18 wavelength bins. The 18 wavelength
+version is the full Fast-JX version, choosing 12 is only suitable for
+troposphere only models and drops cross sections for stratospheric species,
+the 8 bin version is a fast troposphere only version. The choice between
+the 8 and 12 bin versions is a trade off  between accuracy and speed.
+
+The "Cut-off Pressure for tabulated photolysis" can be used to specify the
+pressure level (in hPa) above which a simplified look-up table approach can
+be used to compensate for the lower wavelength limit of this scheme.
+
+Above this level, either 'only lookup table', 'combination of Fast-JX and
+lookup tables' or only Fast-JX can be applied. The recommended option is 
+to 'Use Lookup Tables' above a pressure cut-off of 20 hPa.
+
+To consider the impact of aerosols on the photolysis rates, FAST-JX
+currently makes use of SO4 aerosols from CLASSIC to calculate the surface
+area, so it is essential that the CLASSIC sulphate aerosol scheme is
+switched ON when FAST-JX is used.

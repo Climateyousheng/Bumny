@@ -1,0 +1,23 @@
+Ancillary files
+---------------
+ * Ancillary file header record maximum size must be set to >1000  
+    (In file related options) 
+
+  Oxidants 
+  ---------      
+  Unless the option to use oxidants from UKCA instead of anciliary is chosen,
+  the chemistry requires an ancillary file containing oxidants to be provided.
+  These must be 3_D fields of OH radical concentration (molecules/cc)
+                              HO2        concentration (molecules/cc)
+                          and H2O2 (limiting field) mass mixing ratio (kg/kg)
+   If Ozone Oxidant is selected, O3 mass mixing ratio (kg/kg)
+
+  * The pathname of a file on the host machine should be given. 
+  * Single time fields may be read into the reconfiguration, or 
+    fields may be updated during the run (the ancillary file should contain
+    all fields for the first valid time (e.g. January), followed by all fields 
+    for the next valid time (e.g. February) etc.  
+  * Only Ozone may be specified as Not Used 
+    
+  * Use the SULPHUR button to return to the Sulphur Cycle window
+

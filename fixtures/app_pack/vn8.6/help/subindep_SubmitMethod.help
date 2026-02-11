@@ -1,0 +1,179 @@
+Once a submit method is selected the set of variables, specific to this method, 
+will be included into SUBMIT file via "nds_[choosen_method]_only" include file.
+
+For platforms external to the Met Office or which do not use LoadLeveler, "Other" 
+submit method should be the choice. A system administrator have to supply 
+"nds_Other_only" script. 
+
+Machine name: is the machine on which to run the models, even if it is your
+local machine. Use the name that you would use in an ssh request.
+
+The machine config file will be the name of one of the files in the
+src/config/machines directory of your FCM repository.  This config file 
+may exist on an FCM branch. In this case, you will also need to configure 
+the FCM panel to point to this branch. 
+Seek local advice.
+
+
+General advice on Compilation processes
+---------------------------------------
+If the executable is to be re-compiled you can specify a number of
+independent compilation processes that can be run simultaneously. The
+higher this number the more memory required. The default value is
+machine specific. eg. for single processor workstation this may be set
+to a low number (eg. 1), maybe, but for MPP machines it may be high
+(eg. 10).  If the compilation fails due to lack of memory
+try increasing the amount of memory or reducing the number of
+concurrent compilations.
+
+Go on to the "Resubmit" window to set automatic re-submission
+
+Automatic resubmission will only work at the Met Office, unless special
+provision has been made at external sites.
+It is useful for long climate runs as it allows runs longer than the maximum
+time limit of the queue to be performed without interaction. It is a good idea
+to set the target length.
+In this case the job-name root should be a normal job-name but should have an
+ending such as "01". This will be incremented on re-submission.
+
+
+Machine Environment Overrides
+-----------------------------
+These options are principally for use at organisations other than the
+Met Office and may be used to define settings needed by many UMUI installations.
+It is anticipated that all jobs at a given location will share the same
+settings. Seek the advice of your UM administrator if you are unsure what
+to enter.
+
+Change target machine name:
+Enter the name of the target machine ($TARGET_MC). This is the value referred to
+as PLATFORM in the UM installation scripts and should match the corresponding
+directory in $UMDIR on the remote machine, e.g. $UMDIR/vn7.8/<target_machine>.
+
+Change programming environment file:
+Enter the name of a file containing programming environment settings. This
+can be either a full path to a file or a file contained in the user's PATH.
+When submitting jobs with LoadLeveler or 'at' the UMUI will attempt to source
+the appropriate programming environment used at the Met Office. Enabling
+this option and leaving the text entrybox blank will prevent these, or any
+other, environments from being included.
+
+Change machine config file:
+Enter the name of the repository directory containing the desired machine.cfg file
+for the UM ($UM_MACHINE). This is located under src/configs/machines in the
+UM project, e.g. ibm-pwr6-meto.
+
+
+Use OpenMP:
+-----------
+Use this option to build and run the UM atmosphere or reconfiguration on 
+distributed-shared memory architectures, using both MPI and OpenMP. Number 
+of threads sets the number of OpenMP threads that will run simultaneously in 
+OpenMP-parallel regions of code. This should typically be set no higher than 
+two for the moment; currently likely to give performance improvement when 
+used in conjunction with SMT.
+
+This option may also be used if you intend to run NEMO or CICE components with
+OpenMP, though you will have to specify the relevant compiler options directly 
+in the NEMO and CICE FCM configuration files.    
+
+Met Office users: OpenMP should not be activated for Linux systems without 
+first seeking advice from the UM System or HPC Optimisation teams.
+
+
+Define the number of processors:
+--------------------------------
+On multi-processor machines a method of domain decomposition is
+used in which each processing element (PE) carries out the
+calculations for a portion of the whole grid.
+
+UM Atmosphere Model
+
+The atmosphere model can be decomposed in two dimensions so two 
+values for the number of PEs are requested, one for East/West and 
+one for North/South; the total number of PEs is the multiple of 
+these two values.
+
+For the atmosphere model the number of processors in the E-W direction
+must be either 1 or a multiple of 2. This is a requirement for
+efficient cross polar communication.
+
+Ocean / Sea Ice models
+	
+As of UM 7.1 the standard ocean model is NEMO. The standard sea-ice model is
+CICE. Both of these models can be run stand-alone, coupled together in an
+ocean-sea-ice model or in a full coupled UM Atmosphere-NEMO-CICE model using
+the OASIS coupler.
+
+When either NEMO and/or CICE is selected from the Sub Model Inclusions and
+Coupling panel, the entries describing the processor configuration must be
+entered for the appropriate model component.
+
+   NEMO : This simply requires the number of processors for the
+          decomposition of the NEMO model to be entered in each dimension.
+          For vn3.2 this information is used to automatically edit the NEMO source
+          code before compilation (this model version did not use dynamic
+          allocation - consequently, when changing the number of processors,
+          YOU MUST REMEMBER TO RECOMPILE the NEMO MODEL).  For vn3.3.1 onwards
+          NEMO uses dynamic allocation and these UMUI entries are used to edit
+          the NEMO namelist appropriately - recompilation will not be necessary
+          if you only change the NEMO processors E-W / N-S but any other changes
+          relating to the NEMO / CICE decomposition will still need recompilation.
+         
+   CICE : This requires the number of processors for CICE,
+          the number of columns in the global East-West domain,
+          the number of rows in the global North-South domain,
+          the number of columns per block East-West,
+          the number of rows per block North-South (when running CICE on its own
+          you would often set the number of columns per block E-W as the global
+          number of columns divided by the number of processors you want to use
+          for CICE, and the number of rows per block North-South to be the same
+          value as the number of rows in the global North-South domain),
+          Maximum number of blocks per PE (if this is incorrectly set,
+          CICE will calculate the minimum number and abort).
+          The CICE settings require an understanding of the way CICE
+          mpp decomposition works. See the CICE user guide for details. 
+ 
+   NEMOCICE : When running with a combined NEMO-CICE component, it is
+          important to remember that NEMO and CICE run on the same
+          number of processors. Thus, you should ensure CICE settings
+          are consistent with the number of NEMO processors requested.
+          When running on more than a few nodes, the option 'Use CICE type domain
+          decomposition for NEMO' will normally be quicker.  Prior to NEMO vn3.4
+          and UKMO CICE trunk r530 (LANL CICE trunk r405) additional branches
+          for both NEMO and CICE will be required for this option to take effect.
+          Running with this option requires no more than 1 CICE block per processor
+          (the UMUI will enfore this), processor_shape='square-pop' or 'square-ice'
+          and distribution_wght='block' in the CICE ice_in file, and the number of
+          rows / columns per block for CICE set be dividing the total number of
+          CICE rows / columns by the number of NEMO processors E-W / N-S respectively
+          (rounding up where necessary).  It is generally best to keep the domain
+          fairly square (and note that the model may fail if the number of rows /
+          columns per block is greater than the number of NEMO processors E-W / N-S
+          respectively - in practice this should rarely be much of a limitation).
+          Recompilation is required after changing any of these settings.
+         
+   OASIS3 : When using the OASIS3 or OASIS3-MCT couplers the number
+          of processors to be used by the coupler must be entered.
+          For OASIS3-MCT this must always be set to 0.
+          For OASIS3 mono-process builds (rarley used) this must
+          always be set to 1.
+          If OASIS type "MPI2" is selected, this must always be set
+          to 1.
+
+          For the OASIS3 pseudo-parallel build case, (which is the 
+          most commonly used version), the number of OASIS
+          processors may be anything from 1-38.
+
+    IOS   : If the UM IO Server is enabled in the IO Services panel, then processors 
+          configured as IO Servers contribute to the "Total Atmos processors". 
+          Valid configurations must set "MPI Task Spacing" greater than 
+          "Total Atmos processors". At the current time, IO Server configurations 
+          do not work with OASIS-MCT configurations.
+
+In a fully coupled job, the total number of processors requested will be:
+
+    Total Atmos + Total NEMO-CICE + Total OASIS
+
+For runs using external control from the SCS, the numbers of CPUs
+are defined via the SCSUI.

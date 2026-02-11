@@ -1,0 +1,59 @@
+RIVER ROUTING
+--------------------
+Global Model Routing
+--------------------
+Scheme 1A should be chosen for any GLOBAL run and 2A only for Limited 
+area model (code under development). The 1A global scheme is described in 
+Hadley Centre Technical Note 72 (HCTN72) - currently up to date for UM versions 
+up to 6.2. Further developments and fixes to the scheme have been applied for 
+later UM versions, including new ancillary files for use with water 
+conservation fixes.
+
+Selecting 'Re-routing inland basin water back to soil moisture' is only 
+applicable to the global river routing scheme 1A and fixes a bug where 
+water from inland outflow points was previously 'lost' to the system on 
+regridding. The re-routed water is held over until the next timestep 
+and added to the change in top-level soil moisture. 
+NOTE: this method as applied at UMvn6.2 was incorrect since only 1/48 of 
+the flux was applied on a daily basis. Correcting this resulted in model 
+crashes so a new approach was applied at vn6.6.2 but this requires different 
+ancillary files.
+
+The values shown are only for scheme 1A. 
+At present the number of columns and rows must be left as 360 and 180 
+(scheme works on a 1x1 deg. grid). 
+
+The river routing timestep of 86400 secs (1 day) is commonly used, especially as 
+this is often the Atmosphere/Ocean coupling period too. More recent applications 
+are using shorter timesteps (e.g. 3 hours). 
+
+Although in principle, for timesteps less than 1 day the effective velocity may 
+be altered (see below), recent correspondence with the model developers suggest 
+this is unnecessary, so the following settings are currently applied: effective 
+velocity of 0.4 m/s and a meander ratio of 1.4.
+
+Alterting effective velocity (see above):
+Effective velocity should be a multiple of the physics timesteps and, if it is 
+changed, is governed by:
+ 
+u.dt < d where u is the effective velocity(m/s), dt the timestep (s) and 
+d distance across a gridbox east-west (which in polar regions is approx. 
+20,000m). Suggestions for timesteps other than 1 day (from off-line scheme) 
+are:
+
+dt > 43200secs           0 < u < 0.5 (dt = 86400secs recommended u=0.4) 
+dt = 43200secs (12hours) 0.5=or< u < 1.0 (recommended 0.5) 
+dt = 21600secs (6hours)  1.0=or< u < 1.5 
+dt = 14400secs (4hours)  1.5=or< u < 2.0 
+dt = 10800secs (3hours)  2.0=or< u < 3.0
+
+River routing can be run in atmosphere only model but to run it in a 
+coupled model and pass river outflow to NEMO, you need to include river outflow  
+(STASH 4, section 26) with a STASH tag of ¡Æ10¡Ç for the usage profile.  
+This is done automatically in most coupled jobs via an appropriate coupling 
+macro specified in the ¡ÆOASIS Coupling Switches and Options¡Ç panel.
+
+The global river routing scheme is undergoing further development at present. 
+For further information on using the scheme please contact 
+pete.falloon@metoffice.gov.uk or andy.wiltshire@metoffice.gov.uk 
+

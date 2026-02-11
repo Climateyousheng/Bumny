@@ -1,0 +1,48 @@
+ This panel controls the options available to the thunderstorm electrification
+scheme. It is designed to run in high-resolution, convection-permitting UM 
+simulations, where prognostic graupel is also used. If none of the switches
+in this panel are active, please add prognostic graupel on the large-scale
+precipitation panel. 
+
+=== INCLUDE THUNDERSTORM ELECTRIFICATION SCHEME ===
+Selecting this switch turns on the thunderstorm electrification scheme and
+allows any section 21 lightning diagnostics to be available.
+
+=== CHOOSE ELECTRIC METHOD ===
+This is an integer value (current range 1-2) which selects the 
+method used to produce lightning charging and discharging in the UM.
+Methods available are:
+1) Graupel water path based method (loosly based on Deiering et al 2008, JGR)
+2) McCaul et al (2009, Weather and Forecasting) scheme.
+
+More schemes are likely to be added as the code develops
+
+=== Input parameters to the Graupel Water Path method ===
+
+g1: Lightning-graupel water path gradient for graupel water path scheme
+g2: Intercept for graupel water path scheme
+
+These variables only has an impact when the Graupel Water Path method 
+is in use. The flash rate (F) of thunderstorms is determined as a power 
+law relationship:
+F = g1 * GWP + g2,
+where GWP is the graupel water path (column integral of graupel in the
+thunderstorm). 
+
+=== Input parameters to the McCaul et al (2009) scheme ===
+
+Lightning-graupel flux factor for McCaul et al (2009) scheme:
+This only has an impact when the McCaul et al (2009) scheme is in use.
+Increase this number to produce more lightning from graupel contained 
+in thunderstorm updraughts (convective cores). The flash rate (F) is 
+a linear relationship determined as F = k1 * flux, where k1 is the 
+lightning-graupel flux factor. As a default value, McCaul et al (2009) 
+suggest this factor should be 0.042.
+
+Lightning-storm ice factor for McCaul et al (2009) scheme:
+This only has an impact when the McCaul et al (2009) scheme is in use.
+Increase this number to produce more lightning from total ice in 
+thunderstorm.s The flash rate (F) is a linear relationship determined 
+as F = k2 * TI, where k2 is the lightning-storm ice factor and TI is the
+integral of all the ice in the model grid column. As a default value, 
+McCaul et al (2009) suggest this factor should be 0.20.

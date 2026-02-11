@@ -1,0 +1,13 @@
+Pre-compiled section for atmospheric-model control level decks.
+
+This window allows the user to specify which version of the control-level
+section for the atmospheric model that they require in their executable. 
+
+This is always required when the atmospheric model is included.
+
+See the UM source code and the Object-Xref file to see which DECKs make up a
+section.
+
+
+-------------
+%I compile_modes

@@ -1,0 +1,43 @@
+# List of partitions and their inactive status. 
+# Column 1 is initial letter of partition number as found in var.register
+# Column 2 is an identifier expected to be found in all window names of a given partition - 
+# see below. Remaining column/s give condition for partition being inactive - variables
+# in these partitions will not be verified under the Check Setup option if this
+# condition is met.
+# Different elements of 1D or 2D variables can exist in different partitions which is useful
+# if two or more partitions have common sections
+#
+# EXAMPLE:
+# 
+# a    parta           PARTA!="ON"
+# b    partb           PARTB!="ON"
+# c    partc           PARTC!="ON"
+# m    sectm           NEVER
+# y    multi_part      a         b        ALWAYS
+#
+# all variables in a, b, c and m partitions are dependent on a single condition.
+# variables in y, however are 1D or 2D variables whose different indices are used in different
+# partitions. eg 1D variable Y has Y(1) in parta and Y(2) in partb partition. Y(3) is currently
+# ALWAYS inactive (but could later easily be made dependent on partc or indeed sectm if necessary). 
+# Similarly 2D variable can have lists Z(*,1) and Z(*,2) dependent on a and b
+#  
+# Conditions can be in the form of a tcl logic statement eg (V(1)=="N")||(U(2)!=3)
+# or can be NEVER which means never inactive or can be ALWAYS which means always inactive
+# 
+# Column 2 is used for determining which window name should be output in the event of an error
+# in a cross-partition variable during the Check Setup procedure.  
+# eg The window panels parta_stuff and partb_stuff may contain, respectively S(1) and S(2) in the 
+# y partition. The window name for S should be multi_part_stuff. If S(1) is wrongly set then when 
+# outputting the location of the error, the Check Setup procedure will substitute multi_part with parta
+a    atmos           ATMOS!="T"
+o    ocean           OCEAN!="T"
+s    slab            SLAB!="T"
+w    wave            WAVE!="T"
+n    nemo            NEMO!="T"
+c    cice            CICE!="T"
+j    jules           JULES!="T"
+p    personal        NEVER
+i    subindep        NEVER
+x    xsubmod         a         o         s        w
+y    ysubmod         a         o         ALWAYS   w
+S    SYSTEM          NEVER

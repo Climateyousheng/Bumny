@@ -1,0 +1,25 @@
+Options for correcting Monin-Obukhov surface exchange calculations
+(COR_MO_ITER)
+----------------------------------------------------------------
+This integer switch controls successive corrections to BL code,
+as follows:
+
+0: No corrections.
+1: Remove over-compensation for convective gustiness in light winds.
+2: Correct the value of U* used by the dust scheme and Flake.
+3: Correct the value of the Obukhov length in the low-wind limit.
+
+Note that selecting FLake also sets COR_MO_ITER=3, picking up
+all corrections.
+
+
+Make surface exchange consistent with flux differencing
+(I_MODISCOPT)
+-------------------------------------------------------
+The boundary layer and surface schemes are formulated in terms of flux
+budgets. These schemes should therefore interpret fields on model layers
+as mass-weighted means when calculating fluxes. In the original version
+of the surface scheme these are interpreted as values at particular
+heights. The option to make surface exchange consistent with flux
+differencing causes fields on model levels to be interpreted as
+mass-weighted means.

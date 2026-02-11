@@ -1,0 +1,91 @@
+%C ====================================================
+%C module: nds_Linux_only
+%C
+%C Includes variables required when using UNIX systems
+%C ==================================================== 
+%C
+###################################################
+#                                        LINUX    #
+###################################################
+# TARGET_MC is used in path to small execs and scripts
+%T if {%LTRGMACH != "Y"} {
+export TARGET_MC=linux
+%T } else {
+export TARGET_MC=%USR_TARGET_MC
+%T }
+
+# Submission command and output file names
+export SUB_CMD="at now -f"
+export SUB_OUT_RCF=""
+export SUB_OUT_RUN=""
+export SUB_OUT_CMP=""  
+
+###################################################
+# STACK limits for any RUN job           LINUX    #
+###################################################
+STACK=%JSTACK
+RCF_STACK=%RCFSTACK
+
+###################################################
+# MPICH                                  LINUX    #
+###################################################
+MPIDIR=/home/h01/frum/mpi/mpich2-1.4.1/ifort-12.0/bin
+
+###################################################
+# Create compilation header              LINUX    #
+###################################################
+%T if { [inactive_var ACCGRP] == 0 && %ACCGRP=="ext" } {
+AC=%ACCGRP_OTHR
+%T }
+
+  cat >>$comp_header<<EOF
+#!/bin/ksh
+export SHELL=/bin/ksh
+
+exec 1>> $COMP_OUTPUT_FILE 2>&1
+. /etc/profile
+
+export PATH=$MPIDIR:$PATH
+
+EOF
+
+###################################################
+# Create reconfiguration header          LINUX    #
+###################################################
+
+  cat >>$rcf_header<<EOF
+#!/bin/ksh
+export SHELL=/bin/ksh
+
+exec 1>> $RCF_OUTPUT_FILE 2>&1
+%T set progenv "run"
+%I nds_prog_env
+%C
+export RCF_STACK=$RCF_STACK
+%T if {%INDEP_SR(98)=="1A"} {
+export OMP_NUM_THREADS=%NTHR_TASK
+export OMP_STACKSIZE=1g
+%T }
+export PATH=$MPIDIR:$PATH
+
+EOF
+
+###################################################
+# Create run header                      LINUX    #
+###################################################
+
+  cat >>$run_header<<EOF
+#!/bin/ksh
+export SHELL=/bin/ksh
+
+exec 1>> $RUN_OUTPUT_FILE 2>&1
+%I nds_prog_env
+%C
+export STACK=$STACK
+%T if {%INDEP_SR(98)=="1A"} {
+export OMP_NUM_THREADS=%NTHR_TASK
+export OMP_STACKSIZE=1g
+%T }
+export PATH=$MPIDIR:$PATH
+
+EOF

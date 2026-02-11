@@ -1,0 +1,398 @@
+# checkAndSubmitPuma
+#   Checks for anything that the user should be warned of. If there 
+#   isn't anything, go ahead and submit. Otherwise require a 
+#   confirmation. Version for NCAS puma umui.
+
+proc checkAndSubmitPuma {} {
+
+    global processing_done job_title env dbg_lev
+
+#   UMUI_SSH_DEBUG_LEVEL = 0 - No terminal output
+#   UMUI_SSH_DEBUG_LEVEL = 1 - Quiet terminal output
+#   UMUI_SSH_DEBUG_LEVEL = 2 - Normal terminal output
+#   UMUI_SSH_DEBUG_LEVEL = 3 - Verbose terminal output
+#   UMUI_SSH_DEBUG_LEVEL = 4 - Very verbose terminal output
+#   UMUI_SSH_DEBUG_LEVEL = 5 - Very very verbose terminal output
+
+    if {[info exists env(UMUI_SSH_DEBUG_LEVEL)]} {
+       set dbg_lev $env(UMUI_SSH_DEBUG_LEVEL)
+    } else {
+       set dbg_lev 0
+    }
+
+    set host [get_variable_value MACH_NAME]
+
+    if {$host == "ibm00" || $host == "ibm02"} {
+       set submit_proc really_submit_job_pull
+    } else {
+       set submit_proc really_submit_job_ssh
+    }
+
+    if {[info commands .submit] == ".submit"} {
+	destroy .submit
+    }
+    toplevel .submit
+    wm geometry .submit +10+200
+    wm title .submit "Submission of $job_title to $host"
+
+    label .submit.rhosts1 -anchor w -text \
+	    "If you get a permission denied error, your user name is wrong"
+    label .submit.rhosts2 -anchor w -text \
+	    "or you entered the wrong password on machine $host"
+    message .submit.text -text {} -anchor w -width 500
+    frame .submit.fcm
+    frame .submit.buttons
+    pack .submit.rhosts1 -anchor w -padx 2m
+    pack .submit.rhosts2 -anchor w -padx 2m
+    pack .submit.text -anchor w -padx 2m -pady 4m
+    pack .submit.fcm -fill both -expand yes
+    pack .submit.buttons
+
+    set message ""
+    if {!$processing_done} {
+	set message "WARNING: You have not processed the job yet.\n"
+    }
+    if {$message != ""} {
+	.submit.text configure -text "$message"
+	button .submit.buttons.continue -text "Submit anyway" -command "
+	.submit.text configure -text {}
+	destroy_window .submit.buttons.continue 
+	destroy .submit.buttons.cancel
+	$submit_proc
+	"
+	button .submit.buttons.cancel -text "Cancel" -command {
+	    destroy_window .submit.buttons.continue 
+	    destroy .submit
+	}
+	pack .submit.buttons.continue \
+		-pady 2m -padx 2m -ipady 1m -ipadx 2m -side left
+	pack .submit.buttons.cancel \
+		-pady 2m -padx 2m -ipady 1m -ipadx 2m -side left
+	bind_button_list .submit.buttons.continue .submit.buttons.cancel
+
+    } else {
+	$submit_proc
+    }
+}
+
+proc really_submit_job_ssh {} {
+
+    global exp_id job_id 
+    global done
+
+    package require Expect
+
+    set path [set_output_dir]
+    # make processing output sub-directory
+    if {! [file exists $path]} {
+	exec mkdir $path
+    }
+    set processed_dir $path/$exp_id$job_id
+
+    set uid [get_variable_value USERID]
+    
+    set host [get_variable_value MACH_NAME]
+#    set run_on [get_variable_value RUN_ON]
+#    if {$run_on == "other" || $run_on == "IBM"} {
+#        set host [get_variable_value MACH_NAME]
+#    } else {
+#        set host [get_variable_value RUN_ON]
+#    }  
+
+    set submitid [exec date +%j%H%M%S]
+    set rundir umui_runs/$exp_id$job_id-$submitid
+    set runfile "SUBMIT"
+    set run_cmd "$rundir/$runfile"
+
+    .submit.text configure -text "Creating directory..."
+    update idletasks
+
+    set cerr [catch {run_ssh .submit.text $host $uid \
+              "test ! -d umui_runs && mkdir umui_runs"} err]
+    if {$cerr} {
+	status_message "" "Job submission failed"
+	destroy .submit
+	error "$err while attempting to access account $uid on host \
+		$host. Note that repeated failures may result in \
+		expiry of password due to security procedures on some \
+		machines. Check user id, hostname and password \
+		for your account on the host machine."
+    } elseif {[string match "Cancelled*" $err]} {
+	status_message "" "Job submission cancelled"
+	set submit_out $err
+        regsub -all "\r" $submit_out "" submit_out
+       .submit.text configure -text "$submit_out"
+    } else {
+
+	.submit.text configure -text "Initialising $runfile..."
+	update idletasks
+	exec cat $processed_dir/$runfile |\
+		sed s/:::submitid:::/$submitid/g >\
+		$processed_dir/$runfile.tmp
+
+	.submit.text configure -text "Copying job files..."
+	update idletasks
+	run_scp_put .submit.text $host $uid $processed_dir $rundir -r
+	
+	.submit.text configure -text "Renaming $runfile..."
+	update idletasks
+	run_ssh .submit.text $host $uid \
+		"mv $rundir/$runfile.tmp $rundir/$runfile"
+	
+	.submit.text configure -text "Changing $runfile permissions..."
+	update idletasks
+	run_ssh .submit.text $host $uid \
+		"chmod 755 $rundir/$runfile"
+	
+	.submit.text configure -text "Creating SUBMIT scripts on a remote machine."
+	update idletasks
+	set submit_out [run_ssh .submit.text $host $uid $run_cmd]
+
+	.submit.text configure -text "Tidying local directories..."
+	update idletasks
+	exec rm $processed_dir/$runfile.tmp
+
+        set runfile_main "MAIN_SCR"    
+        file attributes $processed_dir/$runfile_main -permissions 00755
+        set run_cmd_new "$processed_dir/$runfile_main"
+
+	destroy .submit.text
+	
+	# Capture FCM output
+	text .submit.fcm.text -width 60 -height 25 -relief flat -wrap word \
+	    -borderwidth 0 -yscrollcommand ".submit.fcm.scroll set"
+	scrollbar .submit.fcm.scroll -command ".submit.fcm.text yview"
+	pack .submit.fcm.scroll -side right -fill y
+	pack .submit.fcm.text -anchor w -padx 5m -pady 2m -fill both -expand yes
+
+	insert_text .submit.fcm.text "Calling MAIN_SCR - local...\n(This may take several minutes.)"
+
+	set buffer [open "|$run_cmd_new $submitid |& cat" r+]
+	fileevent $buffer readable [list readBuffer $buffer]
+	vwait done
+
+        regsub -all "\r" $submit_out "" submit_out
+        insert_text .submit.fcm.text "\n\n$submit_out"
+        .submit.fcm.text configure -state disabled
+
+	log_submission
+	status_message "" "Job submission completed - see dialog box for details"
+    }
+
+    button .submit.buttons.ok -text "OK" -command {
+	destroy_window .submit
+    }
+    pack .submit.buttons.ok -pady 2m -padx 2m -ipady 1m -ipadx 2m -side bottom
+    
+    # Binding for keyboard
+    bind_ok .submit .submit.buttons.ok
+}
+
+proc really_submit_job_pull {} {
+
+    package require Expect
+
+    global exp_id job_id done dbg_lev cerr err
+
+    if {$dbg_lev < 2} {
+       set sshopt "-o LogLevel=ERROR"
+    } elseif {$dbg_lev == 2} {
+       set sshopt ""
+    } elseif {$dbg_lev == 3} {
+       set sshopt "-v"
+    } elseif {$dbg_lev == 4} {
+       set sshopt "-vv"
+    } elseif {$dbg_lev > 4} {
+       set sshopt "-vvv"
+    }
+    if {$dbg_lev < 2} {
+       set scpopt "-q $sshopt"
+    } else {
+       set scpopt $sshopt
+    }
+    set scpopt1 $sshopt
+
+    set path [set_output_dir]
+    # make processing output sub-directory
+    if {! [file exists $path]} {
+	exec mkdir $path
+    }
+    set processed_dir $path/$exp_id$job_id
+
+    set uid [get_variable_value USERID]
+    set local_uid $::tcl_platform(user)
+
+    set host [get_variable_value MACH_NAME]
+#    set run_on [get_variable_value RUN_ON]
+#    if {$run_on == "other" || $run_on == "IBM"} {
+#        set host [get_variable_value MACH_NAME]
+#    } else {
+#        set host [get_variable_value RUN_ON]
+#    }
+    set local_host [info hostname]
+
+    set submitid [exec date +%j%H%M%S]
+    set rundir \$HOME/umui_runs/$exp_id$job_id-$submitid
+    set runfile "SUBMIT"
+    set run_cmd "$rundir/$runfile"
+
+    set pull_file REMCOMMS
+   
+    # Capture output
+    destroy .submit.text
+    text .submit.fcm.text -width 84 -height 25 -relief flat -wrap word \
+    	-borderwidth 0 -yscrollcommand ".submit.fcm.scroll set"
+    scrollbar .submit.fcm.scroll -command ".submit.fcm.text yview"
+    pack .submit.fcm.scroll -side right -fill y
+    pack .submit.fcm.text -anchor w -padx 5m -pady 2m -fill both -expand yes
+
+    button .submit.buttons.ok -text "OK" -command {
+	destroy_window .submit
+    }
+    
+    # Binding for keyboard
+    bind_ok .submit .submit.buttons.ok
+         
+    insert_text .submit.fcm.text "Initialising $runfile..."
+    exec cat $processed_dir/$runfile |\
+    	    sed s/:::submitid:::/$submitid/g >\
+    	    $processed_dir/$runfile.tmp
+
+    insert_text .submit.fcm.text "Writing remote commands file..."
+
+    set chan [open $processed_dir/$pull_file w]
+
+    puts $chan "#!/bin/sh"
+    puts $chan ""
+    puts $chan "echo Creating directory..."
+    puts $chan "test ! -d \$HOME/umui_runs && mkdir -p \$HOME/umui_runs"
+    puts $chan ""
+    puts $chan "echo Copying job files..."
+    puts $chan "scp $scpopt -r $local_uid@$local_host:$processed_dir $rundir"
+    puts $chan ""
+    puts $chan "echo Renaming $runfile..."
+    puts $chan "mv $rundir/$runfile.tmp $rundir/$runfile"
+    puts $chan ""
+    puts $chan "echo Changing $runfile permissions..."
+    puts $chan "chmod 755 $rundir/$runfile"
+    puts $chan ""
+    puts $chan "echo Running SUBMIT script..."
+    puts $chan "$run_cmd"
+    puts $chan ""
+
+    close $chan
+
+    file attributes $processed_dir/$pull_file -permissions 00755
+
+    set runfile_main "MAIN_SCR"	
+    file attributes $processed_dir/$runfile_main -permissions 00755
+    set run_cmd_new "$processed_dir/$runfile_main"
+
+    insert_text .submit.fcm.text "Calling MAIN_SCR - local...\n(This may take several minutes.)"
+
+    set buffer [open "|$run_cmd_new $submitid |& cat" r+]
+    fileevent $buffer readable [list readBuffer $buffer]
+    vwait done
+
+    if {$cerr} {
+        status_message "" "Job submission failed"
+        insert_text .submit.fcm.text "Job submission failed\n"
+        .submit.fcm.text configure -state disabled
+        pack .submit.buttons.ok -pady 2m -padx 2m -ipady 1m -ipadx 2m -side left
+        return       
+    }
+
+    if {$host == "ibm00" || $host == "ibm02"} {
+       set lander lander.monsoon-metoffice.co.uk
+       set pull_cmd "ssh $sshopt -t $host \
+                    'scp $scpopt1 $local_uid@$local_host:$processed_dir/$pull_file $pull_file.$$ && \
+                     ./$pull_file.$$ \\; \
+                     rm -f $pull_file.$$'"
+       insert_text .submit.fcm.text "Logging in to remote machines $lander and $host...\n"
+       set run_ssh_cmd [list run_ssh .submit.fcm.text $lander $uid $pull_cmd -t]
+    } else {
+       set pull_cmd "scp $scpopt1 $local_uid@$local_host:$processed_dir/$pull_file $pull_file.$$ && \
+                     ./$pull_file.$$ \\; \
+                     rm -f $pull_file.$$"
+       insert_text .submit.fcm.text "Logging in to remote machine $host...\n"
+       set run_ssh_cmd [list run_ssh .submit.fcm.text $host $uid $pull_cmd]
+    }
+    set cerr [catch $run_ssh_cmd err]
+
+    insert_text .submit.fcm.text "Tidying local directories..."
+    exec rm $processed_dir/$runfile.tmp
+
+    pack .submit.buttons.ok -pady 2m -padx 2m -ipady 1m -ipadx 2m -side left
+    
+    if {$cerr} {
+	status_message "" "Job submission failed"
+        insert_text .submit.fcm.text "Job submission failed\n"
+	error "$err while attempting to access account $uid on host \
+	       $host. Note that repeated failures may result in \
+	       expiry of password due to security procedures on some \
+	       machines. Check user id, hostname and password \
+	       for your account on the host machine."
+    } elseif {[string match "Cancelled*" $err]} {
+	status_message "" "Job submission cancelled\n"
+        insert_text .submit.fcm.text "Job submission cancelled"
+    } else {
+	log_submission
+        status_message "" "Job submission completed - see dialog box for details"
+        insert_text .submit.fcm.text "Job submission completed\n"
+    }
+
+    .submit.fcm.text configure -state disabled
+
+    return       
+}
+
+proc readBuffer {channel} {
+    global done cerr err
+    if { [gets $channel line] < 0 } {
+	if { [eof $channel] } {
+	    # EOF detected - close channel
+	    set cerr [catch {close $channel} err]
+	    set done 1
+	    return
+	}
+	# Cannot read a complete line...
+    } else {
+	insert_text .submit.fcm.text "$line"
+	update idletasks
+    }
+}
+
+proc insert_text {win text} {
+    global dbg_lev
+
+    $win insert end "$text\n"
+    $win see end
+
+    if {$dbg_lev > 0} {puts "$text"}
+}
+
+# log_submission
+#   Logs details of jobs submitted successfully
+#
+#   Author: R.S.Hatcher     Date: 09 October 2013
+
+proc log_submission {} {
+
+    global exp_id job_id env
+
+    set user $env(LOGNAME)
+    set machine [get_variable_value MACH_NAME]
+    set nmppe [get_variable_value NMPPE]
+    set nmppn [get_variable_value NMPPN]
+    set version [get_variable_value VERSION]
+
+    set outfile "/home/umui/umui/job_submission.log"
+    set date_stamp [clock format [clock seconds] -format %d/%h/%y]
+
+    set channel [open $outfile a]
+
+    puts $channel "$date_stamp vn$version $exp_id$job_id $user $machine ${nmppe}x${nmppn}"
+
+    close $channel
+
+}

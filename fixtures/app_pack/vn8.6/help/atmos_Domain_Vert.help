@@ -1,0 +1,60 @@
+
+See UMDPs 10 and P0 for help with level specification for the atmosphere model.
+
+Pressure weighted means of half level exner are normal.
+ECMWF values are not calculated but copied from a file, you need to ensure that
+you are using either 19 or 31 levels to use this option.
+
+The number of wet levels can be the same as the number of levels. If it is a
+smaller number, the levels above are assumed to be dry. Using the full number of
+wet levels increases the cost in CPU, memory and disk-space. The top few wet
+levels may not be required for some runs, depending on the length of the run and
+the level positioning. 
+
+The choice of ozone levels needs to be consistent with the number of levels
+specified in the ozone ancillary file. "Missing" levels are at the bottom and
+assumed to have the same values as the lowest specified level. This saves memory
+and disk-space. 
+
+See standard experiments for typical values of the specification of the pure
+sigma and pressure levels. These are the result of careful tuning.
+
+Eta half levels must lie between 1.0 and less than 0.0. They are counted from
+the earth surface (1.0). Change from standard specification with care as jumps
+in resolution can cause problems. You need to specify both the top and bottom
+boundary, hence there are [Number of levels+1] values required. 
+The number of levels in the table interacts with the specification of the number
+of models  levels. Press enter to adjust the table length. 
+Use the sort button to re-adjust the table when new levels are added; this will
+put them in order.
+
+Various level related values are also displayed. These are associated with
+physical schemes such as Gravity Wave Drag and help is available from the 
+home windows of these parameters under the scientific parameters section for the
+atmospheric model. You can change the values on this window.
+
+Linear vertical interpolation in the reconfiguration usually extrapolates
+at the top and bottom of the domain. If you are significantly altering the
+orography (through ancillary files) or the height at the top of the model,
+it may be more appropriate to use vertical interpolation without
+extrapolation.
+
+Typically only the levels in the lowest few kilometres of the atmosphere are 
+passed to the boundary layer scheme, in order to save on CPU time.  Depending 
+on the choices in the Boundary Layer panel, the local scheme can be applicable 
+to mixing processes in the free atmosphere above the boundary layer.  
+The non-local scheme will generate mixing driven from the surface or in 
+stratocumulus clouds up to the "non-local boundary layer levels" 
+selected in this panel.  NOTE that the "Time weights for boundary layer levels" 
+table on the Time-stepping panel needs to be completed up to the number of 
+boundary layer levels.
+
+Soil levels: number and thickness
+-----------------------------------
+Soil levels are numbered from the surface downward i.e. 1 is the topmost.
+Values should not be changed if JULES is not selected.
+
+If specified values do not match the levels in the soil moisture and temperature 
+climatologies, the model will abort. Alternatively, these climatologies can be
+set to 'not used' and the model will reconfigure values from the start dump.
+

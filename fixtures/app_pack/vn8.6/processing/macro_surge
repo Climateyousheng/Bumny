@@ -1,0 +1,102 @@
+ ### Start of Surge Macro. ###
+%T if { %OCBIS == 1 } {
+%T if {%ISURS != 0} {
+ &STASHNUM NUM_REQ=6, NUM_DOM=2,  NUM_TIM=2, NUM_USE=2 / 
+  
+ &STREQ IMOD= 1, ISEC=3,  ITEM=225, IDOM=2, ITIM=1, IUSE=1 / 
+ &STREQ IMOD= 1, ISEC=3,  ITEM=225, IDOM=2, ITIM=2, IUSE=2 /  
+ &STREQ IMOD= 1, ISEC=3,  ITEM=226, IDOM=2, ITIM=1, IUSE=1 / 
+ &STREQ IMOD= 1, ISEC=3,  ITEM=226, IDOM=2, ITIM=2, IUSE=2 /  
+ &STREQ IMOD= 1, ISEC=16, ITEM=222, IDOM=2, ITIM=1, IUSE=1 / 
+ &STREQ IMOD= 1, ISEC=16, ITEM=222, IDOM=2, ITIM=2, IUSE=2 / 
+
+ &TIME NAME="tsurg1", ITYP=1,
+ IOPT=1,
+ ISTR=%ISURS,IEND=%ISURA,IFRE=%ISURF,UNT3="H ",
+ /
+
+ &TIME NAME="tsurg2", ITYP=1,
+ IOPT=1,
+ ISTR=%ISURA,IEND=%ISURE,IFRE=%ISURF,UNT3="H ",
+ /
+
+ &DOMAIN NAME="dsurg1", IOPL=1,
+ ILEVS=1, LEVB=1, LEVT=1,
+ PLT=0, IOPA=1,
+ IMSK=1, IMN=0, IWT=0, TS="N",
+ /
+
+ &DOMAIN NAME="dsurg2", IOPL=5,
+ PLT=0, IOPA=1,
+ IMSK=1, IMN=0, IWT=0, TS="N",
+ /
+
+ &USE NAME="usurg1", LOCN=3,
+ IUNT=81,
+ /
+
+ &USE NAME="usurg2", LOCN=3,
+ IUNT=82,
+ /
+
+%T } else {
+
+ &STASHNUM NUM_REQ=9, NUM_DOM=2,  NUM_TIM=4, NUM_USE=2 / 
+  
+ &STREQ IMOD= 1, ISEC=3,  ITEM=225, IDOM=2, ITIM=2, IUSE=1 / 
+ &STREQ IMOD= 1, ISEC=3,  ITEM=225, IDOM=2, ITIM=3, IUSE=1 / 
+ &STREQ IMOD= 1, ISEC=3,  ITEM=225, IDOM=2, ITIM=4, IUSE=2 /  
+ &STREQ IMOD= 1, ISEC=3,  ITEM=226, IDOM=2, ITIM=2, IUSE=1 / 
+ &STREQ IMOD= 1, ISEC=3,  ITEM=226, IDOM=2, ITIM=3, IUSE=1 / 
+ &STREQ IMOD= 1, ISEC=3,  ITEM=226, IDOM=2, ITIM=4, IUSE=2 /  
+ &STREQ IMOD= 1, ISEC=16, ITEM=222, IDOM=2, ITIM=1, IUSE=1 / 
+ &STREQ IMOD= 1, ISEC=16, ITEM=222, IDOM=2, ITIM=3, IUSE=1 / 
+ &STREQ IMOD= 1, ISEC=16, ITEM=222, IDOM=2, ITIM=4, IUSE=2 / 
+
+ &TIME NAME="TS0", ITYP=1,
+  IOPT=2,
+ ITIMES=1,UNT3="T ",
+ ISER=0,
+ /
+
+ &TIME NAME="TS1", ITYP=1,
+ IOPT=2,
+ ITIMES=1,UNT3="T ",
+ ISER=1,
+ /
+
+ &TIME NAME="tsurg1", ITYP=1,
+ IOPT=1,
+%T set splusf [expr %ISURS + %ISURF]
+%TCL putl " ISTR=$splusf,IEND=%ISURA,IFRE=%ISURF,UNT3=\"H \"," %ENDTCL
+ /
+
+ &TIME NAME="tsurg2", ITYP=1,
+ IOPT=1,
+ ISTR=%ISURA,IEND=%ISURE,IFRE=%ISURF,UNT3="H ",
+ /
+
+ &DOMAIN NAME="dsurg1", IOPL=1
+ ILEVS=1, LEVB=1, LEVT=1,
+ PLT=0, IOPA=1,
+ IMSK=1, IMN=0, IWT=0, TS="N",
+ /
+
+ &DOMAIN NAME="dsurg2", IOPL=5,
+ PLT=0, IOPA=1,
+ IMSK=1, IMN=0, IWT=0, TS="N",
+ /
+
+ &USE NAME="usurg1", LOCN=3,
+ IUNT=81,
+ /
+
+ &USE NAME="usurg2", LOCN=3,
+ IUNT=82,
+ /
+ 
+%T   }
+%T } elseif { %OCBIS == 2 } {
+%T     error "No development macro for surge is set. Please reset option"
+%T }
+ ### End of Surge Macro. ###

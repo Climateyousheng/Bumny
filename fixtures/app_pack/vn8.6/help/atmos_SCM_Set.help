@@ -1,0 +1,14 @@
+	
+This panel provides an interface for SCM forcing data.
+
+Latitude          : Not yet implemented, specify in SCM forcing namelist.
+
+Longitude         : Not yet implemented, specify in SCM forcing namelist.
+
+SCM namelist path : Details of the information required for a UM SCM
+                    namelist can be found in UMDP C9.
+
+Output file paths : Table only allows users to specify 5 output
+                    files (streams) and their locations. Further
+                    options for output files are specified using the
+                    SCM forcing namelist (See UMDP C9).

@@ -1,0 +1,21 @@
+%C
+%C this block is embedded into recona, recono and sizes.
+%TCL
+  set imlist {}
+  set smlist {}
+  set nmodels 0
+  for { set i 1 } { $i <= %NINT } { incr i } {  
+    set model_incl [ set_model_logical $i ]
+    if { $model_incl == "T" } {
+      lappend imlist $i
+      lappend smlist %MODEL_PARTITION($i)
+      incr nmodels
+    }
+  }
+%ENDTCL
+ &NSUBMODL
+ N_INTERNAL_MODEL=%TCL put $nmodels %ENDTCL,
+ INTERNAL_MODEL_LIST=%TCL tdelimit $imlist {,} { } %ENDTCL,
+ SUBMODEL_FOR_IM=%TCL tdelimit $smlist {,} { } %ENDTCL,
+ /
+%T unset imlist smlist nmodels

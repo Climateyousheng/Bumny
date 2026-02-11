@@ -1,0 +1,27 @@
+OZONE TRACER IN THE UM
+----------------------
+
+Activating the Cariolle scheme will allow a 3D Ozone tracer field to be 
+calculated within the UM. The Cariolle scheme provides a simple representation 
+of ozone and how it is modified by loss and production mechanisms. There are 
+several different versions available, the one currently lodged is version 1. 
+
+More details on the Cariolle scheme are available from  the following
+reference: Cariolle, D. and M. Deque. Southern hemisphere medium-scale waves 
+and total ozone disturbances in a spectral general circulation model. 
+J. Geophys. Res., vol. 91, pp 10825-10846, 1986.
+
+The calculation of the ozone tracer does not affect the ozone field itself, 
+this is Li and Shine Climatology and remains unchanged. 
+
+When the Cariolle scheme is activated the option is available to use the 
+cariolle ozone tracer field in the radiation in place of the prescribed 2D or 
+3D ozone field. Therefore using the cariolle scheme along side these options 
+will mean that the ozone tracer is used within the radiation instead of ozone 
+climatology.
+
+The ozone tracer is calculated on model levels not ozone levels.
+
+The Cariolle scheme should only be used when in a global configuration as the 
+parameters used to calculate it are zonal ancillary files which are specified 
+in the input and ancils panels.

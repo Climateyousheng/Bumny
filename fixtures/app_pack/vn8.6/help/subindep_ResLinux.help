@@ -1,0 +1,16 @@
+Much of the job resource information on this window is specifically
+for the Met Office Linux system. Non-Met Office users should 
+seek local advice.
+
+If you are running on a Unix platform you may be able to use "at". You
+may need to request permission to do this.
+
+The job stack limit sets the maximum stack size available to UM processes. On 
+some systems setting the maximum stack size to "unlimited" results in a value 
+that the platform developers considered large enough for most eventualities but
+is still not sufficient to run the UM, so this must be set explicitly.
+
+The stack limit is set in gigabytes (Gb), and can be a fraction.
+
+You will need to specify when the job will run in "at" format, such as
+      "now", "next Tuesday at 2pm", etc

@@ -1,0 +1,24 @@
+Vegetation distribution refers to the fractions of each surface type
+for each grid box, which are input to the tiled land-surface model.
+
+If vegetation distribution is fixed, then these values do not vary from the
+inital values obtained from ancillaries. This setting is appropriate for
+NWP.
+
+If vegetation distribution is interactive, then the fractions are allowed
+to evolve with time. This behaviour is required for some climate studies.
+
+If the JULES sub-model is turned off, then control of vegetation distribution
+reverts to the atmosphere vegetation section window, atmos_Science_Section_Veg.
+
+
+ Atmosphere Sections
+--------------------
+Including the JULES sub-model affects
+the selection of some Atmosphere code sections.
+The code sections are converted (MOSES -> JULES) as follows:
+Section 3, Boundary layer: 8B -> 9B, 8C -> 9C, 1A not mirrored
+Section 8, Hydrology: 7A -> 8A
+Section 19, Vegetation: 1A -> 1B, 2A -> 2B
+
+

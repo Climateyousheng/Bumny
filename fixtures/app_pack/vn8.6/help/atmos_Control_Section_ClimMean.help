@@ -1,0 +1,10 @@
+This window allows users to specify which version of the climate mean code
+section they want to use.
+There is only one, so if you are doing climate meaning you should choose it.
+There is little lost in chosing this if you are not doing climate meaning and
+this will avoid unsatisfied external references that cause a problem on some
+platforms.
+
+See the basic users guide:
+Sections, releases and frozen versions.
+Climate meaning and related diagnostics.

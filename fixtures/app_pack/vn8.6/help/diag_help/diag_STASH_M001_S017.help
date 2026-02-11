@@ -1,0 +1,381 @@
+<M001_S017_I203>
+STASH item specific help for 
+(1, 17, 203)  MSA MASS MIXING RATIO  AFTER TSTEP 
+
+Available only if Sulphur Cycle on and DMS included. 
+
+Mass mixing ratio of Methyl Sulphonic Acid produced by oxidation of DMS.
+
+%I gen_prognostic
+</M001_S017_I203>
+#
+<M001_S017_I204>
+STASH item specific help for 
+(1, 17, 204)  NH3 DEPLETION KG/KG    AFTER TSTEP
+
+Available only if Sulphur Cycle on and Ozone oxidation included. 
+
+Mass mixing ratio of ammonia depleted by neutralising products of wet 
+oxidation of SO2.
+
+%I gen_prognostic
+</M001_S017_I204>
+#
+<M001_S017_I205>
+Item: (1:17:205)
+
+Diagnoses the DMS emissions produced by the interactive scheme from
+the seawater DMS concentrations. Available only if Sulphur Cycle on 
+and surface DMS emissions included.
+
+</M001_S017_I205>
+#
+<M001_S017_I206>
+Item: (1:17:206)
+
+Total rate of dry oxidation of DMS (kg of sulphur per kg of air per second)
+</M001_S017_I206>
+#
+<M001_S017_I207>
+Item: (1:17:207)
+
+Rate of dry oxidation of DMS to form SO2 (kg of sulphur per kg of air per 
+second)
+</M001_S017_I207>
+#
+<M001_S017_I208>
+Item: (1:17:208)
+
+Rate of dry oxidation of DMS to form accumulation mode sulphate (kg of 
+sulphur per kg of air per second)
+</M001_S017_I208>
+#
+<M001_S017_I209>
+Item: (1:17:209)
+
+Rate of dry oxidation of DMS to form Aitken mode sulphate (kg of sulphur per kg 
+of air per second)
+
+</M001_S017_I209>
+#
+<M001_S017_I210>
+Item: (1:17:210)
+
+Total rate of dry oxidation of SO2 by OH (kg of sulphur per kg of air 
+per second)
+
+</M001_S017_I210>
+#
+<M001_S017_I211>
+Item: (1:17:211)
+
+Rate of aqueous oxidation of SO2 by H2O2 (kg of sulphur per kg of air 
+per second)
+
+</M001_S017_I211>
+#
+<M001_S017_I212>
+Item: (1:17:212)
+
+Rate of aqueous oxidation of SO2 by O3 (kg of sulphur per kg of air 
+per second)
+
+
+</M001_S017_I212>
+#
+<M001_S017_I213>
+Item: (1:17:213)
+
+Rate of transfer of dissolved SO4 to accumulation mode SO4 by evaporation 
+(kg of sulphur per kg of air per second)
+
+
+</M001_S017_I213>
+#
+<M001_S017_I214>
+Item: (1:17:214)
+
+Rate of transfer of accumulation mode SO4 to dissolved SO4 by nucleation 
+(kg of sulphur per kg of air per second)
+
+
+</M001_S017_I214>
+#
+<M001_S017_I215>
+Item: (1:17:215)
+
+Rate of transfer of Aitken mode SO4 to dissolved SO4 by diffusion 
+(kg of sulphur per kg of air per second)
+
+
+</M001_S017_I215>
+#
+<M001_S017_I216>
+Item: (1:17:216)
+
+Rate of transfer of Aitken mode SO4 to accumulation mode SO4 by coagulation 
+(kg of sulphur per kg of air per second)
+
+
+</M001_S017_I216>
+#
+<M001_S017_I217>
+Item: (1:17:217)
+
+Rate of dry oxidation of SO2 by OH to form accumulation mode sulphate 
+(kg of sulphur per kg of air per second)
+
+</M001_S017_I217>
+#
+<M001_S017_I218>
+Item: (1:17:218)
+
+Rate of dry oxidation of SO2 by OH to form Aitken mode sulphate 
+(kg of sulphur per kg of air per second)
+
+
+</M001_S017_I218>
+#
+<M001_S017_I219>
+Item: (1:17:219)
+
+Rate of transfer of Aitken mode SO4 to accumulation mode SO4 by mode 
+merging due to condensation of newly-formed H2SO4 onto Aitken mode SO4 
+(kg of sulphur per kg of air per second)
+
+
+</M001_S017_I219>
+#
+<M001_S017_I220>
+Item: (1:17:220) PM10 CONCENTRATION 
+
+Total concentration of particulate matter with an
+aerodynamic diameter smaller than 10 microns (PM10).
+(microgrammes per cubic metre) 
+
+Only available if at least one of the aerosols in section 17 are on.
+
+</M001_S017_I220>
+#
+<M001_S017_I221>
+Item: (1:17:221) PM2.5 CONCENTRATION 
+
+Total concentration of particulate matter with an
+aerodynamic diameter smaller than 2.5 microns (PM2.5) 
+(microgrammes per cubic metre) 
+
+Only available if at least one of the aerosols in section 17 are on.
+
+</M001_S017_I221>
+#
+<M001_S017_I222>
+Item: (1:17:222) SULPHATE CONTRIBUTION TO PM10 CONCENTRATION 
+
+Total concentration of sulphate aerosol with an
+aerodynamic diameter smaller than 10 microns (PM10) 
+(microgrammes per cubic metre) 
+
+Only available if sulphur cycle aerosols in section 17 are on.
+
+</M001_S017_I222>
+#
+<M001_S017_I223>
+Item: (1:17:223) SULPHATE CONTRIBUTION TO PM2.5 CONCENTRATION 
+
+Total concentration of sulphate aerosol with an
+aerodynamic diameter smaller than 2.5 microns (PM2.5) 
+(microgrammes per cubic metre) 
+
+Only available if sulphur cycle aerosols in section 17 are on.
+
+</M001_S017_I223>
+#
+<M001_S017_I224>
+Item: (1:17:224) BLACK CARBON CONTRIBUTION TO PM10 CONCENTRATION 
+
+Total concentration of black carbon aerosol with an
+aerodynamic diameter smaller than 10 microns (PM10) 
+(microgrammes per cubic metre) 
+
+Only available if soot aerosols in section 17 are on.
+
+</M001_S017_I224>
+#
+<M001_S017_I225>
+Item: (1:17:225) BLACK CARBON CONTRIBUTION TO PM2.5 CONCENTRATION 
+
+Total concentration of black carbon aerosol with an
+aerodynamic diameter smaller than 2.5 microns (PM2.5) 
+(microgrammes per cubic metre) 
+
+Only available if soot aerosols in section 17 are on.
+
+</M001_S017_I225>
+#
+<M001_S017_I226>
+Item: (1:17:226) BIOM BURNING CONTRIBUTION TO PM10 CONCENTRATION 
+
+Total concentration of biomass burning aerosol with an
+aerodynamic diameter smaller than 10 microns (PM10) 
+(microgrammes per cubic metre) 
+
+Only available if biomass burning aerosols in section 17 are on.
+
+</M001_S017_I226>
+#
+<M001_S017_I227>
+Item: (1:17:227) BIOM BURNING CONTRIBUTION TO PM2.5 CONCENTRATION 
+
+Total concentration of biomass burning aerosol with an
+aerodynamic diameter smaller than 2.5 microns (PM2.5)  
+(microgrammes per cubic metre) 
+
+Only available if biomass burning aerosols in section 17 are on.
+
+</M001_S017_I227>
+#
+<M001_S017_I228>
+Item: (1:17:228) OCFF CONTRIBUTION TO PM10 CONCENTRATION 
+
+Total concentration of organic carbon fossil fuel aerosol with an
+aerodynamic diameter smaller than 10 microns (PM10) 
+(microgrammes per cubic metre) 
+
+Only available if OCFF aerosols in section 17 are on.
+
+</M001_S017_I228>
+#
+<M001_S017_I229>
+Item: (1:17:229) OCFF CONTRIBUTION TO PM2.5 CONCENTRATION 
+
+Total concentration of organic carbon fossil fuel aerosol with an
+aerodynamic diameter smaller than 2.5 microns (PM2.5) 
+(microgrammes per cubic metre) 
+
+Only available if OCFF aerosols in section 17 are on.
+
+</M001_S017_I229>
+#
+<M001_S017_I230>
+Item: (1:17:230) SOA CONTRIBUTION TO PM10 CONCENTRATION 
+
+Total concentration of secondary organic aerosol with an
+aerodynamic diameter smaller than 10 microns (PM10) 
+(microgrammes per cubic metre) 
+
+Only available if biogenic aerosol climatology is on.
+
+</M001_S017_I230>
+#
+<M001_S017_I231>
+Item: (1:17:231) SOA CONTRIBUTION TO PM2.5 CONCENTRATION 
+
+Total concentration of secondary organic aerosol aerosol with an
+aerodynamic diameter smaller than 2.5 microns (PM2.5) 
+(microgrammes per cubic metre) 
+
+Only available if biogenic aerosol climatology is on.
+
+</M001_S017_I231>
+#
+<M001_S017_I232>
+Item: (1:17:232) SEA SALT CONTRIBUTION TO PM10 CONCENTRATION 
+
+Total concentration of sea salt aerosol with an
+aerodynamic diameter smaller than 10 microns (PM10) 
+(microgrammes per cubic metre) 
+
+Only available if section 17 aerosols are on and 
+'Include sea salt in PM diagnostics' is on.
+
+</M001_S017_I232>
+#
+<M001_S017_I233>
+Item: (1:17:233) SEA SALT CONTRIBUTION TO PM2.5 CONCENTRATION 
+
+Total concentration of sea salt aerosol with an
+aerodynamic diameter smaller than 2.5 microns (PM2.5) 
+(microgrammes per cubic metre) 
+
+Only available if section 17 aerosols are on and 
+'Include sea salt in PM diagnostics' is on.
+
+</M001_S017_I233>
+#
+<M001_S017_I234>
+Item: (1:17:234) DUST CONTRIBUTION TO PM10 CONCENTRATION 
+
+Total concentration of dust with an
+aerodynamic diameter smaller than 10 microns (PM10) 
+(microgrammes per cubic metre) 
+
+Only available if dust aerosols in section 17 are on.
+
+</M001_S017_I234>
+#
+<M001_S017_I235>
+Item: (1:17:235) DUST CONTRIBUTION TO PM2.5 CONCENTRATION 
+
+Total concentration of dust with an
+aerodynamic diameter smaller than 2.5 microns (PM2.5) 
+(microgrammes per cubic metre) 
+
+Only available if dust aerosols in section 17 are on.
+
+</M001_S017_I235>
+#
+<M001_S017_I236>
+Item: (1:17:236) NITRATE CONTRIBUTION TO PM10 CONCENTRATION 
+
+Total concentration of nitrate aerosol with an
+aerodynamic diameter smaller than 10 microns (PM10) 
+(microgrammes per cubic metre) 
+
+Only available if nitrate aerosols in section 17 are on.
+
+</M001_S017_I236>
+#
+<M001_S017_I237>
+Item: (1:17:237) NITRATE CONTRIBUTION TO PM2.5 CONCENTRATION 
+
+Total concentration of nitrate aerosol with an
+aerodynamic diameter smaller than 2.5 microns (PM2.5) 
+(microgrammes per cubic metre) 
+
+Only available if nitrate aerosols in section 17 are on.
+
+</M001_S017_I237>
+#
+<M001_S017_I240>
+NH3 OXID BY HN03 MMR FLX (1:17:240) 
+
+Production of accumulation ammonium nitrate aerosol from oxidation 
+of ammonia (NH3) by nitric acid (HNO3). Given in kg of nitrogen 
+per kg of dry air per second.
+</M001_S017_I240>
+#
+<M001_S017_I241>
+NIT ACC TO DIS BY NUC FLX (1:17:241) 
+
+Transfer of mass between the accumulation-mode to the dissolved 
+mode of ammonium nitrate aerosol by nucleation. Given in kg of 
+nitrogen per kg of dry air per second.
+</M001_S017_I241>
+#
+<M001_S017_I242>
+NIT DIS-ACC BY EVAP FLX (1:17:242) 
+
+Transfer of mass between the dissolved mode to the accumulation 
+mode of ammonium nitrate aerosol by evaporation. Given in kg of 
+nitrogen per kg of dry air per second.
+</M001_S017_I242>
+#
+<M001_S017_I257>
+TOTAL DUST CONC (microg/m3) (1:17:257)
+
+The total mineral dust aerosol concentration (summed over all 
+size divisions) on model levels at the end of the atmospheric 
+timestep. 
+
+Units are microgrammes per cubic metre. 
+</M001_S017_I257>

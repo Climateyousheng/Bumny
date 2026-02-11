@@ -1,0 +1,64 @@
+%C ===========================================================
+%C module: nds_Other_only
+%C
+%C Includes machine specific variables
+%C =========================================================== 
+%C
+###################################################
+#                               MACHINE SPECIFIC  #
+###################################################
+# TARGET_MC is used in path to small execs and scripts
+%T if {%LTRGMACH != "Y"} {
+export TARGET_MC=normal
+%T } else {
+export TARGET_MC=%USR_TARGET_MC
+%T } 
+
+# Submission command and output file names
+export SUB_CMD="echo 'SUBMIT: Submission command not provided !!! Exiting.'; exit; "
+export SUB_OUT_RCF="; echo 'SUBMIT: Output command not provided !!! Exiting.'; exit"
+export SUB_OUT_RUN="; echo 'SUBMIT: Output command not provided !!! Exiting.'; exit"
+export SUB_OUT_CMP="; echo 'SUBMIT: Output command not provided !!! Exiting.'; exit"
+
+###################################################
+# Create compilation header     MACHINE SPECIFIC  #
+###################################################
+%T if { [inactive_var ACCGRP] == 0 && %ACCGRP=="ext" } {
+AC=%ACCGRP_OTHR
+%T }
+
+  cat >>$comp_header<<EOF
+#!/bin/ksh
+export SHELL=/bin/ksh
+
+. /etc/profile
+
+EOF
+
+###################################################
+# Create reconfiguration header MACHINE SPECIFIC  #
+###################################################
+
+  cat >>$rcf_header<<EOF
+#!/bin/ksh
+export SHELL=/bin/ksh
+
+. /etc/profile
+%T set progenv "run"
+
+%I nds_prog_env
+
+EOF
+
+###################################################
+# Create run header             MACHINE SPECIFIC  #
+###################################################
+
+  cat >>$run_header<<EOF
+#!/bin/ksh
+export SHELL=/bin/ksh
+
+. /etc/profile
+%I nds_prog_env
+
+EOF

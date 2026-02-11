@@ -1,0 +1,208 @@
+The lower half of the STASH window allows you to specify the diagnostics that
+you want and how you want them.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+THE DIAGNOSTIC TABLE.
+~~~~~~~~~~~~~~~~~~~~~
+This is headed STASH
+
+This table defines the chosen diagnostics for this job.
+
+All diagnostics are in the internal-model defined by the entry route into the
+STASH window. The STASH window deals with only one internal model at a time.
+Enter STASH via the other internal models as required.
+
+The table contains zero or more rows, each with the following columns:
+
+  SECTION. The section that the diagnostic entry belongs to. These are the
+  same sections that you have defined choices for elsewhere in the UMUI (e.g.
+  SECTION 1 is SW radiation, you may have chosen version 2A).
+  You cannot change this value.
+  
+  ITEM. The item number of the diagnostic. Together with the model number and
+  section number, this uniquely defines the diagnostic in the STASHmaster 
+  file, the UMUI and the UM.
+  You cannot change this value.
+  
+  DIAGNOSTIC NAME. The name of the diagnostic. Double clicking here attaches 
+  all the profiles currently highlighted. That is, one of each type.
+  You cannot change this value.
+  
+  TIME. The name of the attached TIME PROFILE if any. Double clicking here
+  attaches the time profile currently highlighted.
+  This is a user setting.
+  
+  DOMAIN. The name of the attached DOMAIN PROFILE if any. Double clicking 
+  here attaches the domain profile currently highlighted.
+  This is a user setting.
+  
+  USAGE. The name of the attached USAGE PROFILE if any. Double clicking here 
+  attaches the usage profile currently highlighted.
+  This is a user setting.
+  
+  INCLUDE. This column allows diagnostic requests to be switched off without
+  deleting them. The switch is initially set to Y which indicates that the 
+  request is active. If set to N, the request is ignored; that is you will 
+  not get the diagnostic. Toggle between Y and N by double clicking.
+  This is a user setting. 
+  
+  PACKAGE. Diagnostics can be grouped into a package by labelling them
+  with the same letter. Then by changing a single switch (see the "Set 
+  package switches" option of the Diagnostics menu) the group of diagnostics 
+  can be included or excluded as a whole. The + character indicates that 
+  a diagnostic is included. Diagnostics that are not in a package are 
+  assumed to be included and therefore have a + character. Set labels by
+  inputting an upper case letter. Inputting a new upper case letter will
+  overwrite any previous uppercase letter.
+
+NB. The INCLUDE and PACKAGE columns are independent; a diagnostic will be 
+excluded if either of these columns request exclusion.
+
+  AVAILABLE. Y indicates that the diagnostic is available to the current
+  configuration as defined by the other UMUI windows. N indicates it is not.
+  Diagnostics may be unavailable because:
+  	The item is used for addressing purposes only within the UM STASH
+  	system and is never available as a diagnostic.
+  	The item is not available to the version of its section that you have
+  	chosen. This is defined by the version mask in the STASHmaster file.
+  	The item is not available because it has failed the option code testing
+  	for that section because of configuration choices that you have made
+  	elsewhere in the UMUI. These are used most extensively in the ocean
+  	model and section zero of every model. The rules are defined by the
+  	option code in the STASHmaster file.
+  You are advised to exit STASH to redefine other choices in the UMUI and
+  re-enter to see if availability has changed.     
+
+  USER/SYSTEM indicates whether the diagnostic is specified by the main 
+  STASHmaster file (SYSTEM) or by a user-STASHmaster file (USER).
+  This setting will depend on the contents of the preSTASHmaster files 
+  attached.
+  
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+DIAGNOSTIC MENU OPTIONS.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Various Diagnostic menu options exist to allow manipulation of the STASH table.
+
+LOAD NEW DIAGNOSTIC
+~~~~~~~~~~~~~~~~~~~~
+Select this to add a diagnostic not already in the diagnostic table.
+A window will pop up. Double click on the text defining the section that holds
+the required diagnostic. The diagnostics in that section will be displayed in
+the table at the bottom of the window.
+Double click on the diagnostics required from that section; this operation 
+will add that diagnostic to the diagnostics table.
+Move to a new section by double clicking on the text defining the
+new section. Continue until all required diagnostics have been added.
+Press CANCEL to return to the STASH window.
+You may wish to "SORT DIAGS" to re-order your table.
+
+REMOVING DIAGNOSTICS
+~~~~~~~~~~~~~~~~~~~~
+
+Click the cursor on the text of a diagnostic that you want to
+delete. Select "Remove diagnostic" from the menu to remove the entry
+from the table. To simplify removal of lots of diagnostics, select the
+dashed line of the Diagnostics menu. This "tears off" the menu and
+puts it into a separate window. Operations can then be carried out
+repeatedly.  Alternatively use the keyboard binding suggested in the
+menu.
+
+CLONE DIAG.
+~~~~~~~~~~~
+Click the cursor on the text of a diagnostic that you want to clone. See the
+cursor. Select "Clone diagnostic" from the menu to make a copy of the 
+diagnostic. Attach new profile(s), as required, to the entry.
+
+OUTPUT TABLE
+~~~~~~~~~~~~
+
+Outputs diagnostic table into a file in your umui_jobs directory. A dialogue 
+box will inform you of the file name and ask for confirmation. In general, 
+the file name will be in the form - jobname.submodel.diags 
+eg. aabma.atmos.diags
+
+SET PACKAGE SWITCHES
+~~~~~~~~~~~~~~~~~~~~
+%I gen_STASH_Tags
+
+CLEAR TABLE.
+~~~~~~~~~~~~
+Removes all diagnostic requests from the table.
+
+VERIFY DIAGS.
+~~~~~~~~~~~~~
+Checks that:
+  The diagnostics chosen are available.
+  The profiles are all defined.
+  The profiles attached do not conflict with the diagnostic. E.G. wrong level
+  type.
+Only diagnostics that have a Y in the Include column and a + in the Package
+column are checked.
+
+Verify Diags also estimates the number of PP fields that will be
+written to each PP file and produces a warning if a job is likely to
+exceed the UM limit of 4096 fields. As a simple example, a
+daily-meaned field output on 19 levels to a stream that is
+reinitialised every 30 days will output 30*19 = 570 fields to one
+file. Seven more similar diagnostics will exceed the 4096 field limit
+and the solution would be either to reduce the reinitialisation period
+or to write some of the diagnostics to a different stream.
+
+The message is only a warning, if the reinitialisation period were 30
+days but you knew you were unlikely to run for more than 10 days you
+might be able to assume that the number of fields would be one-third 
+of that given in the warning message.
+
+Verify is ONLY actioned by this menu option. IT IS NOT ACTIONED BY
+CLOSE NOR BY CHECK SETUP.
+
+RE-CHECK AVAILABILITY.
+~~~~~~~~~~~~~~~~~~~~~~
+Recomputes the availability column by looking at other settings in the UMUI.
+
+SORT DIAGS.
+~~~~~~~~~~~
+
+Re-orders the diagnostics into SECTION,ITEM order.  Diagnostics are
+automatically sorted on closure of STASH.
+
+CHANGE SORT ORDER
+~~~~~~~~~~~~~~~~~
+
+Allows the column priority of the sort to be changed. Normally the
+diagnostic table is sorted by section and item first. By selecting
+this menu option and entering one or more different column numbers,
+the table could be sorted by profile type, or by availability and so
+on. This utility is useful if, for example, you want to group all
+diagnostics that use a certain profile or combination of profiles.
+
+Also, you can group included and excluded diagnostics separately by
+sorting on the "Package", "Include" and "Available" columns; where
+diagnostics are in packages, the first character of the "Package"
+column for included packages is a "+" which means that such included
+packages, say "+A" and "+Z", will always be grouped together -
+separate from the excluded packages, say "B" and "Y".
+
+ABANDON.
+~~~~~~~~
+
+Returns to UMUI navigation without saving any changes made in the
+STASH diagnostic table in the STASH window but does preserve the
+settings of the STASH profiles (as they are created in their own
+windows).
+
+WARNING: If you have made changes to the profiles which affect the
+diagnostics (eg deleting/renaming a profile or associating
+different/new profiles with diagnostics), then the diagnostics table,
+when reloaded will contain the association with the old profiles.
+
+CLOSE.
+~~~~~~
+Saves changes and returns to the UMUI.
+If you do not intend to re-enter STASH before processing you should
+exit using the following sequence:
+ VERIFY DIAGS
+ CLOSE
+as required. CLOSE automatically SORTs the diagnostic window.

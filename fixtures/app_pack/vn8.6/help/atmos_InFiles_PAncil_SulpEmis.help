@@ -1,0 +1,34 @@
+HELP screen for UMUI vn4.5 Sulphur Cycle
+      Window: atmos_InFiles_PAncil_SulpEmis
+
+
+Ancillary files
+---------------
+ * Ancillary file header record maximum size must be set to >1000  
+    (In file related options) 
+
+
+  Emissions 
+  ---------
+  Single level SO2 and DMS and NH3 emissions (if used) should be provided 
+  on the same ancillary file. 
+
+   * The pathname of a file on the host machine should be given. 
+   * Single time fields may be read into the reconfiguration, or 
+     fields may be updated during the run. The ancillary file should contain
+     all fields for the first valid time (e.g. January), followed by all fields 
+     for the next valid time (e.g. February) etc.  
+   * Fields should be specified as Not Used if they have not been requested in 
+     the Sulphur Cycle window
+    
+   * Use the SULPHUR button to return to the Sulphur Cycle window
+
+
+  DMS concentration in seawater
+  -----------------------------
+  If the interactive DMS emissions scheme has been activated in
+  panel atmos_Science_Section_Aero_Sulphur, an ancillary file of
+  global seawater DMS concentration must be specified. If the
+  interactive scheme has not been selected, set the DMS concentration
+  ancillary to "Not Used" and ensure that the 2-D sulphur emissions
+  file includes non-zero DMS emissions over oceans.

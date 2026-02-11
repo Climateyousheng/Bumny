@@ -1,0 +1,13 @@
+This window allows users to specify the use of the sea-ice ancillary file.
+
+Standard files hold time-variant fields (monthly, annually-cyclic). Long runs 
+should use updating, the frequency depends on requirements. Models coupled to an
+ice model will not need these fields.
+
+Users should specify the same frequency of updating for both fields and be
+consistent with SST updating. The use of these fields is complicated by the
+extra field (fractional time) involved in the interpolation.
+
+%I AMIPII
+
+%I ancill_gen

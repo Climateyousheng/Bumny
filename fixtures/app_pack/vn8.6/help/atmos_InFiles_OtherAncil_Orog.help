@@ -1,0 +1,38 @@
+This window allows users to specify the use of the orography ancillary file.
+
+The orography field defines topographic height.
+
+The 'standard deviation of orography' and squared gradient fields are used by 
+the orographic flow-blocking and gravity-wave drag scheme. 
+
+The choice of whether or not to use the orographic roughness fields is specified in 
+the window for the boundary layer section.
+
+The orographic gradient fields are used by the radiation scheme for
+orographic correction of direct shortwave flux at the surface. They are
+only required when the corresponding scheme is selected in the window
+atmos_Science_Section_SW (short wave radiation).
+
+The unfiltered orography is used by the radiation scheme to calculate horizon
+angles for terrain shading of direct SW and the sky-view correction in the LW.
+This must be configured if the corresponding option has been selected in the
+window atmos_Science_Section_SW and the field is not present in the dump.
+
+You should configure all ancillary fields if changing resolution. Otherwise,
+interpolated values will be used.
+
+When configuring a limited area model from a start dump at the
+resolution of the model used to generate the boundary conditions,
+you are advised to define a blending zone in which the orographies
+of the generating model and the LAM are blended. This prevents any
+discontinuity in the orography field close to the boundaries. Weights
+should be specified from the outside of the model to the inside and should
+be between 0 and 1 (inclusive). The weight specifies the portion of the
+final orography that comes from the generating model and thus will tend to
+be specified as a decreasing fraction. The blending zone *includes* the rim,
+so if you do not want blending in the rim, a weight of 1.0 should be specified
+for all rim points.
+
+
+%I ancill_gen
+

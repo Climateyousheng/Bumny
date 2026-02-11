@@ -1,0 +1,52 @@
+This window allows users to specify options which determine the JULES
+source code base that will be built and also enables them to use their
+own modifications on top of this.
+
+At the Met Office, the location of the JULES repository is:
+   svn://fcm2/JULES_svn/trunk
+
+User branches
+-------------
+
+If you have made code modifications on other branches and/or wish to
+use other developers' modifications you need to enable the option
+"Include modifications from branches". The branch location should be
+entered using any valid FCM URL syntax. For example:
+
+fcm:jules_br/dev/[userid]/[branch name]
+
+or
+
+svn://fcm2/JULES_svn/branches/dev/[userid]/[branch name]
+
+Please note the difference from the UM repository - the final /src 
+is NOT required.
+
+If the revision column of this table is left blank it means that the
+'HEAD' (latest version) of the branch is used. This makes sense if you
+are developing a branch and want to avoid modifying the UMUI job each
+time you commit a new change to the branch. If you are using other
+developers' branches, however, then for safety you may need to use a
+revision number. This is a way of allowing you to use a stable version
+of the branch while the author continues to make changes.
+
+Usually, all branches listed in the table should have as their parent
+the default base code for this version of the UMUI. Using a branch
+that has not branched from this parent can have unexpected effects. If
+you want to do this, it is normally better to create a new branch from
+the parent, custom merge the branch containing the code you want to
+use, and use the newly created branch.
+
+
+Using working copies instead of branches to apply changes
+---------------------------------------------------------
+
+If you wish to experiment with temporary changes (e.g debugging print
+statements) and therefore do not wish to commit them to the repository
+straight away you can point directly at your working copy.(i.e. where
+you checked out your UM source code to and made your changes).
+
+Enable the "Include modifications from user working copy" option and
+enter the path to your working copy top-level directory.
+
+Note that only one working copy is allowed.

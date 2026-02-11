@@ -1,0 +1,39 @@
+Soil hydraulics (L_VG_SOIL)
+----------------------------
+(Met R&D Technical Report 528, Met Office)
+
+The Clapp and Hornberger (CH) and van Genuchten (VG) parametrisations
+both describe the soil water retention curve which is the relationship
+between volumetric water content (theta) and the soil suction
+(h). Both CH and VG parametrisations also describe the relationship
+between volumetric water content (theta) and the soil hydraulic
+conductivity (K).  Presently, use of the Van Genuchten scheme is
+recommended, see above reference for further details.
+
+Soil thermal conductivity (SOILHC_METHOD)
+------------------------------------------
+(Met R&D Technical Report 528, Met Office)
+
+Presently, calculation of soil thermal conductivity is by the new
+(improved) method is recommended, see above reference for further
+details. The old UM parametrization of soil thermal conductivity is
+described by Appendix B of Cox et al (1999) and page 16 of UM
+documentation paper 70 (Jones 2004).
+
+Calculation of the gradient of soil water suction (L_DPSIDS_DSDZ)
+-----------------------------------------------------------
+The original option is to calculate the gradient of the soil water
+suction directly as a finite difference in the suction. Since the
+hydraulic conductivity at the boundary between soil layers is calculated
+using linear interpolation of the soil moisture, it is more consistent to
+calculate the gradient of the suction as the product of the gradient of
+the soil moisture and the derivative of the suction with respect to
+soil moisture. This option provides for the calculation to be made
+in this way.
+
+Numerical Choice for land ice
+------------------------------------------
+The standard option for solving for the temperature in land ice 
+is to use an explicit scheme. This will fail if the spacing between 
+soil levels is sufficiently small; under these conditions implicit 
+numerics should be selected. 

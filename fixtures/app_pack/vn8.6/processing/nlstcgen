@@ -1,0 +1,207 @@
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C  NAMELIST with variables dimensioned by sub-model    NLSTCGEN
+%C
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C used "procedures" arch_system
+%C 
+%C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%C Control variables used across all sub-models.
+%TCL
+ set arch_sys [ arch_system ]  ; # define the archiving system in use.
+ set stepspp {}
+ set secspp {}
+ set dumpfre {}
+ set dumppak {}
+ set dumpofs {}
+ set archdfre {}
+ set dumpt {}
+ set ppsel {}
+ set archsel {}
+ set meanf {}
+ set meanno {}
+ set meanref {}
+ set jrel {}
+ set fac {}
+ for { set nsubm 1 } { $nsubm <= %NINT } { incr nsubm } {
+   # loop over internal-models
+   set model_incl [ set_model_logical $nsubm ]
+   set model_letter %MODEL_ID($nsubm)
+   set partition %MODEL_PARTITION($nsubm)
+   if {  $model_incl == "T" } {
+   # if this sub-model is included
+     lappend stepspp %$model_letter\TPP  
+     # ADUM* variables only set for models in their partition.
+     lappend secspp [ expr %$model_letter\HPP * 3600 * 24 ]
+     lappend dumppak %ADPACK($partition) 	
+     if { %ADUMP($partition) == 1 } {
+       lappend dumpfre [ totime %ADUMPP($partition) %ADUMPU($partition) $model_letter ] 
+       if { $arch_sys != 0 } { 
+         lappend archdfre %ADUMPA($partition)  
+         lappend dumpofs %ADMPAS($partition) 
+       } else {
+         lappend archdfre 0  
+         lappend dumpofs 0
+       }
+       if { (%AMEAN($partition) == "Y") && ($partition == $nsubm) } { 
+           lappend meanno [ x_mean_number $partition ]
+           lappend meanref %ARYR($partition) 
+           lappend meanref %ARMO($partition) 
+           lappend meanref %ARDA($partition) 
+           lappend meanref %ARHR($partition) 
+           lappend meanref %ARMI($partition)  
+           lappend meanref %ARSE($partition) 
+       } else { 
+           lappend meanno 0  
+           lappend meanref 0 0 0 0 0 0
+       } 	
+     } elseif { %ADUMP($partition) == 3 } {
+       lappend dumpfre [ totime %ADUMPPRM($partition) H $model_letter ] 
+       if { $arch_sys != 0 } { 
+         set mult1 [ expr 24 / %ADUMPPRM($partition) ]
+         if { %ADUMPARM($partition)=="M" } { 
+           set mult2 30
+         } elseif { %ADUMPARM($partition)=="S" } { 
+           set mult2 90
+         } elseif { %ADUMPARM($partition)=="Y" } { 
+           set mult2 360
+         } else {
+           error "Unknown value of ADUMPARM($partition) in nlstcgen is %ADUMPARM($partition)"
+         }
+         set result  [ expr $mult1 *  $mult2 ]
+         lappend archdfre $result
+         lappend dumpofs $result
+         unset result mult1 mult2
+       } else {
+         lappend archdfre 0  
+         lappend dumpofs 0
+       }
+       if { (%AMEAN($partition) == "Y") && ($partition == $nsubm) } { 
+           lappend meanno  [ x_mean_number $partition ]
+           lappend meanref %ARYR($partition) 
+           lappend meanref %ARMO($partition) 
+           lappend meanref %ARDA($partition) 
+           lappend meanref %ARHR($partition) 
+           lappend meanref %ARMI($partition)  
+           lappend meanref %ARSE($partition) 
+       } else { 
+           lappend meanno 0  
+           lappend meanref 0 0 0 0 0 0
+       }
+     } else {
+       lappend dumpfre 0 
+       lappend dumpofs 0 
+       lappend archdfre 0 
+       lappend meanno 0
+       lappend meanref 0 0 0 0 0 0 
+     }
+   } else {
+   # if this sub-model is _not_ included
+     lappend stepspp 0
+     lappend secspp 0
+     lappend dumpfre 0
+     lappend dumpofs 0 
+     lappend dumppak 0 	
+     lappend archdfre 0 
+     lappend meanno 0
+     lappend meanref 0 0 0 0 0 0 
+   }
+
+   for {set i 1} {$i <= %NDUMPT } {incr i } { ; # all sub-models
+     if { $model_incl == "T" && %ADUMP($partition) == 2 && $i <= %ADTLEN($partition)  } {
+       lappend dumpt [ totime %ADT($i,$partition) %ADTU(1)  $model_letter ]
+     } else {
+       lappend dumpt 0
+     }    
+   } ; # end loop over NDUMPT "i"
+
+   set num_mean_p [ x_mean_number $partition ]
+
+   for {set i 1} {$i <= %NMEANS } {incr i } { 
+     if { $model_incl == "T" && %ADUMP($partition) == 1 && %AMEAN($partition) == "Y" && $i <= $num_mean_p } {
+       if { (%AMPP($i,$partition) == "Y") && ($partition == $nsubm) } { 
+          lappend ppsel 1 
+       } else { 
+          lappend ppsel 0 
+       } 
+       if { (%AMPA($i,$partition) == "Y") && ($partition == $nsubm) && \
+            ($arch_sys != 0) } { 
+          lappend archsel 1 
+       } else { 
+          lappend archsel 0 
+       } 
+       lappend meanf %AMP($i,$partition) 
+     } elseif { $model_incl == "T" && %ADUMP($partition) == 3 && %AMEAN($partition) == "Y" && $i <=  $num_mean_p   } {
+       if { (%AMPPRM($i,$partition) == "Y") && ($partition == $nsubm) } { 
+          lappend ppsel 1 
+       } else { 
+          lappend ppsel 0 
+       } 
+       if { (%AMPARM($i,$partition) == "Y") && ($partition == $nsubm) && \
+            ($arch_sys != 0) } { 
+          lappend archsel 1 
+       } else { 
+          lappend archsel 0 
+       } 
+       if {%GREGCPDS($i) == "Month" } {
+          lappend meanf [expr 30 * 24 / %ADUMPPRM($partition) ]
+       } elseif {%GREGCPDS($i) == "Season" } {
+          lappend meanf 3
+       } elseif  {%GREGCPDS($i) == "Year" } {
+          lappend meanf 4
+       } else {
+          error "Wrong value for GREGCPDS($i) = \"%GREGCPDS($i)\"  "
+       }
+
+
+
+     } else {
+       lappend ppsel 0  
+       lappend archsel 0  
+       lappend meanf 0  
+     }    
+   }  ; # end loop over NMEANS "i"
+   
+   if { (%USE_AJR($partition) == "Y") && ($partition == $nsubm) } {
+      set ajrn %AJRN($partition)
+   } else {
+      set ajrn 0
+   }
+   for {set i 1} {$i <= 10 } {incr i } { 
+     if {  $model_incl  == "T" && $i <= $ajrn } {
+       if { %AJRP($i,$partition) == "Y" } { set fac -1 } else { set fac 1 }
+       lappend jrel [ expr $fac * [ totime %AJR($i,$partition) %AJRU($partition)  $model_letter ] ] 
+     } else {
+       lappend jrel 0 
+     }    
+   } 
+
+ } ; # end loop over submodel "nsubm"
+%ENDTCL
+ &NLSTCGEN
+ STEPS_PER_PERIODim=%TCL tdelimit $stepspp {,} {} %ENDTCL,
+ SECS_PER_PERIODim=%TCL tdelimit $secspp {,} {} %ENDTCL,
+ DUMPFREQim=%TCL tdelimit $dumpfre {,} {} %ENDTCL,
+ ARCHDUMP_OFFSETim=%TCL tdelimit $dumpofs {,} {} %ENDTCL,
+ ARCHDUMP_FREQim=%TCL tdelimit $archdfre {,} {} %ENDTCL,
+ DUMPTIMESim=%TCL tdelimit $dumpt {,} {} %ENDTCL,
+ PPSELECTim=%TCL tdelimit $ppsel {,} {} %ENDTCL,
+ ARCHPPSELim=%TCL tdelimit $archsel {,} {} %ENDTCL,
+ MEANFREQim=%TCL tdelimit $meanf {,} {} %ENDTCL,
+ MEAN_REFTIMEim=%TCL tdelimit $meanref {,} {} %ENDTCL,
+ JOBREL_STEPim=%TCL tdelimit $jrel {,} {} %ENDTCL,
+ DUMP_PACKim=%TCL tdelimit $dumppak {,} {} %ENDTCL,
+ JOBREL_OFFSETim=%SRC_OFFSET,
+ /
+
+ &NLST_MPP
+ extended_halo_size_EW=%TCL if_active EW_HALO VALUE 4 %ENDTCL,
+ extended_halo_size_NS=%TCL if_active NS_HALO VALUE 5 %ENDTCL,
+%T if {%INDEP_SR(96)=="1C"} {
+ gcom_coll_limit=%GCOMCLMT,
+%T } 
+ global_sum_method=%GLOBALSUM,
+ /
+%C remove variables
+%T unset stepspp secspp dumpfre archdfre dumpt ppsel
+%T unset archsel meanf meanno meanref jrel fac
+%T unset arch_sys

@@ -1,0 +1,22 @@
+The transplant facility allows users to copy data out of one dump and put it 
+into the dump at reconfiguration. The fields must be prognostic and the dumps 
+must be on the same domain. This facility is used for certain types of problem 
+investigation. Most users will never use this.
+
+See UMDP C4 for a definition of STASH and STASH items, but an item number is a 
+number given to variables (prognostic or diagnostic) in the UM system.
+
+See also the Basic User Guide: Getting output.
+
+The table length is dynamic, change the length and press enter. 
+There is a maxiumum length of 100 items to be consistent with the parameter 
+max_trans rcf_readnl_trans_mod.F90.
+
+The table allows you to specify sub-areas in the obvious way. Items can be 
+repeated to allow more than one sub area.
+
+You can use environment variables such as:
+    $HOME
+as well as the UM environment variables in path names. See window:
+[Sub-Model Independent / File and directory naming]. .
+

@@ -1,0 +1,45 @@
+%TCL 
+proc clim_real_year {} {  
+
+  set yes 0
+  set no  0
+  
+  if {%ATMOS=="F"} {
+     # do nothing
+     return .FALSE.
+  }
+
+  for { set i 1 } { $i <= %NINT } { incr i } {
+    set model_on  [ get_variable_value %MODEL_NAME($i) ]
+    set partition %MODEL_PARTITION($i)
+    if { ($partition==$i) && ($model_on=="T") } {
+      if {%ADUMP($i)==3} {
+        set yes 1
+        # puts "Yes for $i"
+      } else {
+        set no 1
+        # puts "No for $i"
+      }
+    } else {
+        # puts "Unset for $i"
+    }
+  }
+ 
+  if { %CAL360 == "Y" } {
+    set no 1 
+    # puts "No for CAL360"
+  }
+
+  if {$yes && $no } {
+     error "Inconsistent settings of dumping options across sub-models.\
+            perform a 'check-setup'. "
+  } elseif {$yes} {
+    return .TRUE.
+  } elseif {$no} {
+    return .FALSE.
+  } else {
+     error "Sytem error in clim_real_year. Report. "
+  }
+
+}
+%ENDTCL

@@ -1,0 +1,8 @@
+This window allows users to specify the use of the sea-surface current 
+ancillary file.
+
+Atmosphere only runs do not often use this data. Coupled Atmos-Ocean GCM
+runs do not need it (as the fields come from the ocean). However, it is
+used in slab runs. 
+
+%I ancill_gen

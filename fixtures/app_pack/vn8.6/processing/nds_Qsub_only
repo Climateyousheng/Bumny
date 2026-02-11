@@ -1,0 +1,198 @@
+%C ======================================================
+%C module: nds_Qsub_only
+%C
+%C Includes variables required when using HECToR
+%C ====================================================== 
+%C
+########################################
+#                                 QSUB #
+########################################
+# TARGET_MC is used in path to small execs and scripts
+%T if {%LTRGMACH != "Y"} {
+[ "$TARGET_MC" ] || . $HOME/.profile
+[ "$TARGET_MC" ] || export TARGET_MC=normal
+%T } else {
+export TARGET_MC=%USR_TARGET_MC
+%T }     
+
+# Submission command and output file names
+%T if { [string equal -nocase -length 6 %MACH_NAME "hermit"] } {
+export SUB_CMD="/opt/torque/3.0.2/bin/qsub"
+%T } else {
+export SUB_CMD="/opt/pbs/default/bin/qsub"
+%T }
+export SUB_OUT_RCF=""
+
+############################################
+# Threads and cores                   QSUB #
+############################################
+integer N_SMT
+N_SMT=0
+%T if { %LR_OPENMP=="Y" } {
+NTHREADS_PER_TASK=%NTHR_TASK
+%T } else {
+NTHREADS_PER_TASK=1
+%T }
+%C
+%T if { %MACH_NAME == "login.archer.ac.uk" || %MACH_NAME == "tds1.archer.ac.uk" } {
+MAX_TASKS_PER_NODE=24
+%T } else {
+%C HECToR
+MAX_TASKS_PER_NODE=32
+%T }
+%T if { %SETNTASKS_PER_NODE=="N" || %SETNTASKS_PER_NODE=="" } {
+NTASKS_PER_NODE=$MAX_TASKS_PER_NODE
+%T } else {
+NTASKS_PER_NODE=%NTASKS_PER_NODE
+%T }
+%C
+((TOTAL_THREADS=$TOTAL_PE_REQ*$NTHREADS_PER_TASK))
+((NNODES=(TOTAL_PE_REQ+NTASKS_PER_NODE-1)/NTASKS_PER_NODE))
+%C
+%T if { %MACH_NAME == "login.archer.ac.uk" || %MACH_NAME == "tds1.archer.ac.uk" } {
+((NTASKS_PER_NUMANODE=NTASKS_PER_NODE/2))
+%T } else {
+%C HECToR
+((NTASKS_PER_NUMANODE=NTASKS_PER_NODE/4))
+((PBS_MPPWIDTH=NNODES*MAX_TASKS_PER_NODE))
+PBS_MPPNPPN=$MAX_TASKS_PER_NODE
+%T }
+
+%T if { %MACH_NAME == "login.archer.ac.uk" || %MACH_NAME == "tds1.archer.ac.uk" } {
+echo "NOTE:  The following has been selected for running on the CRAY XC30"
+%T } else {
+echo "NOTE:  The following has been selected for running on the CRAY XT"
+%T }
+echo "       $TOTAL_PE_REQ MPI task(s)"
+echo "       $NNODES node(s)"
+echo "       $NTASKS_PER_NODE MPI task(s) per node"
+%T if { %LR_OPENMP=="Y" } {
+echo "       $NTHREADS_PER_TASK OpenMP thread(s) per task"
+%T }
+
+############################################
+# Reconfig: Time Limit and Memory     QSUB #
+############################################
+
+%TCL
+   set hoursMinsSecs [secsToHoursMinsSecs %RCFJTLIM]
+   putl "RCF_TIME_LIMIT=$hoursMinsSecs"
+%ENDTCL
+%C
+RCF_NPROCX=%TCL putl "$rcf_npese      # E-W decomposition" %ENDTCL
+RCF_NPROCY=%TCL putl "$rcf_npesn      # N-S decomposition" %ENDTCL
+%C
+%T set rcf_npes [expr {$rcf_npese * $rcf_npesn}]
+%C
+RCF_NPES=%TCL putl $rcf_npes %ENDTCL
+%C
+((RCF_NNODES=(RCF_NPES+NTASKS_PER_NODE-1)/NTASKS_PER_NODE))
+%C
+((RCF_PBS_MPPWIDTH=RCF_NNODES*MAX_TASKS_PER_NODE))
+RCF_PBS_MPPNPPN=$MAX_TASKS_PER_NODE
+
+############################################
+# Comp, NRUN and CRUN Time Limits     QSUB #
+############################################
+%T if { (%COMPTLIM == -1)} {
+COMP_TIME_LIMIT=01:00:00
+%T } else {
+%T    set hoursMinsSecs [secsToHoursMinsSecs %COMPTLIM]
+%T    putl "COMP_TIME_LIMIT=$hoursMinsSecs"
+%T }
+%T set hoursMinsSecs [secsToHoursMinsSecs %CJTLIM2]
+%T putl "NRUN_TIME_LIMIT=$hoursMinsSecs"
+%C
+%T if { %JRESUB == "Y" } {
+%C Use Automatic resubmit settings for CRUNS if autoresubmit on
+%T    set cr_hoursMinsSecs [secsToHoursMinsSecs %CJTLIMR]
+%T    putl "CRUN_TIME_LIMIT=$cr_hoursMinsSecs"
+%T } else {
+%C Use the same as NRUN settings
+%T    putl "CRUN_TIME_LIMIT=$hoursMinsSecs"
+%T }
+
+ACCOUNT=%ACCGRP_OTHR
+
+###################################################
+# Create compilation header                  QSUB #
+###################################################
+
+  cat >>$comp_header<<EOF
+#!/bin/ksh
+%T if { %MACH_NAME == "login.archer.ac.uk" || %MACH_NAME == "tds1.archer.ac.uk" } {
+#PBS -l select=serial=true:ncpus=1
+#PBS -l walltime=${COMP_TIME_LIMIT}
+%T } else {
+#PBS -q serial
+#PBS -l cput=${COMP_TIME_LIMIT}
+%T }
+#PBS -N ${RUNID}_build
+#PBS -o ${COMP_OUTPUT_FILE}
+#PBS -j oe
+#PBS -W umask=`umask`
+#PBS -S /bin/ksh
+EOF
+  if test "$ACCOUNT" != ""
+  then
+    echo "#PBS -A $ACCOUNT" >> $comp_header
+  fi
+  echo "\nexport TARGET_MC=$TARGET_MC" >> $comp_header
+
+###################################################
+# Create reconfiguration header              QSUB #
+###################################################
+
+  cat >>$rcf_header<<EOF
+#!/bin/ksh
+%T if { %MACH_NAME == "login.archer.ac.uk" || %MACH_NAME == "tds1.archer.ac.uk" } {
+#PBS -q standard
+#PBS -l select=$RCF_NNODES
+%T } else {
+#PBS -q parallel
+#PBS -l mppwidth=$RCF_PBS_MPPWIDTH
+#PBS -l mppnppn=$RCF_PBS_MPPNPPN
+%T }
+#PBS -l walltime=${RCF_TIME_LIMIT}
+#PBS -N ${RUNID}_rcf
+#PBS -o ${RCF_OUTPUT_FILE}
+#PBS -j oe
+#PBS -W umask=`umask`
+#PBS -S /bin/ksh
+EOF
+  if test "$ACCOUNT" != ""
+  then
+    echo "#PBS -A $ACCOUNT" >> $rcf_header
+  fi
+
+###################################################
+# Create run header                          QSUB #
+###################################################
+
+  if [[ $TYPE = "NRUN" ]]; then
+    TIME=$NRUN_TIME_LIMIT
+  else
+    TIME=$CRUN_TIME_LIMIT
+  fi
+
+  cat >>$run_header<<EOF
+#!/bin/ksh
+%T if { %MACH_NAME == "login.archer.ac.uk" || %MACH_NAME == "tds1.archer.ac.uk" } {
+#PBS -q standard
+#PBS -l select=$NNODES
+%T } else {
+#PBS -q parallel
+#PBS -l mppwidth=$PBS_MPPWIDTH
+#PBS -l mppnppn=$PBS_MPPNPPN
+%T }
+#PBS -l walltime=${TIME}
+#PBS -N ${RUNID}_run
+#PBS -o ${RUN_OUTPUT_FILE}
+#PBS -j oe
+#PBS -W umask=`umask`
+#PBS -S /bin/ksh
+EOF
+  if test "$ACCOUNT" != ""
+  then
+    echo "#PBS -A $ACCOUNT" >> $run_header
+  fi

@@ -1,0 +1,360 @@
+<M001_S019_I001>
+STASH item specific help for   
+(1, 19, 1) VEGETATION CARBON ON PFTS    KG C/M2
+
+Vegetation carbon for each Plant Functional Type (PFT):
+
+1. Broadleaf tree
+2. Needleleaf tree
+3. C3 grass
+4. C4 grass
+5. Shrub
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+
+</M001_S019_I001>
+#
+<M001_S019_I002>
+STASH item specific help for
+(1, 19, 2) GRIDBOX MEAN VEG CARBON      KG C/M2
+
+Gridbox mean vegetation carbon.
+
+Only available with A19_2A
+Only available on TRIFFID timesteps.
+
+</M001_S019_I002>
+#
+<M001_S019_I003>
+STASH item specific help for
+(1, 19, 3) PHENOLOGICAL LEAF TURNOVER RATE PFTS
+
+Mean leaf turnover rate over phenology period (/360days).
+
+Available with both A19_1A and A19_2A.
+Only available on phenology timesteps.
+
+</M001_S019_I003>
+#
+<M001_S019_I005>
+STASH item specific help for
+(1, 19, 5) GRIDBOX MEAN LITTER CARBN KGC/M2/YR
+
+Gridbox mean litter carbon. 
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+
+</M001_S019_I005>
+#
+<M001_S019_I006>
+STASH item specific help for
+(1, 19, 6) MEAN LEAF TRNVR RATE PFTS FOR PHENOL
+
+Leaf turnover rate meaned over phenology period, for each PFT:
+
+1. Broadleaf tree
+2. Needleleaf tree
+3. C3 grass
+4. C4 grass
+5. Shrub
+
+Available with both A19_1A and A19_2A.
+Only available on phenology timesteps.
+
+</M001_S019_I006>
+#
+<M001_S019_I007>
+STASH item specific help for
+(1, 19, 7) LEAF AREA INDEX PFTS AFTER PHENOLOGY
+
+Leaf area index after phenology for each PFT:
+1. Broadleaf tree
+2. Needleleaf tree
+3. C3 grass
+4. C4 grass
+5. Shrub
+
+Same as prognostic (1, 0, 217)
+
+Available with both A19_1A and A19_2A.
+Only available on phenology timesteps.
+
+</M001_S019_I007>
+#
+<M001_S019_I008>
+STASH item specific help for
+(1, 19, 8) MEAN LEAF TRNVR RATE PFTS FOR TRIFFID
+
+Leaf turnover rate meaned over TRIFFID period, for each PFT:
+
+1. Broadleaf tree
+2. Needleleaf tree
+3. C3 grass
+4. C4 grass
+5. Shrub   
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+
+</M001_S019_I008>
+#
+<M001_S019_I009>
+STASH item specific help for
+(1, 19, 9) MEAN NPP ON PFTS FOR TRIFFID
+
+Net primary productivity meaned over TRIFFID period, for each PFT:
+
+1. Broadleaf tree
+2. Needleleaf tree
+3. C3 grass
+4. C4 grass
+5. Shrub
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+
+</M001_S019_I009>
+#
+<M001_S019_I010>
+STASH item specific help for
+(1, 19, 10) MEAN WOOD RESP ON PFTS FOR TRIFFID
+
+Wood respiration meaned over TRIFFID period, for each PFT:
+
+1. Broadleaf tree
+2. Needleleaf tree
+3. C3 grass
+4. C4 grass
+5. Shrub
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+
+</M001_S019_I010>
+#
+<M001_S019_I011>
+STASH item specific help for 
+(1, 19, 11) MEAN SOIL RESPIRATION FOR TRIFFID
+
+Soil respiration meaned over TRIFFID period.
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+</M001_S019_I011>
+#
+<M001_S019_I012>
+STASH item specific help for 
+(1, 19, 12) DISTURBED FRACTION OF VEGETATION
+
+Fraction of vegetation subject to disturbance.
+Same as prognostic (1, 0, 219).
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+</M001_S019_I012>
+#
+<M001_S019_I013>
+STASH item specific help for 
+(1, 19, 13) SURFACE TYPE FRACTIONS AFTER TRIFFID
+
+Fractions of surface types after TRIFFID.
+
+The surface types are:
+1. Broadleaf tree 
+2. Needleleaf tree
+3. C3 grass
+4. C4 grass
+5. Shrub
+6. Urban
+7. Water
+8. Bare Soil
+9. Ice
+
+Same as prognostics (1, 0, 216).
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+
+</M001_S019_I013>
+#
+<M001_S019_I014>
+STASH item specific help for 
+(1, 19, 14) LEAF AREA INDEX PFTS AFTER TRIFFID
+
+Leaf area index after TRIFFID for each PFT:
+
+1. Broadleaf tree 
+2. Needleleaf tree
+3. C3 grass
+4. C4 grass
+5. Shrub
+
+Same as prognostic (1, 0, 217)
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+</M001_S019_I014>
+#
+<M001_S019_I015>
+STASH item specific help for 
+(1, 19, 15) CANOPY HEIGHT ON PFTS AFTER TRIFFID
+
+Canopy height after TRIFFID for each PFT:
+
+1. Broadleaf tree 
+2. Needleleaf tree
+3. C3 grass
+4. C4 grass
+5. Shrub
+
+Same as prognostic (1, 0, 218)
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+</M001_S019_I015>
+#
+<M001_S019_I016>
+STASH item specific help for 
+(1, 19, 16) SOIL CARBON CONTENT AFTER TRIFFID
+
+Carbon content of the soil after TRIFFID (kg C / m2).
+Same as prognostic (1, 0, 223).
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+</M001_S019_I016>
+#
+<M001_S019_I017>
+Item: (1:19:17-20)
+
+STASH item specific help for 
+(1, 19, 17) DPM SOIL RESP FOR TRIFFID  KG C/M2/S
+(1, 19, 18) RPM SOIL RESP FOR TRIFFID  KG C/M2/S
+(1, 19, 19) BIO SOIL RESP FOR TRIFFID  KG C/M2/S
+(1, 19, 20) HUM SOIL RESP FOR TRIFFID  KG C/M2/S
+
+Soil respiration meaned over TRIFFID period.
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+
+</M001_S019_I017>
+#
+<M001_S019_I018>
+Item: (1:19:17-20)
+
+STASH item specific help for 
+(1, 19, 17) DPM SOIL RESP FOR TRIFFID  KG C/M2/S
+(1, 19, 18) RPM SOIL RESP FOR TRIFFID  KG C/M2/S
+(1, 19, 19) BIO SOIL RESP FOR TRIFFID  KG C/M2/S
+(1, 19, 20) HUM SOIL RESP FOR TRIFFID  KG C/M2/S
+
+Soil respiration meaned over TRIFFID period.
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+
+</M001_S019_I018>
+#
+<M001_S019_I019>
+Item: (1:19:17-20)
+
+STASH item specific help for 
+(1, 19, 17) DPM SOIL RESP FOR TRIFFID  KG C/M2/S
+(1, 19, 18) RPM SOIL RESP FOR TRIFFID  KG C/M2/S
+(1, 19, 19) BIO SOIL RESP FOR TRIFFID  KG C/M2/S
+(1, 19, 20) HUM SOIL RESP FOR TRIFFID  KG C/M2/S
+
+Soil respiration meaned over TRIFFID period.
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+
+</M001_S019_I019>
+#
+<M001_S019_I020>
+Item: (1:19:17-20)
+
+STASH item specific help for 
+(1, 19, 17) DPM SOIL RESP FOR TRIFFID  KG C/M2/S
+(1, 19, 18) RPM SOIL RESP FOR TRIFFID  KG C/M2/S
+(1, 19, 19) BIO SOIL RESP FOR TRIFFID  KG C/M2/S
+(1, 19, 20) HUM SOIL RESP FOR TRIFFID  KG C/M2/S
+
+Soil respiration meaned over TRIFFID period.
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+
+</M001_S019_I020>
+#
+<M001_S019_I021>
+Item: (1:19:21-24)
+
+STASH item specific help for 
+(1, 19, 21) DPM SOIL-C AFTER TRIFFID      KGC/M2
+(1, 19, 22) RPM SOIL-C AFTER TRIFFID      KGC/M2
+(1, 19, 23) BIO SOIL-C AFTER TRIFFID      KGC/M2
+(1, 19, 24) HUM SOIL-C AFTER TRIFFID      KGC/M2
+
+Carbon content of the soil after TRIFFID (kg C / m2).
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+
+
+</M001_S019_I021>
+#
+<M001_S019_I022>
+Item: (1:19:21-24)
+
+STASH item specific help for 
+(1, 19, 21) DPM SOIL-C AFTER TRIFFID      KGC/M2
+(1, 19, 22) RPM SOIL-C AFTER TRIFFID      KGC/M2
+(1, 19, 23) BIO SOIL-C AFTER TRIFFID      KGC/M2
+(1, 19, 24) HUM SOIL-C AFTER TRIFFID      KGC/M2
+
+Carbon content of the soil after TRIFFID (kg C / m2).
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+
+
+</M001_S019_I022>
+#
+<M001_S019_I023>
+Item: (1:19:21-24)
+
+STASH item specific help for 
+(1, 19, 21) DPM SOIL-C AFTER TRIFFID      KGC/M2
+(1, 19, 22) RPM SOIL-C AFTER TRIFFID      KGC/M2
+(1, 19, 23) BIO SOIL-C AFTER TRIFFID      KGC/M2
+(1, 19, 24) HUM SOIL-C AFTER TRIFFID      KGC/M2
+
+Carbon content of the soil after TRIFFID (kg C / m2).
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+
+
+</M001_S019_I023>
+#
+<M001_S019_I024>
+Item: (1:19:21-24)
+
+STASH item specific help for 
+(1, 19, 21) DPM SOIL-C AFTER TRIFFID      KGC/M2
+(1, 19, 22) RPM SOIL-C AFTER TRIFFID      KGC/M2
+(1, 19, 23) BIO SOIL-C AFTER TRIFFID      KGC/M2
+(1, 19, 24) HUM SOIL-C AFTER TRIFFID      KGC/M2
+
+Carbon content of the soil after TRIFFID (kg C / m2).
+
+Only available with A19_2A.
+Only available on TRIFFID timesteps.
+
+
+</M001_S019_I024>
+#

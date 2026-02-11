@@ -1,0 +1,50 @@
+ ### Start of UKCA-MODE/UKCA_RADAER Coupling Macro. ###
+%TCL
+  if { %IMODESET==1 } {
+    set numreq 42
+    set sec34_111 {103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 127}
+    set sec38_111 {402 403 404 409 410 411 431 432 433 446 447 448 450 451 452 453 454 455 457 458 459 460 461 462 464}
+  } elseif { %IMODESET==2 } {
+    set numreq 45
+    set sec34_111 {103 104 105 106 107 108 109 110 111 113 114 115 116 117 119 120 121 127}
+    set sec38_111 {402 403 404 405 409 410 411 431 432 433 434 446 447 448 450 451 452 453 454 457 458 459 460 461 464 465 466}
+  } else {
+    set numreq 0
+    set sec34_111 ""
+    set sec38_111 ""
+    putl "### Unknown setting for Aerosols Species and Modes (see panel atmos_Science_Section_UKCAMode)"
+  }
+
+  putl ""
+  putl " &STASHNUM NUM_REQ=$numreq, NUM_DOM=1,  NUM_TIM=1, NUM_USE=1 \/"
+  putl ""
+
+  foreach item $sec34_111 {
+    putl " &STREQ IMOD= 1, ISEC=34, ITEM=$item, IDOM=1, ITIM=1, IUSE=1 \/"
+  } 
+
+  foreach item $sec38_111 {
+    putl " &STREQ IMOD= 1, ISEC=38, ITEM=$item, IDOM=1, ITIM=1, IUSE=1 \/"
+  } 
+%ENDTCL
+
+ &TIME NAME="TALLTS", ITYP=1
+ IOPT=1,
+ ISTR=1,IEND=-1,IFRE=1,UNT3="T ",
+ /
+
+ &DOMAIN NAME="DALLTH", IOPL=2
+ ILEVS=1,
+ LEVB=1,
+%TCL putl " LEVT=$levModel," %ENDTCL
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+
+ &USE NAME="UPUKCA", LOCN=6
+ IUNT=98,
+ /
+
+ ### End of  UKCA-MODE/UKCA_RADAER Coupling Macro. ###

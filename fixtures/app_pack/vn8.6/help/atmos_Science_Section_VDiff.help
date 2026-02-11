@@ -1,0 +1,27 @@
+Section 7 : Vertical Diffusion
+
+see below for a description of sections.
+See UMDP 21 for a description of the Vertical Diffusion algorithms & routines.
+
+Vertical diffusion is an optional section. It is used in some configurations to
+reduce noise in the vertical structure of various fields near the equator. It is
+not a desirable parameterisation and should be tuned to a minimum both in terms
+of the area of covered and the coefficient used. 
+
+<1A> and <1B> are equivalent scientifically but give different results
+at the bit level. <1B> has been optimised.
+
+The coefficient at a point is weighted to give full effect (the Reference 
+Coefficient value) at the equator and zero at the poleward limit.
+
+Only one  versions of Vertical Diffusion is available. 
+It is used by standard configurations as follows:
+Climate runs		Not used.
+Operational LAM		Not used.
+Operational MES		Not used.
+Operational Global	Used from level 8 to 14 with  Ref_coeff=100.0 and 
+			Poleward_limit=30.0 degrees.
+
+
+-------------
+%I compile_modes

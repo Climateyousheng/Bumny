@@ -1,0 +1,35 @@
+%TCL
+#==============================================================================
+# RCS Header:
+#   File         [$Source: /home/hc0300/umui/srce_code/UMUI_archive/umui2.0/vn7.6/processing/proc_convTimeUnits,v $]
+#   Revision     [$Revision: 1.1 $]     Named [$Name: head#main $]
+#   Last checkin [$Date: 2010/02/02 17:07:33 $]
+#   Author       [$Author: umui $]
+#==============================================================================
+
+# convTimeUnits
+#   Time $time in units of $unitIn and must be converted to units of
+#   $unitOut for model $model.
+# Arguments
+#   time : An integer time
+#   unitIn  : Units of time. Can be T for timesteps, H for hours, DA for
+#             days or DU for dump periods.
+#   unitOut : Units of result. Can be T for timesteps, H for hours, DA for
+#             days or DU for dump periods.
+#   model : Letter indicating submodel. Required because different 
+#           submodels can have different timesteps and can dump with 
+#           different units.
+
+proc convTimeUnits {time unitIn unitOut mLetter} {
+
+    # Convert units to timesteps
+    set tsIn [totimep 1 $unitIn $mLetter]
+    set tsOut [totimep 1 $unitOut $mLetter]
+
+    # Ratio of units provides multiplying factor
+    set ratio [expr 1.0 * $tsIn/$tsOut]
+    set timeOut [expr $time * $ratio]
+
+    return $timeOut
+}
+%ENDTCL

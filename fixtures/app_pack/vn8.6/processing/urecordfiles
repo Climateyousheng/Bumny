@@ -1,0 +1,20 @@
+%C urecordfiles
+%C   Create record file containing user items
+%C Imports
+%C   rType: Record type
+%C   mLetter: Defines submodel
+%C
+%C S.D.Mullerworth 18/04/00
+%C
+%TCL
+  # Output copy of the master file header
+  putl [getFileHeader $rType $mLetter]
+  # Get list of user ancillary fields
+  set userList [getAllKeys $rType "user" $mLetter]
+  foreach key $userList {
+    # Output each record
+    putl [getRecordElement $rType $mLetter $key "record" "user"]
+  }
+  # Output copy of the master file end-of-file record
+  putl [getEOFRecord $rType]
+%ENDTCL

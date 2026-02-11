@@ -1,0 +1,235 @@
+Section 3 : Boundary Layer and Surface Processes
+
+Boundary Layer versions: now included, <9B>, <9C> and <1A> 
+-----------------------------------------------------------------------
+
+Version 9 is the long-standing ``diagnostic K-profile'' scheme,
+that uses the resolved state of the atmosphere and surface to specify 
+directly the turbulent diffusivities that are used to calculated the 
+turbulent fluxes.  
+
+The 1A scheme calculates the diffusivities from prognostic equations 
+for the higher order moments of the turbulence, including the turbulence 
+kinetic energy (TKE).
+
+The <9C> version differs from <9B> by including several improvements 
+to the implementation of the entrainment fluxes, the diagnosis of the 
+subgrid inversion and the integration of the buoyancy flux used to 
+diagnose the diffusion profile depths. It also has the option for a 
+revised flux-gradient relationship for both the boundary layer's 
+thermodynamic and moisture variables ("Generic flux-gradient  relationship" 
+button), as opposed to just for heat ("Surface-driven  gradient adjustment 
+for heat only" button). The revised formulation allows a generic treatment 
+of the scalar fluxes and includes new non-gradient terms arising from 
+cloud-top generated turbulence and entrainment. 
+
+The 9C version also has options to enhance the entrainment rate in 
+stratocumulus when there are cumulus clouds penetrating it from below 
+(ie for decoupled stratocumulus over cumulus), to reduce the 
+surface-driven contribution to cloud-top entrainment smoothly as the 
+strength of the decoupling grows (currently linearly dependent on the "svl" 
+difference between cloud and sub-cloud layers in the range 
+0.5 to 1K), and to set the buoyancy flux threshold used in the diagnosis
+of decoupling (0.1 is recommended).
+
+The <1A> version consists of the prognostic TKE based turbulent
+closure models, including the Mellor-Yamada model Level 3 and 2.5
+improved by Nakanishi and Niino (2004, 2006, 2009)(called "MYNN"), 
+and the first order eddy diffusive model based on Deardorff(1980).
+Options on the TKE schemes can be configured through another panel 
+"TKE schemes" you open open with the bottom button. 
+In some cases (e.g. the Smagorinsky scheme is employed,
+or levels to predict the turbulent related prognostic variables is
+less than BL_LEVELS), the local scheme is called and the associated
+configurations should be done through this panel. Parameters related 
+to the stablity functions used in the local scheme are activated only when 
+
+* "No polar filter" and "Subgrid turbulence scheme"
+   for "Horizontal Diffusion" in the section 13 are selected 
+or 
+*  The switch for "Use the local scheme above TKE_LEVELS and 
+   below BL_LEVELS" in the panel for the TKE_Closure is turned on.
+
+    
+Stable boundary layer mixing options
+------------------------------------
+From version 6.2, the number of stable boundary layer options has been
+increased. The first nine options are variations on the Richardson
+number scheme (RiSc) and reflect the range of tunings used in
+operational models. The functions listed in increasing order of mixing
+strength are: SHARPEST, Louis, Long tails. The first long tails option
+is the default. The option to use SHARPEST over the sea and Louis/Long
+tails over land allows a weighting between Louis and Long tails. If the
+weighting is set to 0, Louis tails are assumed over land, while if it
+is set to 1, the scheme gives pure long tails. Values between 0 and 1
+allow intermedite combinations. Where the SHARPEST function is used, 
+there is an additional option to use a critical Richardson number of 
+0.25 instead of the standard value of 1. Also within the Richardson 
+number scheme is the option to make the Prandtl number (the ratio of 
+momentum to heat diffusion coefficients) a function of the Richardson 
+number, rather than take a constant value of unity.  This option also 
+changes the neutral Prandtl number to 0.7.  
+
+Selecting the LEM stability functions enables the user to use a
+stability dependence more relevant to Large-eddy simulation and can be
+used if direct comparison with the Met Office LEM is desired.
+
+The Equilibrium stable boundary layer scheme is a
+complex research formulation based on the second-moment equations with
+boundary layer depth as a controlling parameter. The Boundary layer
+depth based formulation option is a simpler scheme than the Equilibrium
+one based on boundary layer depth derived from the turbulent kinetic 
+energy budget.
+
+
+Including the effects of unresolved drainage flows
+--------------------------------------------------
+Drainage flows often form in hilly areas as the air near the surface cools 
+at night.  Where these flows are on scales too small to be resolved their effects 
+on vertical mixing (through induced wind shear) should be included.  
+Two independent methods to do this have been coded.  Currently these require 
+the orographic stress (LAND_SURF panel) and GWD schemes to be switched on 
+in order to have the necessary ancillary fields loaded.  Options (2) and (3) 
+currently convert these into a mean slope using an empirical relationship 
+derived for the UKV only, and so this is not recommended for any other model.  
+The options are:
+   0 - not included
+   1 - relate the length of the SHARPEST tail to subgrid orography,
+       following McCabe and Brown (2007) 
+   2 - include the shear from unresolved drainage flows in the shear
+       term in Ri and the diffusion coefficients  
+   3 - as 2 plus additional enhancement to the mixing lengths
+
+
+Unstable boundary layer stability functions
+-------------------------------------------
+Four options are available for the stability functions for unstable 
+Richardson numbers: the long-standing UM functions, removing the stability 
+dependence entirely (so that the neutral value is used) and those described as 
+the "standard" and "conventional" subgrid models in the LES of Brown (1999).  
+The conventional model gives significantly less mixing than the standard LEM 
+and the standard LEM give very similar momentum mixing to the original UM but 
+has a significantly larger Prandtl number in the convective limit (0.44 vs 0.14).  
+Selection of any LEM stable or unstable function will also impose a neutral 
+Prandtl number of 0.7 (compared to 1.0 otherwise).
+
+
+Select free atmospheric turbulent mixing option
+-----------------------------------------------
+   0 - code as standard prior to UM7 (no additional changes to
+       turbulent mixing above the boundary layer).
+   1 - the stable stability function requested relaxes towards
+       the "SHARPEST" function with height above the surface,
+       with a fixed height scale of 1km.  If "Mixing lengths in RiSc
+       not reduced above boundary layer" is selected this option
+       will also smoothly merge to the asymptotic mixing length
+       by 3km above the surface.
+   2 - as (0) but corrects the grid-level (ntml_local) below which 
+       the boundary layer value is used
+   3 - as (2) but uses interactively diagnosed turbulent layer depths 
+       throughout the atmospheric column 
+
+Options for correcting Monin-Obukhov surface exchange calculations
+(COR_MO_ITER)
+----------------------------------------------------------------
+This integer switch controls successive corrections to BL code,
+as follows:
+
+0: No corrections.
+1: Remove over-compensation for convective gustiness in light winds.
+2: Correct the value of U* used by the dust scheme and Flake.
+3: Correct the value of the Obukhov length in the low-wind limit.
+
+
+Make surface exchange consistent with flux differencing
+-------------------------------------------------------
+The boundary layer and surface schemes are formulated in terms of flux
+budgets. These schemes should therefore interpret fields on model layers
+as mass-weighted means when calculating fluxes. In the original version
+of the surface scheme these are interpreted as values at particular
+heights. The option to make surface exchange consistent with flux
+differencing causes fields on model levels to be interpreted as
+mass-weighted means.
+
+
+Include effect of convective downdraughts on surface exchange
+-------------------------------------------------------------
+Surface exchange is affected by the mean wind, eddies spanning the depth of
+the boundary layer and eddies driven by convective downdraughts. Originally
+in the UM only boundary layer eddies were considered. If convective 
+downdraughts are included, the impact of boundary-layer eddies on surface
+exchange is reduced and convective eddies are explicitly included using
+a parametrization due to Redelsperger et al. (2000), J. Climate, 13, p. 402.
+
+
+Heating arising from frictional dissipation of turbulence
+---------------------------------------------------------
+The drag on the resolved scale flow exerted by the boundary layer turbulence 
+parametrization should ultimately be dissipated as heat but unless this option 
+is selected this heating is ignored. It is recommended to be implemented 
+in all model versions.
+
+
+Enhanced mixing length in Richardson no. Scheme (operational setting)
+---------------------------------------------------------------------
+For  operational  purposes  it  has  been  found  best  to  enhance  the
+asymptotic  momentum mixing  length (LAMBDAM)  in the  Richardson number
+scheme. This is done by changing LAMBDAM = MAX (LAMBDA_MIN , 0.15*ZH) to
+LAMBDAM =  MAX (LAMBDA_MIN  , 0.30*ZH), where  ZH is the  boundary layer
+depth and LAMBDA_MIN is 40m.
+
+
+Mixing lengths in RiSc not reduced above boundary layer
+-------------------------------------------------------
+Also the pre-vn6.2 code in EXCOEF6A and BDY_EXPLB8A has mixing
+length reduced above the top of the local mixing layer. 
+Some operational configurations have used a modset to skip this.
+>From vn6.2 you can choose.
+
+
+Options for dynamic criteria in diagnosis of boundary layer types 
+-----------------------------------------------------------------
+This option allows further checks on the diagnosis of boundary 
+layers over the sea.  Select 0 to switch these off.  Option 1
+was found to cause problems when BL_LEVELS was set much greater
+than 3km and so is no longer recommended.  
+Under option 2, in situations where surface conditions are close to
+neutral and the land fraction is less than a half, the thermodynamic
+parcel ascent diagnosis of both cumulus and non-local boundary layers
+are over-ruled to leave turbulent mixing to be determined by the local
+Richardson number scheme only.  
+Option 3 is the same as 2 but only overrules a diagnosis of a cumulus
+layer and is also only applied to points with no land fraction.
+Option 4 builds on option 3 by further restricting a Cumulus diagnosis
+to allow for disruption of cumulus formation through vertical wind
+shear (diagnosed through a sub-critical Richardson number profile
+extending well into the cloud layer).  Under these circumstances the
+non-local boundary layer scheme is allowed to mix up to the original
+parcel ascent top.  
+Additionally, for all options (other than 0) the consistency of the
+provisional diagnosis of an unstable boundary layer in CONV_DIAG is
+checked against the surface flux diagnosed by the surface exchange
+routines.   
+
+
+
+
+-------------
+This is one of a series of windows that allows users to specify which version of
+a particular section they want to run with.
+
+The unified model is split into sections which are collections of routines that
+perform a task. These sections are also used in the STASH diagnostic system to
+define the code that produces a diagnostic. See UM Basic Users Guide on sections
+releases and frozen versions.
+ 
+The sections in this series of windows defines the scientific routines used in
+the atmospheric model. 
+
+Some sections allow the user to choose from more than 1 version of that section,
+each version (or more strictly version<release>) is defined by an identifier
+such as <1A>.
+Different configurations of the model use different versions and users should
+look at standard experiments to see what they should be defining. Information in
+the help windows may be out of date.
+

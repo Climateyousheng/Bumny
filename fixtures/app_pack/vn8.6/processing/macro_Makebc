@@ -1,0 +1,188 @@
+%TCL
+ # Set up required number of fields
+   set numreq 13
+   set options ""
+   if { [inactive_var MBC_MURK]==0 && %MBC_MURK=="Y" } {
+      incr numreq
+      append options \
+         " \&STREQ IMOD=1, ISEC=0, ITEM=90 , IDOM=5, ITIM=1, IUSE=1 \/\n" 
+   }
+   if { [inactive_var MBC_PC2]==0 && %MBC_PC2=="Y" } {
+      set numreq [expr $numreq + 3]
+      append options \
+         " \&STREQ IMOD=1, ISEC=0, ITEM=266, IDOM=5, ITIM=1, IUSE=1 \/\n\
+           \&STREQ IMOD=1, ISEC=0, ITEM=267, IDOM=5, ITIM=1, IUSE=1 \/\n\
+           \&STREQ IMOD=1, ISEC=0, ITEM=268, IDOM=5, ITIM=1, IUSE=1 \/\n"
+   }
+   if { [inactive_var MBC_CLD]==0 && %MBC_CLD=="Y" } {
+      incr numreq
+      append options \
+         " \&STREQ IMOD=1, ISEC=0, ITEM=271, IDOM=5, ITIM=1, IUSE=1 \/\n"
+   }
+   if { [inactive_var MBC_RAIN]==0 && %MBC_RAIN=="Y" } {
+      incr numreq
+      append options \
+         " \&STREQ IMOD=1, ISEC=0, ITEM=272, IDOM=5, ITIM=1, IUSE=1 \/\n"
+   }
+   if { [inactive_var MBC_GRA]==0 && %MBC_GRA=="Y" } {
+      incr numreq
+      append options \
+         " \&STREQ IMOD=1, ISEC=0, ITEM=273, IDOM=5, ITIM=1, IUSE=1 \/\n"
+   }
+   if { [inactive_var MBC_DUST]==0 && %MBC_DUST=="Y" } {
+      set numreq [expr $numreq + 6]
+      append options \
+         " \&STREQ IMOD=1, ISEC=0, ITEM=431, IDOM=5, ITIM=1, IUSE=1 \/\n\
+           \&STREQ IMOD=1, ISEC=0, ITEM=432, IDOM=5, ITIM=1, IUSE=1 \/\n\
+           \&STREQ IMOD=1, ISEC=0, ITEM=433, IDOM=5, ITIM=1, IUSE=1 \/\n\
+           \&STREQ IMOD=1, ISEC=0, ITEM=434, IDOM=5, ITIM=1, IUSE=1 \/\n\
+           \&STREQ IMOD=1, ISEC=0, ITEM=435, IDOM=5, ITIM=1, IUSE=1 \/\n\
+           \&STREQ IMOD=1, ISEC=0, ITEM=436, IDOM=5, ITIM=1, IUSE=1 \/\n"
+   }
+   if { [inactive_var MBC_SULP]==0 && %MBC_SULP=="Y" } {
+      set numreq [expr $numreq + 4]
+      append options \
+         " \&STREQ IMOD=1, ISEC=0, ITEM=101, IDOM=5, ITIM=1, IUSE=1 \/\n\
+           \&STREQ IMOD=1, ISEC=0, ITEM=103, IDOM=5, ITIM=1, IUSE=1 \/\n\
+           \&STREQ IMOD=1, ISEC=0, ITEM=104, IDOM=5, ITIM=1, IUSE=1 \/\n\
+           \&STREQ IMOD=1, ISEC=0, ITEM=105, IDOM=5, ITIM=1, IUSE=1 \/\n"
+   }
+   if { [inactive_var MBC_DMS]==0 && %MBC_DMS=="Y" } {
+      incr numreq
+      append options \
+         " \&STREQ IMOD=1, ISEC=0, ITEM=102, IDOM=5, ITIM=1, IUSE=1 \/\n"
+   }
+   if { [inactive_var MBC_NH4]==0 && %MBC_NH4=="Y" } {
+      incr numreq
+      append options \
+         " \&STREQ IMOD=1, ISEC=0, ITEM=107, IDOM=5, ITIM=1, IUSE=1 \/\n"
+   }
+   if { [inactive_var MBC_BLKC]==0 && %MBC_BLKC=="Y" } {
+      set numreq [expr $numreq + 3]
+      append options \
+         " \&STREQ IMOD=1, ISEC=0, ITEM=108, IDOM=5, ITIM=1, IUSE=1 \/\n\
+           \&STREQ IMOD=1, ISEC=0, ITEM=109, IDOM=5, ITIM=1, IUSE=1 \/\n\
+           \&STREQ IMOD=1, ISEC=0, ITEM=110, IDOM=5, ITIM=1, IUSE=1 \/\n"
+   }
+   if { [inactive_var MBC_BIOM]==0 && %MBC_BIOM=="Y" } {
+      set numreq [expr $numreq + 3]
+      append options \
+         " \&STREQ IMOD=1, ISEC=0, ITEM=111, IDOM=5, ITIM=1, IUSE=1 \/\n\
+           \&STREQ IMOD=1, ISEC=0, ITEM=112, IDOM=5, ITIM=1, IUSE=1 \/\n\
+           \&STREQ IMOD=1, ISEC=0, ITEM=113, IDOM=5, ITIM=1, IUSE=1 \/\n"
+   }
+   if { [inactive_var MBC_OCFF]==0 && %MBC_OCFF=="Y" } {
+      set numreq [expr $numreq + 3]
+      append options \
+         " \&STREQ IMOD=1, ISEC=0, ITEM=114, IDOM=5, ITIM=1, IUSE=1 \/\n\
+           \&STREQ IMOD=1, ISEC=0, ITEM=115, IDOM=5, ITIM=1, IUSE=1 \/\n\
+           \&STREQ IMOD=1, ISEC=0, ITEM=116, IDOM=5, ITIM=1, IUSE=1 /\n"
+   }
+   if { [inactive_var MBC_NITR]==0 && %MBC_NITR=="Y" } {
+      set numreq [expr $numreq + 2]
+      append options \
+         " \&STREQ IMOD=1, ISEC=0, ITEM=117, IDOM=5, ITIM=1, IUSE=1 \/\n\
+           \&STREQ IMOD=1, ISEC=0, ITEM=118, IDOM=5, ITIM=1, IUSE=1 \/\n"
+   }   
+%ENDTCL
+%TCL
+# Part to add MakeBC tracers
+   set count_33 0
+   set count_34 0
+   set tca_33w ""
+   set tca_34w ""
+   set tca_33 [get_variable_array MKBC33_TCA]
+   set tca_34 [get_variable_array MKBC34_TCA]
+
+   for {set i 0} { $i < 150 } {incr i} {
+      set item_33 [lindex $tca_33 $i]
+      set item_34 [lindex $tca_34 $i]
+      if {$item_33=="1"} {
+         incr count_33
+         set str_33 [format " \&STREQ IMOD=1, ISEC=33, ITEM=%%d, IDOM=5, ITIM=1, IUSE=1 \/\n" [expr $i + 1]]
+         append tca_33w $str_33
+      }
+      if {$item_34=="1"} {
+         incr count_34
+         set str_34 [format " \&STREQ IMOD=1, ISEC=34, ITEM=%%d, IDOM=5, ITIM=1, IUSE=1 \/\n" [expr $i + 1]]
+         append tca_34w $str_34
+      }
+   }
+   set numreq [expr $numreq + $count_33 + $count_34]
+   append options $tca_33w
+   append options $tca_34w
+%ENDTCL
+
+### Start of Makebc fields macro ###
+ &STASHNUM NUM_REQ=%TCL put "$numreq"%ENDTCL, NUM_DOM=5,  NUM_TIM=1, NUM_USE=1 /
+
+ &STREQ IMOD=1, ISEC=0, ITEM=33 , IDOM=1, ITIM=1, IUSE=1 /
+ &STREQ IMOD=1, ISEC=0, ITEM=2  , IDOM=2, ITIM=1, IUSE=1 /
+ &STREQ IMOD=1, ISEC=0, ITEM=3  , IDOM=2, ITIM=1, IUSE=1 /
+ &STREQ IMOD=1, ISEC=0, ITEM=150, IDOM=4, ITIM=1, IUSE=1 /
+ &STREQ IMOD=1, ISEC=0, ITEM=253, IDOM=2, ITIM=1, IUSE=1 /
+ &STREQ IMOD=1, ISEC=0, ITEM=4  , IDOM=5, ITIM=1, IUSE=1 /
+ &STREQ IMOD=1, ISEC=0, ITEM=10 , IDOM=5, ITIM=1, IUSE=1 /
+ &STREQ IMOD=1, ISEC=0, ITEM=254, IDOM=5, ITIM=1, IUSE=1 /
+ &STREQ IMOD=1, ISEC=0, ITEM=12 , IDOM=5, ITIM=1, IUSE=1 /
+ &STREQ IMOD=1, ISEC=0, ITEM=255, IDOM=3, ITIM=1, IUSE=1 /
+ &STREQ IMOD=1, ISEC=0, ITEM=256, IDOM=2, ITIM=1, IUSE=1 /
+ &STREQ IMOD=1, ISEC=0, ITEM=257, IDOM=2, ITIM=1, IUSE=1 /
+ &STREQ IMOD=1, ISEC=0, ITEM=258, IDOM=4, ITIM=1, IUSE=1 /
+%T putl "$options"
+ &TIME NAME="t_mbc", ITYP=1
+ IOPT=1,
+ ISTR=%MBC_STRT,IEND=%MBC_END,IFRE=%MBC_FREQ,UNT3="%MBC_UNT ",
+ /
+ &DOMAIN NAME="ms_mbc", IOPL=5
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+ 
+ &DOMAIN NAME="mr_mbc", IOPL=1
+ ILEVS=1,
+ LEVB=1,
+ LEVT=%NLEVSA,
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+ &DOMAIN NAME="mrp1_mbc", IOPL=1
+ ILEVS=1,
+ LEVB=1,
+ LEVT=%TCL put "[expr %NLEVSA + 1]" %ENDTCL,
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+ 
+ &DOMAIN NAME="mt0_mbc", IOPL=2
+ ILEVS=1,
+ LEVB=0,
+ LEVT=%NLEVSA,
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+ &DOMAIN NAME="mt1_mbc", IOPL=2
+ ILEVS=1,
+%T if { [inactive_var L_ENDGAME]==0 && %L_ENDGAME=="T" } {
+ LEVB=0,
+%T } else {
+ LEVB=1,
+%T }
+ LEVT=%NLEVSA,
+ PLT=0,
+ IOPA=1,
+ IMSK=1, IMN=0, IWT=0,
+ TS="N",TSNUM=0,
+ /
+ &USE NAME="makebc", LOCN=3
+ IUNT=164
+ /
+ ### End of Makebc fields macro ###

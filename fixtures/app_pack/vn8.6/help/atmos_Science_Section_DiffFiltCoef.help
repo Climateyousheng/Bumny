@@ -1,0 +1,16 @@
+Section 13 : Diffusion & Filtering
+see below for a description of sections.
+See UMDP 10 for a description of the diffusion and filtering routines that form
+part of the atmospheric dynamics.
+
+Only one version of this section is available, and this should be chosen for any
+runs involving an atmospheric component.
+
+Diffusion coefficients and the order of diffusion are parameters that need
+careful tuning. Users are advised to see what is done in standard
+configurations. Diffusion is required by both global and limited area models and
+are highly resolution dependent.   
+ 
+
+-------------
+%I compile_modes

@@ -1,0 +1,22 @@
+This panel is used to configure the output to be produced by DrHook.
+
+Profile type
+------------
+
+Specify profiling in terms of
+
+  - Wallclock time
+  - CPU time
+  - MFlops
+
+Traceback info
+--------------
+
+If per-routine memory or time information is wanted in the traceback,
+check the appropriate boxes.
+
+DrHook in Profile?
+------------------
+
+If this box is checked, DrHook itself will appear in the
+profiling information.

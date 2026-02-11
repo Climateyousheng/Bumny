@@ -1,0 +1,104 @@
+===============================================
+General I/O Options
+===============================================
+
+Size of I/O Write Buffer
+-----------------------------------------------
+This specifies the size of the internal buffer used by writes
+in the UM C layer in 64-bit words. The default is 4MB which
+corresponds to the optimal value for the Met Office GPFS 
+configuration. Other values may be appropriate on other architectures.
+
+Size of I/O Read Buffer
+-----------------------------------------------
+Set the size of blocks read by the rbuffering module (C95_2B only) 
+
+Read Buffers per IO stream
+-----------------------------------------------
+Set the number of blocks to be used by rbuffering module (C95_2B only) 
+
+Buffers a helper thread should prefetch whilst reading
+-----------------------------------------------
+Sets the number of blocks that a helper thread will try to prefetch 
+ahead of the current file postition. This should be less than or equal to 
+Read Buffers per IOS stream (C95_2B only) 
+
+Maintain coherence between read and write cached blocks
+------------------------------------------------
+Set the policy for coherence between read caching and write caching; 
+Unchecked - read cached blocks are discarded on writes
+Checked   - read cached blocks are updated by writes (C95_2B only) 
+
+
+Alignment of Data
+-----------------------------------------------
+This specifies how the beginning of the data fields is aligned on
+disk (in 64 bit words). For optimal performance on GPFS filesystems
+this should be the same as the blocksize. Other values may be 
+appropriate on other architectures.
+
+Field Padding
+-----------------------------------------------
+This specified how individual data fields are padded out in UM
+output files. This is the function that used to be served by 
+the UM_SECTOR_SIZE environment variable. When buffered I/O is
+ active, a small value is generally more appropriate, because 
+write sizes are determined by the buffer size.
+
+Time IO Operations
+-----------------------------------------------
+IO timing information provides a low level diagnostic of data 
+transfer rates. It should not be used for normal runs as it may slow 
+code execution.
+
+
+===============================================
+MPI Task Configuration
+===============================================
+
+Number of IO Servers
+-----------------------------------------------
+Defines the number of IO servers 
+
+
+IOS Spacing
+-----------------------------------------------
+Specifies the gap between IO servers in MPI_COMM_WORLD. For 
+optimal performance the spacing should ensure that a HPC node 
+has no more than one IO server (a node on the IBM typically 
+running 32 MPI tasks with 2 OpenMP threads).
+A value of 0 will distribute the tasks evenly through the job
+
+
+IO Server parallelism
+-----------------------------------------------
+Defines the MPI task parallelism of each IO server 
+
+
+Task offset (IOS_offset)
+-----------------------------------------------
+Defines an offset from the first rank, when allocating IO server 
+placement allowing fine grained control over IO Server -> task mapping 
+
+
+Coupled Models
+-----------------------------------------------
+If a coupled model is being used then IOS will work 
+with the OASIS3 or OASIS3-MCT couplers. 
+
+With OASIS3-MCT, the user is free to implement the IOS in whatever
+configuration seems most appropriate, although it is not possible
+to position IOS processes among or at the end of the ocean/ice
+processes. 
+
+With standard OASIS3, a very specific configuration is required:
+
+MPI task spacing should be greater than or equal to 
+ 
+(Number of IO Servers * IO Server Parallelism) + (Number of processes 
+        for ATMOS East-West * Number of processes for ATMOS North-South)
+
+
+Control of File Completion(ROSE)
+-------------------------------------------------
+This option is available to test the ROSE subjob mechanism via the UMUI.

@@ -1,0 +1,48 @@
+ This combines polar filtering and diffusion and uses the same
+(first-order or Del-squared) operator for both but with changes of 
+coefficients and, in the case of polar filtering, using multiple sweeps.
+
+* Polar filter theta. Switch ON to filter theta.
+* Polar filter horizontal winds. Switch ON to filter horizontal
+  wind components u and v.
+* Polar filter w. Switch ON to filter the vertical velocity w.
+* Polar filter increments. Switch ON to filter increments to u, v, w
+  and theta.
+* Diffusion of theta. Switch ON to apply horizontal diffusion to theta.
+* Diffusion of horizontal winds. Switch ON to apply horizontal
+  diffusion to the horizontal wind components u and v.
+* Diffusion of w. Switch ON to apply horizontal diffusion to the
+  vertical velocity w.
+* Diffusion of increments. Switch ON to apply horizontal diffusion
+  to increments of u, v, w and theta.  (NOT recommended as may become
+  unstable).
+
+If the diffusion coefficients and timescales for global configurations 
+are to be calculated automatically (see switch below) then the 
+following 4 boxes apply to LAMs only.
+* Diffusion order theta/w. Set to 1 (no other options).
+* Diffusion timescale theta/w (number of timesteps). Set to number
+  of time steps for which the 2-grid wave is to be damped by 1/e
+  (approximately the halving-time).
+* Diffusion order wind. Set to 1 (no other options).
+* Diffusion timescale wind (number of timesteps). Set to number
+  of time steps for which the 2-grid wave for the horizontal wind
+  components u and v are to be damped by 1/e (approximately the halving-time).
+* Reference diffusion coefficient. Set to 0.25.
+
+* Latest filtering and diffusion code (recommended). Switch ON to
+  use latest version of code.
+* Automatic calculation of diffusion coefficients. If switched ON
+  then there is no need to set the order and timescales in the boxes
+  above.
+
+* Reference latitude (Equator=0.0 recommended). Set to 0.0.
+* Scale ratio (2.0 recommended). Set to 2.0. This means do the
+  settings with reference to the 2 grid-wave length.
+* Polar filter start latitude (87.0 recommended). If set to 90.0
+  the polar filtering sweeping strategy will be calculated automatically.
+* Maximum number of filter sweeps (8 recommended). The number of
+  filter sweeps required to achieve a uniform filtering of physical
+  scales increases towards the poles and for high resolution the number
+  of sweeps my be large. It may be advantageous to limit the number of
+  sweeps since this reduces communication.

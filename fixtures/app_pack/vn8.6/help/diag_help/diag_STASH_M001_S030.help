@@ -1,0 +1,324 @@
+<M001_S030_I008>
+OMEGA ON THETA LEVELS (C GRID)
+
+This is an intermediate stage of the calculation of omega on pressure 
+levels, where rho is interpolated to model theta levels. Note that the 
+top theta level is set equal to the top rho level. 
+
+Units: Pa/s
+ 
+</M001_S030_I008>
+#
+<M001_S030_I112>
+
+Item: (1:30:112)
+Text:
+Given a value of 1, on the model level if w on the model level is >1.0m/s
+otherwise set to 0.0
+Aim of this diagnostic is to use with the climate meaning system in a
+long run to get some idea of whether the model has stability problems.
+
+
+</M001_S030_I112>
+#
+<M001_S030_I113>
+
+Item: (1:30:113)
+Text:
+Relative humidity on model levels at the end of timestep.
+
+</M001_S030_I113>
+#
+<M001_S030_I114>
+Item (1:30:114) 
+
+This diagnostic may be useful in monitoring whether there are 
+problems in the model. It can be used to show where vertical velocities 
+are high.
+
+</M001_S030_I114>
+#
+<M001_S030_I115>
+Item (1:30:115) 
+
+Included in case anyone wants to know the mass weighting being 
+applied in the diagnostics 30011 to 30077
+
+Diagnostics 30001 to 30107 fields on model rho grid.
+These diagnostics are available primarly for looking at transients etc
+on model levels. All fields are on the rho grid points which is not the 
+model grid for most fields. There are 7 basic fields available;
+1 - U
+2 - V
+3 - w
+4 - temperature
+5 - specific humidity
+6 - height
+7 - Ke energy (0.5*(u*u+v*v+w*w))
+Plus their mass weighted version 101-107, plus products of fields
+mass weighted. At present the mass weighting is the dry mass not the wet
+mass of the gridbox. It is not recommended to include all these fields
+in every run as they will increase the memory requirement and output 
+by a large amount. All the mass weighted diagnostic products have been
+scaled by 1.e-5 to aviod problems with the numbers getting to be as big
+as the missing data value of -32768*32768.
+
+Diagnostics 30422-30439
+These diagnostics are column integrals of various fluxes and may be useful 
+when looking at model budgets. In many cases they are summation of the 
+fields 30011 to 30077 over all model levels. Unless a vertical profile
+of fluxes is required then these diagnostics may be more useful than the 
+30011-30077 and will take up far less space.
+
+
+</M001_S030_I115>
+#
+<M001_S030_I171>
+
+Item: (1:30:171) also 172-178
+Text:
+dT, (dq, dqcl etc ) increment on model levels squared
+The aim of these squared increments is to provide a means of assessing the
+noisiness of the total increments to the model. The main use of these
+diagnostics is likely to be as climate means.
+
+
+</M001_S030_I171>
+#
+<M001_S030_I172>
+
+Item: (1:30:171) also 172-178
+Text:
+dT, (dq, dqcl etc ) increment on model levels squared
+The aim of these squared increments is to provide a means of assessing the
+noisiness of the total increments to the model. The main use of these
+diagnostics is likely to be as climate means.
+
+</M001_S030_I172>
+#
+<M001_S030_I173>
+
+Item: (1:30:171) also 172-178
+Text:
+dT, (dq, dqcl etc ) increment on model levels squared
+The aim of these squared increments is to provide a means of assessing the
+noisiness of the total increments to the model. The main use of these
+diagnostics is likely to be as climate means.
+
+
+</M001_S030_I173>
+#
+<M001_S030_I174>
+
+Item: (1:30:171) also 172-178
+Text:
+dT, (dq, dqcl etc ) increment on model levels squared
+The aim of these squared increments is to provide a means of assessing the
+noisiness of the total increments to the model. The main use of these
+diagnostics is likely to be as climate means.
+
+
+</M001_S030_I174>
+#
+<M001_S030_I175>
+
+Item: (1:30:171) also 172-178
+Text:
+dT, (dq, dqcl etc ) increment on model levels squared
+The aim of these squared increments is to provide a means of assessing the
+noisiness of the total increments to the model. The main use of these
+diagnostics is likely to be as climate means.
+
+
+</M001_S030_I175>
+#
+<M001_S030_I176>
+
+Item: (1:30:171) also 172-178
+Text:
+dT, (dq, dqcl etc ) increment on model levels squared
+The aim of these squared increments is to provide a means of assessing the
+noisiness of the total increments to the model. The main use of these
+diagnostics is likely to be as climate means.
+
+
+</M001_S030_I176>
+#
+<M001_S030_I177>
+
+Item: (1:30:171) also 172-178
+Text:
+dT, (dq, dqcl etc ) increment on model levels squared
+The aim of these squared increments is to provide a means of assessing the
+noisiness of the total increments to the model. The main use of these
+diagnostics is likely to be as climate means.
+
+
+</M001_S030_I177>
+#
+<M001_S030_I178>
+
+Item: (1:30:171) also 172-178
+Text:
+dT, (dq, dqcl etc ) increment on model levels squared
+The aim of these squared increments is to provide a means of assessing the
+noisiness of the total increments to the model. The main use of these
+diagnostics is likely to be as climate means.
+
+</M001_S030_I178>
+#
+<M001_S030_I189>
+RAIN TOTAL INCREMENT ON MODEL LEVELS
+
+Total increment to prognostic rain over a model timestep. 
+Units kq/kq/timestep.
+</M001_S030_I189>
+#
+<M001_S030_I190>
+GRAUPEL TOTAL INC ON MODEL LEVELS
+
+Total increment to prognostic graupel over a model timestep. 
+Units kq/kq/timestep.
+</M001_S030_I190>
+#
+<M001_S030_I191>
+QCF2 TOTAL INCREMENT ON MODEL LEVELS
+
+Total increment to prognostic qcf2 (second ice type) over a model timestep.
+</M001_S030_I191>
+#
+<M001_S030_I206>
+RELATIVE HUMIDITY ON P LEV/UV GRID
+
+Calculated with respect to water above 0C and with respect to ice below 0C. 
+</M001_S030_I206>
+#
+<M001_S030_I310>
+Item: (1:30:310)
+
+Residual mean meridional circulation. Used as the eddy part in
+the transformed Eulerian mean sets of equations to anticipate how the
+zonal-mean flow will respond to an eddy momentum flux or eddy heat
+flux. Defined in such a way that dw*/dz + dv*/dy = 0. 
+</M001_S030_I310>
+#
+<M001_S030_I311>
+Item: (1:30:311)
+
+Residual mean meridional circulation. Used as the eddy part in
+the transformed Eulerian mean sets of equations to anticipate how the
+zonal-mean flow will respond to an eddy momentum flux or eddy heat
+flux. Defined in such a way that dw*/dz + dv*/dy = 0.
+</M001_S030_I311>
+#
+<M001_S030_I312>
+Item: (1:30:312)
+
+Meridional component of Eliassen-Palm flux. The EP flux is a
+vector quantity involving the northward eddy fluxes of heat and
+angular momentum. The Eliassen-Palm theorm states that the divergence
+is zero for steady conservative wavelike disturbances of zonal wind.
+</M001_S030_I312>
+#
+<M001_S030_I313>
+Item: (1:30:313)
+
+Vertical component of Eliassen-Palm flux. The EP flux is a
+vector quantity involving the northward eddy fluxes of heat and
+angular momentum. The Eliassen-Palm theorm states that the divergence
+is zero for steady conservative wavelike disturbances of zonal wind.
+</M001_S030_I313>
+#
+<M001_S030_I314>
+Item: (1:30:314)
+
+Divergence of Eliassen-Palm flux. This represents the sole
+internal forcing of the mean state by the eddy forcing terms.
+</M001_S030_I314>
+#
+<M001_S030_I315>
+Item: (1:30:315)
+
+Meridional heat flux.
+</M001_S030_I315>
+#
+<M001_S030_I316>
+Item: (1:30:316)
+
+Meridional momentum flux.
+</M001_S030_I316>
+#
+<M001_S030_I410>
+Items (1:30:410)		
+
+Mountain torque.
+
+This is the zonal component of the surface pressure drag multiplied by
+the distance from the earth's axis. The torque is calculated from the
+x-component of the mountain pressure drag. Therefore, it is calculated
+assuming that the model-grid rows are orientated East-West. This is
+fine for global versions of the UM. However, for limited area models
+this assumption is unlikely to be correct and so this diagnostic should
+not be used in this case.
+
+At vn5.5 this diagnostic was corrected. It is now
+r.cos(latitude).p*.(dh/dx),
+where r is the radius of the earth, p* is the surface pressure, h is the
+orographic height and dx is the grid-size in the zonal direction.
+Previously
+it had been r.h(dp*/dx). The diagnostic is now calculated on the most
+compact
+stencil, i.e. at u-points on the C-grid.
+
+Units are kgs^-2 (i.e. Nm^-1).
+</M001_S030_I410>
+#
+<M001_S030_I420>
+
+Item: (1:30:420)
+Text:
+column integral cvT per unit area - provides part of the total energy of the
+atmosphere
+
+
+</M001_S030_I420>
+#
+<M001_S030_I421>
+
+Item: (1:30:421)
+Text:
+column integral gr per unit area - provides part of the total energy of the
+atmosphere.
+
+
+</M001_S030_I421>
+#
+<M001_S030_I440>
+Items (1:30:440)		
+
+x-component of surface pressure drag.
+
+This is the x-component of the surface pressure drag, i.e. p*.dh/dx
+where p* is the surface pressure, and h is the orographic height.
+
+Units: kg m^-1 s^-2 (N m^-2)
+</M001_S030_I440>
+#
+<M001_S030_I441>
+Items (1:30:441)		
+
+y-component of surface pressure drag.
+
+This is the y-component of the surface pressure drag, i.e. p*.dh/dy
+where p* is the surface pressure, and h is the orographic height.
+
+Units: kg m^-1 s^-2 (N m^-2)
+</M001_S030_I441>
+#
+<M001_S030_I442>
+COLUMN SATURATION FRACTION
+
+A column integral of q over a column integral of qsat. The calculation 
+involves interpolating the model density to theta level to do the calculation.
+</M001_S030_I442>
+#

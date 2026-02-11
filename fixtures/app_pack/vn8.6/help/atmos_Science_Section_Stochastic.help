@@ -1,0 +1,230 @@
+ Help for window : atmos_Science_Section_Stochastic  
+ 
+Help for window : Stochastic Schemes 
+ 
+ Further information can be found in UMDP 81 "Stochastic Physics Code in 
+ the UM" 
+ 
+ Section 35 : Stochastic Schemes. 
+ ------------------------------------------------------------ 
+ 
+ This section of code is designed for use with ensemble configurations. 
+   
+ The predictability of weather and climate forecasts is determined by the 
+ uncertainties in both initial conditions and model formulations. In order 
+ to represent model uncertainty, a series of schemes (described below) 
+ has been developed that aim to tackle different aspects of the problem. 
+ 
+ 
+ RP - Random Parameters 
+ ---------------------- 
+ Setting L_RP2=true will turn on the random parameters scheme, which 
+ aims to represent the uncertainty due to the empirically-adjustable 
+ parameters present in the physical parameterizations detailed below. 
+ This is a very small subset of the parameters which could be varied. 
+ The ranges quoted are based on the advice of experts in each 
+ parameterization area, although please check the settings are appropriate 
+ for your model configuration (global/regional) as some  variables can be 
+ resolution dependent. The values quoted below are based on N216 global 
+ and 12km regional configurations. 
+ 
+ The values of the selected parameters are not held constant during 
+ the whole simulation but are varied randomly (every 3hrs) between 
+ their maximum (Max) and minimum (Min) values. The default value of the 
+ parameter should be the standard values set for the parameterization 
+ scheme under consideration. Most of these values can be checked in 
+ the appropriate umui panels relating to the particular scheme. In a 
+ few cases these are defined in the Stochastic Schemes window. 
+ 
+ NOTE: IF YOU CHANGE THE DEFAULT VALUES HERE IT WILL OVERWRITE THE 
+       VALUE SET IN THE RELEVANT SECTION'S PANEL. 
+ 
+ "Convection Parameters": 
+   
+ ------------------------------------------------------------------------ 
+ |  Parameter                 |UM Variable       | Min/Default/Max       | 
+ ------------------------------------------------------------------------ 
+ |Entrainment rate coefficient| ENTCOEF          | 2.75 / 3 / 4          | 
+ |                            |                  |                       | 
+ ------------------------------------------------------------------------ 
+ |Cape closure timescale      | cape_timescale   |1800 / 1800 / 3600     | 
+ | (RH based closure)         |                  |(seconds)              | 
+ ------------------------------------------------------------------------ 
+ 
+ The default entrainment rate coefficient is defined within the model and 
+ can not be changed through the umui. The default cape_timescale is defined 
+ in the umui panel, Section 5:Convection. 
+ 
+ 
+ "Large Scale Precipitation Parameters": 
+ 
+ ------------------------------------------------------------------------ 
+ |  Parameter                    |UM Variable    | Min/Default/Max       | 
+ ------------------------------------------------------------------------ 
+ |Critical Relative Humidity     | RHCRIT        |0.875 / 0.9 / 0.91     | 
+ |   (@ model level 3)           |               |                       | 
+ ------------------------------------------------------------------------ 
+ |Parameter controlling ice fall | M_CI          |0.6 / 1.0 / 1.4        | 
+ | speed  (3C/3D Microphysics)   |               |                       | 
+ ------------------------------------------------------------------------ 
+ 
+ The default value of M_CI is set here - the recommended value is 1.0. 
+ 
+ To determine appropriate min/max values for RHCRIT, check the default 
+ values for levels 2,3 and 4 in the umui panel: Level by Level Physical 
+ Constants under Atmosphere > Scientific Parameters and Sections. The 
+ maximum value of RHCRIT at level 3 should be less than the default RHCRIT 
+ value on level 2. The minimum value of RHCRIT at level 3 should be greater 
+ than the RHCRIT value on level 4. If level 4 has the same value as level 
+ 3, then the minimum value of RHCRIT on level 3 should be greater than the 
+ next value of RHCRIT which is smaller than the value on level 3. 
+ 
+ 
+ "Boundary Layer": 
+ 
+ ------------------------------------------------------------------------ 
+ |  Parameter                 | UM Variable      | Min / Default / Max   | 
+ ------------------------------------------------------------------------ 
+ |Flux profile parameter      | g0_rp            |5 / 10 / 20            | 
+ ------------------------------------------------------------------------ 
+ |Neutral mixing length       | par_mezcla       |0.05 / 0.15 / 0.5      | 
+ ------------------------------------------------------------------------ 
+ |Minimum mixing length       | lambda_min       |20.0 / 40.0 / 100.0    | 
+ ------------------------------------------------------------------------ 
+ |Critical Richardson number  | ricrit_rp        |0.25 / 1.0  / 1.0      | 
+ ------------------------------------------------------------------------ 
+ |Entrainment parameter A1    | a_ent_1_rp       |0.1 / 0.23 / 0.4       | 
+ ------------------------------------------------------------------------ 
+ |Cloud-top diffusion control | g1_rp            |0.5 / 0.85 / 1.5       | 
+ ------------------------------------------------------------------------ 
+ |Charnock Parameter(Charnock)|Boundary Layer    |0.01 / 0.018 / 0.026   | 
+ ------------------------------------------------------------------------ 
+  
+ The default values for these parameters are set here. However, they are 
+ based on actual coefficients within the boundary layer equations and it 
+ is recommended that these are not changed without consulting boundary 
+ layer experts. The default value of the Charnock parameter can be found 
+ in the umui in the follow on window SEA_SURF accessed from Section 3: 
+ Boundary Layer and Surface Processes. 
+  
+  
+ "Gravity Wave Drag": 
+  
+ -------------------------------------------------------------------------- 
+ |  Parameter                   | UM Variable      | Min / Default / Max   | 
+ -------------------------------------------------------------------------- 
+ |Gravity wave constant         | kay_gwave        |7.5E4 / 7.0E4 / 1.3E4  | 
+ |(Globe1 Orog, eg. MOGREPS-G)  |                  |                       | 
+ -------------------------------------------------------------------------- 
+ |Gravity wave constant         | kay_gwave        |2.5E+03/3.3E+03/4.4E+03| 
+ |(Globe30 Orog, eg. MOGREPS-R) |                  |                       | 
+ -------------------------------------------------------------------------- 
+ |Froude number                 | gwd_frc          |2 / 4 / 6              | 
+ -------------------------------------------------------------------------- 
+  
+ The surface gravity wave constant depends on the orography used in the 
+ model start dump. Please check the default values of the surface gravity wave 
+ constant and froude number in the umui panel Section 6: Gravity Wave Drag. 
+  
+  
+ SKEB2 - Stochastic Kinetic Energy Backscatter 2 
+ ----------------------------------------------- 
+   
+ Setting L_SKEB2=.true. will activate version 2 of the Stochastic Kinetic 
+ Energy Backscatter scheme (SKEB1 was never lodged with the UM trunk and 
+ is only available via a development branch). SKEB2 runs independently of 
+ the Random Parameters schemes, except in the case of the Random Seed File 
+ utility (see below). 
+  
+ SKEB2 calculates the expected energy dissipation in the model due to the 
+ semi-lagrangian numerical scheme and convective processes. These can be 
+ controlled individually, but usually both are included. Convection energy 
+ dissipation is calculated using a CAPE-based scheme or a Massflux-based 
+ scheme. Only one should be used (default is CAPE-based scheme) 
+  L_SKEB2_PSISDISP=.TRUE.   (include numerical dissipation) 
+  L_SKEB2_SKEB1DISP=.TRUE.  (include SKEB1-type energy dissipation patterns 
+                             based on the jet stream) 
+  L_SKEB2_PSICDISP=.TRUE.   (include convective dissipation) 
+  L_SKEB2_CDISP=4 (use CAPE-based scheme - traditional choice) 
+  L_SKEB2_CDISP=5 (use Massflux-based scheme - suitable for the 
+                             new turbulence-based UM convection scheme) 
+            alphac = 2.0E-3 (portion of the gridbox with updraught columns 
+                             when using Massflux-based scheme above) 
+  SKEB2_TOPLEV=33|50   (top model level of SKEB2 calculations: MAX=ModLev - 1) 
+                        Recommended value for L38 = 33, L70 = 50, L85 = 51; 
+                        which is roughly in the lower stratosphere ~18km. 
+  SKEB2_BOTLEV=2       (bottom model level of SKEB2 calculations: MIN=2) 
+  L_SKEB2_VELPOT=.FALSE.  (include velocity potential forcing pattern to 
+                           calculate divergent wind increments) 
+  
+ The dissipation energy is backscattered into the model through wind-increments 
+ that are derived from a streamfunction forcing field. The spatio-temporal 
+ characteristics of the streamfunction field are controlled by N1, N2 
+ and tau. 
+  N1 = 5     (minimum wavenumber) 
+  N2 = 60    (maximum wavenumber - smaller than the model resolution, e.g. N144) 
+  tau = 2.E04 (decorrelation time ~ 5.5 hrs) 
+  
+ The amount of energy backscattered to the model is scaled by the total 
+ backscatter amount and the fraction used is set by the backscatter ratio 
+  tot_backscat = 1.0E-4   (total backscatter) 
+  bR = 0.0275             (backscatter ratio) 
+  
+ The relative contribution of each type of energy dissipation estimate 
+ towards the total energy field is controlled by the factors: 
+  sdispfac = 3.0   (numerical dissipation) 
+  cdispfac = 1.0   (convective dissipation) 
+  kdispfac = 0.75  (SKEB1-type dissipation) 
+ The suggested values are for a N216L70 global configuration. The total 
+ energy field is smoothed "NSMOOTH" times (default = 5). 
+  
+  
+ Random Seed File 
+ ---------------- 
+  
+ *Option: WRITE seed to FILE* 
+ The nature of stochastic schemes is that they are initialised using random 
+ numbers to ensure that forecasts differ from run to run. This is an attempt 
+ to simulate the unknown inherent uncertainty in model forecasts. However, 
+ in order to allow a specific forecast case to be reproduced, a facility has 
+ been included to write out the random seed to a file at the start of the run. 
+ Setting L_STPHSEED_WRITE = .true.  will cause the model to write the random 
+ seed to the file specified in the entry box. If no file is specified then 
+ the seed will be written to $DATAW/$RUNID.seed. If the write seed option is 
+ chosen, a random seed is generated using the actual date on the computer. 
+ In this case every new run will produce a different forecast. 
+  
+ *Option: READ seed from FILE* 
+ If the user wishes to re-run the model using a previously generated random 
+ seed, set L_STPHSEED_READ = .true. and specify the name and location of the 
+ random seed file to be read in the entry box. If no file name is supplied 
+ then the model will look for the file at $DATAW/$RUNID.seed 
+  
+ If the seed file is active, i.e. either L_STPHSEED_WRITE or L_STPHSEED_READ 
+ is true, the model will then store the seed and SKEB2 pattern coefficients 
+ whenever model dumps are written to a second seed file. This file is 
+ unformatted to preserve full bit accuracy and is has a "_coeff" suffix 
+ appended to the seedfile name. At each dump step, this file is overwritten. 
+  
+ *Option: Do not use seed FILE* 
+ If neither logical is set to true, a new seed will be calculated by the model 
+ and no file will be written (default behaviour). However, the seed will still 
+ be printed in the standard output. This seed is based on the current model run 
+ date (to the nearest minute) and can use an environment variable ENS_MEMBER to 
+ differentiate runs at the same start time (e.g. in MOGREPS). This variable 
+ can be inserted in a UM standalone job in the panel "SCRIPT INSERTS AND 
+ MODIFICATIONS", or through the ENVIRONMENT in a suite. ENS_MEMBER can be up 
+ to 8 characters long and up to a value of 9999. Failure to provide 
+ a value for ENS_MEMBER or providing a negative value will cause the model to abort.  
+ 
+ Setting ENS_MEMBER=0 will automatically turn off the stochastic physics schemes, 
+ by setting L_SKEB2=F and L_RP2=F, under the no-seed file option. This allows 
+ the same UM job to be used for control and perturbed ensemble members in a suite. 
+  
+ *Note for CRUNs: 
+ In the case of CRUNs the user should start the job (i.e. NRUN part) by 
+ providing a seed file and set L_STPHSEED_READ to true. The following CRUNs 
+ can then proceed without any further changes to UI settings. This allows the 
+ stochastic process to continue uninterrupted when the model restarts. 
+ A seed file on the IBM Power6 has an integer up to 19-digits long, e.g.: 
+  4822152206489911072 

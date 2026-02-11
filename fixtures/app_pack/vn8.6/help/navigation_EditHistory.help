@@ -1,0 +1,43 @@
+   Edit History
+
+   When job is opened in read/write mode a background process will catch every
+   change of parameters and save them in umui_jobs/job_hist/HIST_[runid] file. 
+   By pressing the button "Edit History" a pop up window will show changes with 
+   data stamp, window name, parameter name and old/changed value. For example: 
+                                        
+   =========================================================
+   Date:	15/Oct/08	Time:	15:50
+   Window: smcc_Model_Coupling
+   =========================================================
+   Atmosphere                               T                             
+                                            F                             
+                                         
+   NEMO                                     F                             
+                                            T                             
+                                         
+   CICE                                     F                             
+                                            T                             
+     
+   =========================================================
+   Date:	15/Oct/08	Time:	17:07
+   Window: subindep_JobRes2
+   =========================================================
+   Using automatic re-submission            N                             
+                                            Y                             
+   
+   =========================================================
+   Date:	16/Oct/08	Time:	15:18
+   Window: subindep_CompNemo
+   =========================================================
+   Choose option                            1                             
+                                            2                             
+                                         
+   Specify the directory for the executable                               
+                                            $DATAW/hadip                  
+                                         
+   Specify the file for the executable                                    
+                                            ahokb_nemo.exe                
+
+            
+   Advice: User could write a small script which periodically will clear off 
+   ancient history files if do not need them.

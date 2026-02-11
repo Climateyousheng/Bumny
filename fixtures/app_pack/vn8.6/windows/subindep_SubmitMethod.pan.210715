@@ -1,0 +1,53 @@
+.winid "subindep_SubmitMethod"
+.title "Submit Method"
+.wintype entry
+.procs {} {} {set_indep98; # set INDEP_SR(98)}
+
+.panel
+  .gap
+  .case GEN_SUITE==0
+    .basrad "Define submission method" L 4 v SUBMIT_METHOD
+       "LoadLeveler"  3
+       "'qsub' for PBS Pro" 6
+       "Linux 'at'" 1
+       "Other" 0
+    .entry "Host name" L MACH_NAME 20 
+    .gap   
+    .textw "Override Standard Met-Office Machine Environment" L
+    .block 1
+      .check "Change target machine name ($TARGET_MC)" L LTRGMACH Y N
+      .case LTRGMACH=="Y"
+        .entry "Target machine name" L USR_TARGET_MC      
+      .caseend
+      .check "Change programming environment" L LPRGENV Y N
+      .case LPRGENV=="Y"
+        .entry "Programming environment file" L USR_PRG_ENV       
+      .caseend
+      .check "Change machine config file ($UM_MACHINE)" L LMACHCFG Y N
+      .case LMACHCFG=="Y"
+        .entry "Repository directory containing FCM machine.cfg file" L MACH_CFG  
+        .blockend       
+        .block 2  
+          .textw "For chosen machine, a valid directory from src/configs/machines is required" L    
+        .blockend
+      .caseend
+    .gap
+    .block 0
+      .case OCAAA!=5
+        .check "Run Model using SMT" L N_SMT 1 0
+      .caseend
+    .blockend  
+  .caseend   
+  .include processors_request  
+  .textw "Push LoadLev to specify LoadLeveler Resources, Qsub for Qsub Resources, Linux for Linux Resources or Other for Other machine Resources" L    
+  .textw "Push Resubmit to specify re-submisson information." L  
+  .textw "Push COMMS for Communications Threading Model panel" L
+  .pushsequence "LoadLev" subindep_ResLoadLev
+  .pushnext "Qsub" subindep_ResQsub
+  .pushnext "Linux" subindep_ResLinux
+  .pushnext "Other" subindep_ResOther 
+  .pushnext "Resubmit" subindep_JobRes2 
+  .pushnext "COMMS" subindep_IO_Comms
+.panend
+.set_on_closure "Set INDEP_SR(98)" INDEP_SR(98)
+

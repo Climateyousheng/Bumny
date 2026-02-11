@@ -1,0 +1,13 @@
+%TCL
+proc totime { time unit model } {
+  if {$model == "A" } {
+      if { $unit == "T" } {
+          return $time
+      } elseif { $unit == "H" } {
+          return [ expr ( $time * %ATPP ) / ( %AHPP * 24 ) ] 
+      } elseif { $unit == "DA" } {
+          return [ expr ( $time * %ATPP ) /  %AHPP ]
+      } else { error "unknown unit in totime ($unit)" }
+  } else { error "unknown model in totime ($model)" }
+}  
+%ENDTCL  

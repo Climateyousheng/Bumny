@@ -1,0 +1,31 @@
+This window allows users to specify the use of the sea-surface temperature
+ancillary file.
+
+Standard files hold time-variant fields (monthly, annually-cyclic), Long runs
+should use updating, the frequency depends on requirements. Coupled models will
+not need this field at all.
+
+Sea surface temperature anomalies in NWP can be turned on by selecting
+"Tick box to include SST Anomalies" on the panel. The sub-option "Calculate
+SST anomaly from input dump" will configure an extra SST anomaly field in the
+start dump during the reconfiguration step. This is done by subtracting the 
+time-interpolated monthly SST climatology from the reconfigured input dump surface 
+temperature. 
+
+This anomaly can then be used to update the model SST at the specified 
+frequency (daily is recommended for NWP), by simply persisting the anomaly for the 
+duration of the forecast while updating the baseline climatology from the SST ancillary 
+file. Note that SST anomalies over sea-ice and partial land points are ignored.
+
+The older SST anomaly method is used by the long-range forecast group and
+requires special ancillary files. Essentially SST anomalies allow
+climatologies of SST to be used as climatologies of SST change. This procedure
+is only required for long runs (where SST change is significant) in real time
+forecasts (where actual values are not known).
+
+In the case where SST anomaly fields are not used, the SST updating frequency should
+be consistent with that for sea-ice.
+
+%I AMIPII
+
+%I ancill_gen

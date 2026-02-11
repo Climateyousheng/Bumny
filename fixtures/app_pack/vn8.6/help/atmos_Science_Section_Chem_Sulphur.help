@@ -1,0 +1,103 @@
+HELP screen for UMUI vn4.5 
+      Window:  atmos_Science_Section_Chem_Sulphur
+
+Warning!
+--------
+The Sulphur Cycle was introduced at version 4.1 of the UM as an
+experimental facility and users should consult Margaret Woodage
+and/or David Roberts before attempting to use it.
+
+At vn4.5:Ozone oxidation with ammonia as a reaction buffer was made 
+         available in S Cycle
+ 
+How it works
+------------
+  
+At version 4.1, SO2, 3 modes of SO4 (Aitken, accumulation and dissolved),
+and DMS (dimethyl sulphide) were introduced as new prognostic variables for
+the Sulphur Cycle.
+ 
+At vn 4.5, NH3 was introduced.
+
+In the Chemistry section (17),
+
+      SO2 is converted to 3 modes of SO4, and DMS to SO2.
+
+   * Choosing Sulphur Cycle to be ON automatically means that SO2
+     and 3 modes of SO4 will be present in the model, but DMS and NH3
+     are optional. 
+   * If DMS is chosen, SO2 and SO4 modes are all automatically
+     invoked.
+   * There is currently only one version of the chemistry (1A) available.
+   * CALL_CHEM_FREQ  should be set to 1
+   * Tracer levels should be set to 19 for Sulphur Cycle model.
+   * Free tracers may also be used in addition to Sulphur Cycle 
+     but tracer levels must be set to 19 for all. The TRA button may be
+     used to specify these.
+   * DMS and NH3 emissions are at the surface
+ 
+In section 3 (boundary layer), code exists to inject emissions (SO2, DMS, NH3),
+and do boundary layer mixing and dry deposition (SO2,SO4 modes and NH3).
+   * Rapid mixing should be OFF (otherwise negative tracer values
+     can arise)
+   * Dry deposition diagnostics are available from section 3
+
+In section 4 (large scale ppn), code exists to wet scavenge SO2, SO4 modes,
+ and NH3.
+   * Version 2D, 2E, 3A or 3B of ls ppn section must be chosen to include this
+     code.
+   * Wet scavenging diagnostics are available from section 4.
+
+In section 5 (convection), code exists to do convective transport
+for Sulphur Cycle tracers (as well as free tracers), and wet
+scavenge SO2, SO4 modes, and NH3 .
+   * Version 3A, 3B or 3C of convection section must be chosen to include this
+     code
+   * Wet scavenging diagnostics are available from section 5.
+
+In section 11 (tracer advection), code exists to do tracer advection for 
+Sulphur Cycle tracers, and add in 3_D natural SO2 emissions.
+   * Version 1A of tracer advection must be chosen to include this
+     code.
+
+            
+In sections 1 and 2 (SW and LW radiation) the Edwards_Slingo (3A)
+versions must be selected if sulphate aerosol is to be used for
+direct or indirect effects.
+
+Ancillary files
+---------------
+  * Ancillary file header record maximum size must be set to >1000  
+     (In file related options) 
+
+  Oxidants 
+  ---------      
+  The chemistry requires an ancillary file containing oxidants to be
+  provided. These must be 3_D fields of OH, HO2 and H2O2 (limiting
+  field). If Ozone oxidation is on, a 3_D field must also be included 
+  in the same file (but it need not be the same as any other Ozone file 
+  in the model.)
+   * Use the OXI button to specify this file
+
+  Emissions 
+  ---------
+  Single level SO2, and DMS and NH3 emissions (if used) should be provided 
+  on the same ancillary  file. 
+   * Use the SUR button to specify this file
+ 
+
+  3_D Natural SO2 emissions should be provided on a separate file
+   * Use the NAT button to specify this file  
+  
+
+Initialisation of prognostics
+------------------------------
+Sulphur Cycle prognostic variables must be initialised either 
+   * from existing values in a model dump,  or
+   * by providing a user-STASHmaster file for the variables and
+     initialising them as user prognostics through the UI.
+
+
+
+
+

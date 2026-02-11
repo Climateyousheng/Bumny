@@ -1,0 +1,78 @@
+HELP screen for UMUI vn5.4
+Window: atmos_Science_Section_Aero_Soot 
+
+
+Warning
+-------
+Users are advised to consult the aerosol modelling group before using
+soot modelling within the UM. 
+
+How it works
+------------
+3 modes of soot (fresh, aged and soot in cloud water) are prognostic 
+variables in the soot scheme. Conversion of fresh to aged soot, and
+diffusional scavenging of aged soot to form soot in cloud water, are both
+performed in the aerosol section of the model (section 17). 
+
+Fresh soot is considered hydrophobic and does not enter cloud water. 
+Similarly, it is unaffected by either below-cloud or in-cloud wet scavenging.
+
+Soot can be used independently of the sulphur cycle and free tracers (i.e.
+with or without them), but note that all tracer levels must be set equal to
+the number of model theta levels.
+
+The soot conversion is carried out once per model timestep and is 
+unaffected by the CALL_CHEM_FREQ parameter.
+
+High level soot emissions represent those from sources higher than the surface
+(e.g. chimney stacks; a suitable model level should be selected).
+
+In sections 1 and 2 (SW and LW radiation) code to model the direct radiative 
+effect of soot is available in the Edwards_Slingo version (3A);
+a suitable spectral file must also be included in this case. This option is
+activated via the AERO FX button.
+Indirect effects of soot aerosol are not yet calculated.
+
+Code has been added to section 3 (boundary layer) to perform boundary layer 
+mixing and dry deposition of all 3 modes.
+
+In section 4 (large scale precipitation), code exists to wet scavenge aged
+soot.
+Versions 3B, 3C and 3D are all compatible with wet deposition of aged soot. 
+Wet scavenging diagnostics are available from section 4 (quantity of aged 
+soot rained out, and quantity of aged soot washed out), but note that the
+latter process (washout of aged soot) is currently neglected and this 
+diagnostic is thus set to zero everywhere.
+
+In section 5 (convection), code has been added to do convective transport 
+for the three soot variables, and wet scavenge aged soot.
+Version 3C or 4A (untested, new at vn5.4) of convection must be chosen to 
+include this code; the amount of soot wet scavenged by convective ppn is 
+available as a diagnostic.
+
+In section 11, the 2A tracer advection scheme must be included in order to 
+advect the three soot tracers.
+
+Note that if soot is selected in addition to the sulphur cycle, and the option
+to use the sulphate aerosol to calculate droplet concentrations for diffusional
+scavenging is used (in the AERO FX panel), this will affect the rate of 
+diffusional scavenging of aged soot to soot in cloud water. If the sulphur 
+cycle is not selected, or the option to use the sulphate aerosol to calculate 
+droplet concentrations is not used, constant values of droplet concentrations 
+are assumed.
+
+Ancillary files
+---------------
+Ancillary file header record maximum size must be set to >2000  
+(In file related options) 
+
+Emissions 
+---------
+Consult the aerosol modelling goup over the choice of fresh soot emissions
+ancillary file.   
+
+Initialisation of prognostics
+------------------------------
+Soot prognostic variables must be initialised either from existing values in
+a model dump, or by providing a preSTASH_master file for the variables and 
+initialising them  as user prognostics (usually zero) through the UMUI.

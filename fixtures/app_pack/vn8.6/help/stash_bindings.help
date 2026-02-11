@@ -1,0 +1,46 @@
+The following Key Bindings are available in the STASH window
+for those who want to avoid using the mouse.
+
+Move around the diagnostics table with the tab key. This will cycle
+the focus through each column and the scrollbar. Use the up and down
+cursor keys to move within the columns or to move the scrollbar.
+
+To select items from the menu use Alt-<key> to open the menu, where
+<key> stands for the underlined letter in the menu name. Then use the
+cursor keys to move around the menu. Use space or enter to activate
+the selected option.
+
+Some menu options can be activated using the CTRL key without opening
+the menu. For example, CTRL-r removes the currently highlighted
+diagnostic. These bindings are listed next to the menu option.
+
+Diagnostic Tables:
+
+The space bar acts like a double click.
+=======================================
+
+  Hence in the main STASH window pressing the space bar when a table
+  element is selected (blue) will have the following effect:
+  o Diagnostic Name column: 	attach all chosen profiles.
+  o Time column:		attach the chosen time profile.
+  o Domain column:		attach the chosen domain profile.
+  o Usage column:		attach the chosen usage profile.
+  o Include column:		toggle between Y and N .
+
+  In the Load New Diagnostics window, in the section table:
+  o Any Column:			Brings up the items in that section.
+  In the Load New Diagnostics window, in the items table:
+  o Any Column:			Loads the item to the main table.
+
+
+You can change the selected profiles.
+=====================================
+    
+Press the following to change the chosen profile.
+
+   q	Scroll backward through the time profiles.
+   w	Scroll forward through the time profiles.
+   a	Scroll backward through the domain profiles.
+   s	Scroll forward through the domain profiles.
+   z	Scroll backward through the usage profiles.
+   x	Scroll forward through the usage profiles.

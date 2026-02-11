@@ -1,0 +1,164 @@
+Help for the TKE based schemes.
+
+The <1A> TKE schemes consists of the following three models.
+
+* The Mellor-Yamada level 3 model
+* The Mellor-Yamada level 2.5 model
+* The first order eddy-diffusive model based on Deardorff(1980)
+
+The meaning of configurations on the panel will be briefly explained here.
+The detailed formulations and implementations can be found in UMDP 024A.
+
+Note that the level 3 scheme may need a shorter timestep than 
+usual.  It is able to complete NAEL50 and UKV standard jobs for vn7.5.  
+For global model, 15min (L50) and 12min(L70) are too long to run
+without computational instability, but it can run with a 5min timestep.
+
+* Set TKE_LEVELS (different from BL_LEVELS)
+  "TKE_LEVELS" is similar to "NL_BL_LEVELS" in the original UM
+  boundary layer scheme.
+  Usually the prognostic variables related to the turbulent schemes 
+  have the same number of levels as BL_LEVELS because these schemes
+  have been designed for turbulence in boundary layer. However,
+  the top of BL_LEVELS is sometimes set near the top of the model
+  (e.g. UKV). If the same formulation is applied to the upper
+  troposphere or stratosphere, where wind velocity and its shear are
+  much larger than those in boundary layer, computational
+  instabilities may arise.  It is recommended to use a level around
+  6km over the sea (e.g. 30 in the current global L70 model)
+
+  If "TKE_LEVELS" is set, diffusion coefficients between 
+  TKE_LEVELS + 1 and BL_LEVELS are not calculated by default. 
+  If "Use the local scheme above..." is turned on, these diffusion
+  coefficients are obtained through the local BL scheme. 
+  This is compatible to the original UM BL scheme with 
+  NL_BL_LEVELS different from BL_LEVELS.
+
+
+* Forced intialisation of the prognostic variables
+  The initial values of the turbulent prognostic variables are usually 
+  obtained from start dumps. However, if you would like to reset them and 
+  start again, this option should be turned on.
+  When it is turned on, the initial fields are diagnosed by assuming 
+  balance between production and dissipation.
+
+  Note that if the initial values are generated through the reconfigration, 
+  missing values are stored. When the first grid of the TKE in start dumps
+  is missing, the initialization is automatically conducted.
+
+
+* Initialize prognostics to zero
+  If selected, TKE and covariances are initialized to zero instead of 
+  assuming the balance of production and dissipation.
+  When the non-gradient buoyancy flux is activated,  the height of the mixed
+  layer (which is used to restrict the height of the mixed layer 
+  in the next time step) is set to be close to the top of TKE_LEVELS.
+
+  It is valid only when the initialisation is activated, that is,  
+  "Forced to initialise the prognostic variables" is turned
+  on, or the start dump contains missing data for the turbulent prognostic
+  variables. 
+
+* Minimum limit of the buoyancy gradient at initialisation
+  If the initial fields have negative or close-to-neutral vertical
+  buoyancy gradient in the upper levels, the initialised prognostic 
+  variables tend to be much larger, and this sometimes leads to 
+  computational instability.
+  To avoid this, the minimum limit of the vertical buoyancy gradient (in s^(-2)) is
+  imposed in the initialisation. 
+
+* Advection of the prognostic variables in the TKE schemes
+  If this switch is turned on, the prognostic variables are advected
+  through the Semi-Lagrangian scheme.
+
+* Buoyancy parameters
+  * Evaluate with the turbulence covariances
+    If this option is selected, the buoyancy parameters are calculated
+    based on the assumption of the bi-normal distribution function for
+    fluctuation of heat and moisture. To evaluate the standard
+    deviation of the distribution function, the predicted (in level 3)
+    or diagnosed (level 2.5) covariances are used.
+
+  * Use those calculated in the large scale cloud scheme
+    In the large scale cloud scheme such as Smith and PC2, 
+    buoyancy parameters are calculated as well. If this option 
+    is selected, these parameters are also used in the TKE schemes.
+
+* Non-gradient buoyancy flux associated with the skewness in shallow
+  convection
+  If this switch is activated, non-gradient buoyancy flux suggested by
+  Lock and Mailhot (2006) is added to the production term of TKE.
+  The main purpose of adding this flux is to represent shallow
+  convection. Therefore, if the convection scheme is turned on, 
+  conflicts between the convection scheme and this flux could 
+  occur.
+
+* Levels to apply the non-gradient buoyancy flux
+  The maximum level to calculate and add the non-gradient buoyancy flux
+  can be set. The default is TKE_LEVELS. It should correspond to
+  a height of 3 to 5km.
+
+* The max limit of the non-gradient buoyancy flux
+  The typical order of the non-gradient buoyancy flux is 1.0e-3m^2s^(-3). 
+  However, sometimes the diagnosed flux becomes quite large, and 
+  generates a large jump in time series of TKE.
+  In order to avoid this (for safety), the maximum limit for the flux
+  is imposed in m^2s^(-3).
+
+* Method to calculate production terms at the lowest level
+  The production terms of the prognostic variables at the lowest level
+  can be calculated with surface related quantities. 
+  * Without surface fluxes and related quantities
+    The production terms at the lowest levels are evaluated in the
+    same way as the other levels (i.e. with vertical gradients in 
+    the atmosphere). 
+
+  * With gradient functions by Businger(1971)
+  * With gradient functions by Beljaars and Holtslag(1991)
+    If either of these is selected, the production term at the lowest 
+    level is calculated using surface fluxes and gradient functions.
+    It is usually recommended. However, if the lowest level is close 
+    to the surface (like L70 in UKV), the production term could be 
+    too large because it is in inverse proportion to the
+    height of the lowest layer. This can also happen if "effective 
+    roughness" (see LAND_SURF panel) is used because the production
+    term at the lowest level is proportional to the cube of the friction
+    velocity, which can be large with effective roughness lengths. 
+    In that case, it could be better to try either another option for the 
+    roughness length or turn this option off.
+
+* Adjustment of production terms for computational stability
+  This option is highly recommended to turn on, especially when the timestep is
+  large. A smaller factor makes the adjustment activate more often, 
+  but too strong adjustment might adversely effect the accuracy of forecasts.
+  With the value 0.225, sufficient computational stability is secured
+  in NAE and UKV. The factors can be set on each level. Sometimes smaller
+  values at the lower layer could be better to ensure computational
+  stability.
+ 
+* Altitude above which the mixing length due to buoyancy is restricted
+  The mixing length associated with buoyancy is very large when a negative
+  buoyancy gradient is diagnosed. It is valid in the mixed layer, but 
+  if it happens in the free troposphere (e.g. around 5000m or more),
+  the overall mixing length could end up very large because the other
+  element in the mixing length is proportional to height above the
+  surface.  Too large a mixing length makes the turbulent variables
+  increase rapidly and could crash the computation.  
+  When TKE_LEVELS is set to be large (i.e. the prognostic variables are
+  integrated at upper levels), it is one option to adjust this height 
+  so that the integration can proceed stably. 
+
+* Print the maximum values of the prognostic variables
+  If this switch is turned on, the maximum values of the integrated 
+  prognostic variables in the whole domain are printed at each 
+  timestep with grid indexes in local processors and processor IDs.
+  Note that for cov(<thetal'qw'>), the maximum of ABS(cov) is printed.
+
+The following options are valid only for the first order model
+* Value of a coefficient (Cm) to determine diffusion coefficients
+  Cm is a coefficient in Km = Cm l SQRT(E) with the mixing length l.
+  Two kinds of values can be set: inside and outside mixed layer
+
+* Method to calculate the mixing length
+  See the document UMDP 024A
+

@@ -1,0 +1,11 @@
+This window allows users to specify which STASHmacro to use to drive the NAME
+Model. This model is external to the UM but part of the operational suite at the
+UKMO.  
+
+This macro asks STASH to provide diagnostics to the output stream PP5 on unit
+65.
+
+Most users will not require such output.
+
+%I macros
+

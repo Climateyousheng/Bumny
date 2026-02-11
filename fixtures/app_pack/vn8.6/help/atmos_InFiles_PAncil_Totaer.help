@@ -1,0 +1,11 @@
+This window allows users to specify the use of the tottal aerosol-ancillary 
+file.
+
+The field on this file is an optional field, normally only used in high
+resolution models that require visibility forecasting.
+
+Standard files hold time-variant fields (monthly, annually-cyclic), Long runs 
+should use updating, the frequency depends on requirements.
+
+
+%I ancill_gen

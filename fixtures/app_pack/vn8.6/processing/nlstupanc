@@ -1,0 +1,48 @@
+%C nlstupanc
+%C   Create UPANC namelists for each updatable main or user ancillary 
+%C   field 
+%C Imports
+%C   mLetter: Defines submodel
+%C
+%C S.D.Mullerworth 18/04/00
+%C
+%TCL
+  # Create records for main ancillary fields
+  set afc1 {}
+  set rec ""
+  set parent ""
+  set updateUnit ""
+  # Get list of user ancillary fields
+  set userList [getAllKeys "AncilFields" "user" $mLetter]
+  set n_a_stashan %N_$mLetter\_STASHAN
+  for { set i 1 } { $i <= $n_a_stashan } { incr i } {
+    # Ignore if a user ancillary field overwrites it
+    if {[lsearch $userList $i] == -1} {
+      set rec %$mLetter\_STASHAN($i)
+      set parent [ lindex $rec 2 ]
+      if { $parent != -1  && %$mLetter\CON($parent) == "U" } {
+          set updateUnit %$mLetter\TUN($parent)
+          # afc1 set to 1 2 3 or 4 depending on unit (or 0 if invalid unit)
+          set afc1 [lsearch [list "dummy" Y M D H] $updateUnit]
+          putl " &UPANC$mLetter ANC_REF_NO=$i, PERIOD=$afc1, INTERVAL=%$mLetter\FRE($parent) /"
+      } 
+    }
+  }
+  unset rec parent
+  # Write records for user ancillary fields
+  set confOpt ""
+  set updatePeriod ""
+  set key ""
+  foreach key $userList {
+    set confOpt [getUserAncOpt $mLetter $key configure]
+    if {$confOpt == "U"} {
+      set updatePeriod [getUserAncOpt $mLetter $key updatePeriod]
+      set updateUnit [getUserAncOpt $mLetter $key updateUnit]
+      # afc1 set to 1 2 3 or 4 depending on unit (or 0 if invalid unit)
+      set afc1 [lsearch [list "dummy" Y M DA H] $updateUnit]
+      putl " &UPANC$mLetter ANC_REF_NO=$key, PERIOD=$afc1, INTERVAL=$updatePeriod /"
+    }
+  }
+
+  unset afc1 i key userList updatePeriod updateUnit confOpt
+%ENDTCL

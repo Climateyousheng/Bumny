@@ -1,0 +1,17 @@
+The Met Office has introduced version files to point to a 'set' 
+of ancillary files as required for each operational NWP configuration. 
+This enables users to identify which ancillary files were used for a 
+given UM configuration/Parallel suite.
+
+You can specify the usage of version files here.
+
+Please note that this sources a file that sets a number of environment 
+variables. These environment variables are expected to have been set 
+in the corresponding ancillary panels. (Please check that you have 
+these set up to match.)
+
+Environment variables defined in the UMUI may be used when providing 
+the path names.
+
+Met Office users: for more details please see: 
+   http://fcm8/projects/ANCIL/wiki/ancils_ibm

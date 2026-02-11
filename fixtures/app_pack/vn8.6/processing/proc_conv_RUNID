@@ -1,0 +1,8 @@
+%TCL
+# To parse out RUNID from a string and replace it with the RUNID.
+#
+proc conv_RUNID {string} {
+   regsub (RUNID) $string "%EXPT_ID%JOB_ID" retval
+   return $retval
+}  
+%ENDTCL  

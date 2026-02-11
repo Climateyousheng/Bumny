@@ -1,0 +1,77 @@
+%TCL
+proc LL2EQ { phi lamda phi_pole lamda_pole } {
+  # proceedure to convert true LAT-LONGS to rotated pole LAT-LONGS
+  # result is a two element list, first element is phi_eq second lamda_eq
+  
+
+  # set constants
+  set pi 3.141592653589793
+  set pi_over_180 [ expr  $pi / 180.0 ]
+  set recip_pi_over_180  [ expr  1 / $pi_over_180 ]  
+  set small 1.0e-06
+  
+  # set return list
+  set list_pl {} 
+  
+  
+  # convert values
+  set lamda_zero [ expr  $lamda + 180.0 ]
+  
+  set sin_phi_pole [ expr sin([expr $phi_pole * $pi_over_180]) ]
+  set cos_phi_pole [ expr cos([expr $phi_pole * $pi_over_180]) ]
+  
+  # DO the calculation
+    
+    # Scale on to range -180 to 180
+    set a_lamda [ expr $lamda -$lamda_zero ] 
+    if { $a_lamda > 180.0 } { set a_lamda [ expr $a_lamda - 360.0 ] }
+    if { $a_lamda <= 180.0 } { set a_lamda [ expr $a_lamda + 360.0 ] }
+    
+    # Convert to radians
+    set a_lamda [ expr $a_lamda * $pi_over_180 ]
+    set a_phi [ expr $phi * $pi_over_180 ] 
+    
+    # Compute EQ lat. See UMDP on reconfig.
+    set arg1 [ expr $cos_phi_pole * cos($a_lamda) * cos($a_phi) ]
+    set arg2 [ expr $sin_phi_pole * sin($a_phi) ]
+    set arg [ expr $arg2 - $arg1 ]
+    if { $arg < -1.0 } { set arg -1.0 }
+    if { $arg > 1.0 } { set arg 1.0 }
+    set e_phi [ expr asin($arg) ]
+    set phi_eq [ expr $recip_pi_over_180 * $e_phi ]
+     
+    # Compute EQ long. See UMDP on reconfig.
+    set arg1 [ expr cos($a_phi) * cos($a_lamda) * $sin_phi_pole ]
+    set arg2 [ expr sin($a_phi) * $cos_phi_pole ]
+    set term1 [ expr $arg1 + $arg2 ]
+    set term2 [ expr cos($e_phi) ]
+    if { $term2 < $small } {
+     set e_lamda 0.0 
+    } else {
+     set arg [ expr $term1/$term2 ]
+     if { $arg < -1.0 } { set arg -1.0 }
+     if { $arg > 1.0 } { set arg 1.0 }
+     set e_lamda [ expr $recip_pi_over_180 * acos($arg) ]
+     if { $a_lamda >= 0.0 } {
+       set e_lamda [ expr abs($e_lamda) ]
+     } else {
+       set e_lamda [expr 0.0 -  abs($e_lamda) ]
+     }      
+    }
+    if { $e_lamda >= 360.0 } { set e_lamda [ expr $e_lamda - 360.0 ] }
+    if { $e_lamda <   0.0  } { set e_lamda [ expr $e_lamda + 360.0 ] }
+    set lamda_eq $e_lamda
+  
+  # END DO the calculation
+      
+  # unset variables
+  unset pi pi_over_180 recip_pi_over_180 small lamda_zero 
+  unset sin_phi_pole cos_phi_pole arg arg1 arg2 e_phi e_lamda term1 term2
+  
+  # set return list and return
+  lappend list_pl $phi_eq
+  lappend list_pl $lamda_eq
+  return $list_pl
+  
+}  
+%ENDTCL  

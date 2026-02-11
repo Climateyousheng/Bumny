@@ -1,0 +1,20 @@
+This window allows users to specify a list of scripts that can be released
+either singly or periodically.
+
+There is an option to offset the execution of scripts by a certain number of 
+atmospheric model physics timesteps. This is useful for avoiding scripts running 
+at the end of a resubmission period. Users not wanting this extra functionality 
+should set this panel to zero.
+
+This option should be used if users want to provide scripts that perform
+post-processing of some sort. It is the job of the user to design these scripts.
+
+Scripts are released after 'n' time units and then every 'nth' time unit after
+that if period release is specified.
+
+Such a facility could be used to drive a site/application specific post-
+processing system that could deal with files periodically. 
+
+Users need to see the UM document UM AUTOMATED OUTPUT PROCESSING SYSTEM to find
+out about the return code protocol from these scripts.
+

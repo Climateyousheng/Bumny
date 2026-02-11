@@ -1,0 +1,30 @@
+%C ======================================================
+%C module: nds_run_switch
+%C
+%C Set RUN_MODEL  variable   
+%C
+%C Module included in:
+%C  * SUBMIT   via processing/nds_submit
+%C
+%C Arrays:  models_run
+%C             These are set up via processing/proc_switches
+%C ======================================================
+
+# Loop through all submodels and set up RUN_MODEL
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%T set model_list [string toupper $models_run]
+run_model=false
+for item
+in %TCL putl "$model_list" %ENDTCL
+do
+  varrun=RUN_${item}
+  if test $item != "RCF" ; then 
+  eval varrunval=$`echo $varrun`
+  if test $varrunval = "true" ; then
+    run_model=true
+    break
+  fi
+  fi
+done
+
+RUN_MODEL=$run_model

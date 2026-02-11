@@ -1,0 +1,54 @@
+The Analysis Correction (AC) Scheme is the method by which observational
+information is incrementally applied over a period of time to produce an
+analysis. The process starts with a model background from a previous run of 
+the model. The information from each observation is applied with a triangular
+weighting function, typically with a long insertion period before validity 
+time, and a shorter influence after.
+
+The AC scheme has now largely been replaced by the 3D-Var variational
+assimilation scheme. However, the AC scheme is still used for the assimilation
+of MOPS data in the mesoscale model, and Tropical Convective Rainfall (TCR) in
+the global model.
+
+For further documentation of the AC scheme, refer to UMDP 30 (for scientific
+aspects), and UMDP P3 (for technical aspects).
+
+The period of time over which the AC scheme is used is controlled by 
+specifying the number of minutes after basis time (absolute start of
+run) for the Start and End of AC. This does not affect the time window
+over which data from an observation is used -  this is specified
+through use of the ACP namelist. 
+
+The "Start of AC" would normally be the start of the run (i.e 0).
+
+The "End of AC" depends on both the time-window and the definition of 
+the period of influence of the observational data. 
+For a model run which has N cycles of assimilation, each of H hours,
+the end time (in hours) would be :-
+
+"End of AC" = "Start of AC" + N*H + (length of influence tail)
+
+The start and end times chosen (in minutes) should be consistent with
+the timestep.
+
+For the mesoscale this value would normally be 5.
+
+Observational data is contained in "acobs files", the location of which should
+be specified in the bottom panel. These acobs files are created by the OPS, 
+and there can potentially be more than one acobs file for each time. In the 
+UI, you need to specify the DIRECTORIES containing the acobs files. The UM 
+code checks these directories for files with certain names. Up to 10 
+directories of acobs files can be used.
+
+Extra panels are provided to allow overriding of values in the &ACP and 
+&ACDIAG namelists. &ACP controls all the tunable AC parameters, such as 
+observation time windows, LHN parameters etc, &ACDIAG controls what level of 
+diagnostic output will be produced. For details of these namelists, refer to 
+the UM code or the technical documentation.
+
+The switch for the use of MESOSCALE assimilation should normally be ON, as
+currently the AC scheme is used only in mesoscale assimilation. The switch 
+has been left in for future extension of the use of global precipitation 
+data.
+
+%I gen_suite

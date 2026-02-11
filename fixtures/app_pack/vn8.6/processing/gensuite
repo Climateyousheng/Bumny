@@ -1,0 +1,50 @@
+###################################################
+#                                                 #
+# Generalised Suite Control System Header         #
+#                                                 #
+###################################################
+
+
+set -a            # Set jobscript UNICOS options
+SETOPT=a          # Choose shell "set" options for  lower level scripts
+
+JOBDIR=$UM_JOBDIR
+
+ACCOUNT=$GEN_TIC
+MACHINE=$GEN_MACHINE
+NCPUS=$UM_NPROCS
+
+###################################################
+# Number of processors for model run              #
+###################################################
+
+# Processor decomposition for MPP.
+%T   if { %ATMOS=="T" } {
+# Atmos N-S by E-W
+NMPPN=$UM_ATM_NPROCY
+NMPPE=$UM_ATM_NPROCX
+%T   } else {
+NMPPN=$UM_NPROCS
+NMPPE=1          # This value must be left as 1
+%T   }
+
+
+###################################################
+# UM Run Switches                                 #
+###################################################
+TYPE=NRUN 	   # Indicates run type-CRUN is continuation
+
+%T if { %COMP_ATM == "Y" || %COMP_RCF == "Y" } { 
+ error "Must use pre-compiled executable with Generalised Suite control"
+%T }
+
+# Atmosphere model run indicator
+RUN_ATMOS=%TCL replacep RUN_ATM Y true * false %ENDTCL
+
+# Reconfiguration run indicator
+RCF_ATMOS=%TCL replacep ARECON Y true * false %ENDTCL
+
+# Single Column Model indicator
+SCM_ATMOS=%TCL replacep OCAAA 5 true * false %ENDTCL
+
+

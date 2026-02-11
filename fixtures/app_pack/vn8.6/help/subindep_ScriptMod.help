@@ -1,0 +1,57 @@
+This window allows you to specify various control options that cut across all
+sub-models.
+
+
+Script inserts:
+
+Users can supply script inserts that are added to the UMUI provided
+scripts. One is inserted near the top, the other near the bottom.
+This facility allows the same inserts to be added each time a job is
+processed and is a method of reducing the amount of hand editing
+required.  Users can use the top insert to set environment variables
+that can be used in file naming for example.  The bottom insert could
+be used to insert a script to deal with an output file of a run (for
+example).
+
+
+Defined environment Variables:
+
+Users can set up a number of their own environment variables that can
+be used in the UMUI provided and lower level scripts. These can often
+be used in place of script inserts and are preferable to script
+inserts as it avoids problems when jobs are copied from one person to
+another.
+
+Do _NOT_ use this facility for defining standard directories, such as
+those holding ancillary files. These should be defined from another
+panel:
+
+Model Selection
+	-> Sub-model Independent
+		-> File and Directory naming
+
+The more general environment variables in the script modification
+panel are set first. It is up to you to protect them as necessary. Do
+not use single quotes when defining variables.
+
+
+Script Modifications:
+
+The user can also define a series of modsets that alter one or more of
+the UM scripts.
+
+Modifications will be used in both NRUNs and CRUNs. If the modsets are
+edited, any subsequent NRUNs or CRUNs will be relative to the changed
+mods. (This is of course is different to source code modsets that are
+applied only when compiling the model or reconfiguration executables).
+
+The processing will ignore modsets if there is an N in the right-hand
+column. This enables modsets to be temporarily switched off without
+having to delete their name.
+
+See the UM Basic Users Guide:
+ How to modify source code.
+
+
+
+

@@ -1,0 +1,190 @@
+CHOOSE VERSION
+--------------
+  Only the 3D version of the large-scale precipitation scheme is available.
+  It contains a full microphysical calculation of the cloud phase and 
+  generation of precipitation with water vapour, cloud liquid water and 
+  ice particle content as prognostic variables. Microphysical processes 
+  are treated as transfer terms between water vapour, liquid, ice, and rain.
+  Please refer to Unified Model Documentation Paper 26 for details.
+
+ The <3D> scheme is based on the Wilson and Ballard (1999) scheme,  but contains many 
+      improvements in the specification of the microphysics and the subgrid-scale 
+      parameterization. It treats ice crystals and aggregatates seperately 
+      in the microphysical transfer terms. It is compatible with PC2 and allows 
+      the optional use of graupel as a prognostic variable
+
+  MULTIPLE SUBSTEPS OF THE MICROPHYSICS CODE
+  ------------------------------------------
+  The default number of sub-steps in the microphysics code is 1. However, 
+  you may, if you wish, choose to sub-step the microphysics code. 
+  To do this, click the switch labelled 'Run with multiple iterations of 
+  the precipitation scheme'. The substepping can take place over the whole 
+  model column and/or it can be done on each level in turn.  
+  In both cases the number of substeps must be expressed as an integer value.
+
+  ADDITIONAL PROGNOSTICS
+  ----------------------
+  
+ - Prognostic Rain
+     Including prognostic rain allows the model to advect rain with the 
+     3-dimensional wind field, rather than rely on the assumption of 
+     equilibrium within a model grid column (diagnostic representation). 
+     It is particularly for use with high resolution (~1km) versions of the 
+     model. The corresponding logical in namelist &Run_Precip is L_MCR_QRAIN. 
+     The default is .FALSE., in which case rain is represented 
+     diagnostically.
+
+ - Prognostic Graupel
+     Including prognostic graupel introduces a rimed ice particle (graupel)
+     variable into the model and allows advection with the 3-dimensional 
+     wind field. It is particularly for use with high resolution (~1km) 
+     versions of the model. The corresponding logical in namelist &Run_Precip
+     is L_MCR_QGRAUP. The default is .FALSE., in which case there is no 
+     representation of graupel.
+     
+  USE MIXING RATIO FORMULATION
+  ----------------------------
+  This option allows the model to use mixing ratios for its moist
+  variables in the parallel part of the physics code (otherwise it
+  will use specific humidities). This includes
+  large-scale-precipitation, radiation, and the call to large-scale
+  cloud associated with the microphysics. If the PC2 cloud scheme is
+  being used, this will also use the mixing ratio code (if selected)
+  in the parallel physics part of the model, including the PC2 cloud
+  erosion code.
+  If this option is selected the model will convert between the
+  mixing ratio and specific humidity formulations before and after
+  the parallel physics call. Note that the diagnostics from the
+  parallel physics part of the timestep will be in the form of
+  mixing ratios (and not specific humidities) if this code is selected. 
+
+  ENABLE TAPERING OF CLOUD DROPLETS TOWARDS SURFACE
+  -------------------------------------------------
+  This option allows droplet numbers to be tapered from their maximum
+  value down to a lower value towards the surface, and improves
+  microphysical representation during low cloud and fog events. 
+  To activate this option, select the switch to turn on the option
+  and then enter an altitude below which to taper the droplet
+  numbers (500m is recommended) and a value of the droplet
+  number concentration in metres (20.0E6) is recommended, and is
+  typical of fog measurements made at Cardington MRU. 
+  Selecting the variable taper will allow the droplet concentration 
+  to vary with aerosol mass mixing ratio. The values will alter between 
+  the maximum value you enter (100.0E6 is recommended) and the surface 
+  droplet number concentration, depending on the amount of aerosol 
+  present. 
+
+  ITERATIVE MELTING
+  -----------------
+  This allows a numerically more accurate, but slightly slower, solution to 
+  be found in the melting layer by iterating the ice sedimentation and 
+  melting terms when in the melting layer. This should be selected if the 
+  precise position of the rain / snow boundary on the surface is critical 
+  to your results.
+
+  BIAS REMOVAL SCHEME
+  -------------------
+  Clicking this button activates the scheme of Wood et al. (2002;
+  Atmos. Res., 65, 109-128) to improve the parameterization of
+  the autoconversion process, as used by HadGEM1. It is based upon a
+  triangular distribution of moisture in a gridbox consistent with the
+  Smith cloud scheme, hence is only formally accurate when the cloud
+  scheme is being run without modifications such as empirically adjusted
+  cloud fraction, area cloud fraction, or PC2. However, the bias removal
+  scheme can still run with these options and give an approximate removal
+  of the bias
+
+  USE AUTOCONVERSION FORMULATION BASED ON TRIPOLI AND COTTON FORMULATION
+  ----------------------------------------------------------------------
+  This selects the general parametrization method used in the original
+  Wilson and Ballard scheme.Selecting this switch for 3D allows the
+  earlier, more simple, formulation to override both the later, more
+  complex autoconversion limit calculation based on concentrations of
+  droplets larger than 20 um, and also the more generic rate calculation.
+
+  USE IMPROVED WARM RAIN MICROPHYSICS SCHEME
+  ---------------------------------------------------------------
+  This switch modifies much of the warm rain microphysics code
+  from its original formulation. The autoconversion and accretion
+  parametrizations are replaced by those of Khairoutdinov and Kogan
+  (2000, MWR), the treatment of rain fraction is now consistent with
+  the prognostic rain formulation, and several bugs have been fixed.
+  Furthermore, the autoconversion and accretion are bias corrected
+  for sub-grid variability in cloud and rain water based on the
+  parametrizations discussed in Boutle et al. (2013, QJ). The user
+  may specify the cloud-rain correlation coefficient for use in the
+  accretion parametrization. Subgrid variabiliy of cloud water
+  content may be parametrized as in Boutle et al, or for consistency,
+  set by the same parametrization as used in the cloud generator that
+  provides cloud fields to the radiation scheme.
+
+  USE ABEL AND SHIPWAY (2007) RAIN FALL SPEEDS
+  --------------------------------------------
+  In order to accurately represent light rain and drizzle, a reduced fall 
+  speed based on Abel and Shipway (2007, QJRMS) has been inserted into the 
+  UM. This allows lighter rain rates to fall slower and evaporate spotty 
+  drizzle before it reaches the earth's surface. If prognostic rain is 
+  switched on, activating the button 'Use Abel and Shipway (2007) rain fall 
+  speeds' will turn the scheme on. For diagnostic rain (where the 'include 
+  prognostic rain' option is turned off), the scheme is slightly different, 
+  based on enhancing the evaporation rates of drizzle. In the code, this is 
+  defaulted to happen at all rain rates less than 10 mm per hour.
+
+  SPECIFY LINK BETWEEN AEROSOLS AND DROPLETS
+  ------------------------------------------
+  The autoconversion requires an estimate of droplet number
+  in order to calculate limits and conversion rates. 
+
+  Droplet number may be calculated via one of the following inputs:
+
+  1) The boundary layer murk aerosol (see Atmos_Ancil_Climatologies_Aerosol) by 
+     selecting the 'Use murk aerosol' button in this panel. 
+  2) The CLASSIC or UKCA interactive aerosol scheme (see the 'Second Indirect Effect' 
+     options in window atmos_Science_Section_Aero_Effects). 
+  3) Climatological aerosol, by selecting the option 'Use climatological aerosol to 
+     calculate droplet number', then fixed aerosol concentrations will be used to 
+     calculate cloud droplet number. 
+
+  If neither of these three options is chosen, specified values of droplet 
+  number concentrations are used (see below).
+
+  For the murk aerosol scheme (option 1 above) the default formulation is described 
+  in Haywood et al (2008), QJRMS 134 1817--1832. However, selecting the checkbox 
+  'Change to Clark et al murk aerosol scheme' will alter the formulation to that 
+  described in Clark et al (2008), QJRMS 134 1801--1816. This changes the assumptions 
+  in the precipitation scheme only and does not affect the calculation of visibility. 
+
+  CHOOSE DRIZZLE AND RAIN REPRESENTATION
+  --------------------------------------
+  This allows the user to set  some parameters relating to the 
+  the raindrop size distribution. 
+  You are advised to read UMDP26 to understand fully the settings 
+  of these parameters, and it is recommended that you do not 
+  alter them without advice from a microphysics code expert. 
+
+  Raindrop size distribution standard parameters are as follows (Abel & Boutle, 2012, QJ):
+    X1R: 0.22
+    X2R: 2.20
+
+  LATERAL BOUNDARIES
+  ------------------
+  Users running limited area runs with the mixed phase precipitation scheme
+  are advised to check the format of boundary conditions specified in the 
+  window
+  Atmosphere->
+    Ancillary... ->
+      Other..-> 
+         Lateral Boundary Conditions.
+
+  The corresponding switch determining whether or not to expect an additional 
+  prognostic variable in the driving Lateral Boundary Conditions (LBCs) for 
+  Limited Area Models may need to be set if any of the prognostics are turned 
+  on. The corresponding logicals in namelist &NLSTCATM are L_MCR_QCF2_LBC etc. 
+
+  A model with one or more of the additional prognostics turned on that is also 
+  generating LBCs for a sub-domain will automatically include the corresponding 
+  prognostic in the generated LBCs.
+
+-------------
+%I compile_modes
+

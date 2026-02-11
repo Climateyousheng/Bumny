@@ -1,0 +1,7 @@
+The Nudging code requires certain diagnostics to be requested in 
+STASH by switching on a macro. 
+               
+If using the Nudging code, please select the option Nudging Diagnostic macro. 
+
+If the diagnostics are not in STASH when nudging is ON, the model 
+will stop with error: 'Nudging diagnostics not requested'.

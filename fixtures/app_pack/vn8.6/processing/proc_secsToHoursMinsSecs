@@ -1,0 +1,30 @@
+%TCL
+#==============================================================================
+# RCS Header:
+#   File         [$Source: /home/hc0300/umui/srce_code/UMUI_archive/umui2.0/vn7.6/processing/proc_secsToHoursMinsSecs,v $]
+#   Revision     [$Revision: 1.1 $]     Named [$Name: head#main $]
+#   Last checkin [$Date: 2010/02/02 17:07:47 $]
+#   Author       [$Author: umui $]
+#==============================================================================
+
+# secsToHoursMinsSecs
+#  Converts an integer representing seconds into a time string representing 
+#  hours:minutes:seconds in HH:MM:SS format
+# Argument
+#  seconds: Must be greater than zero and less than 100 hours equivalent
+# Result
+#  String formatted as HH:MM:SS padded with zeros: eg. 03:40:20
+
+proc secsToHoursMinsSecs {seconds} {
+
+    set hours [expr $seconds/3600]
+    set remainingSeconds [expr $seconds - 3600 * $hours]
+
+    set minutes [expr $remainingSeconds/60]
+    set seconds [expr $remainingSeconds - 60 * $minutes]
+
+    set hms [format "%%02d:%%02d:%%02d" $hours $minutes $seconds]
+
+    return $hms
+}
+%ENDTCL

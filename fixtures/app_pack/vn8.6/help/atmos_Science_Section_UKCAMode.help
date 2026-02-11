@@ -1,0 +1,111 @@
+UKCA MODE Aerosol Scheme
+========================
+General Information
+===================
+The UKCA-mode aerosol scheme is an implementation of the GLOMAP aerosol model
+(e.g. Spracklen et al, 2005, ACP) within a multi-modal aerosol dynamics
+framework for use in the Met Office Unified Model structure. It is described
+briefly in Manktelow et al (2007, Geophys. Res. Lett.) and in detail in
+Mann et al (2011, Geosci. Mod. Dev).
+
+Set Aerosol Species and Modes:
+------------------------------
+The MODE aerosol scheme is currently available in the UM in 2 configurations
+described below:
+1) sulphate and sea-salt components in 4 soluble modes.
+2) sulphate, sea-salt, black carbon (BC) & organic carbon (OC) components
+   in 4 soluble modes and 1 insoluble mode.
+In 2) secondary organic carbon produced from the oxidation of biogenic 
+monoterpenes is stored together with the primary organic carbon in a single 
+OC component (OC). Similarly, primary BC/OC aerosol are emitted into an 
+insoluble Aitken mode and age to the soluble modes at a rate determined by 
+the condensation of sulphuric acid vapour and gas phase condensible organic 
+species ("microphysical ageing").
+
+Primary emissions:
+==================
+
+The user can specify whether or not to include primary emissions of
+sulphate, sea-salt and carbonaceous aerosol.
+
+Primary Sulphate emissions:
+---------------------------
+Primary sulphate emissions refers to sub-grid scale conversion of SO2 to 
+sulphate aerosol.
+All SO2 sources (anthropogenic, volcanic, biomass burning) produce primary 
+sulphate. The user can set the fraction of SO2 emissions that are emitted 
+as primary sulphate. The recommended value is 2.5% as advised for AEROCOM 
+(Dentener et al, 2006, ACP).
+The size distribution for the emitted primary SO4 for the differing SO2 
+sources is:
+ Anthropogenic             : 50% to mode1: mndiam1= 150nm,stdev1=1.59 (to acc-sol)
+      (SO2emlo,SO2emhi)      50% to mode2: mndiam2=1500nm,stdev2=2.00 (to cor-sol)
+ Volcanic & biomass burning: 50% to mode1: mndiam1=  60nm,stdev1=1.59 (to Ait-sol)
+                             50% to mode2: nmdiam2= 150nm,stdev2=1.59 (to acc-sol)
+These follow the size settings used for the HAM model described in Stier et al 
+(2005).
+Note that if option 1 for "Aerosol Species & Mode" is set, smaller particle size
+settings are used to increase the primary SO4 number emitted to account for the
+absent primary emissions from BC/OC. In this case the following settings are 
+used for anthropogenic SO2 as in Spracklen et al (2005):
+ Anthropogenic SO4         : 15% to mode1: mndiam1=10nm,stdev1=1.6 (to Ait-sol)
+                             85% to mode2: mndiam2=70nm,stdev2=2.0 (to Ait-sol)
+
+Primary Sea-salt emissions:
+---------------------------
+Primary sea-salt emissions are driven by the model wind speed at each timestep
+based on the Gong-Monahan sea-spray source function (Gong, 2003)
+
+Primary BC/OC emissions:
+------------------------
+Primary BC/OC emissions from anthropogenic and biomass burning sources are 
+included:
+For anthropogenic emissions, two types are traced with different size settings
+for emissions from fossil-fuel combustion and from bio-fuel combustion following
+the emissions types from the SPEW emissions database (Bond et al, 2004).
+Size settings below are used to match AEROCOM recommendations 
+(Dentener et al, 2006)
+ Biofuel combustion & biomass burning BC/OC: mndiam=150nm,stdev=1.59 (to Ait-sol/Ait-ins)
+ Fossil-fuel combustion BC/OC              : mndiam= 60nm,stdev=1.59 (to Ait-sol/Ait-ins)
+
+Define Aerosol Processes:
+=========================
+Define No. of Sub-steps for nucleation and condensation:
+--------------------------------------------------------
+Allows the user to specify fewer or more sub-steps (within a chemistry time 
+step) within which to allow the 3 processes of 1) chemical production, 
+2) condensation, 3) nucleation to compete for sulphuric acid vapour.
+Note that currently in the UM the chemical production of H2SO4 is applied within
+the UKCA chemistry, so this sub-stepping resolves only the competition between
+condensation and new particle formation (2 and 3).
+Recommended setting to use is 15.
+
+Include binary homogenous sulphate nucleation:
+----------------------------------------------
+This allows the user to switch on/off new particle formation by binary H2SO4-H2O
+nucleation (produces particles in the nucleation mode).
+Recommended setting to use is ON.
+
+Include Boundary Layer sulphate nucleation:
+-------------------------------------------
+This allows the user to switch on/off new particle formation by boundary layer
+(BL) nucleation (produces particles in the nucleation mode).
+The next option is available only if BL nucleation is selected.
+
+Parametrisation method for BL nucleation:
+-----------------------------------------
+This option specifies the parametrization method for Boundary layer nucleation.
+Options available are 'Activation', 'Kinetic' and 'Organic mediated (as per
+Metzger et al, PNAS, 2010)'.
+
+Calculate CDN using Abdul-Razzak and Ghan method:
+-------------------------------------------------
+This is a Mechanistic activation scheme based on the Abdul-Razzak and Ghan
+method that calculates the cloud droplet number based on the "fraction activated"
+in each mode. Currently the CDNC is available as a diagnostic (34162/34163) but
+in future, this scheme will be extended to be fed back into the UM cloud
+processing scheme.
+
+Calculate CCN at fixed super-saturation:
+----------------------------------------
+This option is active only for the ARG scheme and sets the logical L_UKCA_SFIXED

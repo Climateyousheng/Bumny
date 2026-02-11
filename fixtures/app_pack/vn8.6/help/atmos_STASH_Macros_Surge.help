@@ -1,0 +1,12 @@
+This window allows users to specify which STASHmacro to use to drive the storm
+surge model. This model is external to the UM but part of the operational suite
+at UKMO.
+
+This macro asks STASH to provide diagnostics to the output streams 81 and 82 
+(if split output is required). Set the split time to a time after the end of 
+the output period to avoid splitting.
+
+
+Most users will not require such output.
+
+%I macros

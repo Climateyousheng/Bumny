@@ -1,0 +1,53 @@
+===============================================
+Accelerated IOS Options
+===============================================
+
+Asynchronous STASH Output (IOS_use_async_stash)
+------------------------------------------------
+Use asynchronous communications to accelerate diagnostics output.
+
+
+Asynchronous Dump Output (IOS_use_async_dump)
+------------------------------------------------
+Use asynchronous communications to accelerate dump output
+
+
+Use Helper threads for low level IO
+-------------------------------------------------
+If there are spare threads available (more than 2 OpenMP threads
+in the job, then they should be allocated as helper threads to the 
+low layer IO routines (C95_2B Only) 
+
+Number of field levels to coalesce (IOS_async_levs_per_pack)
+-----------------------------------------------
+Both accelerated dumps and stash can pack multiple field levels into 
+a single transaction before dispatch to an IO server. Increasing this 
+value will result in larger MPI messages (that are more efficient on 
+most platforms), but also increase memory overhead and delay sending 
+a particular model level. 
+
+
+Accelerated Payload Concurrency (IOS_as_concurrency)
+-----------------------------------------------
+This is the number of coalesced accelerated transactions that the 
+atmosphere model may initiate before having to check for completion. 
+It includes the number genuinely "in-flight" and those that have been 
+created and in the process of being packed. It can be thought of as 
+the number of concurrent in-flight operations decoupling the model 
+from the IO server. Increasing this value  increases performance and, 
+proportionally, the memory overhead on each task. It is recommended 
+that the minimum is the number of units in use by the subsystems 
+selected plus one to avoid pathological performance problems (e.g. 
+with just accelerated dumps, a value of 2 is recommended as minimum). 
+Note that completion of such an operation is the point at which the 
+IO server has processed it.
+
+
+Send empty tiles to IOS (IOS_async_send_null)
+------------------------------------------------
+For subdomained output requests, processors with no relevent data 
+can send data or not. Not sending data reduces network traffic, 
+however choosing to send empty tiles maintains the same message 
+footprint for all packed payloads, which may be advantagious in 
+forcing communations to a particular low level MPI protocol. 
+Which is best will be hardware and MPI layer dependent. 

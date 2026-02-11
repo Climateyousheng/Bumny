@@ -1,0 +1,109 @@
+<M001_S015_I214>
+STASH item specific help for  
+0,15,214  POTENTIAL VORTICITY ON THETA LEVELS
+
+This diagnostic outputs pv on isentropic surfaces at the end of timestep.  
+It uses the end of timestep values of u and v as well as the height fields 
+and theta.  Its units are m^2 kg^-1 K s^-1 but people often talk in terms 
+of PV units where one PV unit is 10^6 m^2 kg^-1 K s^-1, in which case the 
+dynamical tropopause can be taken as 2 PV units.
+
+
+</M001_S015_I214>
+#
+<M001_S015_I215>
+STASH item specific help for
+(1,15,215) - theta on pv=+/-2*10^-6 surface.
+
+This is used in the calculation of a blocking index for the Northern
+and Southern Hemispheres.  Output is on a single level and a single value 
+per day is used for the blocking index.  
+
+Under most synoptic scale regimes theta on the pv surface
+will decrease towards the pole.  The blocking index is a measure of this 
+gradient.  When there is a positive anomaly in the theta field ie there is 
+an area of high theta polewards of an area of low theta, then the blocking 
+index will be positive.
+ 
+</M001_S015_I215>
+#
+<M001_S015_I216>
+STASH item specific help for
+(1,15,216) - theta at pv points.
+
+This is an intermediate value used in the calculation of 15(215 and 218)
+and some others in section 15.  Output is on rho levels.
+
+</M001_S015_I216>
+#
+<M001_S015_I217>
+STASH item specific help for
+(1, 15, 217) - pv on model levels
+
+This is an intermediate value used in the calculation of several section
+15 diagnostics.  Output is on rho levels.
+
+</M001_S015_I217>
+#
+<M001_S015_I218>
+Item (1:15:218) 
+
+Potential Vorticity (K m^2/(kg s)) interpolated on to model theta levels.  
+</M001_S015_I218>
+#
+<M001_S015_I260>
+Item (1:15:260)
+
+Total mass flux (Rho*w) on rho levels
+</M001_S015_I260>
+#
+<M001_S015_I261>
+Item (1:15:261)
+
+Momentum flux (Rho*u*w) on rho levels
+</M001_S015_I261>
+#
+<M001_S015_I262>
+Item (1:15:262)
+
+Momentum flux (Rho*v*w) on rho levels
+</M001_S015_I262>
+#
+<M001_S015_I263>
+Item (1:15:263)
+
+Upward mass flux (Rho*w with w > 0m/s) on rho levels
+</M001_S015_I263>
+#
+<M001_S015_I264>
+Item (1:15:264)
+
+Downward mass flux (Rho*w with w < 0m/s) on rho levels
+</M001_S015_I264>
+#
+<M001_S015_I265>
+Item (1:15:265)
+
+Upward convective mass flux (Rho*w with w > 1m/s) on rho levels
+</M001_S015_I265>
+#
+<M001_S015_I266>
+Item (1:15:266)
+
+Downward convective mass flux (Rho*w with w < -1m/s) on rho levels
+</M001_S015_I266>
+#
+<M001_S015_I270>
+Item (1:15:270)
+
+Square of norm of Fourier transform of vertical velocity, w.
+</M001_S015_I270>
+#
+<M001_S015_I271>
+Item: ( 1:15:271)
+
+This diagnostic is the true density (not density*r*r)
+
+
+</M001_S015_I271>
+#

@@ -1,0 +1,32 @@
+The Check Setup button
+This button starts an exhaustive check of all variables in use 
+in the current job. Two windows are produced:
+
+	* The countdown window
+	* The error log window
+
+The errors given in the error log window will show you what type of
+error has occurred, the window the error has occurred in and the
+navigation path to the window.
+
+Typical errors include:
+
+	* Blank not allowed: a required variable has not been set.
+	* List check error: a variable is set to a value which is not
+                            on the list of allowed values
+	* Cross Check error: you have made a change which has produced
+                             an inconsistency in another window.
+
+If you get any errors but on opening the appropriate window you find
+the error is not apparent, then pressing "Close" should produce a more
+informative message. Occasionally, the process of opening a window sets 
+a hidden variable which is enough to cure the error. In this case you 
+will not get an error message by opening and closing the window.
+
+If you get no errors, the job is ok. This does not necessarily mean
+that the model will compile and run successfully, it means that the
+variables that should be set are set to the correct type and are
+within specified ranges. 
+
+Check Setup can take a few minutes to run. It takes longer to check a
+coupled Atmosphere/Ocean model than a single Atmosphere or Ocean model.

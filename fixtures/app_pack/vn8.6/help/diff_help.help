@@ -1,0 +1,45 @@
+The job difference function can provide two differing levels of output
+depending on requirements. In most cases the "Short" output is
+suitable since it outputs all the significant differences between
+jobs. The extra information given by the "Long" output concerns the
+answers to questions that are greyed out in one job but that are not
+greyed out (are active) in the second job.  Given a "Long" difference
+output and one of the jobs it will therefore be possible to exactly
+recreate the second job.
+
+For example, imagine a window with two questions. The first question
+is "Do you want specify extra compile options ?" and the second
+question is "What options do you want ?". If the answer to the first
+question is "no", the second question does not need to be answered and
+is greyed out.
+
+Suppose in job A, the first question is set to "Yes" and in job B it
+is set to "No". The "Short" output will simply tell you this:
+
+Check box: Do you want specify extra compile options ?
+ Job aafea: Entry is set to 'ON'
+ Job aafeb: Entry is set to 'OFF'
+
+and will ignore the second question. So if job B were opened and the
+question set to "Yes" then the two jobs would not necessarily match
+because the answer to the second question in job B might have been
+different.
+
+The "Long" output option, however, does consider the second
+question. If the answers differ the output will say something like:
+
+Check box: Using the FPP pre-processor
+ Job aafea: Entry is set to 'ON'
+ Job aafeb: Entry is set to 'OFF'
+Entry box: What options do you want ?
+ Job aafea: Entry is set to 'i'
+ Job aafeb: Entry is inactive
+
+Thus the "Long" output fully explains how to make job B identical to job A;
+the first question needs to be switched to "Yes" and the second question
+needs to be set to "i".
+
+NB The reason for putting "Entry is inactive" rather than putting a
+value is that, since it is inactive it has not been checked by the
+interface system and may therefore contain irrelevant and misleading
+garbage.

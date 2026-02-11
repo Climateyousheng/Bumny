@@ -1,0 +1,17 @@
+#==============================================================================
+# RCS Header:
+#   File         [$Source: /home/hc0300/umui/srce_code/UMUI_archive/umui2.0/vn7.6/variables/link_variables,v $]
+#   Revision     [$Revision: 1.1 $]     Named [$Name: head#main $]
+#   Last checkin [$Date: 2010/02/02 17:05:44 $]
+#   Author       [$Author: umui $]
+#==============================================================================
+ES_RAD     set_ES_RAD     ATMOS_SR(1) ATMOS_SR(2)
+BL_TYPE    set_BL_TYPE    ATMOS_SR(3)
+BL_SPICE   set_BL_SPICE   ATMOS_SR(3)
+BL_CHEM    set_BL_CHEM    ATMOS_SR(3)
+CON_CHEM   set_CON_CHEM   ATMOS_SR(5)
+LSP_CHEM   set_LSP_CHEM   ATMOS_SR(4)
+LSPICE     set_LSPICE     ATMOS_SR(4)
+HYD_TYPE   set_HYD_TYPE   ATMOS_SR(8)
+LSPICECOMP set_LSPICECOMP ATMOS_SR(9)
+VEG_TYPE   set_VEG_TYPE   ATMOS_SR(19) JULES_SR(8)

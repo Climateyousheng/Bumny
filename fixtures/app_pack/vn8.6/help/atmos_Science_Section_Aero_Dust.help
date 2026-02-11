@@ -1,0 +1,61 @@
+The CLASSIC dust scheme emits and transports mineral dust, according 
+to the surface properties and the friction velocity (U*). Dust can be 
+represented with either 6 or 2 size divisions, with the following 
+size ranges:
+
+6 divisions: Radii 0.03-0.1, 0.1-0.3, 0.3-1, 1-3, 3-10, 10-30 microns
+2 division: Radii 0.1-2.0, 2.0-10.0 microns
+
+In order to calculate the emissions, a horizontal flux of dust/sand is 
+calculated over 9 size divisions, extending to 1000 microns as the 
+threshold U* varies for each of these size bins.
+
+Dust can also be emitted with either a variable or a constant emission 
+size distribution. The variable emission size distribution is proportional 
+to the horizontal flux of the first 6 bins of the horizontal flux, while 
+the constant distribution is chosen to match observations. This can be 
+replaced with a user-defined distribution by setting the variable size_dist 
+in the namelist run_dust via a hand-edit. 
+
+The current production climate model uses 6 size divisions, with a 
+variable emission size distribution. NOTE: The fixed size distribution 
+will require a very different tuning of the dust emission scheme as a 
+much smaller proportion of the emitted dust is put into the largest 
+bins, which have the shortest airborne lifetimes. It should therefore 
+be used with caution.
+
+Also note that without exact calculation of scattering in the Longwave, 
+the radiative effects can not be calculated reliably.
+
+Diagnose mineral dust emissions only: This option allows the model 
+to calculate mineral dust emissions (as well as other fields such 
+as U*, U*t) without the cost of the full prognostic dust scheme. 
+This should be used with caution because these emissions also include 
+dust that would fall back to the surface in the same timestep in the 
+full prognostic scheme. Obviously, it also contains no information 
+on the vertical distribution of dust or where it would be advected 
+in the full prognostic scheme. 
+
+Factors by which to multiply U*, level 1 soil moisture and Global 
+tuning factor: These parameters (us_am, sm_corr and horiz_d) were 
+previously hard-wired in the code. us_am accounts for the fact that 
+the thresholds in the code are for point-like U* rather than the 
+grid-box mean. sm_corr accounts for the fact that it is only the soil 
+moisture at the very top fraction of a cm rather than the top 10cm 
+that will limit dust emissions. The Global tuning factor is used as a 
+simple tuning knob with which to increase/decrease dust emissions. 
+
+Emit dust from bare soil components of vegetated gridboxes:
+The vegetation fractions within the UM are either constant or vary on 
+an annual to decadal timescale. In regions with a strong wet and dry 
+season some vegetation dies away to leave bare soil during the dry 
+season, making these regions a significant dust source (eg the Sahel). 
+The options for representing this process currently are:
+0 - Do not represent dust emission from seasonal vegetation
+1 - Represent the dieback of vegetation using the Leaf Area Index (LAI),
+    which varies on a weekly to monthly timescale, to calculate a bare 
+    soil 'Radiative fraction' as used to calculate the albedo. A scaling
+    factor can be modified to reduce/increase the emission for each
+    vegetation type. For JULES runs DUST_VEG_EM_IO is in the 
+    JULES_PFTPARM namelist.
+Further, more sophisticated options, may be added in future.
