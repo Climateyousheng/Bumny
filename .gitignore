@@ -36,3 +36,6 @@ Thumbs.db
 # Env
 .env
 .env.local
+
+# Large data
+fixtures/live_db/
