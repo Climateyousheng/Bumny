@@ -80,12 +80,14 @@ export interface BlockComponent {
 export interface CaseComponent {
   readonly kind: "case";
   readonly expression: string;
+  readonly active?: boolean;
   readonly children: readonly PanComponent[];
 }
 
 export interface InvisibleComponent {
   readonly kind: "invisible";
   readonly expression: string;
+  readonly active?: boolean;
   readonly children: readonly PanComponent[];
 }
 

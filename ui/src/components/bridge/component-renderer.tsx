@@ -1,5 +1,4 @@
 import type { PanComponent, VariableValues } from "@/types/bridge";
-import { evaluate } from "@/lib/expression-evaluator";
 import { TextDisplay } from "./components/text-display";
 import { EntryDisplay } from "./components/entry-display";
 import { CheckDisplay } from "./components/check-display";
@@ -10,14 +9,12 @@ import { PushNextButton } from "./components/push-next-button";
 interface ComponentRendererProps {
   readonly component: PanComponent;
   readonly variables: VariableValues;
-  readonly allVariables: VariableValues;
   readonly onNavigate: (winId: string) => void;
 }
 
 export function ComponentRenderer({
   component,
   variables,
-  allVariables,
   onNavigate,
 }: ComponentRendererProps) {
   switch (component.kind) {
@@ -50,7 +47,6 @@ export function ComponentRenderer({
               key={i}
               component={child}
               variables={variables}
-              allVariables={allVariables}
               onNavigate={onNavigate}
             />
           ))}
@@ -58,7 +54,7 @@ export function ComponentRenderer({
       );
 
     case "case": {
-      const active = evaluateSafe(component.expression, allVariables);
+      const active = component.active ?? true;
       return (
         <div className={active ? undefined : "opacity-40 pointer-events-none"}>
           {component.children.map((child, i) => (
@@ -66,7 +62,6 @@ export function ComponentRenderer({
               key={i}
               component={child}
               variables={variables}
-              allVariables={allVariables}
               onNavigate={onNavigate}
             />
           ))}
@@ -75,7 +70,7 @@ export function ComponentRenderer({
     }
 
     case "invisible": {
-      const visible = evaluateSafe(component.expression, allVariables);
+      const visible = component.active ?? true;
       if (!visible) return null;
       return (
         <>
@@ -84,7 +79,6 @@ export function ComponentRenderer({
               key={i}
               component={child}
               variables={variables}
-              allVariables={allVariables}
               onNavigate={onNavigate}
             />
           ))}
@@ -94,18 +88,9 @@ export function ComponentRenderer({
 
     case "element":
     case "elementautonum":
-      // These are children of table, rendered there directly
       return null;
 
     default:
       return null;
-  }
-}
-
-function evaluateSafe(expression: string, variables: VariableValues): boolean {
-  try {
-    return evaluate(expression, variables);
-  } catch {
-    return true;
   }
 }

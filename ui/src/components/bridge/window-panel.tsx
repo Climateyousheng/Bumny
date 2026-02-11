@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useWindow, useWindowHelp, useWindowVariables, useVariables } from "@/hooks/use-bridge";
+import { useWindow, useWindowHelp, useWindowVariables } from "@/hooks/use-bridge";
 import { WindowHeader } from "./window-header";
 import { HelpDialog } from "./help-dialog";
 import { ComponentRenderer } from "./component-renderer";
@@ -17,17 +17,15 @@ interface WindowPanelProps {
 export function WindowPanel({ winId, expId, jobId, onNavigate }: WindowPanelProps) {
   const [helpOpen, setHelpOpen] = useState(false);
 
-  const { data: window, isLoading: winLoading, error: winError } = useWindow(winId);
+  const { data: window, isLoading: winLoading, error: winError } = useWindow(winId, expId, jobId);
   const { data: help } = useWindowHelp(winId);
   const { data: windowVars } = useWindowVariables(expId, jobId, winId);
-  const { data: allVars } = useVariables(expId, jobId);
 
   if (winLoading) return <LoadingSkeleton />;
   if (winError) return <ErrorAlert message={winError.message} />;
   if (!window) return <ErrorAlert message="Window not found" />;
 
   const variables = windowVars ?? {};
-  const allVariables = allVars ?? {};
 
   return (
     <div className="space-y-4">
@@ -45,7 +43,6 @@ export function WindowPanel({ winId, expId, jobId, onNavigate }: WindowPanelProp
               key={i}
               component={comp}
               variables={variables}
-              allVariables={allVariables}
               onNavigate={onNavigate}
             />
           ))}

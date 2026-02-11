@@ -8,7 +8,6 @@ import {
   useWindowHelp,
   useRegister,
   usePartitions,
-  useVariables,
   useWindowVariables,
 } from "@/hooks/use-bridge";
 
@@ -79,16 +78,6 @@ describe("usePartitions", () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
     expect(result.current.data!.length).toBe(1);
     expect(result.current.data![0]!.key).toBe("a");
-  });
-});
-
-describe("useVariables", () => {
-  it("fetches and selects variables", async () => {
-    const { result } = renderHook(() => useVariables("xqgt", "a"), {
-      wrapper: createWrapper(),
-    });
-    await waitFor(() => expect(result.current.isSuccess).toBe(true));
-    expect(result.current.data).toEqual({ OCAAA: "1", NCOLSAG: "96" });
   });
 });
 

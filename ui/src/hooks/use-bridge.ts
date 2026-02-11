@@ -10,12 +10,11 @@ export function useNavTree() {
   });
 }
 
-export function useWindow(winId: string | null) {
+export function useWindow(winId: string | null, expId?: string, jobId?: string) {
   return useQuery({
-    queryKey: queryKeys.bridge.window(winId ?? ""),
-    queryFn: () => api.getWindow(winId!),
+    queryKey: queryKeys.bridge.window(winId ?? "", expId, jobId),
+    queryFn: () => api.getWindow(winId!, expId, jobId),
     enabled: winId !== null,
-    staleTime: Infinity,
   });
 }
 
@@ -41,14 +40,6 @@ export function usePartitions() {
     queryKey: queryKeys.bridge.partitions,
     queryFn: api.getPartitions,
     staleTime: Infinity,
-  });
-}
-
-export function useVariables(expId: string, jobId: string) {
-  return useQuery({
-    queryKey: queryKeys.bridge.variables(expId, jobId),
-    queryFn: () => api.getVariables(expId, jobId),
-    select: (data) => data.variables,
   });
 }
 

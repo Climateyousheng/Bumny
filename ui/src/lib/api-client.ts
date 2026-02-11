@@ -142,8 +142,12 @@ export function getNavTree(): Promise<NavNodeResponse[]> {
   return request("/bridge/nav");
 }
 
-export function getWindow(winId: string): Promise<WindowResponse> {
-  return request(`/bridge/windows/${winId}`);
+export function getWindow(winId: string, expId?: string, jobId?: string): Promise<WindowResponse> {
+  const params = new URLSearchParams();
+  if (expId) params.set("exp_id", expId);
+  if (jobId) params.set("job_id", jobId);
+  const qs = params.toString();
+  return request(`/bridge/windows/${winId}${qs ? `?${qs}` : ""}`);
 }
 
 export function getWindowHelp(winId: string): Promise<HelpResponse> {
@@ -156,10 +160,6 @@ export function getRegister(): Promise<VariableRegistrationResponse[]> {
 
 export function getPartitions(): Promise<PartitionResponse[]> {
   return request("/bridge/partitions");
-}
-
-export function getVariables(expId: string, jobId: string): Promise<VariablesResponse> {
-  return request(`/bridge/variables/${expId}/${jobId}`);
 }
 
 export function getWindowVariables(expId: string, jobId: string, winId: string): Promise<VariablesResponse> {

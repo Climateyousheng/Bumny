@@ -181,13 +181,8 @@ export const handlers = [
     return HttpResponse.json([buildPartition()]);
   }),
 
-  // Bridge - Variables (all)
+  // Bridge - Variables (scoped to window)
   http.get("/bridge/variables/:expId/:jobId/:winId", () => {
-    return HttpResponse.json(buildVariablesResponse());
-  }),
-
-  // Bridge - Variables (scoped to window) -- must come after the more specific route above
-  http.get("/bridge/variables/:expId/:jobId", () => {
     return HttpResponse.json(buildVariablesResponse());
   }),
 ];

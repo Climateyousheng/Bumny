@@ -5,7 +5,8 @@ from __future__ import annotations
 from dataclasses import asdict
 from typing import Any
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
+from umui_core.formats.expressions import evaluate
 from umui_core.ops import bridge as bridge_ops
 
 from umui_api.dependencies import AppPack, Fs, Paths, User  # noqa: TC001
@@ -50,23 +51,54 @@ def _nav_node_to_response(node: Any) -> NavNodeResponse:
 
 
 @router.get("/windows/{win_id}", response_model=WindowResponse)
-def get_window(win_id: str, fs: Fs, app_pack: AppPack) -> WindowResponse:
-    """Get parsed window definition with components."""
+def get_window(
+    win_id: str,
+    fs: Fs,
+    app_pack: AppPack,
+    paths: Paths,
+    exp_id: str | None = Query(None),
+    job_id: str | None = Query(None),
+) -> WindowResponse:
+    """Get parsed window definition with components.
+
+    When exp_id and job_id are provided, expressions in case/invisible
+    components are evaluated server-side and an ``active`` boolean is
+    added to each.  This avoids sending all variables to the client.
+    """
     win = bridge_ops.load_window(fs, app_pack, win_id)
+
+    variables: dict[str, str | tuple[str, ...]] | None = None
+    if exp_id is not None and job_id is not None:
+        variables = bridge_ops.read_variables(fs, paths, exp_id, job_id)
+
     return WindowResponse(
         win_id=win.win_id,
         title=win.title,
         win_type=win.win_type,
-        components=[_component_to_dict(c) for c in win.components],
+        components=[_component_to_dict(c, variables) for c in win.components],
     )
 
 
-def _component_to_dict(comp: Any) -> dict[str, Any]:
-    """Convert a PanComponent to a serialisable dict."""
+def _component_to_dict(
+    comp: Any,
+    variables: dict[str, str | tuple[str, ...]] | None = None,
+) -> dict[str, Any]:
+    """Convert a PanComponent to a serialisable dict.
+
+    If *variables* is provided, evaluate expressions in case/invisible
+    components and set an ``active`` boolean on them.
+    """
     d: dict[str, Any] = asdict(comp)
-    # Recursively convert nested children
+
+    if variables is not None and d.get("kind") in ("case", "invisible"):
+        try:
+            d["active"] = evaluate(d["expression"], variables)
+        except Exception:
+            d["active"] = True
+
     if "children" in d:
-        d["children"] = [_component_to_dict(c) for c in comp.children]
+        d["children"] = [_component_to_dict(c, variables) for c in comp.children]
+
     return d
 
 

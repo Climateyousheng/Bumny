@@ -5,7 +5,6 @@ import type { PanComponent, VariableValues } from "@/types/bridge";
 
 const defaultProps = {
   variables: { OCAAA: "1", NCOLSAG: "96" } as VariableValues,
-  allVariables: { OCAAA: "1", NCOLSAG: "96" } as VariableValues,
   onNavigate: vi.fn(),
 };
 
@@ -41,7 +40,6 @@ describe("ComponentRenderer", () => {
       <ComponentRenderer
         component={component}
         variables={{ FEAT: "Y" }}
-        allVariables={{}}
         onNavigate={vi.fn()}
       />,
     );
@@ -79,10 +77,11 @@ describe("ComponentRenderer", () => {
     expect(screen.getByText("Indented text")).toBeInTheDocument();
   });
 
-  it("renders case active when expression is true", () => {
+  it("renders case active when active is true", () => {
     const component: PanComponent = {
       kind: "case",
       expression: "OCAAA==1",
+      active: true,
       children: [{ kind: "text", text: "Visible content", justify: "L" }],
     };
     const { container } = render(<ComponentRenderer component={component} {...defaultProps} />);
@@ -90,10 +89,11 @@ describe("ComponentRenderer", () => {
     expect(container.querySelector(".opacity-40")).not.toBeInTheDocument();
   });
 
-  it("renders case greyed out when expression is false", () => {
+  it("renders case greyed out when active is false", () => {
     const component: PanComponent = {
       kind: "case",
       expression: "OCAAA==2",
+      active: false,
       children: [{ kind: "text", text: "Greyed content", justify: "L" }],
     };
     const { container } = render(<ComponentRenderer component={component} {...defaultProps} />);
@@ -101,20 +101,33 @@ describe("ComponentRenderer", () => {
     expect(container.querySelector(".opacity-40")).toBeInTheDocument();
   });
 
-  it("renders invisible children when expression is true", () => {
+  it("defaults case to active when active is undefined", () => {
+    const component: PanComponent = {
+      kind: "case",
+      expression: "OCAAA==1",
+      children: [{ kind: "text", text: "Fallback visible", justify: "L" }],
+    };
+    const { container } = render(<ComponentRenderer component={component} {...defaultProps} />);
+    expect(screen.getByText("Fallback visible")).toBeInTheDocument();
+    expect(container.querySelector(".opacity-40")).not.toBeInTheDocument();
+  });
+
+  it("renders invisible children when active is true", () => {
     const component: PanComponent = {
       kind: "invisible",
       expression: "OCAAA==1",
+      active: true,
       children: [{ kind: "text", text: "Should be visible", justify: "L" }],
     };
     render(<ComponentRenderer component={component} {...defaultProps} />);
     expect(screen.getByText("Should be visible")).toBeInTheDocument();
   });
 
-  it("hides invisible children when expression is false", () => {
+  it("hides invisible children when active is false", () => {
     const component: PanComponent = {
       kind: "invisible",
       expression: "OCAAA==99",
+      active: false,
       children: [{ kind: "text", text: "Should be hidden", justify: "L" }],
     };
     render(<ComponentRenderer component={component} {...defaultProps} />);
@@ -132,7 +145,6 @@ describe("ComponentRenderer", () => {
       <ComponentRenderer
         component={component}
         variables={{}}
-        allVariables={{}}
         onNavigate={onNavigate}
       />,
     );
@@ -150,16 +162,5 @@ describe("ComponentRenderer", () => {
     };
     const { container } = render(<ComponentRenderer component={component} {...defaultProps} />);
     expect(container.innerHTML).toBe("");
-  });
-
-  it("falls back to true on expression error in case", () => {
-    const component: PanComponent = {
-      kind: "case",
-      expression: "INVALID > EXPR",
-      children: [{ kind: "text", text: "Fallback visible", justify: "L" }],
-    };
-    const { container } = render(<ComponentRenderer component={component} {...defaultProps} />);
-    expect(screen.getByText("Fallback visible")).toBeInTheDocument();
-    expect(container.querySelector(".opacity-40")).not.toBeInTheDocument();
   });
 });
