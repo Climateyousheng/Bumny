@@ -7,29 +7,70 @@ Modern rebuild of the legacy UMUI/GHUI Tcl/Tk tool for managing Unified Model ex
 ```
 core/          Domain model, file format parsers, storage layout, locking, CRUD ops
 connectors/    SSH/SFTP and local filesystem backends
-api/           FastAPI REST API (planned)
-ui/            React/TypeScript web frontend (planned)
+api/           FastAPI REST API (15 endpoints)
+ui/            React/TypeScript web frontend (Vite + shadcn/ui)
 fixtures/      App pack and sample data from legacy UMUI on puma2
 tools/         Bridge scripts, migration helpers (planned)
+docs/          Contributing guide, runbook, legacy docs
 ```
 
 ## Quick start
 
+### Prerequisites
+
+- Python >= 3.12
+- [uv](https://docs.astral.sh/uv/) package manager
+- Node.js >= 20
+
+### Backend (Python)
+
 ```bash
-# Install dependencies
+# Install all Python dependencies (core, connectors, api)
 uv sync
 
-# Run all tests
+# Run all Python tests
 uv run pytest
 
 # Run by package
 uv run pytest core/tests/
 uv run pytest connectors/tests/
+uv run pytest api/tests/
 
 # Lint and type check
 uv run ruff check .
 uv run mypy --strict core/
 uv run mypy --strict connectors/
+uv run mypy --strict api/
+```
+
+### Frontend (React)
+
+```bash
+cd ui
+
+# Install dependencies
+npm install
+
+# Development server (proxies /experiments to localhost:8000)
+npm run dev
+
+# Type check, lint, test
+npm run typecheck
+npm run lint
+npm run test
+npm run test:coverage
+```
+
+### Running the full stack locally
+
+```bash
+# Terminal 1: Start API with fixture data
+uv run python -m umui_api --db-path ./fixtures/samples
+
+# Terminal 2: Start UI dev server
+cd ui && npm run dev
+
+# Open http://localhost:5173
 ```
 
 ## Packages
@@ -86,6 +127,40 @@ jump_hosts = ["bp14", "archer2"]
 connect_timeout = 30.0
 ```
 
+### `umui-api`
+
+FastAPI REST API with 15 endpoints across three routers:
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/experiments` | List all experiments |
+| GET | `/experiments/{exp_id}` | Get experiment details |
+| POST | `/experiments` | Create experiment |
+| PATCH | `/experiments/{exp_id}` | Update experiment |
+| DELETE | `/experiments/{exp_id}` | Delete experiment |
+| POST | `/experiments/{exp_id}/copy` | Copy experiment |
+| GET | `/experiments/{exp_id}/jobs` | List jobs |
+| GET | `/experiments/{exp_id}/jobs/{job_id}` | Get job details |
+| POST | `/experiments/{exp_id}/jobs` | Create job |
+| PATCH | `/experiments/{exp_id}/jobs/{job_id}` | Update job |
+| DELETE | `/experiments/{exp_id}/jobs/{job_id}` | Delete job |
+| POST | `/experiments/{exp_id}/jobs/{job_id}/copy` | Copy job |
+| GET | `/experiments/{exp_id}/jobs/{job_id}/lock` | Check lock status |
+| POST | `/experiments/{exp_id}/jobs/{job_id}/lock` | Acquire lock |
+| DELETE | `/experiments/{exp_id}/jobs/{job_id}/lock` | Release lock |
+
+Mutating endpoints require the `X-UMUI-User` header for identity.
+
+### `umui-ui`
+
+React 19 web frontend built with Vite, TypeScript, Tailwind CSS, and shadcn/ui. Features:
+
+- **Experiment management** -- list, search, create, copy, edit, delete
+- **Job management** -- list, create, copy, edit, delete per experiment
+- **Lock management** -- view status, acquire/release locks with 30s polling
+- **User identity** -- username prompted on first visit, stored in localStorage
+- **79 tests** with 86% statement coverage (MSW v2 network mocking)
+
 ## Key concepts
 
 - **Experiment IDs** -- 4-letter base-26 (`aaaa`--`zzzz`). The 5-char "run ID" (e.g. `xqjca`) = experiment (`xqjc`) + job (`a`).
@@ -100,11 +175,6 @@ connect_timeout = 30.0
 | 0 | Done | Real app pack + fixtures from puma2 |
 | 1 | Done | Core library (models, formats, storage, locking, ops) |
 | 1.5 | Done | SSH connector (`SshFileSystem`) |
-| 2 | Planned | REST API (FastAPI) |
-| 3 | Planned | Web UI (React/TypeScript) |
+| 2 | Done | REST API (FastAPI, 15 endpoints) |
+| 3 | Done | Web UI (React, Vite, shadcn/ui, 79 tests) |
 | 4 | Planned | Bridge editor |
-
-## Requirements
-
-- Python >= 3.12
-- [uv](https://docs.astral.sh/uv/) package manager
