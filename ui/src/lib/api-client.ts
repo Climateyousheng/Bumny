@@ -1,4 +1,5 @@
 import { ApiError } from "@/types/api";
+import type { NavNodeResponse, WindowResponse, HelpResponse, VariableRegistrationResponse, PartitionResponse, VariablesResponse } from "@/types/bridge";
 import type { ExperimentListResponse, ExperimentResponse, CreateExperimentRequest, UpdateExperimentRequest, CopyExperimentRequest } from "@/types/experiment";
 import type { JobListResponse, JobResponse, CreateJobRequest, UpdateJobRequest, CopyJobRequest } from "@/types/job";
 import type { LockStatusResponse, LockResultResponse } from "@/types/lock";
@@ -133,4 +134,34 @@ export function releaseLock(expId: string, jobId: string): Promise<LockResultRes
     method: "DELETE",
     headers: userHeaders(),
   });
+}
+
+// --- Bridge ---
+
+export function getNavTree(): Promise<NavNodeResponse[]> {
+  return request("/bridge/nav");
+}
+
+export function getWindow(winId: string): Promise<WindowResponse> {
+  return request(`/bridge/windows/${winId}`);
+}
+
+export function getWindowHelp(winId: string): Promise<HelpResponse> {
+  return request(`/bridge/windows/${winId}/help`);
+}
+
+export function getRegister(): Promise<VariableRegistrationResponse[]> {
+  return request("/bridge/register");
+}
+
+export function getPartitions(): Promise<PartitionResponse[]> {
+  return request("/bridge/partitions");
+}
+
+export function getVariables(expId: string, jobId: string): Promise<VariablesResponse> {
+  return request(`/bridge/variables/${expId}/${jobId}`);
+}
+
+export function getWindowVariables(expId: string, jobId: string, winId: string): Promise<VariablesResponse> {
+  return request(`/bridge/variables/${expId}/${jobId}/${winId}`);
 }

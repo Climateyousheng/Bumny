@@ -10,4 +10,14 @@ export const queryKeys = {
   locks: {
     detail: (expId: string, jobId: string) => ["experiments", expId, "jobs", jobId, "lock"] as const,
   },
+  bridge: {
+    nav: ["bridge", "nav"] as const,
+    window: (winId: string) => ["bridge", "windows", winId] as const,
+    windowHelp: (winId: string) => ["bridge", "windows", winId, "help"] as const,
+    register: ["bridge", "register"] as const,
+    partitions: ["bridge", "partitions"] as const,
+    variables: (expId: string, jobId: string) => ["bridge", "variables", expId, jobId] as const,
+    windowVariables: (expId: string, jobId: string, winId: string) =>
+      ["bridge", "variables", expId, jobId, winId] as const,
+  },
 } as const;

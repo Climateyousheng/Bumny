@@ -4,7 +4,8 @@ import { JobInfoCard } from "./job-info-card";
 import { LockStatusCard } from "./lock-status-card";
 import { LoadingSkeleton } from "@/components/shared/loading-skeleton";
 import { ErrorAlert } from "@/components/shared/error-alert";
-import { ChevronLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, Settings2 } from "lucide-react";
 
 export function JobDetailPage() {
   const { expId, jobId } = useParams<{ expId: string; jobId: string }>();
@@ -24,6 +25,12 @@ export function JobDetailPage() {
           <span className="font-mono">{expId}</span> / Job <span className="font-mono">{jobId}</span>
         </h1>
       </div>
+      <Button variant="outline" asChild>
+        <Link to={`/experiments/${expId}/jobs/${jobId}/bridge`}>
+          <Settings2 className="mr-2 h-4 w-4" />
+          Open Bridge
+        </Link>
+      </Button>
       <div className="grid gap-6 lg:grid-cols-2">
         <JobInfoCard job={job} />
         <LockStatusCard expId={expId!} jobId={jobId!} />
