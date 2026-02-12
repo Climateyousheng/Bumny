@@ -30,4 +30,49 @@ describe("MenuBar", () => {
     const newJobItem = screen.getByRole("menuitem", { name: /new/i });
     expect(newJobItem).toHaveAttribute("data-disabled");
   });
+
+  it("enables Experiment > Delete on experiment detail route", async () => {
+    renderWithProviders(<MenuBar />, { initialEntries: ["/experiments/xqgt"] });
+
+    await userEvent.click(screen.getByRole("menuitem", { name: "Experiment" }));
+
+    const deleteItem = screen.getByRole("menuitem", { name: "Delete" });
+    expect(deleteItem).not.toHaveAttribute("data-disabled");
+  });
+
+  it("disables Experiment > Delete on root route", async () => {
+    renderWithProviders(<MenuBar />, { initialEntries: ["/"] });
+
+    await userEvent.click(screen.getByRole("menuitem", { name: "Experiment" }));
+
+    const deleteItem = screen.getByRole("menuitem", { name: "Delete" });
+    expect(deleteItem).toHaveAttribute("data-disabled");
+  });
+
+  it("enables Job > New on experiment detail route", async () => {
+    renderWithProviders(<MenuBar />, { initialEntries: ["/experiments/xqgt"] });
+
+    await userEvent.click(screen.getByRole("menuitem", { name: "Job" }));
+
+    const newItem = screen.getByRole("menuitem", { name: /new/i });
+    expect(newItem).not.toHaveAttribute("data-disabled");
+  });
+
+  it("enables Job > Delete on job detail route", async () => {
+    renderWithProviders(<MenuBar />, { initialEntries: ["/experiments/xqgt/jobs/a"] });
+
+    await userEvent.click(screen.getByRole("menuitem", { name: "Job" }));
+
+    const deleteItem = screen.getByRole("menuitem", { name: /delete/i });
+    expect(deleteItem).not.toHaveAttribute("data-disabled");
+  });
+
+  it("disables Job > Delete when not on job route", async () => {
+    renderWithProviders(<MenuBar />, { initialEntries: ["/experiments/xqgt"] });
+
+    await userEvent.click(screen.getByRole("menuitem", { name: "Job" }));
+
+    const deleteItem = screen.getByRole("menuitem", { name: /delete/i });
+    expect(deleteItem).toHaveAttribute("data-disabled");
+  });
 });

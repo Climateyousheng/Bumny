@@ -24,6 +24,7 @@ export default defineConfig({
         maxForks: 4,
       },
     },
+    exclude: ["e2e/**", "node_modules/**"],
     css: false,
     coverage: {
       provider: "v8",
