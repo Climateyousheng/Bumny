@@ -77,6 +77,16 @@ describe("BridgeToolbar", () => {
     expect(screen.getByRole("button", { name: /force acquire/i })).toBeInTheDocument();
   });
 
+  it("shows disabled Process button", () => {
+    render(<BridgeToolbar {...defaultProps} />);
+    expect(screen.getByRole("button", { name: /process/i })).toBeDisabled();
+  });
+
+  it("shows disabled Submit button", () => {
+    render(<BridgeToolbar {...defaultProps} />);
+    expect(screen.getByRole("button", { name: /submit/i })).toBeDisabled();
+  });
+
   it("calls onStartEditing with force when Force Acquire is confirmed", async () => {
     const onStartEditing = vi.fn().mockResolvedValue(undefined);
     render(

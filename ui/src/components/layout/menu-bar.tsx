@@ -134,6 +134,9 @@ export function MenuBar({
           <MenubarItem disabled={!expId} onClick={onDifference}>
             Difference
           </MenubarItem>
+          <MenubarSeparator />
+          <MenubarItem disabled>Process</MenubarItem>
+          <MenubarItem disabled>Submit</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
 
