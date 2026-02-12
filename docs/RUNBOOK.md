@@ -72,7 +72,7 @@ curl http://127.0.0.1:8000/bridge/nav
 
 ### API endpoints
 
-23 endpoints across experiments, jobs, locks, and bridge:
+26 endpoints across experiments, jobs, locks, bridge, process, and submit:
 
 | Group | Method | Endpoint | Description |
 |-------|--------|----------|-------------|
@@ -99,6 +99,8 @@ curl http://127.0.0.1:8000/bridge/nav
 | | GET | `/bridge/variables/{eid}/{jid}` | All variables for a job |
 | | GET | `/bridge/variables/{eid}/{jid}/{wid}` | Variables scoped to a window |
 | | PATCH | `/bridge/variables/{eid}/{jid}` | Update variables |
+| Process | POST | `/process/{eid}/{jid}` | Process job (template expansion) |
+| Submit | POST | `/submit/{eid}/{jid}` | Submit processed files to HPC (requires SSH backend) |
 
 Mutating endpoints require the `X-UMUI-User` header:
 
@@ -180,6 +182,40 @@ curl -X POST http://127.0.0.1:8000/experiments/{exp_id}/jobs/{job_id}/lock \
   -H "Content-Type: application/json" \
   -d '{"force": true}'
 ```
+
+### Process fails with "tkinter not available"
+
+**Symptom**: POST `/process/{eid}/{jid}` returns 500 with "tkinter is required for template processing".
+
+**Cause**: The Python installation lacks tkinter. This is common with Homebrew Python on macOS.
+
+**Fix**: Install Python with tkinter support:
+```bash
+# macOS with Homebrew
+brew install python-tk@3.12
+
+# Or use system Python which includes tkinter
+/usr/bin/python3 -c "import tkinter"  # test availability
+```
+
+### Submit fails with "SSH backend required"
+
+**Symptom**: POST `/submit/{eid}/{jid}` returns 400 with "Submit requires SSH backend".
+
+**Cause**: The API server is running with `--db-path` (LocalFileSystem), not `--target` (SshFileSystem). Submit requires SSH to deploy files to remote HPC.
+
+**Fix**: Start the API with an SSH target:
+```bash
+uv run python -m umui_api --target puma2 --app-pack-path ./fixtures/app_pack/vn8.6
+```
+
+### Process generates empty output
+
+**Symptom**: Process returns successfully but `files` dict is empty or missing expected files.
+
+**Cause**: The processing templates in the app pack may not match the job's model type, or the "top" master template failed to include the expected sub-templates.
+
+**Fix**: Check the warnings list in the response — template errors and missing templates are reported there. Verify the app pack version matches the experiment's model version.
 
 ### Window fails to load in bridge
 

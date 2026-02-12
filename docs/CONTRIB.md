@@ -85,6 +85,7 @@ This is a uv workspace with three Python packages and one npm package:
 | `npm run test` | `vitest run` (single run) |
 | `npm run test:watch` | `vitest` (watch mode) |
 | `npm run test:coverage` | `vitest run --coverage` (v8 provider, target >= 80%) |
+| `npm run test:e2e` | `playwright test` (end-to-end tests) |
 
 ## Development Workflow
 
@@ -99,13 +100,13 @@ cd ui && npm run dev
 # Open http://localhost:5173
 ```
 
-The Vite dev server proxies `/experiments` and `/bridge` requests to the API at `http://127.0.0.1:8000`.
+The Vite dev server proxies `/experiments`, `/bridge`, `/process`, and `/submit` requests to the API at `http://127.0.0.1:8000`.
 
 ### Making changes
 
 1. **Backend (Python)**: Edit files in `core/`, `connectors/`, or `api/`. Run `uv run pytest` to verify.
 2. **Frontend (React)**: Edit files in `ui/src/`. The Vite dev server hot-reloads automatically.
-3. **API contract changes**: Update schemas in `api/umui_api/schemas.py` or `schemas_bridge.py`, then sync `ui/src/types/` to match.
+3. **API contract changes**: Update schemas in `api/umui_api/schemas.py`, `schemas_bridge.py`, or `schemas_process.py`, then sync `ui/src/types/` to match.
 
 ### Code quality checks
 
@@ -165,7 +166,7 @@ The `fixtures/app_pack/vn8.6/` directory contains the real UMUI application pack
 | Tool | Config file | Purpose |
 |------|------------|---------|
 | TypeScript | `ui/tsconfig.json` | Strict mode, path aliases (`@/` -> `src/`) |
-| Vite | `ui/vite.config.ts` | Bundler, dev proxy (`/experiments`, `/bridge` -> `:8000`) |
+| Vite | `ui/vite.config.ts` | Bundler, dev proxy (`/experiments`, `/bridge`, `/process`, `/submit` -> `:8000`) |
 | Vitest | `ui/vitest.config.ts` | Test runner (jsdom, MSW setup) |
 | Tailwind | `ui/tailwind.config.js` | CSS utility classes |
 | ESLint | `ui/eslint.config.js` | Linting (react-hooks, react-refresh) |
@@ -185,3 +186,11 @@ The bridge editor renders the legacy UMUI window definitions in a modern web UI:
 - **Window renderer**: Parses `.pan` files into a component tree. Component types: text, entry, check, basrad, table, gap, block, case, invisible, pushnext.
 - **Expression evaluation**: Conditional visibility (case/invisible) is evaluated server-side to avoid transferring all variables to the client. The API returns an `active` boolean on each conditional component.
 - **Variables**: Fetched per-window (scoped endpoint) for display, not the full basis file.
+
+### Process/Submit
+
+The process/submit system generates and deploys job scripts to HPC:
+
+- **Process**: Template expansion using embedded Tcl (`tkinter.Tcl()`). Reads basis file variables, executes 158 processing templates from the app pack to generate output files (CNTLALL, SUBMIT, fcm_*, etc.). Requires `tkinter` (ships with most Python installs; Homebrew Python on macOS may lack it).
+- **Submit**: Deploys processed files to remote HPC via SSH/SFTP. Creates a remote directory (`~/umui_runs/<exp>-<submitid>`), copies files, substitutes `:::submitid:::` placeholders, makes SUBMIT executable, and executes it remotely. Requires `SshFileSystem` backend (not available with `LocalFileSystem`).
+- **Template directives**: `%VAR`, `%{VAR}`, `%VAR(index)`, `%I filename`, `%T code`, `%TCL...%ENDTCL`, `%OUTPUTFILE name`, `%C comment`, `%COMM...%ENDCOMM`, `%%` (literal percent).

@@ -19,6 +19,14 @@ export default defineConfig({
         target: "http://127.0.0.1:8000",
         changeOrigin: true,
       },
+      "/process": {
+        target: "http://127.0.0.1:8000",
+        changeOrigin: true,
+      },
+      "/submit": {
+        target: "http://127.0.0.1:8000",
+        changeOrigin: true,
+      },
     },
   },
 });
