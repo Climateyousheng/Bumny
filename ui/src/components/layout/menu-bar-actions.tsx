@@ -11,6 +11,7 @@ import { CopyJobDialog } from "@/components/jobs/copy-job-dialog";
 import { DeleteJobDialog } from "@/components/jobs/delete-job-dialog";
 import { ChangeJobDescriptionDialog } from "@/components/jobs/change-description-dialog";
 import { ForceCloseDialog } from "@/components/jobs/force-close-dialog";
+import { ProcessDialog } from "@/components/process/process-dialog";
 import { MenuBar } from "./menu-bar";
 
 function extractRouteContext(pathname: string): {
@@ -35,6 +36,7 @@ type DialogType =
   | "deleteJob"
   | "changeJobDesc"
   | "forceClose"
+  | "process"
   | null;
 
 interface MenuBarActionsProps {
@@ -78,6 +80,8 @@ export function MenuBarActions({ onCreateExperiment, onCreateJob }: MenuBarActio
         onChangeJobDescription={open("changeJobDesc")}
         onForceCloseJob={open("forceClose")}
         onDifference={handleDifference}
+        onProcess={open("process")}
+        onSubmit={open("process")}
       />
 
       {experiment && (
@@ -138,6 +142,12 @@ export function MenuBarActions({ onCreateExperiment, onCreateJob }: MenuBarActio
             expId={expId}
             jobId={job.job_id}
             open={openDialog === "forceClose"}
+            onOpenChange={(v) => !v && close()}
+          />
+          <ProcessDialog
+            expId={expId}
+            jobId={job.job_id}
+            open={openDialog === "process"}
             onOpenChange={(v) => !v && close()}
           />
         </>

@@ -77,14 +77,28 @@ describe("BridgeToolbar", () => {
     expect(screen.getByRole("button", { name: /force acquire/i })).toBeInTheDocument();
   });
 
-  it("shows disabled Process button", () => {
+  it("shows enabled Process button", () => {
     render(<BridgeToolbar {...defaultProps} />);
-    expect(screen.getByRole("button", { name: /process/i })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /process/i })).toBeEnabled();
   });
 
-  it("shows disabled Submit button", () => {
+  it("shows enabled Submit button", () => {
     render(<BridgeToolbar {...defaultProps} />);
-    expect(screen.getByRole("button", { name: /submit/i })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /submit/i })).toBeEnabled();
+  });
+
+  it("calls onProcess when Process is clicked", async () => {
+    const onProcess = vi.fn();
+    render(<BridgeToolbar {...defaultProps} onProcess={onProcess} />);
+    await userEvent.click(screen.getByRole("button", { name: /process/i }));
+    expect(onProcess).toHaveBeenCalledOnce();
+  });
+
+  it("calls onSubmit when Submit is clicked", async () => {
+    const onSubmit = vi.fn();
+    render(<BridgeToolbar {...defaultProps} onSubmit={onSubmit} />);
+    await userEvent.click(screen.getByRole("button", { name: /submit/i }));
+    expect(onSubmit).toHaveBeenCalledOnce();
   });
 
   it("calls onStartEditing with force when Force Acquire is confirmed", async () => {

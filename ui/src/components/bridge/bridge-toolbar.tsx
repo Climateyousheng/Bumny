@@ -3,12 +3,6 @@ import { Lock, Unlock, Save, RotateCcw, Loader2, FileText, Cog, Send } from "luc
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -31,6 +25,8 @@ interface BridgeToolbarProps {
   readonly onSave: () => Promise<void>;
   readonly onReset: () => void;
   readonly onViewRaw?: () => void;
+  readonly onProcess?: () => void;
+  readonly onSubmit?: () => void;
 }
 
 export function BridgeToolbar({
@@ -44,6 +40,8 @@ export function BridgeToolbar({
   onSave,
   onReset,
   onViewRaw,
+  onProcess,
+  onSubmit,
 }: BridgeToolbarProps) {
   const [forceConfirmOpen, setForceConfirmOpen] = useState(false);
 
@@ -86,37 +84,15 @@ export function BridgeToolbar({
           </Button>
         )}
 
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <span tabIndex={0}>
-                <Button variant="outline" size="sm" disabled>
-                  <Cog className="mr-1 h-3 w-3" />
-                  Process
-                </Button>
-              </span>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Requires SSH connector (Phase 6)</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Button variant="outline" size="sm" onClick={onProcess}>
+          <Cog className="mr-1 h-3 w-3" />
+          Process
+        </Button>
 
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <span tabIndex={0}>
-                <Button variant="outline" size="sm" disabled>
-                  <Send className="mr-1 h-3 w-3" />
-                  Submit
-                </Button>
-              </span>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Requires SSH connector (Phase 6)</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Button variant="outline" size="sm" onClick={onSubmit}>
+          <Send className="mr-1 h-3 w-3" />
+          Submit
+        </Button>
 
         <div className="flex-1" />
 

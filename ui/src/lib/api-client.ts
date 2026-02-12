@@ -4,6 +4,7 @@ import type { NavNodeResponse, WindowResponse, HelpResponse, VariableRegistratio
 import type { ExperimentListResponse, ExperimentResponse, CreateExperimentRequest, UpdateExperimentRequest, CopyExperimentRequest } from "@/types/experiment";
 import type { JobListResponse, JobResponse, CreateJobRequest, UpdateJobRequest, CopyJobRequest } from "@/types/job";
 import type { LockStatusResponse, LockResultResponse } from "@/types/lock";
+import type { ProcessResponse, SubmitRequest, SubmitResponse } from "@/types/process";
 import { getUsername } from "@/lib/user-store";
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
@@ -184,5 +185,22 @@ export function updateBridgeVariables(
     method: "PATCH",
     headers: userHeaders(),
     body: JSON.stringify({ variables }),
+  });
+}
+
+// --- Process/Submit ---
+
+export function processJob(expId: string, jobId: string): Promise<ProcessResponse> {
+  return request(`/process/${expId}/${jobId}`, { method: "POST" });
+}
+
+export function submitJob(
+  expId: string,
+  jobId: string,
+  body: SubmitRequest,
+): Promise<SubmitResponse> {
+  return request(`/submit/${expId}/${jobId}`, {
+    method: "POST",
+    body: JSON.stringify(body),
   });
 }

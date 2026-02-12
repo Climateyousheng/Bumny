@@ -331,3 +331,54 @@ class SshFileSystem:
             ]
 
         return self._run(_glob)
+
+    # -- SSH command execution (not part of FileSystem protocol) -----------
+
+    def run_command(
+        self,
+        command: str,
+        *,
+        check: bool = False,
+        env: dict[str, str] | None = None,
+    ) -> tuple[str, str, int]:
+        """Execute a remote command via SSH.
+
+        Args:
+            command: Shell command to execute.
+            check: Raise RuntimeError if command exits non-zero.
+            env: Optional environment variables for the command.
+
+        Returns:
+            Tuple of (stdout, stderr, exit_status).
+
+        Raises:
+            SshConnectionError: If SSH connection fails.
+            RuntimeError: If check=True and command exits non-zero.
+        """
+
+        async def _run_command() -> tuple[str, str, int]:
+            assert self._conn is not None
+            result = await self._conn.run(command, check=False, env=env)
+            raw_stdout = result.stdout or ""
+            raw_stderr = result.stderr or ""
+            stdout = (
+                raw_stdout.decode("utf-8")
+                if isinstance(raw_stdout, bytes)
+                else str(raw_stdout)
+            )
+            stderr = (
+                raw_stderr.decode("utf-8")
+                if isinstance(raw_stderr, bytes)
+                else str(raw_stderr)
+            )
+            exit_status: int = result.exit_status or 0
+
+            if check and exit_status != 0:
+                raise RuntimeError(
+                    f"Command failed (exit {exit_status}): {command}\n"
+                    f"stderr: {stderr}"
+                )
+
+            return (stdout, stderr, exit_status)
+
+        return self._run(_run_command)

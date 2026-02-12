@@ -449,6 +449,86 @@ class TestDirectoryOperations:
             fs.delete("/data/already-gone.txt")  # Should not raise
 
 
+class TestRunCommand:
+    """Tests for SSH remote command execution."""
+
+    def test_run_command_success(
+        self,
+        target: SshTarget,
+        mock_conn: AsyncMock,
+        mock_sftp: AsyncMock,
+    ) -> None:
+        mock_result = MagicMock()
+        mock_result.stdout = "hello\n"
+        mock_result.stderr = ""
+        mock_result.exit_status = 0
+        mock_conn.run = AsyncMock(return_value=mock_result)
+
+        with SshFileSystem(target) as fs:
+            _make_fs_connected(fs, mock_conn, mock_sftp)
+            stdout, stderr, status = fs.run_command("echo hello")
+
+        assert stdout == "hello\n"
+        assert stderr == ""
+        assert status == 0
+        mock_conn.run.assert_called_once()
+
+    def test_run_command_failure(
+        self,
+        target: SshTarget,
+        mock_conn: AsyncMock,
+        mock_sftp: AsyncMock,
+    ) -> None:
+        mock_result = MagicMock()
+        mock_result.stdout = ""
+        mock_result.stderr = "No such file"
+        mock_result.exit_status = 1
+        mock_conn.run = AsyncMock(return_value=mock_result)
+
+        with SshFileSystem(target) as fs:
+            _make_fs_connected(fs, mock_conn, mock_sftp)
+            _stdout, stderr, status = fs.run_command("false")
+
+        assert status == 1
+        assert "No such file" in stderr
+
+    def test_run_command_check_raises_on_failure(
+        self,
+        target: SshTarget,
+        mock_conn: AsyncMock,
+        mock_sftp: AsyncMock,
+    ) -> None:
+        mock_result = MagicMock()
+        mock_result.stdout = ""
+        mock_result.stderr = "command not found"
+        mock_result.exit_status = 127
+        mock_conn.run = AsyncMock(return_value=mock_result)
+
+        with SshFileSystem(target) as fs:
+            _make_fs_connected(fs, mock_conn, mock_sftp)
+            with pytest.raises(RuntimeError, match="exit 127"):
+                fs.run_command("bad_cmd", check=True)
+
+    def test_run_command_with_env(
+        self,
+        target: SshTarget,
+        mock_conn: AsyncMock,
+        mock_sftp: AsyncMock,
+    ) -> None:
+        mock_result = MagicMock()
+        mock_result.stdout = "bar"
+        mock_result.stderr = ""
+        mock_result.exit_status = 0
+        mock_conn.run = AsyncMock(return_value=mock_result)
+
+        with SshFileSystem(target) as fs:
+            _make_fs_connected(fs, mock_conn, mock_sftp)
+            fs.run_command("echo $FOO", env={"FOO": "bar"})
+
+        call_kwargs = mock_conn.run.call_args
+        assert call_kwargs[1]["env"] == {"FOO": "bar"}
+
+
 class TestErrorHandling:
     """Tests for error mapping and reconnect behavior."""
 

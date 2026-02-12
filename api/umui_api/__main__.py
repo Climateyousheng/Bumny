@@ -51,7 +51,9 @@ def main(argv: list[str] | None = None) -> None:
         targets = load_targets()
         target = targets[args.target]
         fs = SshFileSystem(target)
-        app = create_app(fs=fs, db_path=target.db_path, app_pack_path=args.app_pack_path)
+        app = create_app(
+            fs=fs, db_path=target.db_path, app_pack_path=args.app_pack_path,
+        )
 
     uvicorn.run(app, host=args.host, port=args.port)
 

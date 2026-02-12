@@ -10,7 +10,7 @@ from umui_core.storage.app_pack import AppPackPaths
 from umui_core.storage.layout import DatabasePaths, FileSystem, LocalFileSystem
 
 from umui_api.errors import register_error_handlers
-from umui_api.routers import bridge, experiments, jobs, locks
+from umui_api.routers import bridge, experiments, jobs, locks, process, submit
 
 if TYPE_CHECKING:
     from collections.abc import AsyncGenerator
@@ -54,5 +54,7 @@ def create_app(
     app.include_router(jobs.router)
     app.include_router(locks.router)
     app.include_router(bridge.router)
+    app.include_router(process.router)
+    app.include_router(submit.router)
 
     return app

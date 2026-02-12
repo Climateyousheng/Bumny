@@ -13,6 +13,8 @@ from umui_core.ops.experiments import (
     PermissionDeniedError,
 )
 from umui_core.ops.jobs import JobExistsError, JobLockedError, JobNotFoundError
+from umui_core.ops.process import ProcessError
+from umui_core.ops.submit import SubmitError
 from umui_core.storage.layout import InvalidIdError
 
 if TYPE_CHECKING:
@@ -29,6 +31,8 @@ _EXCEPTION_STATUS: list[tuple[type[Exception], int]] = [
     (LockError, 409),
     (BasisNotFoundError, 404),
     (BridgeError, 400),
+    (ProcessError, 500),
+    (SubmitError, 500),
 ]
 
 

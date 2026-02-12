@@ -45,6 +45,10 @@ class AppPackPaths:
         return f"{self._root}/help"
 
     @property
+    def processing_dir(self) -> str:
+        return f"{self._root}/processing"
+
+    @property
     def nav_spec(self) -> str:
         return f"{self._root}/windows/nav.spec"
 

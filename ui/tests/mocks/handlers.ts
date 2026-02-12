@@ -215,4 +215,28 @@ export const handlers = [
       }),
     );
   }),
+
+  // Process
+  http.post("/process/:expId/:jobId", () => {
+    return HttpResponse.json({
+      files: {
+        CNTLALL: " &NLSTCALL\n EXPT_ID='xqjc',\n JOB_ID='a',\n &END\n",
+        SUBMIT: "#!/bin/ksh\nSUBMITID=:::submitid:::\necho done\n",
+        CNTLGEN: " &NLSTCGEN\n &END\n",
+      },
+      warnings: [],
+    });
+  }),
+
+  // Submit
+  http.post("/submit/:expId/:jobId", () => {
+    return HttpResponse.json({
+      submit_id: "03614523",
+      remote_dir: "~/umui_runs/xqjca-03614523",
+      stdout: "Submitted batch job 12345",
+      stderr: "",
+      exit_status: 0,
+      success: true,
+    });
+  }),
 ];

@@ -22,6 +22,8 @@ interface MenuBarProps {
   readonly onChangeJobDescription?: () => void;
   readonly onForceCloseJob?: () => void;
   readonly onDifference?: () => void;
+  readonly onProcess?: () => void;
+  readonly onSubmit?: () => void;
 }
 
 function extractRouteContext(pathname: string): {
@@ -49,6 +51,8 @@ export function MenuBar({
   onChangeJobDescription,
   onForceCloseJob,
   onDifference,
+  onProcess,
+  onSubmit,
 }: MenuBarProps) {
   const queryClient = useQueryClient();
   const location = useLocation();
@@ -135,8 +139,8 @@ export function MenuBar({
             Difference
           </MenubarItem>
           <MenubarSeparator />
-          <MenubarItem disabled>Process</MenubarItem>
-          <MenubarItem disabled>Submit</MenubarItem>
+          <MenubarItem disabled={!jobId} onClick={onProcess}>Process</MenubarItem>
+          <MenubarItem disabled={!jobId} onClick={onSubmit}>Submit</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
 
