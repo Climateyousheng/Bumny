@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 interface EntryDisplayProps {
   readonly component: EntryComponent;
   readonly variables: VariableValues;
+  readonly isEditing?: boolean;
+  readonly onChange?: (variable: string, value: string) => void;
 }
 
 function resolveVariable(variables: VariableValues, name: string): string {
@@ -15,7 +17,7 @@ function resolveVariable(variables: VariableValues, name: string): string {
   return val;
 }
 
-export function EntryDisplay({ component, variables }: EntryDisplayProps) {
+export function EntryDisplay({ component, variables, isEditing, onChange }: EntryDisplayProps) {
   const value = resolveVariable(variables, component.variable);
 
   return (
@@ -23,7 +25,12 @@ export function EntryDisplay({ component, variables }: EntryDisplayProps) {
       <Label className="min-w-[180px] text-sm">{component.label}</Label>
       <Input
         value={value}
-        readOnly
+        readOnly={!isEditing}
+        onChange={
+          isEditing && onChange
+            ? (e) => onChange(component.variable, e.target.value)
+            : undefined
+        }
         className="max-w-xs font-mono text-sm"
         style={{ width: `${Math.max(component.width, 6)}ch` }}
       />

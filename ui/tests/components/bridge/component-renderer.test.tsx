@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { ComponentRenderer } from "@/components/bridge/component-renderer";
 import type { PanComponent, VariableValues } from "@/types/bridge";
 
@@ -162,5 +163,104 @@ describe("ComponentRenderer", () => {
     };
     const { container } = render(<ComponentRenderer component={component} {...defaultProps} />);
     expect(container.innerHTML).toBe("");
+  });
+});
+
+describe("ComponentRenderer – editing mode", () => {
+  it("renders editable entry when isEditing and onChange provided", async () => {
+    const onChange = vi.fn();
+    const component: PanComponent = {
+      kind: "entry",
+      label: "Columns",
+      justify: "L",
+      variable: "NCOLSAG",
+      width: 10,
+    };
+    render(
+      <ComponentRenderer
+        component={component}
+        variables={{ NCOLSAG: "96" }}
+        onNavigate={vi.fn()}
+        isEditing={true}
+        onChange={onChange}
+      />,
+    );
+    const input = screen.getByDisplayValue("96");
+    expect(input).not.toHaveAttribute("readonly");
+
+    await userEvent.clear(input);
+    await userEvent.type(input, "192");
+    expect(onChange).toHaveBeenCalled();
+  });
+
+  it("renders read-only entry when isEditing is false", () => {
+    const component: PanComponent = {
+      kind: "entry",
+      label: "Columns",
+      justify: "L",
+      variable: "NCOLSAG",
+      width: 10,
+    };
+    render(
+      <ComponentRenderer
+        component={component}
+        variables={{ NCOLSAG: "96" }}
+        onNavigate={vi.fn()}
+        isEditing={false}
+      />,
+    );
+    const input = screen.getByDisplayValue("96");
+    expect(input).toHaveAttribute("readonly");
+  });
+
+  it("toggles check when editing", async () => {
+    const onChange = vi.fn();
+    const component: PanComponent = {
+      kind: "check",
+      label: "Enable",
+      justify: "L",
+      variable: "FEAT",
+      on_value: "Y",
+      off_value: "N",
+    };
+    render(
+      <ComponentRenderer
+        component={component}
+        variables={{ FEAT: "N" }}
+        onNavigate={vi.fn()}
+        isEditing={true}
+        onChange={onChange}
+      />,
+    );
+    const checkbox = screen.getByRole("checkbox");
+    expect(checkbox).not.toBeChecked();
+
+    await userEvent.click(checkbox);
+    expect(onChange).toHaveBeenCalledWith("FEAT", "Y");
+  });
+
+  it("selects basrad option when editing", async () => {
+    const onChange = vi.fn();
+    const component: PanComponent = {
+      kind: "basrad",
+      label: "Select Area",
+      justify: "L",
+      count: 2,
+      orientation: "v",
+      variable: "OCAAA",
+      options: [["Global", "1"], ["Limited", "2"]],
+    };
+    render(
+      <ComponentRenderer
+        component={component}
+        variables={{ OCAAA: "1" }}
+        onNavigate={vi.fn()}
+        isEditing={true}
+        onChange={onChange}
+      />,
+    );
+    const limitedRadio = screen.getByRole("radio", { name: "Limited" });
+    await userEvent.click(limitedRadio);
+    expect(onChange).toHaveBeenCalledWith("OCAAA", "2");
   });
 });

@@ -4,14 +4,16 @@ import { Label } from "@/components/ui/label";
 interface BasradDisplayProps {
   readonly component: BasradComponent;
   readonly variables: VariableValues;
+  readonly isEditing?: boolean;
+  readonly onChange?: (variable: string, value: string) => void;
 }
 
-export function BasradDisplay({ component, variables }: BasradDisplayProps) {
+export function BasradDisplay({ component, variables, isEditing, onChange }: BasradDisplayProps) {
   const val = variables[component.variable];
   const resolved = Array.isArray(val) ? (val[0] ?? "") : (val ?? "");
 
   return (
-    <fieldset className="space-y-2" disabled>
+    <fieldset className="space-y-2" disabled={!isEditing}>
       <legend className="text-sm font-medium">{component.label}</legend>
       <div className={component.orientation === "h" ? "flex gap-4" : "space-y-1"}>
         {component.options.map(([label, value]) => (
@@ -19,7 +21,12 @@ export function BasradDisplay({ component, variables }: BasradDisplayProps) {
             <input
               type="radio"
               checked={resolved === value}
-              disabled
+              disabled={!isEditing}
+              onChange={
+                isEditing && onChange
+                  ? () => onChange(component.variable, value)
+                  : undefined
+              }
               className="h-4 w-4"
               name={component.variable}
               value={value}

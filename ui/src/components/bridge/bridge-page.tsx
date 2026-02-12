@@ -2,7 +2,9 @@ import { useState, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import { useNavTree } from "@/hooks/use-bridge";
+import { useBridgeEdit } from "@/hooks/use-bridge-edit";
 import { BridgeLayout } from "./bridge-layout";
+import { BridgeToolbar } from "./bridge-toolbar";
 import { NavTree } from "./nav-tree";
 import { WindowPanel } from "./window-panel";
 import { LoadingSkeleton } from "@/components/shared/loading-skeleton";
@@ -14,6 +16,8 @@ export function BridgePage() {
 
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
   const [selectedWindowId, setSelectedWindowId] = useState<string | null>(null);
+
+  const bridgeEdit = useBridgeEdit(expId!, jobId!);
 
   const handleToggle = useCallback((name: string) => {
     setExpandedNodes((prev) => {
@@ -58,16 +62,37 @@ export function BridgePage() {
     </div>
   );
 
-  const content = selectedWindowId ? (
-    <WindowPanel
-      winId={selectedWindowId}
-      expId={expId!}
-      jobId={jobId!}
-      onNavigate={handleSelect}
-    />
-  ) : (
-    <div className="flex h-full items-center justify-center text-muted-foreground">
-      <p className="text-sm">Select a window from the navigation tree.</p>
+  const content = (
+    <div className="flex flex-col h-full">
+      <BridgeToolbar
+        lockStatus={bridgeEdit.lockStatus.data}
+        isEditing={bridgeEdit.isEditing}
+        isDirty={bridgeEdit.isDirty}
+        isSaving={bridgeEdit.isSaving}
+        isAcquiring={bridgeEdit.isAcquiring}
+        onStartEditing={bridgeEdit.startEditing}
+        onStopEditing={bridgeEdit.stopEditing}
+        onSave={bridgeEdit.save}
+        onReset={bridgeEdit.resetDraft}
+      />
+      <div className="flex-1 overflow-y-auto p-4">
+        {selectedWindowId ? (
+          <WindowPanel
+            winId={selectedWindowId}
+            expId={expId!}
+            jobId={jobId!}
+            onNavigate={handleSelect}
+            isEditing={bridgeEdit.isEditing}
+            onChange={bridgeEdit.updateDraft}
+            onChangeArray={bridgeEdit.updateDraftArray}
+            mergeVariables={bridgeEdit.mergeVariables}
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center text-muted-foreground">
+            <p className="text-sm">Select a window from the navigation tree.</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 

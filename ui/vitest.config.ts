@@ -18,6 +18,12 @@ export default defineConfig({
       },
     },
     setupFiles: ["./tests/setup.ts"],
+    pool: "forks",
+    poolOptions: {
+      forks: {
+        maxForks: 4,
+      },
+    },
     css: false,
     coverage: {
       provider: "v8",

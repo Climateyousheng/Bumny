@@ -57,9 +57,11 @@ export function JobTable({ expId, jobs }: JobTableProps) {
                 <TableCell className="max-w-xs truncate">{job.description}</TableCell>
                 <TableCell>{job.version}</TableCell>
                 <TableCell>
-                  <Badge variant={job.opened ? "default" : "secondary"}>
-                    {job.opened ? "Locked" : "Available"}
-                  </Badge>
+                  {job.opened.trim().length > 0 ? (
+                    <Badge variant="destructive">Locked by {job.opened}</Badge>
+                  ) : (
+                    <Badge variant="secondary">Available</Badge>
+                  )}
                 </TableCell>
                 <TableCell>
                   <JobRowActions expId={expId} job={job} />

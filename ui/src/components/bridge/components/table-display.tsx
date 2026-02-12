@@ -1,8 +1,11 @@
 import type { TableComponent, ElementComponent, ElementAutoNumComponent, VariableValues } from "@/types/bridge";
+import { Input } from "@/components/ui/input";
 
 interface TableDisplayProps {
   readonly component: TableComponent;
   readonly variables: VariableValues;
+  readonly isEditing?: boolean;
+  readonly onChangeArray?: (variable: string, index: number, value: string) => void;
 }
 
 function resolveArrayVariable(variables: VariableValues, name: string): string[] {
@@ -12,7 +15,7 @@ function resolveArrayVariable(variables: VariableValues, name: string): string[]
   return [val];
 }
 
-export function TableDisplay({ component, variables }: TableDisplayProps) {
+export function TableDisplay({ component, variables, isEditing, onChangeArray }: TableDisplayProps) {
   const rowCount = parseInt(component.rows, 10) || 0;
   const columns = component.children.filter(
     (c): c is ElementComponent | ElementAutoNumComponent =>
@@ -40,9 +43,22 @@ export function TableDisplay({ component, variables }: TableDisplayProps) {
               <tr key={rowIdx}>
                 {columns.map((col, colIdx) => (
                   <td key={colIdx} className="border px-3 py-1 font-mono">
-                    {col.kind === "element"
-                      ? (resolveArrayVariable(variables, col.variable)[rowIdx] ?? "")
-                      : String(parseInt(col.start, 10) + rowIdx)}
+                    {col.kind === "element" ? (
+                      isEditing && onChangeArray ? (
+                        <Input
+                          value={resolveArrayVariable(variables, col.variable)[rowIdx] ?? ""}
+                          onChange={(e) =>
+                            onChangeArray(col.variable, rowIdx, e.target.value)
+                          }
+                          className="h-7 font-mono text-sm"
+                          style={{ width: `${Math.max(col.width, 6)}ch` }}
+                        />
+                      ) : (
+                        (resolveArrayVariable(variables, col.variable)[rowIdx] ?? "")
+                      )
+                    ) : (
+                      String(parseInt(col.start, 10) + rowIdx)
+                    )}
                   </td>
                 ))}
               </tr>

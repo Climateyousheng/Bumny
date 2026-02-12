@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { MoreHorizontal, Copy, Trash } from "lucide-react";
+import { Link } from "react-router-dom";
+import { MoreHorizontal, Copy, Trash, FileCode } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { CopyJobDialog } from "./copy-job-dialog";
@@ -29,6 +31,13 @@ export function JobRowActions({ expId, job }: JobRowActionsProps) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
+          <DropdownMenuItem asChild>
+            <Link to={`/experiments/${expId}/jobs/${job.job_id}/bridge`}>
+              <FileCode className="mr-2 h-4 w-4" />
+              Open Bridge
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setCopyOpen(true)}>
             <Copy className="mr-2 h-4 w-4" />
             Copy

@@ -10,28 +10,62 @@ interface ComponentRendererProps {
   readonly component: PanComponent;
   readonly variables: VariableValues;
   readonly onNavigate: (winId: string) => void;
+  readonly isEditing?: boolean;
+  readonly onChange?: (variable: string, value: string) => void;
+  readonly onChangeArray?: (variable: string, index: number, value: string) => void;
 }
 
 export function ComponentRenderer({
   component,
   variables,
   onNavigate,
+  isEditing,
+  onChange,
+  onChangeArray,
 }: ComponentRendererProps) {
   switch (component.kind) {
     case "text":
       return <TextDisplay component={component} />;
 
     case "entry":
-      return <EntryDisplay component={component} variables={variables} />;
+      return (
+        <EntryDisplay
+          component={component}
+          variables={variables}
+          isEditing={isEditing}
+          onChange={onChange}
+        />
+      );
 
     case "check":
-      return <CheckDisplay component={component} variables={variables} />;
+      return (
+        <CheckDisplay
+          component={component}
+          variables={variables}
+          isEditing={isEditing}
+          onChange={onChange}
+        />
+      );
 
     case "basrad":
-      return <BasradDisplay component={component} variables={variables} />;
+      return (
+        <BasradDisplay
+          component={component}
+          variables={variables}
+          isEditing={isEditing}
+          onChange={onChange}
+        />
+      );
 
     case "table":
-      return <TableDisplay component={component} variables={variables} />;
+      return (
+        <TableDisplay
+          component={component}
+          variables={variables}
+          isEditing={isEditing}
+          onChangeArray={onChangeArray}
+        />
+      );
 
     case "pushnext":
       return <PushNextButton component={component} onNavigate={onNavigate} />;
@@ -48,6 +82,9 @@ export function ComponentRenderer({
               component={child}
               variables={variables}
               onNavigate={onNavigate}
+              isEditing={isEditing}
+              onChange={onChange}
+              onChangeArray={onChangeArray}
             />
           ))}
         </div>
@@ -63,6 +100,9 @@ export function ComponentRenderer({
               component={child}
               variables={variables}
               onNavigate={onNavigate}
+              isEditing={isEditing}
+              onChange={onChange}
+              onChangeArray={onChangeArray}
             />
           ))}
         </div>
@@ -80,6 +120,9 @@ export function ComponentRenderer({
               component={child}
               variables={variables}
               onNavigate={onNavigate}
+              isEditing={isEditing}
+              onChange={onChange}
+              onChangeArray={onChangeArray}
             />
           ))}
         </>

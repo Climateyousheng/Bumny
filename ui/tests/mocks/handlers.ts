@@ -185,4 +185,14 @@ export const handlers = [
   http.get("/bridge/variables/:expId/:jobId/:winId", () => {
     return HttpResponse.json(buildVariablesResponse());
   }),
+
+  // Bridge - Update variables
+  http.patch("/bridge/variables/:expId/:jobId", async ({ request }) => {
+    const body = (await request.json()) as { variables: Record<string, string | string[]> };
+    return HttpResponse.json(
+      buildVariablesResponse({
+        variables: { OCAAA: "1", NCOLSAG: "96", ...body.variables },
+      }),
+    );
+  }),
 ];

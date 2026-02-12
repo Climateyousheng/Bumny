@@ -30,4 +30,22 @@ describe("JobTable", () => {
     renderWithProviders(<JobTable expId="xqgt" jobs={[]} />);
     expect(screen.getByRole("button", { name: /new job/i })).toBeInTheDocument();
   });
+
+  it("shows 'Locked by <owner>' when job.opened is non-empty", () => {
+    const jobs = [buildJob({ job_id: "a", opened: "nd20983" })];
+    renderWithProviders(<JobTable expId="xqgt" jobs={jobs} />);
+    expect(screen.getByText("Locked by nd20983")).toBeInTheDocument();
+  });
+
+  it("shows 'Available' when job.opened is empty", () => {
+    const jobs = [buildJob({ job_id: "a", opened: "" })];
+    renderWithProviders(<JobTable expId="xqgt" jobs={jobs} />);
+    expect(screen.getByText("Available")).toBeInTheDocument();
+  });
+
+  it("shows 'Available' when job.opened is whitespace-only", () => {
+    const jobs = [buildJob({ job_id: "a", opened: "   " })];
+    renderWithProviders(<JobTable expId="xqgt" jobs={jobs} />);
+    expect(screen.getByText("Available")).toBeInTheDocument();
+  });
 });

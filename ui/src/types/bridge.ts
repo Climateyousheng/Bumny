@@ -170,6 +170,10 @@ export interface VariablesResponse {
 // Help
 // ---------------------------------------------------------------------------
 
+export interface UpdateVariablesRequest {
+  readonly variables: VariableValues;
+}
+
 export interface HelpResponse {
   readonly win_id: string;
   readonly text: string;

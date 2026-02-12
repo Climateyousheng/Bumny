@@ -6,15 +6,29 @@ import { ComponentRenderer } from "./component-renderer";
 import { DummyPlaceholder } from "./components/dummy-placeholder";
 import { LoadingSkeleton } from "@/components/shared/loading-skeleton";
 import { ErrorAlert } from "@/components/shared/error-alert";
+import type { VariableValues } from "@/types/bridge";
 
 interface WindowPanelProps {
   readonly winId: string;
   readonly expId: string;
   readonly jobId: string;
   readonly onNavigate: (winId: string) => void;
+  readonly isEditing?: boolean;
+  readonly onChange?: (variable: string, value: string) => void;
+  readonly onChangeArray?: (variable: string, index: number, value: string) => void;
+  readonly mergeVariables?: (serverVars: VariableValues) => VariableValues;
 }
 
-export function WindowPanel({ winId, expId, jobId, onNavigate }: WindowPanelProps) {
+export function WindowPanel({
+  winId,
+  expId,
+  jobId,
+  onNavigate,
+  isEditing,
+  onChange,
+  onChangeArray,
+  mergeVariables,
+}: WindowPanelProps) {
   const [helpOpen, setHelpOpen] = useState(false);
 
   const { data: window, isLoading: winLoading, error: winError } = useWindow(winId, expId, jobId);
@@ -25,7 +39,8 @@ export function WindowPanel({ winId, expId, jobId, onNavigate }: WindowPanelProp
   if (winError) return <ErrorAlert message={winError.message} />;
   if (!window) return <ErrorAlert message="Window not found" />;
 
-  const variables = windowVars ?? {};
+  const serverVars = windowVars ?? {};
+  const variables = mergeVariables ? mergeVariables(serverVars) : serverVars;
 
   return (
     <div className="space-y-4">
@@ -44,6 +59,9 @@ export function WindowPanel({ winId, expId, jobId, onNavigate }: WindowPanelProp
               component={comp}
               variables={variables}
               onNavigate={onNavigate}
+              isEditing={isEditing}
+              onChange={onChange}
+              onChangeArray={onChangeArray}
             />
           ))}
         </div>

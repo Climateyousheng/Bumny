@@ -9,9 +9,9 @@ describe("Header", () => {
     expect(screen.getByText("UMUI")).toBeInTheDocument();
   });
 
-  it("renders the Experiments nav link", () => {
+  it("renders the menubar with File menu", () => {
     renderWithProviders(<Header />);
-    expect(screen.getByText("Experiments")).toBeInTheDocument();
+    expect(screen.getByRole("menuitem", { name: "File" })).toBeInTheDocument();
   });
 
   it("displays the current username", () => {

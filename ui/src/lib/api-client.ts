@@ -165,3 +165,15 @@ export function getPartitions(): Promise<PartitionResponse[]> {
 export function getWindowVariables(expId: string, jobId: string, winId: string): Promise<VariablesResponse> {
   return request(`/bridge/variables/${expId}/${jobId}/${winId}`);
 }
+
+export function updateBridgeVariables(
+  expId: string,
+  jobId: string,
+  variables: Record<string, string | string[]>,
+): Promise<VariablesResponse> {
+  return request(`/bridge/variables/${expId}/${jobId}`, {
+    method: "PATCH",
+    headers: userHeaders(),
+    body: JSON.stringify({ variables }),
+  });
+}
