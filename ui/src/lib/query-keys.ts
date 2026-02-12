@@ -22,4 +22,7 @@ export const queryKeys = {
     windowVariables: (expId: string, jobId: string, winId: string) =>
       ["bridge", "variables", expId, jobId, winId] as const,
   },
+  basis: {
+    raw: (expId: string, jobId: string) => ["basis", "raw", expId, jobId] as const,
+  },
 } as const;

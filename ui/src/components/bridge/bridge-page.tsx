@@ -9,6 +9,7 @@ import { NavTree } from "./nav-tree";
 import { WindowPanel } from "./window-panel";
 import { LoadingSkeleton } from "@/components/shared/loading-skeleton";
 import { ErrorAlert } from "@/components/shared/error-alert";
+import { BasisViewerDialog } from "@/components/basis/basis-viewer-dialog";
 
 export function BridgePage() {
   const { expId, jobId } = useParams<{ expId: string; jobId: string }>();
@@ -16,6 +17,7 @@ export function BridgePage() {
 
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
   const [selectedWindowId, setSelectedWindowId] = useState<string | null>(null);
+  const [rawBasisOpen, setRawBasisOpen] = useState(false);
 
   const bridgeEdit = useBridgeEdit(expId!, jobId!);
 
@@ -74,6 +76,7 @@ export function BridgePage() {
         onStopEditing={bridgeEdit.stopEditing}
         onSave={bridgeEdit.save}
         onReset={bridgeEdit.resetDraft}
+        onViewRaw={() => setRawBasisOpen(true)}
       />
       <div className="flex-1 overflow-y-auto p-4">
         {selectedWindowId ? (
@@ -96,5 +99,15 @@ export function BridgePage() {
     </div>
   );
 
-  return <BridgeLayout sidebar={sidebar} content={content} />;
+  return (
+    <>
+      <BridgeLayout sidebar={sidebar} content={content} />
+      <BasisViewerDialog
+        expId={expId!}
+        jobId={jobId!}
+        open={rawBasisOpen}
+        onOpenChange={setRawBasisOpen}
+      />
+    </>
+  );
 }

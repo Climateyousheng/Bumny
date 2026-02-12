@@ -124,6 +124,22 @@ class TestGetVariablesForWindow:
         assert isinstance(data["variables"], dict)
 
 
+class TestGetBasisRaw:
+    def test_returns_raw_content(self, bridge_client: TestClient) -> None:
+        resp = bridge_client.get("/bridge/basis/xqgt/a/raw")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert "content" in data
+        assert "line_count" in data
+        assert data["line_count"] > 1000
+        # Basis files contain namelist groups starting with &
+        assert " &" in data["content"]
+
+    def test_missing_basis(self, bridge_client: TestClient) -> None:
+        resp = bridge_client.get("/bridge/basis/xqgt/q/raw")
+        assert resp.status_code == 404
+
+
 class TestUpdateVariables:
     def test_update_and_read_back(
         self,

@@ -1,4 +1,5 @@
 import { ApiError } from "@/types/api";
+import type { BasisRawResponse } from "@/types/basis";
 import type { NavNodeResponse, WindowResponse, HelpResponse, VariableRegistrationResponse, PartitionResponse, VariablesResponse } from "@/types/bridge";
 import type { ExperimentListResponse, ExperimentResponse, CreateExperimentRequest, UpdateExperimentRequest, CopyExperimentRequest } from "@/types/experiment";
 import type { JobListResponse, JobResponse, CreateJobRequest, UpdateJobRequest, CopyJobRequest } from "@/types/job";
@@ -164,6 +165,10 @@ export function getPartitions(): Promise<PartitionResponse[]> {
 
 export function getJobVariables(expId: string, jobId: string): Promise<VariablesResponse> {
   return request(`/bridge/variables/${expId}/${jobId}`);
+}
+
+export function getBasisRaw(expId: string, jobId: string): Promise<BasisRawResponse> {
+  return request(`/bridge/basis/${expId}/${jobId}/raw`);
 }
 
 export function getWindowVariables(expId: string, jobId: string, winId: string): Promise<VariablesResponse> {

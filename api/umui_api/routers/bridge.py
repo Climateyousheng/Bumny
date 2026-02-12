@@ -11,6 +11,7 @@ from umui_core.ops import bridge as bridge_ops
 
 from umui_api.dependencies import AppPack, Fs, Paths, User  # noqa: TC001
 from umui_api.schemas_bridge import (
+    BasisRawResponse,
     HelpResponse,
     NavNodeResponse,
     PartitionResponse,
@@ -230,6 +231,29 @@ def update_variables(
     bridge_ops.write_variables(fs, paths, exp_id, job_id, updates)
     vars_ = bridge_ops.read_variables(fs, paths, exp_id, job_id)
     return VariablesResponse(variables=_normalise_vars(vars_))
+
+
+# ---------------------------------------------------------------------------
+# Raw basis file
+# ---------------------------------------------------------------------------
+
+
+@router.get(
+    "/basis/{exp_id}/{job_id}/raw",
+    response_model=BasisRawResponse,
+)
+def get_basis_raw(
+    exp_id: str,
+    job_id: str,
+    fs: Fs,
+    paths: Paths,
+) -> BasisRawResponse:
+    """Get the raw text content of a job's basis file."""
+    content = bridge_ops.read_basis_raw(fs, paths, exp_id, job_id)
+    return BasisRawResponse(
+        content=content,
+        line_count=content.count("\n") + 1,
+    )
 
 
 def _normalise_vars(

@@ -233,6 +233,47 @@ def write_variables(
     fs.write_bytes(gz_path, compressed)
 
 
+def read_basis_raw(
+    fs: FileSystem,
+    paths: DatabasePaths,
+    exp_id: str,
+    job_id: str,
+) -> str:
+    """Read the raw text content of a job's basis file.
+
+    Args:
+        fs: Filesystem abstraction.
+        paths: Database path helper.
+        exp_id: Experiment ID.
+        job_id: Job ID.
+
+    Returns:
+        Raw basis file content as UTF-8 text.
+
+    Raises:
+        BasisNotFoundError: If no basis file exists.
+        BridgeError: If the file cannot be read or decompressed.
+    """
+    base_path = paths.basis_file(exp_id, job_id)
+    gz_path = base_path + ".gz"
+
+    if fs.exists(gz_path):
+        try:
+            raw = fs.read_bytes(gz_path)
+            return gzip.decompress(raw).decode("utf-8", errors="replace")
+        except (gzip.BadGzipFile, OSError) as e:
+            raise BridgeError(
+                f"Failed to read basis file {gz_path}: {e}"
+            ) from e
+
+    if fs.exists(base_path):
+        return fs.read_text(base_path)
+
+    raise BasisNotFoundError(
+        f"Basis file not found for experiment {exp_id}, job {job_id}"
+    )
+
+
 def _read_basis_groups(
     fs: FileSystem,
     paths: DatabasePaths,

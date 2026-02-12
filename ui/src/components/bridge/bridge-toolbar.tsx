@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Lock, Unlock, Save, RotateCcw, Loader2 } from "lucide-react";
+import { Lock, Unlock, Save, RotateCcw, Loader2, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -24,6 +24,7 @@ interface BridgeToolbarProps {
   readonly onStopEditing: () => Promise<void>;
   readonly onSave: () => Promise<void>;
   readonly onReset: () => void;
+  readonly onViewRaw?: () => void;
 }
 
 export function BridgeToolbar({
@@ -36,6 +37,7 @@ export function BridgeToolbar({
   onStopEditing,
   onSave,
   onReset,
+  onViewRaw,
 }: BridgeToolbarProps) {
   const [forceConfirmOpen, setForceConfirmOpen] = useState(false);
 
@@ -69,6 +71,13 @@ export function BridgeToolbar({
             <Unlock className="h-3 w-3" />
             Available
           </Badge>
+        )}
+
+        {onViewRaw && (
+          <Button variant="outline" size="sm" onClick={onViewRaw}>
+            <FileText className="mr-1 h-3 w-3" />
+            View Raw
+          </Button>
         )}
 
         <div className="flex-1" />

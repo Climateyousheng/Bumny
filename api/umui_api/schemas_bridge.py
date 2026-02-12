@@ -92,6 +92,13 @@ class UpdateVariablesRequest(BaseModel):
 # ---------------------------------------------------------------------------
 
 
+class BasisRawResponse(BaseModel):
+    model_config = ConfigDict(frozen=True)
+
+    content: str
+    line_count: int
+
+
 class HelpResponse(BaseModel):
     model_config = ConfigDict(frozen=True)
 

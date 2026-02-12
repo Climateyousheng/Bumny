@@ -181,6 +181,14 @@ export const handlers = [
     return HttpResponse.json([buildPartition()]);
   }),
 
+  // Bridge - Raw basis file
+  http.get("/bridge/basis/:expId/:jobId/raw", () => {
+    return HttpResponse.json({
+      content: " &NLSTCALL\n OCAAA=1\n NCOLSAG=96\n &END\n",
+      line_count: 4,
+    });
+  }),
+
   // Bridge - Variables (all variables for a job)
   http.get("/bridge/variables/:expId/:jobId", ({ params }) => {
     const jobId = params["jobId"] as string;
