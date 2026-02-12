@@ -21,6 +21,7 @@ interface MenuBarProps {
   readonly onDeleteJob?: () => void;
   readonly onChangeJobDescription?: () => void;
   readonly onForceCloseJob?: () => void;
+  readonly onDifference?: () => void;
 }
 
 function extractRouteContext(pathname: string): {
@@ -47,6 +48,7 @@ export function MenuBar({
   onDeleteJob,
   onChangeJobDescription,
   onForceCloseJob,
+  onDifference,
 }: MenuBarProps) {
   const queryClient = useQueryClient();
   const location = useLocation();
@@ -129,7 +131,9 @@ export function MenuBar({
           </MenubarItem>
           <MenubarItem disabled>Change identifier...</MenubarItem>
           <MenubarItem disabled>Upgrade version...</MenubarItem>
-          <MenubarItem disabled>Difference</MenubarItem>
+          <MenubarItem disabled={!expId} onClick={onDifference}>
+            Difference
+          </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
 

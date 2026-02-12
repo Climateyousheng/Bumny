@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useExperiment } from "@/hooks/use-experiments";
 import { useJob } from "@/hooks/use-jobs";
 import { CopyExperimentDialog } from "@/components/experiments/copy-experiment-dialog";
@@ -44,6 +44,7 @@ interface MenuBarActionsProps {
 
 export function MenuBarActions({ onCreateExperiment, onCreateJob }: MenuBarActionsProps) {
   const location = useLocation();
+  const navigate = useNavigate();
   const { expId, jobId } = extractRouteContext(location.pathname);
 
   const [openDialog, setOpenDialog] = useState<DialogType>(null);
@@ -57,6 +58,10 @@ export function MenuBarActions({ onCreateExperiment, onCreateJob }: MenuBarActio
 
   const open = useCallback((d: DialogType) => () => setOpenDialog(d), []);
   const close = useCallback(() => setOpenDialog(null), []);
+
+  const handleDifference = useCallback(() => {
+    if (expId) navigate(`/experiments/${expId}/diff`);
+  }, [expId, navigate]);
 
   return (
     <>
@@ -72,6 +77,7 @@ export function MenuBarActions({ onCreateExperiment, onCreateJob }: MenuBarActio
         onDeleteJob={open("deleteJob")}
         onChangeJobDescription={open("changeJobDesc")}
         onForceCloseJob={open("forceClose")}
+        onDifference={handleDifference}
       />
 
       {experiment && (

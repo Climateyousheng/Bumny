@@ -181,6 +181,18 @@ export const handlers = [
     return HttpResponse.json([buildPartition()]);
   }),
 
+  // Bridge - Variables (all variables for a job)
+  http.get("/bridge/variables/:expId/:jobId", ({ params }) => {
+    const jobId = params["jobId"] as string;
+    // Return slightly different variables per job for diff testing
+    if (jobId === "b") {
+      return HttpResponse.json(buildVariablesResponse({
+        variables: { OCAAA: "2", NCOLSAG: "96", EXTRA_VAR: "yes" },
+      }));
+    }
+    return HttpResponse.json(buildVariablesResponse());
+  }),
+
   // Bridge - Variables (scoped to window)
   http.get("/bridge/variables/:expId/:jobId/:winId", () => {
     return HttpResponse.json(buildVariablesResponse());

@@ -162,6 +162,10 @@ export function getPartitions(): Promise<PartitionResponse[]> {
   return request("/bridge/partitions");
 }
 
+export function getJobVariables(expId: string, jobId: string): Promise<VariablesResponse> {
+  return request(`/bridge/variables/${expId}/${jobId}`);
+}
+
 export function getWindowVariables(expId: string, jobId: string, winId: string): Promise<VariablesResponse> {
   return request(`/bridge/variables/${expId}/${jobId}/${winId}`);
 }

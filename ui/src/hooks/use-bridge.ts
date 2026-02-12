@@ -43,6 +43,15 @@ export function usePartitions() {
   });
 }
 
+export function useJobVariables(expId: string, jobId: string, options?: { readonly enabled?: boolean }) {
+  return useQuery({
+    queryKey: queryKeys.bridge.jobVariables(expId, jobId),
+    queryFn: () => api.getJobVariables(expId, jobId),
+    enabled: options?.enabled,
+    select: (data) => data.variables,
+  });
+}
+
 export function useWindowVariables(expId: string, jobId: string, winId: string | null) {
   return useQuery({
     queryKey: queryKeys.bridge.windowVariables(expId, jobId, winId ?? ""),
