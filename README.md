@@ -7,7 +7,7 @@ Modern rebuild of the legacy UMUI/GHUI Tcl/Tk tool for managing Unified Model ex
 ```
 core/          Domain model, file format parsers, storage layout, locking, CRUD ops
 connectors/    SSH/SFTP and local filesystem backends
-api/           FastAPI REST API (15 endpoints)
+api/           FastAPI REST API (23 endpoints)
 ui/            React/TypeScript web frontend (Vite + shadcn/ui)
 fixtures/      App pack and sample data from legacy UMUI on puma2
 tools/         Bridge scripts, migration helpers (planned)
@@ -59,6 +59,9 @@ npm run typecheck
 npm run lint
 npm run test
 npm run test:coverage
+
+# E2E tests (requires running API + dev server)
+npm run test:e2e
 ```
 
 ### Running the full stack locally
@@ -129,7 +132,7 @@ connect_timeout = 30.0
 
 ### `umui-api`
 
-FastAPI REST API with 15 endpoints across three routers:
+FastAPI REST API with 23 endpoints across four routers:
 
 | Method | Path | Description |
 |--------|------|-------------|
@@ -148,6 +151,14 @@ FastAPI REST API with 15 endpoints across three routers:
 | GET | `/experiments/{exp_id}/jobs/{job_id}/lock` | Check lock status |
 | POST | `/experiments/{exp_id}/jobs/{job_id}/lock` | Acquire lock |
 | DELETE | `/experiments/{exp_id}/jobs/{job_id}/lock` | Release lock |
+| GET | `/bridge/nav` | Navigation tree |
+| GET | `/bridge/windows/{win_id}` | Window definition + components |
+| GET | `/bridge/windows/{win_id}/help` | Window help text |
+| GET | `/bridge/register` | Variable registrations |
+| GET | `/bridge/partitions` | Partition definitions |
+| GET | `/bridge/variables/{exp_id}/{job_id}` | All variables for job |
+| GET | `/bridge/variables/{exp_id}/{job_id}/{win_id}` | Variables scoped to window |
+| PATCH | `/bridge/variables/{exp_id}/{job_id}` | Update variables |
 
 Mutating endpoints require the `X-UMUI-User` header for identity.
 
@@ -155,11 +166,14 @@ Mutating endpoints require the `X-UMUI-User` header for identity.
 
 React 19 web frontend built with Vite, TypeScript, Tailwind CSS, and shadcn/ui. Features:
 
+- **Explorer view** -- expandable experiment rows with inline lazy-loaded jobs, structured filtering (search, owner, version, privacy), row selection with bulk delete
 - **Experiment management** -- list, search, create, copy, edit, delete
 - **Job management** -- list, create, copy, edit, delete per experiment
-- **Lock management** -- view status, acquire/release locks with 30s polling
+- **Lock management** -- view status, acquire/release/force-acquire locks with 30s polling
+- **Global menubar** -- File/Search/Experiment/Job/Help menus matching legacy UMUI
+- **Bridge editor** -- read-write variable editing with lock-gated draft state, nav tree, expression-driven show/hide, server-side evaluation
 - **User identity** -- username prompted on first visit, stored in localStorage
-- **79 tests** with 86% statement coverage (MSW v2 network mocking)
+- **228 tests** with 92% statement coverage (Vitest + MSW v2 + Playwright E2E)
 
 ## Key concepts
 
@@ -175,6 +189,9 @@ React 19 web frontend built with Vite, TypeScript, Tailwind CSS, and shadcn/ui. 
 | 0 | Done | Real app pack + fixtures from puma2 |
 | 1 | Done | Core library (models, formats, storage, locking, ops) |
 | 1.5 | Done | SSH connector (`SshFileSystem`) |
-| 2 | Done | REST API (FastAPI, 15 endpoints) |
-| 3 | Done | Web UI (React, Vite, shadcn/ui, 79 tests) |
-| 4 | Planned | Bridge editor |
+| 2 | Done | REST API (FastAPI, 23 endpoints) |
+| 3 | Done | Web UI (React, Vite, shadcn/ui) |
+| 4 | Done | Bridge editor (read-write, lock-gated, expression eval) |
+| 4+ | Done | UI parity (explorer, menubar, filtering, 228 tests) |
+| 5 | Planned | Remaining menubar actions, diff viewer, hand-edit mode |
+| 6 | Planned | Process/Submit integration via SSH connector |
