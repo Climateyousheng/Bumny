@@ -11,10 +11,15 @@ export function useJobs(expId: string) {
   });
 }
 
-export function useJob(expId: string, jobId: string) {
+export function useJob(
+  expId: string,
+  jobId: string,
+  options?: { readonly enabled?: boolean },
+) {
   return useQuery({
     queryKey: queryKeys.jobs.detail(expId, jobId),
     queryFn: () => api.getJob(expId, jobId),
+    enabled: options?.enabled,
   });
 }
 

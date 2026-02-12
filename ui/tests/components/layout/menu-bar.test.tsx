@@ -75,4 +75,43 @@ describe("MenuBar", () => {
     const deleteItem = screen.getByRole("menuitem", { name: /delete/i });
     expect(deleteItem).toHaveAttribute("data-disabled");
   });
+
+  it("calls onCopyExperiment when clicking Experiment > Copy", async () => {
+    const onCopyExperiment = vi.fn();
+    renderWithProviders(
+      <MenuBar onCopyExperiment={onCopyExperiment} />,
+      { initialEntries: ["/experiments/xqgt"] },
+    );
+
+    await userEvent.click(screen.getByRole("menuitem", { name: "Experiment" }));
+    await userEvent.click(screen.getByRole("menuitem", { name: "Copy..." }));
+
+    expect(onCopyExperiment).toHaveBeenCalledOnce();
+  });
+
+  it("calls onChangeExpDescription when clicking Experiment > Change description", async () => {
+    const onChangeExpDescription = vi.fn();
+    renderWithProviders(
+      <MenuBar onChangeExpDescription={onChangeExpDescription} />,
+      { initialEntries: ["/experiments/xqgt"] },
+    );
+
+    await userEvent.click(screen.getByRole("menuitem", { name: "Experiment" }));
+    await userEvent.click(screen.getByRole("menuitem", { name: "Change description..." }));
+
+    expect(onChangeExpDescription).toHaveBeenCalledOnce();
+  });
+
+  it("calls onForceCloseJob when clicking Job > Force Close", async () => {
+    const onForceCloseJob = vi.fn();
+    renderWithProviders(
+      <MenuBar onForceCloseJob={onForceCloseJob} />,
+      { initialEntries: ["/experiments/xqgt/jobs/a"] },
+    );
+
+    await userEvent.click(screen.getByRole("menuitem", { name: "Job" }));
+    await userEvent.click(screen.getByRole("menuitem", { name: "Force Close..." }));
+
+    expect(onForceCloseJob).toHaveBeenCalledOnce();
+  });
 });

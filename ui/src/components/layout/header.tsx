@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useUser } from "@/hooks/use-user";
 import { User } from "lucide-react";
-import { MenuBar } from "./menu-bar";
+import { MenuBarActions } from "./menu-bar-actions";
 
 export function Header() {
   const { username } = useUser();
@@ -13,7 +13,7 @@ export function Header() {
           <Link to="/" className="text-lg font-bold">
             UMUI
           </Link>
-          <MenuBar />
+          <MenuBarActions />
         </nav>
         {username && (
           <div className="flex items-center gap-2 text-sm text-muted-foreground">

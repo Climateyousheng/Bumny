@@ -12,6 +12,15 @@ import {
 interface MenuBarProps {
   readonly onCreateExperiment?: () => void;
   readonly onCreateJob?: () => void;
+  readonly onCopyExperiment?: () => void;
+  readonly onDeleteExperiment?: () => void;
+  readonly onChangeExpDescription?: () => void;
+  readonly onChangeExpPrivacy?: () => void;
+  readonly onExpAccessList?: () => void;
+  readonly onCopyJob?: () => void;
+  readonly onDeleteJob?: () => void;
+  readonly onChangeJobDescription?: () => void;
+  readonly onForceCloseJob?: () => void;
 }
 
 function extractRouteContext(pathname: string): {
@@ -26,7 +35,19 @@ function extractRouteContext(pathname: string): {
   };
 }
 
-export function MenuBar({ onCreateExperiment, onCreateJob }: MenuBarProps) {
+export function MenuBar({
+  onCreateExperiment,
+  onCreateJob,
+  onCopyExperiment,
+  onDeleteExperiment,
+  onChangeExpDescription,
+  onChangeExpPrivacy,
+  onExpAccessList,
+  onCopyJob,
+  onDeleteJob,
+  onChangeJobDescription,
+  onForceCloseJob,
+}: MenuBarProps) {
   const queryClient = useQueryClient();
   const location = useLocation();
   const { expId, jobId } = extractRouteContext(location.pathname);
@@ -63,15 +84,25 @@ export function MenuBar({ onCreateExperiment, onCreateJob }: MenuBarProps) {
         <MenubarContent>
           <MenubarItem onClick={onCreateExperiment}>New...</MenubarItem>
           <MenubarSeparator />
-          <MenubarItem disabled>Copy...</MenubarItem>
-          <MenubarItem disabled={!expId}>Delete</MenubarItem>
+          <MenubarItem disabled={!expId} onClick={onCopyExperiment}>
+            Copy...
+          </MenubarItem>
+          <MenubarItem disabled={!expId} onClick={onDeleteExperiment}>
+            Delete
+          </MenubarItem>
           <MenubarItem disabled>Download</MenubarItem>
           <MenubarSeparator />
-          <MenubarItem disabled>Change description...</MenubarItem>
+          <MenubarItem disabled={!expId} onClick={onChangeExpDescription}>
+            Change description...
+          </MenubarItem>
           <MenubarItem disabled>Make operational</MenubarItem>
           <MenubarItem disabled>Change ownership</MenubarItem>
-          <MenubarItem disabled>Change privacy...</MenubarItem>
-          <MenubarItem disabled>Access list...</MenubarItem>
+          <MenubarItem disabled={!expId} onClick={onChangeExpPrivacy}>
+            Change privacy...
+          </MenubarItem>
+          <MenubarItem disabled={!expId} onClick={onExpAccessList}>
+            Access list...
+          </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
 
@@ -83,11 +114,19 @@ export function MenuBar({ onCreateExperiment, onCreateJob }: MenuBarProps) {
             New...
           </MenubarItem>
           <MenubarSeparator />
-          <MenubarItem disabled>Copy...</MenubarItem>
-          <MenubarItem disabled={!jobId}>Delete...</MenubarItem>
-          <MenubarItem disabled>Force Close...</MenubarItem>
+          <MenubarItem disabled={!jobId} onClick={onCopyJob}>
+            Copy...
+          </MenubarItem>
+          <MenubarItem disabled={!jobId} onClick={onDeleteJob}>
+            Delete...
+          </MenubarItem>
+          <MenubarItem disabled={!jobId} onClick={onForceCloseJob}>
+            Force Close...
+          </MenubarItem>
           <MenubarSeparator />
-          <MenubarItem disabled>Change description...</MenubarItem>
+          <MenubarItem disabled={!jobId} onClick={onChangeJobDescription}>
+            Change description...
+          </MenubarItem>
           <MenubarItem disabled>Change identifier...</MenubarItem>
           <MenubarItem disabled>Upgrade version...</MenubarItem>
           <MenubarItem disabled>Difference</MenubarItem>

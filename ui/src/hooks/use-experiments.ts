@@ -11,10 +11,14 @@ export function useExperiments() {
   });
 }
 
-export function useExperiment(expId: string) {
+export function useExperiment(
+  expId: string,
+  options?: { readonly enabled?: boolean },
+) {
   return useQuery({
     queryKey: queryKeys.experiments.detail(expId),
     queryFn: () => api.getExperiment(expId),
+    enabled: options?.enabled,
   });
 }
 
