@@ -10,6 +10,8 @@ Modern rebuild of the legacy UMUI/GHUI Tcl/Tk tool for managing Unified Model ex
 - `ui/` - React 19 + TypeScript frontend (Vite, shadcn/ui, TanStack Query)
 - `fixtures/` - App pack and sample data from legacy UMUI
 - `tools/` - Bridge scripts, migration helpers
+- `umui/` - Legacy UMUI/GHUI Tcl/Tk source (`ghui2.0/`) and reference docs (read-only reference)
+- `docs/` - Implementation guides, planning docs, science notes
 
 ## Dev commands
 
