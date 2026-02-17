@@ -11,7 +11,8 @@ api/           FastAPI REST API (24 endpoints)
 ui/            React/TypeScript web frontend (Vite + shadcn/ui)
 fixtures/      App pack and sample data from legacy UMUI on puma2
 tools/         Bridge scripts, migration helpers (planned)
-docs/          Contributing guide, runbook, legacy docs
+docs/          Implementation guides, planning docs, science notes, contributing guide, runbook
+umui/          Legacy UMUI/GHUI Tcl/Tk source (ghui2.0/) and reference docs (read-only reference)
 ```
 
 ## Quick start
