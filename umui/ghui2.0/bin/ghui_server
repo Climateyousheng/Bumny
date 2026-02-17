@@ -1,0 +1,39 @@
+#!/bin/sh
+#
+# This script runs the User
+# Interface database server
+
+if test $# -ne 4
+then
+  echo "ERROR: Wrong number of arguments."
+  echo "ERROR: Should be run from admin client."
+fi
+
+
+# The location of the software
+SERVER_BASE=$1
+SERVER_DATABASE=$2
+
+# what Type of server is this
+SERVER_TYPE=$3
+APPLICATION=$4
+
+# Create database if it doesn't already exist
+if [ ! -d $SERVER_DATABASE ]
+then
+  mkdir $SERVER_DATABASE
+fi
+
+TCLSH_EXE=${TCLSH_EXE:-/home/n02/n02/umui/bin/tclsh8.3}
+
+# Start the UI server, detaching from
+# terminal and re-directing any errors
+$TCLSH_EXE \
+  $SERVER_BASE/tcl/server.tcl \
+  $SERVER_BASE \
+  $SERVER_TYPE \
+  $SERVER_DATABASE \
+  $APPLICATION \
+  < /dev/null \
+  > $SERVER_DATABASE/errors \
+  2>&1 &

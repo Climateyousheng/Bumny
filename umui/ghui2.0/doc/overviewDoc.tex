@@ -1,0 +1,218 @@
+#==============================================================================
+# RCS Header:
+#   File         [$Source: /home/hc0300/umui/srce_code/GHUI_archive/ghui2.0/doc/overviewDoc.tex,v $]
+#   Revision     [$Revision: 1.2 $]     Named [$Name: head#main $]
+#   Last checkin [$Date: 2000/10/16 13:18:25 $]
+#   Author       [$Author: hadsm $]
+#==============================================================================
+
+\chapter{Overview of the GHUI}
+
+The GHUI was designed to solve the problem of setting up runs of the
+Unified Model (UM) at the Met. Office. The UM is a suite of
+atmospheric and oceanic numerical modelling software developed at the
+Met. Office. It is the major tool for weather forecasting, climate
+prediction and research. The UM supports models on global and regional
+domains over a wide range of temporal and spatial scales. It runs on a
+range of platforms including vector parallel, massively parallel and
+UNIX workstations. All aspects of a model run are handled by the UM
+system including code compilation, data archiving and management of
+very long climate simulations.
+
+The comprehensive and flexible nature of the UM system means that
+several hundred input parameters are required to specify a model run,
+and different types of run may require significantly different sets of
+input. Additionally, the form of the input to a UM run is not
+straightforward; a UNIX script and a set of files containing various
+scientific and control parameters are required. Therefore, a suitable
+user interface needed to fulfil the following requirements:
+
+\begin{itemize}
+\item To contain a large number of input windows each of which has a
+number of questions.
+\item To group together related windows to ensure that users can find
+and access a relevant window or a set of relevant windows with ease.
+\item To allow users to copy and save job specifications. Thus, by
+basing a job on a similar job copied from elsewhere, the amount of
+additional input required is kept reasonably small.
+\item To incorporate functionality for processing users' input into
+the appropriate format for controlling a UM run.
+\end{itemize}
+
+Furthermore a user interface also needed to find the appropriate line
+between being simple enough to enable easy development and maintenance
+of the system and being complex enough to satisfy the requirements of
+the UM. The result of the project was the development of the Unified
+Model User Interface (UMUI). The code behind the UMUI was developed
+with reusability very much in mind and after a while the reusable, or
+generic, components were extracted to create the a package of
+applications and functions called the Generic Hierarchical User
+Interface.
+
+The philosophy behind the design of the GHUI was to include within the
+package all the functionality needed to provide most of the user
+interface functionality. But it was also designed to be highly
+configurable and easily extendible so that further functionality could
+be added where the standard GHUI functions were too limited or
+inappropriate.
+
+A common use of application-specific code in the UMUI is to provide
+alternative validation checks of user input. The GHUI provides a
+number of primitive checking algorithms, for example to ensure that
+input is of the correct data type, that numerical input is in the
+correct range, that string input is within a given length and so on.
+More complex checks can however be provided by supplying an
+application-specific function. The simplest case of such a check is
+where the input of one value is dependent on the input of another,
+perhaps in a different panel. The cross-checking routine will be able
+to provide the error message and perhaps also the location of the
+dependent question.
+
+Even application-specific input panels can be created.  The GHUI
+provides functionality to develop reasonably basic forms-based panels,
+and use of simple layout tools and the ability to deactivate or hide
+non-relevant questions mean that they are easy to read and acceptable
+for most purposes. However, in the UMUI one particularly complex set
+of input required its own separate user interface. This
+application-specific user interface was ``hooked'' into the UMUI and
+appears in much the same way as a normal panel when the appropriate
+item in the main Navigation window is selected.
+
+The GHUI package comprises the following main components:
+
+\begin{itemize}
+\item A client/server system that allows all users to store each of
+their separate setups (termed ``jobs'') in a single central database
+and allows users to view anyone else's jobs. The system groups jobs
+together into sets called ``experiments''.
+
+Each experiment is referred to with a 4-letter identity and each job
+is referred to by a single letter. Thus a job is fully described by 5
+letters, for example as ababc or sometimes abab#c to reference job
+``c'' in experiment ``abab''. At the time of writing the structure of
+the database is very simple. Within the database directory, each
+experiment comprises a small text file (\eg abab.exp) that summarises
+the contents of the experiment and a directory (\eg abab) that holds
+the information about each job. Within the experiment directory there
+exists two files per job; a small text file that summarises the
+contents of the job (eg c.job) and a ``basis database'' with a one
+letter filename which contains the full information about the job
+setup. Thus the database format is very simple and all files within
+are text files with reasonably straightforward formats. (If gzip
+compression is available on the server machine, job basis databases
+will be compressed. So the file name will have a .gz extension).
+
+When the server process is started it reads and stores the basic
+information about each experiment and job held in the .exp and .job
+files.  The clients can query this information. Some of the
+information, such as version number or owner, is generic. Other
+information is application-specific; it is defined by the particular
+user interface configuration and depends on the setup of the
+particular job.
+
+A Server Administration user interface manages the server system. The
+system can be run with one server or two. With two servers
+(dual-server mode) the secondary server acts as a backup for when the
+primary server fails. Only the user interface manager can use this
+interface.
+
+\item The Entry System, so called because it is the interface that
+appears when the user interface is first started. It displays a
+selection of experiments and jobs depending on the current search
+settings. Thus it enables only a certain subset of all experiments to
+be displayed. By default, when the Entry System is started it will
+display all experiments owned by the current user. The Entry System
+can be configured by the system administrator to display some or all
+of the basic job and experiment information stored by the server.
+
+The Entry System provides functionality to copy, delete or create jobs
+and experiments, to upgrade jobs to the next version of the user
+interface and to compare two jobs.
+
+\item The Navigation System is sometimes called the job edit
+system. It allows the setup of a job to be changed. The Navigation
+System is so called because it is designed to allow the user to
+navigate easily from one part of the system to another. By using a
+hierarchical tree structure, the Navigation Tree, to categorise panels
+it can sensibly manage access to hundreds of input panels. For example
+the UMUI has over 200 panels.
+
+The main Navigation System window displays the Navigation Tree on its
+left-hand of two main panels. Each node of the tree describes a
+category or subcategory of panels and/or nodes. When a node is
+selected, the panels relating to that node are listed on the
+right-hand panel of the window. When an item from the list is
+selected, the appropriate panel is generated and displayed.
+
+The Navigation System provides access to a range of functions through
+an array of buttons displayed along the bottom of the main window. The
+main functions include buttons for saving work and for quitting the
+session. Other important functions include the processing function
+that converts the job setup into a format suitable for the related
+application and the Check Setup function that runs a check on the
+current setup and reports any error. The array of buttons that are
+displayed is configurable by the user interface developer.
+
+\end{itemize}
+
+\subsection{Summary of the Components of the GHUI}
+
+The directory structure of the GHUI is as follows. For version 2.0,
+the top-level directory is called ghui2.0. Within this directory the
+following directories exist:
+
+\begin{description}
+\item [Install]
+Contains the Configure script required to configure the GHUI
+installation. Also contains template files that are used to generate
+the application startup scripts (eg the ``umui'' and ``umui_admin''
+scripts for the UMUI).
+\item [apps]
+Contains an application definition file for each user interface
+registered to use the GHUI.
+\item [bin]
+Contains some general GHUI scripts such as those required to start the
+server. Some of these scripts are generated from template scripts when
+the GHUI is configured. The template scripts are in the same directory
+and have the same name but with a ``.in'' extension.
+\item [tcl]
+Contains the Tcl/Tk code for running the Entry System and Server
+Administration interfaces, and Client/Server system.
+\item [pkg]
+Contains some more general Tcl packages also required for running the
+Entry System and Server Administration interfaces, and Client/Server
+system.
+\item [help]
+Contains the help files accessible from the Entry System and Server
+Administration interfaces.
+\item [icons]
+Contains bitmap files that describe the icons used in the Entry System.
+\item [doc]
+Holds the documentation files.
+\item [vn1.1, vn1.2 etc]
+There can be more than one version of the Navigation System code. Each
+version of the code has its own subdirectory.
+\end{description}
+
+Each directory holding a version of the Navigation System code
+contains the following subdirectories:
+
+\begin{description}
+\item [tcl]
+Contains the Tcl/Tk code for running the Navigation System.
+\item [pkg]
+Contains other Tcl packages and shared libraries for running the
+Navigation System.
+\item [help]
+Contains help files accessible from the main Navigation System window.
+\item [src]
+Contains the C code for the shared libraries. This directory is
+available within the installation package but is not copied to the
+installed GHUI.
+\item [doc] Holds version specific documentation (none available for
+vn1.1 though).
+\end{description}
+
+NB at some point the pkg directories for the Entry System and for the
+versions of the Navigation System may be rationalised to one
+directory.

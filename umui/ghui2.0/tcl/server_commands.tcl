@@ -1,0 +1,1428 @@
+# Server commands
+#
+
+
+# Log reconfiguration
+#
+proc log_client_config {} {
+
+    server_log "Client defs re-configured by administrator"
+}
+
+# Log database copy
+#
+proc log_database_copy {source destination} {
+
+    server_log "Administrator copied database from $source to $destination"
+}
+
+# prefix is blank for experiment matching and $exp_id for job matching
+proc do_match {prefix array matches} {
+    upvar args args
+    upvar item_list item_list
+    upvar match_type exact_match
+    upvar $array experiments
+
+    global titles 
+
+    #set matches $experiments(list)
+
+    # Apply each filter to the info in $experiments
+    for {set i 0} {$i<[llength $args]} {incr i} {
+	set item [lindex $args $i]
+	lappend item_list $item
+	set filter [lindex $args [incr i]]
+
+	# Is filter on or off
+	if {$filter!="*"} {
+	    set matches1 {}
+	    set type $titles(type,$item)
+	    
+	    # Filter info read from an entry box
+	    if {$type=="string"} {
+		set strings [split $filter ","]
+		foreach id $matches {
+		    # Test each substring
+		    foreach string $strings {
+			if {$item != "id"} {		     
+			    if {$exact_match==1} {
+				# Match strings exactly 			 
+				if [string match $string $experiments($prefix$id,$item)] {
+				    lappend matches1 $id
+				    break
+				}
+			    } else {
+				# Substring match - any match will do
+				if [string match *$string* $experiments($prefix$id,$item)] {
+				    lappend matches1 $id
+				    break
+				}
+			    }
+			} else {
+			    # id is a special case since matching with id
+			    if [string match *$string* $id] {
+				lappend matches1 $id
+				break
+			    } 
+			}
+		    }
+		}
+	    } elseif { $type=="option" } {
+		# Filter info read from radiobuttons
+		if {$titles(filter_options,$item) != "YN"} {
+		    foreach id $matches {
+			if [string match $filter $experiments($prefix$id,$item)] {
+			    lappend matches1 $id
+			}
+		    }
+		} else {
+		    # This is a YN option - either it matches or Y implies any setting (except N)
+		    # and N implies setting is blank
+		    foreach id $matches {
+			set val $experiments($prefix$id,$item)
+			if { ($filter == $val) || ($filter == "Y" && $val != "" && $val != "N") || \
+				($filter == "N" && $val == "") } {
+			    lappend matches1 $id
+			}
+		    }
+		}
+	    }
+	    set matches $matches1
+	}
+    }
+    return $matches
+}
+
+# return list of experiment details given search conditions
+# app is the name of the application
+# match_type indicates either "1 - exact pattern match" or "0 - substring match"
+# args contains pairs of arguments - the first is the name of a 
+# column, the second is the filter instruction
+
+proc send_experiment_list {user match_type args} {
+    
+    global experiments exp_fields titles
+
+    #server_log "send_experiment_list called with $args"
+
+    set matches $experiments(list)
+    set matches [do_match "" experiments $matches]
+
+    # construct reply
+    set reply {}
+    # For each accepted id return a list comprising exp_id and pairs of 
+    # filter items and settings
+    foreach exp_id $matches {
+	set list $exp_id
+        set viewExpt F
+
+	if {[info exists experiments($exp_id,privacy)]} {
+	    # Privacy set
+	    if {$experiments($exp_id,privacy) == "N" || $experiments($exp_id,privacy) == "Unset" || $experiments($exp_id,owner) == $user} {
+		# Experiment marked as publicly viewable or user is the owner
+		set viewExpt T
+	    } else {
+		# Check if user is in the access list
+		foreach al_user $experiments($exp_id,access_list) {
+		    if [string match $al_user $user] {
+			set viewExpt T
+		    }
+		}
+	    }
+	} else {
+	    # Privacy unset so experiment is publicly viewable
+	    set viewExpt T
+	}
+	if {$viewExpt =="T"} {
+	    foreach item $titles(all_columns) {
+		if {$item != "id"} {
+		    if {[info exists experiments($exp_id,$item)]==0} {
+			set experiments($exp_id,$item) "Unset"
+		    }
+		    lappend list $item $experiments($exp_id,$item)
+		    
+		}
+	    }
+	    lappend reply $list
+	}
+    }
+    return $reply
+}
+
+
+# return list of jobs in an experiment given various search conditions
+#
+proc send_job_list {exp_id match_type args} {
+
+    global experiments jobs titles
+
+    #server_log "send_job_list called"
+
+    if {! [info exists experiments($exp_id)]} {
+	error "Cannot return list of jobs for non-existent experiment $exp_id."
+    }
+
+    set matches $experiments($exp_id,joblist)
+    set matches [do_match $exp_id jobs $matches]
+
+    # construct reply
+    set reply {}
+    # For each accepted id return a list comprising exp_id and pairs of 
+    # filter items and settings
+    foreach job_id $matches {
+	set list $job_id
+	foreach item $titles(all_columns) {
+	    if {$item != "id"} {
+		if {[info exists jobs($exp_id$job_id,$item)]==0} {
+		    set jobs($exp_id$job_id,$item) "Unset"
+		}
+		lappend list $item $jobs($exp_id$job_id,$item)
+	    }
+	}
+	lappend reply $list
+    }
+    return $reply
+}
+
+
+# changeExperimentOwner
+#   Change ownership of an experiment.
+# Arguments
+#   id: Experiment ID
+#   user: Current user
+#   newOwner: Proposed new owner
+# Comments
+#   The user must have the appropriate permission either by currently
+#   owning the experiment or by being on the access list.
+
+proc changeExperimentOwner {id user newOwner} {
+    global experiments exp_fields
+    check_exp_permissions $id $user
+    set currentOwner $experiments($id,owner)
+    set experiments($id,owner) $newOwner
+    save_experiment_details $id
+    server_log "Changed ownership of $id from $currentOwner to $newOwner"
+    return 1
+}
+   
+# Create a new experiment using the next id for the initial letter
+#
+proc create_new_experiment {owner initial description privacy} {
+
+    global experiments exp_fields
+
+    set id [next_exp_id $initial]
+
+    set experiments($id) 1
+
+    # create experiment object with given owner and description
+    # initialise other fields as blanks
+    foreach field $exp_fields {
+	switch $field {
+	    owner {
+		set experiments($id,owner) $owner
+	    }
+	    description {
+		set experiments($id,description) $description
+	    }
+	    privacy {
+		set experiments($id,privacy) $privacy
+	    }
+	    default {
+		set experiments($id,$field) {}
+	    }
+	}
+    }
+
+    # initialise expt joblist
+    set experiments($id,joblist) {}
+
+    # save details to disk
+    save_experiment_details $id
+
+    # update experiment list
+    lappend experiments(list) $id
+    set experiments(list) [lsort $experiments(list)]
+
+    # log activity
+    server_log "Created new experiment $id for user $owner."
+
+    # return id created
+    return $id
+}
+
+
+# make an experiment operational
+#
+proc make_experiment_operational {old_id user} {
+
+    global database_dir experiments
+
+    # Check if experiment exists and permissions are correct
+    if {! [info exists experiments($old_id)]} {
+	error "Cannot make non-existent experiment $old_id operational."
+    }
+    check_exp_permissions $old_id $user
+
+    # check that it isn't operational already.
+    if {[string index $old_id 0] == "q"} {
+	error "Experiment $old_id is operational already."
+    }
+
+    # Ros (March 07)
+    # Set privacy of experiment to N
+    # create a new experiment in operational section
+    set new_id [create_new_experiment $user q "New Operational Experiment" N]
+
+    # copy old experiment files
+    foreach file [glob -nocomplain $database_dir/$old_id/*] {
+	eval exec cp $file $database_dir/$new_id
+    }
+    exec cp $database_dir/$old_id.exp $database_dir/$new_id.exp
+
+    # delete old experiment
+    delete_experiment $old_id $user
+
+    read_experiment_info $new_id
+    read_exp_jobs $new_id
+
+    return $new_id
+}
+
+
+# Create a new job using the given id
+#
+proc create_new_job {exp_id job_id owner description version} {
+
+    global experiments jobs job_fields
+
+    # check for various problems
+    if {! [info exists experiments($exp_id)]} {
+	error "Cannot create new job for non-existent experiment $exp_id."
+    }
+    if [info exists jobs($job_id)] {
+	error "Job $job_id already exists in experiment $exp_id."
+    }
+    if {! [string match {[a-z]} $job_id]} {
+	error "Job id must be a lower case letter, not $job_id."
+    }
+
+    # check that owner can write to experiment
+    check_exp_permissions $exp_id $owner
+
+    set jobs($exp_id$job_id) 1
+
+    # create job object with given description and version
+    # initialise other fields as blanks
+    foreach field $job_fields {
+	switch $field {
+	    version {
+		set jobs($exp_id$job_id,version) $version
+	    }
+	    description {
+		set jobs($exp_id$job_id,description) $description
+	    }
+	    opened {
+		set jobs($exp_id$job_id,opened) N
+	    }
+	    default {
+		set jobs($exp_id$job_id,$field) {}
+	    }
+	}
+    }
+
+    # save job details to disk
+    save_job_details $exp_id $job_id
+
+    # update list of jobs in experiment
+    set joblist $experiments($exp_id,joblist)
+    lappend joblist $job_id
+    set experiments($exp_id,joblist) [lsort $joblist]
+
+    # update experiment details
+    update_exp_details $exp_id
+
+    # log activity
+    server_log "Created new job $exp_id$job_id for user $owner."
+
+}
+
+
+# Delete a whole experiment
+#
+proc delete_experiment {id user} {
+
+    global database_dir experiments
+
+    # Check if experiment exists and permissions are correct
+    if {! [info exists experiments($id)]} {
+	error "Cannot delete non-existent experiment $id."
+    }
+    check_exp_permissions $id $user
+
+    # remove all objects
+    foreach job $experiments($id,joblist) {
+	clean_job $id $job
+    }
+    clean_expt $id
+
+    # remove files from disk
+    file delete -force $database_dir/$id $database_dir/$id.exp
+
+    # remove from list of experiments
+    set expts1 {}
+    foreach expt $experiments(list) {
+	if {! [string match $expt $id]} {
+	    lappend expts1 $expt
+	}
+    }
+    set experiments(list) $expts1
+
+    # log activity
+    server_log "Deleted experiment $id for user $user."
+}
+
+
+# Delete a job
+#
+proc delete_job {exp_id job_id user} {
+
+    global database_dir experiments jobs
+
+    # check job exists and permissions.
+    if {! [info exists experiments($exp_id)]} {
+	error "Cannot delete job from non-existent experiment $exp_id."
+    }
+    if {! [info exists jobs($exp_id$job_id)]} {
+	error "Cannot delete non-existent job $job_id from experiment $exp_id."
+    }
+    check_exp_permissions $exp_id $user
+
+    # remove job object and reference in experiment object
+    clean_job $exp_id $job_id
+
+    # remove job files from disk
+    set fName $database_dir/$exp_id/$job_id
+    file delete $fName.job
+    if {[file exists $fName.gz]} {
+	file delete $fName.gz
+    } elseif {[file exists $fName]} {
+	file delete $fName
+    }
+
+    # update experiment details
+    update_exp_details $exp_id
+
+    # log activity
+    server_log "Deleted job $exp_id$job_id for user $user."
+}
+
+
+# Copy an experiment
+#
+proc copy_experiment {exp_id1 user initial description} {
+
+    global experiments jobs
+
+    # check source experiment exists
+    if {! [info exists experiments($exp_id1)]} {
+	error "Cannot copy non-existent experiment $exp_id1."
+    }
+
+    # Ros (March 07)
+    set privacy $experiments($exp_id1,privacy)
+
+    # create new experiment
+    set exp_id2 [create_new_experiment $user $initial $description $privacy]
+
+    # copy each job
+    foreach job_id $experiments($exp_id1,joblist) {
+	copy_job $exp_id1 $job_id $exp_id2 $job_id \
+		$user $jobs($exp_id1$job_id,description)
+    }
+
+    # log activity and return new experiment id.
+    server_log "Copied experiment $exp_id1 to $exp_id2 for user $user."
+    return $exp_id2
+}
+
+
+# Copy a job
+#
+proc copy_job {exp_id1 job_id1 exp_id2 job_id2 user description} {
+
+    global job_fields database_dir experiments jobs
+
+    # check source experiment and job exists
+    if {! [info exists experiments($exp_id1)]} {
+	error "Cannot copy from non-existent experiment $exp_id1."
+    }
+    if {! [info exists jobs($exp_id1$job_id1)]} {
+	error "Cannot copy non-existent job $job_id1 from experiment $exp_id1."
+    }
+
+    # check destination experiment exists, job doesn't exist and permissions.
+    if {! [info exists experiments($exp_id2)]} {
+	error "Cannot copy to non-existent experiment $exp_id2."
+    }
+    if [info exists jobs($exp_id2$job_id2)] {
+	error "Job $job_id2 of experiment $exp_id2 already exists."
+    }
+    check_exp_permissions $exp_id2 $user
+
+    # create new job, copy and save details
+    create_new_job $exp_id2 $job_id2 $user $description \
+	    $jobs($exp_id1$job_id1,version)
+    foreach field $job_fields {
+	if {$field != "description" && $field != "opened"} {
+	    set jobs($exp_id2$job_id2,$field)  $jobs($exp_id1$job_id1,$field)
+	}
+    }
+    save_job_details $exp_id2 $job_id2
+
+    # copy job file
+    set fName1 $database_dir/$exp_id1/$job_id1
+    set fName2 $database_dir/$exp_id2/$job_id2
+    if {[file exists $fName2.gz]} {
+	file delete $fName2.gz
+    } elseif {[file exists $fName2]} {
+	file delete $fName2
+    }
+
+    if {[file exists $fName1.gz]} {
+	file copy $fName1.gz $fName2.gz 
+    } elseif {[file exists $fName1]} {
+	file copy $fName1 $fName2
+	file attributes $fName2 -permissions 00644
+	pfPackFile $fName2
+    }
+
+    # update experiment details
+    update_exp_details $exp_id1
+    update_exp_details $exp_id2
+
+    # log activity
+    server_log "Copied job $exp_id1$job_id1 to $exp_id2$job_id2 for user $user."
+}
+
+
+# Change experiment description
+#
+proc change_experiment_description {id user description} {
+
+    global experiments
+
+    # check experiment exists and permissions
+    if {! [info exists experiments($id)]} {
+	error "Cannot change description of non-existent experiment $id."
+    }
+    check_exp_permissions $id $user
+
+    # change description and save
+    set experiments($id,description) $description
+    save_experiment_details $id
+
+    # log activity
+    server_log "Changed description of experiment $id to $description for\
+	    user $user."
+}
+
+
+# Change job description
+#
+proc change_job_description {exp_id job_id user description} {
+
+    global experiments jobs
+
+    # check experiment and job exist and permissions
+    if {! [info exists experiments($exp_id)]} {
+	error "Cannot change job of non-existent experiment $exp_id."
+    }
+    check_exp_permissions $exp_id $user
+    if {! [info exists jobs($exp_id$job_id)]} {
+	error "Cannot change description of non-existent job $job_id in \
+		experiment $exp_id."
+    }
+
+    # change description and save
+    set jobs($exp_id$job_id,description) $description
+    save_job_details $exp_id $job_id
+
+    # log activity
+    server_log "Changed description of job $exp_id$job_id to $description for\
+	    user $user."
+}
+
+# Ros (15.03.07) - Making experiments private
+# Change privacy of an experiment
+#
+proc change_experiment_privacy {id user switch} {
+
+    global experiments
+
+    # check experiment exists
+    if {! [info exists experiments($id)]} {
+	error "Cannot change access list of non-existent experiment $id."
+    }
+
+    # only the owner can change the experiment privacy
+    set owner $experiments($id,owner)
+    if {! [string match $user $owner]} {
+	error "Only the owner, $owner, of experiment $id can change the privacy settings."
+    }
+
+    # change the privacy and save
+    set experiments($id,privacy) $switch
+    save_experiment_details $id
+
+    # log activity
+    server_log "Changed privacy of experiment $id to $switch for user $user."
+}
+
+# Change access list of an experiment
+#
+proc change_access_list {id user access_list} {
+
+    global experiments
+
+    # check experiment exists
+    if {! [info exists experiments($id)]} {
+	error "Cannot change access list of non-existent experiment $id."
+    }
+
+    # only the owner can update the access list
+    set owner $experiments($id,owner)
+    if {! [string match $user $owner]} {
+	error "Only the owner, $owner, of experiment $id can update the\
+		access list."
+    }
+
+    # change description and save
+    set experiments($id,access_list) $access_list
+    save_experiment_details $id
+
+    # log activity
+    server_log "Changed access list of $id to $access_list."
+}
+
+
+# Change job identifier
+#
+proc change_job_id {exp_id job_id1 job_id2 user} {
+
+    global experiments jobs
+
+    # check that source exists
+    if {! [info exists experiments($exp_id)]} {
+	error "Cannot change identifier of job in non-existent experiment $exp_id."
+    }
+    if {! [info exists jobs($exp_id$job_id1)]} {
+	error "Cannot change identifier of non-existent job $job_id1 in\
+		experiment $exp_id."
+    }
+    # additional checks will be done by the copy and delete
+
+    # copy job and delete origonal
+    copy_job $exp_id $job_id1 $exp_id $job_id2 \
+	    $user $jobs($exp_id$job_id1,description)
+    delete_job $exp_id $job_id1 $user
+}
+
+
+# Load job from disk
+# returns the job and whether job is writable with a reason
+#
+proc load_job {exp_id job_id user readonly} {
+
+    global database_dir
+    global experiments jobs
+
+    # check experiment and job exist
+    if {! [info exists experiments($exp_id)]} {
+	error "Cannot load job in non-existent experiment $exp_id."
+    }
+    if {! [info exists jobs($exp_id$job_id)]} {
+	error "Cannot load non-existent job $job_id in experiment $exp_id."
+    }
+
+    # determine if there is write permission
+    set writable [expr ! [catch {check_exp_permissions $exp_id $user}]]
+
+    # if read only specified, then mark as not writable.
+    if $readonly {
+	set writable 0
+	set reason "You opened the job as read only."
+
+	# if writable, then determine if already open.
+    } elseif $writable {
+	set opened $jobs($exp_id$job_id,opened)
+
+	# if not open, then mark as writable.
+	set writable [string match $opened N] 
+	if $writable {
+	    set reason ""
+
+	    # if open, then find out who has it open
+	} else {
+	    if [string match $opened $user] {
+		set reason "Experiment already opened by you. To open it read/write, first close it using the Force Close option in the Job menu of the main window and then reopen the job."
+	    } else {
+		set reason "Experiment already open by user $opened."
+	    }
+	}
+
+	# if not writable
+    } else {
+	set reason "You do not have write permission for this job."
+    }
+
+    set fName $database_dir/$exp_id/$job_id
+
+    # Unpack if previously packed
+    if {[file exists $fName.gz]} {
+	pfUnpackFile $fName.gz
+    }
+
+    # create job file if it doesn't exist
+    if {! [file exists $fName]} {
+	exec touch $fName
+	exec chmod a+rw-x,go-w $fName
+    }
+
+    # read file
+    set fp [open $fName r]
+    set contents [read $fp]
+    close $fp
+
+    pfPackFile $fName
+
+    # mark as opened if writable and not opened read-only
+    if {$writable && ! $readonly} {
+	set jobs($exp_id$job_id,opened) $user
+	save_job_details $exp_id $job_id
+	server_log "Job $exp_id$job_id loaded read/write by $user."
+    } else {
+	server_log "Job $exp_id$job_id loaded readonly by $user."
+    }
+
+    return [list $contents $writable $reason]
+}
+
+
+# close a job without saving
+#
+proc close_job {exp_id job_id user} {
+
+    global experiments jobs
+
+    # check experiment and job exist
+    if {! [info exists experiments($exp_id)]} {
+	error "Cannot close job in non-existent experiment $exp_id."
+    }
+    if {! [info exists jobs($exp_id$job_id)]} {
+	error "Cannot close non-existent job $job_id in experiment $exp_id."
+    }
+
+    # determine who has it open
+    set opened $jobs($exp_id$job_id,opened)
+    if [string match $opened N] {
+	error "Cannot close job $job_id in experiment $exp_id as it is not open."
+    }
+    if {! [string match $opened $user]} {
+	error "Only the user, $opened, who opened job $job_id in\
+		experiment $exp_id can close it."
+    }
+
+    # close the job
+    set jobs($exp_id$job_id,opened) N
+    save_job_details $exp_id $job_id
+    server_log "Job $exp_id$job_id closed by $user."
+}
+
+
+# save job
+#
+proc save_job {exp_id job_id user columns contents} {
+
+    global database_dir
+    global experiments jobs application
+
+    # check experiment and job exist
+    if {! [info exists experiments($exp_id)]} {
+	error "Cannot save job in non-existent experiment $exp_id."
+    }
+    if {! [info exists jobs($exp_id$job_id)]} {
+	error "Cannot save non-existent job $job_id in experiment $exp_id."
+    }
+
+    # determine who has it open
+    set opened $jobs($exp_id$job_id,opened)
+    if [string match $opened N] {
+	error "Cannot save job $job_id in experiment $exp_id as it is not open. \
+		Job must have been forced closed by $application administrator. \
+		If you wish to save your settings you will need to use the Download \
+		function."
+    }
+    if {! [string match $opened $user]} {
+	error "Only the user, $opened, who opened job $job_id in\
+		experiment $exp_id can save it."
+    }
+
+
+    # update job and experiment details and save to disk
+    for {set i 0} {$i<[llength $columns]} {incr i} {
+	set type [lindex $columns $i]
+	set setting [lindex $columns [incr i]]
+	set jobs($exp_id$job_id,$type) $setting
+    }
+
+    save_job_details $exp_id $job_id
+    update_exp_details $exp_id
+    
+    set fName $database_dir/$exp_id/$job_id
+    if {[file exists $fName.gz]} {
+	file delete $fName.gz
+    } elseif {[file exists $fName]} {
+	file delete $fName
+    }
+
+    # write contents to file and log activity
+    set fp [open $fName w]
+    puts -nonewline $fp $contents
+    close $fp
+    file attributes $fName -permissions 00644
+
+    pfPackFile $fName
+
+    server_log "Job $exp_id$job_id saved by $user."
+}
+
+
+# get version update possibilities
+#
+proc updates_available version {
+
+    cd [appdir_path updates]
+    set result {}
+    foreach file [glob -nocomplain $version-*.tcl] {
+	lappend result [string range $file [expr [string length $version] +1] \
+		[expr [string length $file] - 5]]
+    }
+    return $result
+}
+
+# readJob
+#   Returns basis file of requested job. cf. load_job which loads a 
+#   job read/write
+# Arguments
+#   exp_id: 4-letter experiment identity
+#   job_id: 1-letter job identity
+#   user:   User identity
+
+proc readJob {exp_id job_id user} {
+
+  global experiments jobs
+
+  # check job exists and permissions.
+  if {! [info exists experiments($exp_id)]} {
+    error "Cannot load job from non-existent experiment $exp_id."
+  }
+  if {! [info exists jobs($exp_id$job_id)]} {
+    error "Cannot load non-existent job $job_id from experiment $exp_id."
+  }
+
+  # load update and save job
+  set job_spec [load_job $exp_id $job_id $user 1]
+
+  # Return basis string to client
+  return [lindex $job_spec 0]
+}
+
+# Two procedures which are used together to
+# update a job from one version to another
+# The first loads up the job and returns the current version
+# and the basis database to the client
+proc update_load_job {exp_id job_id new_version user} {
+
+  global experiments jobs
+
+  # check job exists and permissions.
+  if {! [info exists experiments($exp_id)]} {
+    error "Cannot update job from non-existent experiment $exp_id."
+  }
+  if {! [info exists jobs($exp_id$job_id)]} {
+    error "Cannot update non-existent job $job_id from experiment $exp_id."
+  }
+  check_exp_permissions $exp_id $user
+
+  # check that it is possible to update to the version
+  set old_version $jobs($exp_id$job_id,version)
+  set possible 0
+  foreach version [updates_available $old_version] {
+    if [string match $new_version $version] {
+      set possible 1
+    }
+  }
+  if {! $possible} {
+    error "Cannot update job from version $old_version to $new_version."
+  }
+
+  # load update and save job
+  set job_spec [load_job $exp_id $job_id $user 0]
+  # check if writable
+  if {! [lindex $job_spec 1]} {
+    error "Could not load job read/write. [lindex $job_spec 2]"
+  }
+  
+  # Return version and basis string to client
+  return [list $old_version [lindex $job_spec 0]]
+}
+
+# Called after the job has been upgraded by the client to save
+# job back to the database
+proc update_save_job {exp_id job_id new_version user basis_string} {
+    global jobs
+
+    set old_version $jobs($exp_id$job_id,version)
+
+    save_job $exp_id $job_id $user \
+	    [list description $jobs($exp_id$job_id,description) \
+	    version $new_version] \
+	    $basis_string
+    close_job $exp_id $job_id $user
+
+    # log activity and return journal of update actions
+    server_log "Job $exp_id$job_id updated from version $old_version to\
+	    version $new_version."
+}
+
+# The following commands are used by the administrator only.
+
+
+# Exit the server
+#
+proc halt_server {} {
+
+    # log activity and close
+    server_log "Server terminated by administrator."
+    exit
+}
+
+
+# Force a job that is open to be closed
+#
+proc force_close_job {exp_id job_id} {
+
+    global experiments jobs
+
+    # check experiment and job exist
+    if {! [info exists experiments($exp_id)]} {
+	error "Cannot close job in non-existent experiment $exp_id."
+    }
+    if {! [info exists jobs($exp_id$job_id)]} {
+	error "Cannot close non-existent job $job_id in experiment $exp_id."
+    }
+
+    # determine who has it open
+    set opened $jobs($exp_id$job_id,opened)
+    if [string match $opened N] {
+	error "Cannot close job $job_id in experiment $exp_id as it is not open."
+    }
+
+    # close the job
+    set jobs($exp_id$job_id,opened) N
+    save_job_details $exp_id $job_id
+
+    # log activity and return message
+    server_log "Job $exp_id$job_id closed by force."
+    return "Job $exp_id$job_id now closed. It was opened by $opened."
+}
+
+
+# Reload all experiment and job information from disk
+#
+proc reload_all {server} {
+
+    global experiments server_status rpcFile
+
+    # log activity
+    server_log "Administrator requested re-read of details..."
+
+    read_all_experiments
+    read_all_jobs
+    server_set_status "PAUSED"
+    return $server
+}
+
+
+
+# empty the server log file
+#
+proc clear_log {} {
+
+    # clear log and log message to show it has happened
+    empty_log
+    server_log "Log cleared by administrator."
+}
+
+
+# return list of jobs that are open
+#
+proc list_open_jobs {} {
+
+    global experiments jobs
+
+    # check every job
+    set open_list {}
+
+    if {! [info exists experiments(list)]} {return}
+
+    foreach exp_id $experiments(list) {
+	foreach job_id $experiments($exp_id,joblist) {
+	    # determine who has it open
+	    set opened $jobs($exp_id$job_id,opened)
+	    if {! [string match $opened N]} {
+		lappend open_list [list $exp_id $job_id $opened]
+	    }
+	}
+    }
+    return $open_list
+}
+
+
+# return the last 10 lines in the log
+#
+proc tail_log {} {
+
+    global database_dir
+
+    # check that the log file exists.
+    if {! [file exists $database_dir/log]} {
+	return "There is no server log file!"
+    } else {
+
+	# return the tail of the log
+	return [exec tail $database_dir/log]
+    }
+}
+
+# query the server as to it's current status
+# current status' are "PAUSED" or "ACTIVE"
+#
+proc server_get_status {} {
+
+    global server_status
+
+    if {[info exists server_status]} {
+	return $server_status
+    } else {
+	return "UNDEF"
+    }
+}
+
+# set server status
+# must be a valid status
+#
+proc server_set_status {status} {
+
+    global server_status
+
+    # set list of possible server states
+    lappend server_status_list {EMPTY} {PAUSED} {ACTIVE}
+
+    set old_status $server_status
+
+    # check given state is valid
+    if {[lsearch -exact $server_status_list $status]==-1} {
+	error "Invalid server status request \"$status\""
+    }
+
+    set server_status $status
+
+    # log the state chenge
+    server_log "Server status changed from $old_status to $status"
+}
+
+# query the server as to it's current type
+# current types are "PRIMARY" or "BACKUP"
+#
+proc server_get_type {} {
+
+    global server_type
+
+    if {[info exists server_type]} {
+	return $server_type
+    } else {
+	return "UNDEF"
+    }
+}
+
+# set server type
+# must be valid type
+#
+proc server_set_type {type} {
+
+    global server_type
+
+    lappend server_type_list {PRIMARY} {BACKUP}
+
+    set old_type $server_type
+
+    if {[lsearch -exact $server_type_list $type]==-1} {
+	error "Invalid server type \"$type\""
+    }
+
+    set server_type $type
+
+    # log the type chenge
+    server_log "Server type changed from $old_type to $type"
+}
+
+proc send_client_msg {msg client} {
+
+    server_log "Message from client $client: $msg"
+}
+
+
+# tcl::sc_get_job_desc --
+#   Gets the whole content of job descriptor file
+#   via direct access to the DB rither to rely on
+#   global variables for all experiments and jobs
+#   NB! If this function is going to be used with
+#   central UMUI system, we need to update globals
+#   but the main goal was to avoid to use central 
+#   system
+# Arguments
+#   expId 
+#   jobId       job identificators 
+# Returns
+#   list of pairs name of variable/value of variable
+
+proc sc_get_job_desc {exp_id job_id} {
+
+    global database_dir
+
+    set fName $database_dir/$exp_id/$job_id
+
+    set job_desc {}
+    lappend job_desc $exp_id$job_id
+    
+    if {[file exists $fName.job] && [file exists $fName.gz]} {
+        set fp [open $fName.job r]
+        while {![eof $fp]} {
+            gets $fp readln1
+            gets $fp readln2
+            set fldvalue($readln1) $readln2
+            lappend job_desc $readln1 $readln2
+        }
+        close $fp
+    }
+    return $job_desc
+}
+
+
+# tcl::sc_check_job_status --
+#   Checks if job is opend
+# Arguments
+#   expId 
+#   jobId       job identificators 
+# Returns
+#   list of three elements: status, experiment owner, who open job
+#   status has values:
+#       0   job belongs to logged user and was open in R only mode
+#       1   job belongs to logged user and opened by him in RW mode
+#       2   job belongs to another user  
+#       3   job does not exist
+#   experiment owner - owner logname or word "Null"
+#   who open job - user logname or word "Unset"
+
+proc sc_check_job_status {exp_id job_id} {
+    global database_dir env
+
+    set dName $database_dir/$exp_id
+
+    set ret_value 3
+    set ret_exp_owner "Null "
+    set ret_job_owner "Unset"
+    set ret_status {}
+
+    if {[file exists $dName] && [file exists $dName.exp]} {
+        
+        # Get the experiment owner attribute
+        set fpd [open $dName.exp r]
+        while {![eof $fpd]} {
+            gets $fpd readln1
+            gets $fpd readln2
+            set fldvalue($readln1) $readln2
+        }
+        close $fpd
+        set ret_exp_owner $fldvalue(owner)
+        
+        set fName $database_dir/$exp_id/$job_id
+        if {[file exists $fName.job] && [file exists $fName.gz]} {
+            
+            # Get the job owner attribute
+            set fp [open $fName.job r]
+            while {![eof $fp]} {
+                gets $fp readln1
+                gets $fp readln2
+                set fldvalue($readln1) $readln2
+            }
+            close $fp
+            set ret_job_owner $fldvalue(opened)
+        }
+        
+        if {$fldvalue(owner) == $env(USER)} {
+        # Experiment belongs to the USER
+
+            if {$ret_job_owner == "N"} {
+                set ret_value 0
+            } elseif {$ret_job_owner == $env(USER)} {
+                set ret_value 1
+            } elseif {[string length $ret_job_owner] > 0} {
+                set ret_value 2   
+            } 
+            lappend ret_status $ret_value $ret_exp_owner $ret_job_owner
+ 
+        } elseif {[string match $fldvalue(owner) $env(USER)] == 0} {
+        # Experiment does not belong to the USER
+            
+            set ret_value 2 
+            lappend ret_status $ret_value $ret_exp_owner $ret_job_owner
+        } 
+
+    } else {
+        # experiment does not exist
+        lappend ret_status $ret_value $ret_exp_owner $ret_job_owner
+    }
+    return $ret_status
+}
+
+
+# tcl::sc_lock_job --
+#   Locks job for user 
+# Arguments
+#   expId 
+#   jobId       job identificators 
+#   adm         word FORCE if should be locked forcebly
+# Returns 
+#   0 Ok
+#   1 has been locked by the same user
+#   2 can not be locked
+#   3 locked by force
+ 
+proc sc_lock_job {exp_id job_id {adm ""}} {
+
+    global database_dir
+    global experiments jobs
+    global env
+
+    # check experiment and job exist
+    if {! [info exists experiments($exp_id)]} {
+	error "Can not lock job in non-existent experiment $exp_id."
+    }
+    if {! [info exists jobs($exp_id$job_id)]} {
+	error "Can not lock non-existent job $job_id in experiment $exp_id."
+    }
+
+    set fieldname {}
+   
+    set fName $database_dir/$exp_id/$job_id
+        
+    if {[file exists $fName.job] && [file exists $fName.gz]} {
+        set fp [open $fName.job r]
+        while {![eof $fp]} {
+            gets $fp readln1
+            gets $fp readln2
+            set len [string length $readln1]
+            if {$len > 0} {
+                lappend fieldname $readln1
+                set fldvalue($readln1) $readln2
+            }
+        }
+        close $fp
+            
+        if {$fldvalue(opened) == "N"} {
+            # Change the locking record and global variable         
+            set fldvalue(opened) $env(USER)
+            set jobs($exp_id$job_id,opened) $env(USER)
+
+            set fp [open $fName.job w]
+            foreach fld $fieldname {
+                puts $fp $fld\n$fldvalue($fld)
+            }
+            close $fp
+            file attributes $fName.job -permissions 00644
+            
+            # Signal to the server that the job has been locked  
+            server_log "SC: $exp_id$job_id locked by $env(USER)"
+            return 0 
+                
+        } elseif {$fldvalue(opened)==$env(USER)} {
+            # Signal to server that the job has been already 
+            # locked by the same user 
+            set jobs($exp_id$job_id,opened) $env(USER)
+            server_log "SC: $exp_id$job_id is already locked by you"
+            return 1
+                
+         } else {
+            set old_lock $fldvalue(opened)
+            if {$adm=="FORCE"} {
+                # Change the global variable and locking record by force  
+                set fldvalue(opened) $env(USER)
+                set jobs($exp_id$job_id,opened) $env(USER)
+                
+                set fp [open $fName.job w]
+                foreach fld $fieldname {
+                    puts $fp $fld\n$fldvalue($fld)
+                }
+                close $fp
+                file attributes $fName.job -permissions 00644
+                
+                # Signal to server that the job was locked by force
+                server_log "SC: $exp_id$job_id $old_lock lock was forcebly brocken by $env(USER)"
+                return 3 
+            } else {
+                # Signal to server that the job can not be locked
+                # by other user
+                server_log "SC: $exp_id$job_id is already locked by $old_lock"
+                return 2
+            }
+        }
+    }
+}
+
+
+# tcl::sc_unlock_job --
+#   Unlocks job 
+# Arguments
+#   expId 
+#   jobId       job identificators 
+#   adm         FORCE if should be unlocked forcebly
+# Returns 
+#   0 has been unlocked by the same user
+#   1 has not been locked
+#   2 can not been unlocked
+#   3 break a lock
+ 
+proc sc_unlock_job {exp_id job_id {adm ""}} {
+
+    global database_dir
+    global experiments jobs
+    global env
+
+    # check experiment and job exist
+    if {! [info exists experiments($exp_id)]} {
+	error "Can not unlock job in non-existent experiment $exp_id."
+    }
+    if {! [info exists jobs($exp_id$job_id)]} {
+	error "Can not unlock non-existent job $job_id in experiment $exp_id."
+    }
+
+    set fieldname {}
+   
+    set fName $database_dir/$exp_id/$job_id
+        
+    if {[file exists $fName.job] && [file exists $fName.gz]} {
+        set fp [open $fName.job r]
+        while {![eof $fp]} {
+            gets $fp readln1
+            gets $fp readln2
+            set len [string length $readln1]
+            if {$len > 0} {
+                lappend fieldname $readln1
+                set fldvalue($readln1) $readln2
+            }
+        }
+        close $fp
+            
+        if {$fldvalue(opened)==$env(USER)} {
+            # Change the locking record and global variable        
+            set fldvalue(opened) "N"
+            set jobs($exp_id$job_id,opened) "N"               
+
+            set fp [open $fName.job w]
+            foreach fld $fieldname {
+                puts $fp $fld\n$fldvalue($fld)
+            }
+            close $fp
+            file attributes $fName.job -permissions 00644
+                
+            # Signal to server that the job was unlocked
+            server_log "SC: $exp_id$job_id unlocked by $env(USER)"
+            return 0 
+                
+        } elseif {$fldvalue(opened)=="N"} {
+            # Signal to server that the job was not locked
+            set jobs($exp_id$job_id,opened) "N"               
+            server_log "SC: $exp_id$job_id was not locked"
+            return 1
+                
+        } else {
+            set old_lock $fldvalue(opened)
+            if {$adm=="FORCE"} {
+                # Change the locking record by force and  
+                # signal to server that the job was unlocked
+                set fldvalue(opened) "N"
+                set jobs($exp_id$job_id,opened) "N"               
+            
+                #set fldvalue(opened) $env(USER)
+                set fp [open $fName.job w]
+                foreach fld $fieldname {
+                    puts $fp $fld\n$fldvalue($fld)
+                }
+                close $fp
+            
+                file attributes $fName.job -permissions 00644
+                
+                server_log "SC: $exp_id$job_id $old_lock lock was forcebly brocken by $env(USER)"
+                return 3 
+                    
+            } else {
+                # Signal to server that the job can not be unlocked
+                # by other user
+                server_log "SC: $exp_id$job_id is locked by $old_lock"
+                return 2
+            }
+        }
+    }
+}
+
+
+# tcl::sc_import_job --
+#   Reads job basis file from DBSE into buffer
+# Arguments
+#   expId 
+#   jobId       job identificators 
+# Returns
+#   contents of job as a string
+ 
+proc sc_import_job {exp_id job_id} {
+
+    global database_dir
+    
+    set fName $database_dir/$exp_id/$job_id
+
+    if {[file exists $fName.gz]} {
+        # Unpack if previously packed
+        # pfUnpackFile $fName.gz 
+        exec gunzip $fName.gz
+    }  
+
+    # create job file if it doesn't exist
+    if {! [file exists $fName]} {
+	    exec touch $fName
+	    exec chmod a+rw-x,go-w $fName
+    }
+        
+    # read file contents
+    set fp [open $fName r]
+    set contents [read $fp]
+    close $fp
+        
+    #pfPackFile $fName
+    exec gzip $fName
+    return $contents        
+}
+
+

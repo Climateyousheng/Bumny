@@ -1,0 +1,67 @@
+#!/bin/ksh
+#
+# This script is used by the UMUI admin client to find out
+# if a host can be connected to.
+#
+# This is a site specific file that may need changing if it does not
+# work. It is called from tcl/admin_commands.tcl by the umui_admin
+# client
+#
+# Usage: umui_hostup <host>|<ip.address>
+# Outputs:
+#   yes     -- successful connection to host
+#   no      -- unsuccessful connection to host
+#   unknown -- unknown host or "ping" command not found.
+#
+# Current support for:
+#   Cray UNICOS
+#   Cray UNICOS/mk
+#   HP-UX
+#   DEC Alpha (OSF1)
+#
+# UKMO, 1997
+# Contact: abrady@meto.gov.uk
+#
+
+is_the_host_up()
+{
+  if [ -x "/etc/ping" ]
+  then
+    ping_command="/etc/ping" 
+  elif [ -x "/usr/sbin/ping" ]
+  then
+    ping_command="/usr/sbin/ping"
+  fi
+
+  if [ `uname` = "OSF1" ]
+  then
+    ping_opts1="-c1"
+    ping_opts2=""
+    ping_opts3=""
+  else
+    ping_opts1=""
+    ping_opts2="64"
+    ping_opts3="1"
+  fi
+
+  if [ ! -z "$ping_command" ]
+  then
+    test=`$ping_command $ping_opts1 $1 $ping_opts2 $ping_opts3 2> /dev/null |\
+      grep '.*[01] packets received'|\
+      sed 's/.*\([01]\) packets received.*/\1/g'`
+    if [ "$test" = "0" ]
+    then
+      echo "no"
+    elif [ "$test" = "1" ]
+    then
+      echo "yes"
+    else
+      echo "unknown"
+    fi
+  else
+    echo "unknown"
+  fi
+}
+
+is_the_host_up $1
+exit 0

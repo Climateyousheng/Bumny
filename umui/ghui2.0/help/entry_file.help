@@ -1,0 +1,19 @@
+The file menu has the following items:
+
+* Open read only
+* Open read write
+
+All jobs in the list that are selected are opened for editing. A separate
+process is
+started for each job and the first thing that will be seen is a navigation
+window. If a job is opened read write, then it will be locked against
+further read write opens until the current edits are completed. Only the
+owner of a job or someone in the access list can open a job read write.
+Any user can open jobs read only.
+
+Once a job has been opened for editing, you do not have to leave the entry
+system running. You can iconise it, quit it or leave it. It's up to you.
+
+* Quit
+
+Exits the GHUI entry system.

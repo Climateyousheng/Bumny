@@ -1,0 +1,291 @@
+\documentclass[a4paper,11pt,twoside]{article}
+\usepackage{fancyheadings,graphicx,times,pagesize,float}
+
+\pagesize{twoside=0.4cm}        % Offset left and right pages
+\setlength{\parindent}{0pt}     % Set no indent at start of paragraph
+\setlength{\parskip}{1.5ex plus 0.5ex minus 0.2ex}
+                                % Add a space between paragraphs
+\raggedbottom                   % Do not try to make all pages the
+			        % same height
+\tolerance=600                  % Set the tolerance for inter-word
+			        % spacing
+
+\pagestyle{fancyplain}
+\lhead[\bfseries \thepage]
+{\fancyplain{}{\bfseries\rightmark}}
+\rhead[\fancyplain{}{\bfseries\leftmark}]
+{\bfseries\thepage}
+\cfoot[]{}
+\setlength{\plainheadrulewidth}{0.4pt}
+\addtolength{\headheight}{1.6pt}
+
+\begin{document}
+
+\begin{titlepage}
+  \begin{center}
+
+    \begin{figure}[H]
+      \begin{center}
+        \includegraphics[width=3.2in]{metvert.eps}
+      \end{center}
+    \end{figure}
+
+    \vspace{0.7in}
+    \noindent\rule[-1ex]{\textwidth}{4pt}\\
+    \vspace{0.1in}
+
+    {\bfseries\sffamily\fontsize{30}{30}\selectfont
+      UM-GHUI\\
+      \vspace{0.2in}
+      Dual Server Mode Code Guide}
+
+    \vspace{0.1in}
+    \noindent\rule[-1ex]{\textwidth}{4pt}
+
+    \vspace{0.7in}
+    \begin{tabular}{ll}
+      Document Version:                        & 1.0 \\
+      Date of Issue:                           & \today \\
+      Unified Model Version:                   & 4.0 \\
+      Unified Model User Interface Version(s): & 4.0, 4.0.1 +
+    \end{tabular}
+
+    \vspace{1.2in}
+    The Meteorological Office\\
+    London Road, Bracknell\\
+    Berkshire, RG12 2SZ\\
+    United Kingdom
+
+    \vspace{0.2in}
+    \copyright\ Crown Copyright 1996
+
+    \vspace{0.2in}
+    This document has not been published. Permission to quote from it must\\
+    be obtained from the Head of Numerical Modelling at the above address.
+  \end{center}
+\end{titlepage}
+\cleardoublepage  % Start on an odd page
+
+
+\pagestyle{plain}
+\pagenumbering{arabic}
+
+\section{Introduction}
+The GHUI system can now be run in one of two modes. Single Server Mode
+(SSM) or Dual Server Mode (DSM). The same code is used in each, only
+the configuration files are different. In SSM, a single server is used
+to store all job and experiment information. If this server dies, then
+the GHUI system will be down until the server is restarted and the
+database re-ingested. In DSM, two server process run simultaneously,
+probably on two separate computers. Any changes that are made to the
+database on the primary server are mirrored on the backup server. Any
+actions that do not require a change in the database (eg read only job
+edit session), will not access the backup server.
+
+Other changes have been made to the code to improve the stability and
+robustness of server accesses from clients. The administration menu
+has also be completely re-written; all server administration should
+now be done from here.
+
+\section{Summary of changes cf old system}
+\begin{enumerate}
+
+\item The old system required the ui\_server script to be started from
+the command line. This is no longer possible. The server must now be
+started from the ``ui\_admin'' client.
+
+\item The old system server process automatically started ingestion of
+the database when started. The new system requires that the
+administrator start the ingestion process by hand.
+
+\item The new server process can be on one of 3 states:
+\begin{itemize}
+\item EMPTY
+\item PAUSED
+\item ACTIVE
+\end{itemize}
+When the server process is first started, it is in the ``EMPTY''
+state. Clients cannot connect and use the server. Once the ingestion
+of the server is complete the server becomes ``PAUSED''. Clients
+cannot connect to the servers, if either server is ``PAUSED''. The
+administrator then has to manually (from the admin client) change the
+server status ``ACTIVE''. Clients can then connect and access the
+database.
+
+\item Each client action re-connects and checks that the server is
+configured as the client expects (eg. does the client and the server
+think that the server is a primary server). The action is only
+initiated if the client is happy that the server is ok. When the
+action is finished, the connection is closed. This increases the
+amount of time required for each action, but should improve robustness
+and help insulate users from changes in the server between actions.
+
+\item Server ingestion is done asynchronously. This enables both
+servers to ingest simultaneously, without losing control of the admin
+client (although the client is effectively useless if both servers are
+ingesting).
+\end{enumerate}
+
+\section{Changed/New files}
+The following files have changed or are new since the introduction of
+the DSM capability:
+
+\begin{tabular}{ll}
+	bin/ui\_server		& Now called from admin client\\
+	bin/ui\_admin 		& Completely new interface \\
+	bin/ui                  & Minor changes\\
+	\\
+	etc/clients.def         & New file defining client locations. \\
+                                &  This is used by admin menu to write \\
+                                &  new server.defs to each client \\
+	etc/servers.def         & New file defining PRIMARY and BACKUP \\
+                                &  server characteristics \\
+	\\
+	tcl/admin.tcl \\
+	tcl/admin\_commands.tcl \\
+	tcl/admin\_dialogs.tcl \\
+	tcl/admin\_interface.tcl \\
+	tcl/diff\_jobs.tcl \\
+	tcl/draw\_list.tcl \\
+	tcl/entry.tcl \\
+	tcl/entry\_interface.tcl \\
+	tcl/entry\_menu.tcl \\
+	tcl/gather\_details.tcl \\
+	tcl/open\_job.tcl \\
+	tcl/rpc\_client.tcl \\
+	tcl/rpc\_server.tcl \\
+	tcl/save\_details.tcl \\
+	tcl/server.tcl \\
+	tcl/server\_commands.tcl \\
+	tcl/server\_log.tcl \\
+	tcl/shared\_globals.tcl \\
+	tcl/show\_help.tcl \\
+	\\
+	vn??/tcl/UM/um\_nav\_actions.tcl \\
+	vn??/tcl/appearance.tcl \\
+	vn??/tcl/compare\_jobs.tcl \\
+	vn??/tcl/dialog.tcl \\
+	vn??/tcl/diff\_jobs.tcl \\
+	vn??/tcl/edit\_job.tcl \\
+	vn??/tcl/full\_verify.tcl \\
+	vn??/tcl/rpc\_client.tcl
+\end{tabular}
+
+\section{Example of Dual Server Code for a client action}
+\begin{verbatim}
+
+proc um_example_action
+
+  # The procedure only needs to know the names of the servers
+  # and the port (same for both) that they run on.
+  # backup_state is used to test whether the system is configured
+  # as a DSM or SSM system.
+  global primary_server backup_server backup_state port
+
+  # The primary and backup server characteristics are read from the
+  # file etc/servers.def.
+  read_server_def
+
+  # Make a client connection to the primary server
+  # If there is something "wrong" with the server then
+  # return.
+  set mserver [start_rpc_client $primary_server $port PRIMARY]
+  if {($mserver == "PAUSED") || \
+      ($mserver == "EMPTY") || \
+      ($mserver == "NONE")} {
+    return
+  }
+  if {[check_server $mserver PRIMARY]!=0} {return}
+
+  # We may not be configured to run with a backup server.
+  # If this is the case then we can ignore it.
+  if {($backup_server != "NONE") && ($backup_state != "IGNORE") } {
+    # open socket to backup server and check that it is ok
+    set bserver [start_rpc_client $backup_server $port BACKUP]
+    if {($bserver == "PAUSED") || ($bserver == "EMPTY")} {
+      return
+    } elseif {$bserver != "NONE"} {
+      if {[check_server $bserver BACKUP]!=0} {return} 
+    }
+  }
+
+  # submit action to server
+  dp_RPC $mserver server_action <args>
+  dp_CloseRPC $mserver
+
+  # if in DSM submit to Primary server
+  if {($backup_server != "NONE") && \
+      ($backup_state != "IGNORE") } {
+    if {($bserver != "NONE")} {
+      dp_RPC $bserver server_action <args>
+      dp_CloseRPC $bserver
+    }
+  }
+}
+\end{verbatim}
+
+\section{Future changes}
+A procedural interface to the server on the client side will likely be
+implemented very soon in the entry system and job edit. For more
+information on this conatact Steve Mullerworth
+\textit{hadsm@hadl50}. This should 
+move all the generic server checking and connection code out of the
+GHUI specific directory. The final form of this interface is not
+finalised, but will probably look like this:
+
+\begin{verbatim}
+proc menu_action {arg1 arg2  ... argn} {
+  server_command [list action {$arg1 $arg2 ... $argn}]
+}
+\end{verbatim}
+
+\section{The etc/servers.def file}
+
+\subsection{Dual Server Mode (DSM)}
+\begin{verbatim}
+# This file is created by the ghui_admin script
+# client configuration option. It is read, initially,
+# by each of the scripts ghui, ghui_admin and ghui_server.
+
+# Primary server definitions
+set primary_server   "fs0010"
+set primary_base_dir "/apps/umui"
+set primary_dbse     "/apps/umui/DBSE"
+
+# Backup server definitions
+set backup_server    "hc0010"
+set backup_base_dir  "/users/umui/umui"
+set backup_dbse      "/users/umui/umui/DBSE"
+set backup_state     "ACTIVE"
+\end{verbatim}
+
+\subsection{Single Server mode (SSM)}
+\begin{verbatim}
+# This file is created by the ghui_admin script
+# client configuration option. It is read, initially,
+# by each of the scripts ghui, ghui_admin and ghui_server.
+
+# Created: By hadex by hand on Sat Apr 20 11:20:50 BST 1996
+
+# Primary server definitions
+set primary_server   "fs0010"
+set primary_base_dir "/apps/umui"
+set primary_dbse     "/apps/umui/DBSE"
+
+# Backup server definitions
+set backup_server    "NONE"
+set backup_base_dir  "NONE"
+set backup_dbse      "NONE"
+set backup_state     "IGNORE"
+\end{verbatim}
+
+\section{The etc/clients.def file}
+
+\begin{verbatim}
+umui@hc0010:/apps/umui
+umui@fs0010:/users/umui/umui
+umui@hc0300:/home/hc0300/umui/umui
+\end{verbatim}
+
+
+\end{document}

@@ -1,0 +1,49 @@
+Download.
+
+The "Download" button is a navigation action button that allows users
+to save a copy of a job definition (the job basis file) to a file held
+on the local system. This job definition can be imported into another
+existing job using the "Upload" function.
+
+Use this facility for:
+
+1. Archiving copies of jobs before deleting them from the database.
+2. Sending jobs to users at another site.
+
+Archiving old jobs
+------------------
+
+Jobs that are no longer in use should be removed from the
+database. The Download function allows them to be saved to a local
+file before deletion in case they are needed again later.
+
+If you want to remove a whole experiment, use the Download menu
+option in the Entry system.
+
+Suggestion.
+
+ Downloading
+
+  1. If downloading whole experiment, delete jobs you do not wish to
+keep before downloading.
+  2. Download the experiment and add a README file to describe the
+experiment and each of the jobs.
+  3. Remove the directory from the local system by transferring to an
+offline archive.
+
+ Uploading
+
+ 1. When you need to bring a job back, create a new job in an
+appropriate experiment.
+ 2. Open the job read/write.
+ 3. From the navigation window, click on the "Upload" button and input
+the pathname of the basis file.
+
+Sending a job to a colleague at another site
+--------------------------------------------
+
+The sender would use the "Download" facility to take a copy of the basis
+information that defines a job and put it into a file.
+
+The file can then be sent to the receiver who would use the upload facility to
+import the file into memory. 

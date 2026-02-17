@@ -52,7 +52,7 @@ npm run test:coverage            # vitest with coverage
 
 Legacy UMUI exposed most operations via:
 
-1) **Entry screen menus**: `File`, `Search`, `Experiment`, `Job`, `Help` (see `ghui2.0/tcl/entry_appearance.tcl`).
+1) **Entry screen menus**: `File`, `Search`, `Experiment`, `Job`, `Help` (see `umui/ghui2.0/tcl/entry_appearance.tcl`).
 2) **Job editor action buttons** (bottom bar / help menu) driven by `nav.buttons` in the application pack.
 
 UMUI Next intentionally started with a smaller surface area, but for usability the UI should converge on the legacy workflow:
@@ -72,5 +72,5 @@ Key UI files:
 
 Key legacy references (for parity):
 
-- `ghui2.0/tcl/entry_appearance.tcl` (menu titles/items)
+- `umui/ghui2.0/tcl/entry_appearance.tcl` (menu titles/items)
 - `fixtures/app_pack/*/windows/nav.buttons` (job editor action buttons, accelerators)

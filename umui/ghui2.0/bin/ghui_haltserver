@@ -1,0 +1,39 @@
+#!/bin/sh
+#==============================================================================
+# RCS Header:
+#   File         [$Source: /home/hc0300/umui/srce_code/GHUI_archive/ghui2.0/bin/ghui_haltserver.in,v $]
+#   Revision     [$Revision: 1.2 $]     Named [$Name: head#main $]
+#   Last checkin [$Date: 2003/01/30 11:53:04 $]
+#   Author       [$Author: hadsm $]
+#==============================================================================
+#
+
+# This script halts the User Interface database server. Can be run on
+# any machine.  Arguments can be obtained from the application's
+# server.defs file, or if the application includes a version of the
+# umui2.0/Install/Configure script as obtained from the UMUI (revision
+# 1.5 or, possibly, later), then running Configure will generate
+# appropriate scripts in the umui2.0/bin directory.
+
+
+if test $# -ne 1
+then
+  echo "ERROR: Wrong number of arguments."
+  exit 1
+fi
+
+
+# The location of the local GHUI installation
+UI_BASE=/home/umui/umui/ghui2.0
+
+# Which GHUI application
+APPLICATION=$1
+
+TCLSH_EXE=${TCLSH_EXE:-/home/umui/bin/tclsh8.3}
+
+# Start the UI server, detaching from
+# terminal and re-directing any errors
+$TCLSH_EXE \
+  $UI_BASE/tcl/haltServer.tcl \
+  $UI_BASE \
+  $APPLICATION

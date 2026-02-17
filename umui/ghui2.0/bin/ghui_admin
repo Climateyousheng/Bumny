@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# This script runs the User Interface
+# database administration client
+#
+# Argument
+#   $1 : Name of GHUI-based application being administered
+
+# Temporary directory
+TMPDIR=/tmp
+
+# The remote shell command
+REMOTE_SHELL_COMMAND=ssh
+
+# The location of the software
+UI_BASE=/home/n02/n02/umui/umui/ghui2.0
+
+# Name of wish executable
+WISH_EXE=${WISH_EXE:-/home/n02/n02/umui/bin/wish8.3}
+
+# Start the client
+$WISH_EXE \
+  $UI_BASE/tcl/admin.tcl \
+  $UI_BASE \
+  $REMOTE_SHELL_COMMAND \
+  $TMPDIR \
+  $1
+  

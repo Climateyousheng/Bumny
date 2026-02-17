@@ -1,0 +1,35 @@
+tui                       /home/hc0300/umui/srce_code/testUI_work/main/tui1.0
+ghui                      /home/hc0300/umui/ghui2.0
+# The above pathname refers to the application specific stuff
+# The versions will be pointed to the location of the GHUI tcl and bin below.
+# ie the directories they point to contain a bin and a tcl directory
+Versions
+1.0     vn1.2 ; Version of application and location of job edit code
+1.1     vn1.2 ; Version of application and location of job edit code
+END
+# These directory names are relative to the $umui/vn$vn directory
+Directories
+windows    windows
+functions  functions
+processing processing
+help       help
+icons      icons
+variables  variables
+skeletons  skeletons
+END
+
+Dimensions
+RELATIVE_WIDTH .6
+LINE_HEIGHT 32
+NUMBER_OF_LINES 10
+END
+
+Columns        ; names of the various columns and functions which set their contents
+END
+GHUI_Columns        ; names of the various columns and functions which set their contents
+id          string Identifier    .04   {}               0 {} 20
+owner       string Owner         .14   {}               1 {} 16
+description string Description   .20   set_id           0 {} 36
+version     string Version       .60    {}               0 {} 10
+access_list option "Access List" .70   {}               0 Y  YN
+END

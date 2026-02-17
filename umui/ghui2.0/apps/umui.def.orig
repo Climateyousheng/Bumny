@@ -1,0 +1,76 @@
+umui                      /home/umui/umui/umui2.0
+ghui                      /home/umui/umui/ghui2.0
+# The above pathname refers to the application specific stuff
+# The versions will be pointed to the location of the GHUI tcl and bin below.
+# ie the directories they point to contain a bin and a tcl directory.
+Versions
+4.0.1     vn1.1 ; Version of application and location of job edit code
+4.0.2     vn1.1
+4.1       vn1.1
+4.2       vn1.1
+4.3       vn1.1
+4.4       vn1.1
+4.4.1     vn1.1
+4.5       vn1.1
+4.5.1     vn1.1
+4.5.2     vn1.1
+4.5.3     vn1.1
+4.7       vn1.2
+5.0       vn1.1
+5.1       vn1.2
+5.2       vn1.2
+5.3       vn1.2
+5.4       vn1.2
+5.5       vn1.2
+6.0       vn1.2
+6.1       vn1.4
+6.3       vn1.4
+6.6.3     vn1.4
+6.6.6     vn1.4
+7.0       vn1.4
+7.1       vn1.4
+7.3       vn1.4
+7.4       vn1.4
+7.5       vn1.4
+7.6       vn1.4
+7.7       vn1.4
+7.8       vn1.4
+7.9       vn1.4
+8.0       vn1.4
+8.1       vn1.4
+8.2       vn1.4
+8.3       vn1.4
+8.4       vn1.4
+8.5       vn1.4
+8.6       vn1.4
+END
+# These directory names are relative to the $umui/vn$vn directory
+Directories
+windows    windows
+functions  UM
+processing processing
+help       help
+icons      icons
+variables  variables
+skeletons  skeletons
+END
+
+Dimensions
+RELATIVE_WIDTH .8
+LINE_HEIGHT 32
+NUMBER_OF_LINES 20
+END
+
+Columns        ; names of the various columns and functions which set their contents
+atmosphere  option Atmosphere    .57    set_id 0 "Global" "Global" "Limited Area" "Single Column" 
+ocean       option Ocean         .76    set_id 0 "Global" "Global" "Limited Area" "NEMO"
+slab        option Slab          .83    set_id 0 Y YN
+mesoscale   option Mesoscale     .67    set_id 0 Y YN
+END
+GHUI_Columns        ; names of the various columns and functions which set their contents
+id          string Identifier    .04   {}               0 {} 20
+owner       string Owner         .14   {}               1 {} 16
+description string Description   .20   set_id           0 {} 36
+version     string Version       .5    {}               0 {} 10
+access_list option "Access List" .89   {}               0 Y  YN
+END

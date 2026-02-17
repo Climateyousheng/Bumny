@@ -1,0 +1,26 @@
+Upload.
+The "upload" button is a navigation action button that allows users to
+"import" a job description into an existing job.
+See also "Download."
+
+Normally, the user will upload into an empty job. An empty job is made by
+using the "New" button from the job menu on the entry system.
+
+The facility is useful for copying jobs from one site to another.
+
+The sender would use the "Download" facility to take a copy of the basis
+information that defines a job and put it into a file.
+
+The file would be sent to the receiver who would use the upload facility to
+import the file into memory. This would then go into the database once the job
+is saved. The receiver would:
+	1. Choose/create an experiment to put the new job into.
+	2. Create a new empty job or choose one to overwrite.
+	3. Enter the job read-write.
+	4. Upload into it.
+
+Uploading into a non-empty job will destroy all the basis information that
+defines the job. This cannot be retrieved once you have saved. 
+
+The upload button can also be used to recreate a job that has been archived
+and deleted from the system.

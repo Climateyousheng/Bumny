@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# This script runs the User
+# Interface entry system client
+
+# Check for -display option
+if test "$1" = "-display"
+then
+DISPLAY=$2 ; export DISPLAY
+fi
+
+# The location of the software
+UI_BASE=${UI_BASE:-@ghui_dir@} ; export UI_BASE
+
+# The initial letter for new experiments
+UI_INITIAL=@initial_letter@
+
+# The remote shell command
+REMOTE_SHELL_COMMAND=@remote_shell_command@ ; export REMOTE_SHELL_COMMAND
+
+# Name of wish executable
+WISH_EXE=${WISH_EXE:-@wish_exe@} ; export WISH_EXE
+
+# Start the application
+$UI_BASE/bin/ghui @app_name@ $UI_INITIAL
+

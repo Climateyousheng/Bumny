@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# This script runs the User Interface
+# database administration client
+
+# Check for -display option
+if test "$1" = "-display"
+then
+export DISPLAY=$2
+fi
+
+# Temporary directory
+export TMPDIR=@tmpdir@
+
+# The remote shell command
+export REMOTE_SHELL_COMMAND=@remote_shell_command@
+
+# The location of the software
+UI_BASE=${UI_BASE:-@ghui_dir@}
+
+# Name of wish executable
+export WISH_EXE=${WISH_EXE:-@wish_exe@}
+
+$UI_BASE/bin/ghui_admin @app_name@

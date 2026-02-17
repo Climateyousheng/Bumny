@@ -1,0 +1,178 @@
+######################################################################
+# proc dialog                                                        #
+# A simple one-button dialog box with optional bitmap                #
+######################################################################
+
+proc dialog {w title text bitmap default args} {
+    global button
+
+    # 1. Create the top-level window and divide it into top
+    # and bottom parts.
+    if {[llength $args]!=1} {error "proc dialog has been reconfigured to deal with one button only"}
+    catch {destroy_window $w}
+
+    toplevel $w -class Dialog
+    wm title $w $title
+    wm iconname $w Dialog
+    frame $w.top -relief raised -bd 1
+    pack $w.top -side top -fill both
+    frame $w.bot -relief raised -bd 1
+    pack $w.bot -side bottom -fill both
+
+    # 2. Fill the top part with the bitmap and message.
+
+    message $w.top.msg -width 3i -text $text\
+	    -font -Adobe-Times-Medium-R-Normal-*-180-*
+    pack $w.top.msg -side right -expand 1 -fill both\
+	    -padx 3m -pady 3m
+    if {$bitmap != ""} {
+	label $w.top.bitmap -bitmap $bitmap
+	pack $w.top.bitmap -side left -padx 3m -pady 3m
+    }
+
+    button $w.bot.button -text $args -command\
+	    "destroy_window $w" -font *-helvetica-medium-r-normal--*-140-*
+    frame $w.bot.default -relief sunken -bd 1
+    raise $w.bot.button
+    pack $w.bot.default -side left -expand 1\
+	    -padx 3m -pady 2m
+    pack $w.bot.button -in $w.bot.default\
+	    -side left -padx 2m -pady 2m\
+	    -ipadx 2m -ipady 1m
+    bind_ok $w $w.bot.button
+
+    return
+
+}
+
+
+###############################################################################
+# proc multioption_dialog                                                     #
+# proc dialog_with_help
+# generates dialogue with one or more buttons. Binds buttons to allow keyboard#
+# movement from left to right and space to select. Returns number of selected #
+# button or zero if instance of window already exists                         #
+# w is arbitrary toplevel window name in form .name                           #
+# title is window title                                                       #
+# text is output within dialogue                                              #
+# help is the prefix name of a help file held in the normal place eg.         #
+#    diff_help would refer to a file diff_help.help - If set to "" no help    #
+#    button appears.                                                          #
+# args is one or more button names                                            #
+###############################################################################
+#                                                                             #
+###                        VERY IMPORTANT                                   ###
+#                                                                             #
+###############################################################################
+#   EVERY DISTINCT CALL TO THIS ROUTINE SHOULD HAVE A DIFFERENT WINDOW NAME   #
+#   THE WINDOW NAME ACTS LIKE A GLOBAL VARIABLE. 
+#   IE THE FOLLOWING WILL NOT WORK PROPERLY:
+#   proc delete_file {file_list} {
+#       foreach file $file_list {
+#          if {[multioption_dialog .delete "Delete File" "Delete $file ?" "Y" "N"]==0} {
+#             exec rm $file
+#          }
+#       }
+#   }
+#   FIRST DIALOG WILL APPEAR OK. SUBSEQUENT CALLS WILL BE MADE WHILE FIRST 
+#   WINDOW IS STILL THERE - THEREFORE multioption_dialog WILL RETURN -1
+#   IN THE ABOVE, EITHER CALL WITH .delete_$file OR PUT A tkwait window .delete
+#   IN THE FOREACH LOOP TO ENSURE THAT CHOICE ON ONE FILE MADE BEFORE NEXT
+#   DIALOG IS OUTPUT
+###############################################################################
+proc multioption_dialog {w title text args} {
+    # set help_file [directory_path help]/$help.help
+    # dialog_with_help $w $title $text $help_file $args
+    eval [list dialog_with_help $w "$title" "$text" ""] $args
+}
+
+###############################################################################
+# dialog_with_help                                                            #
+# Called with full pathname to a help file and creates extra Help button      #
+###############################################################################
+
+proc dialog_with_help {w title text help args} {
+
+    # 1. Create the top-level window and divide it into top
+    # and bottom parts.
+
+    if {[info commands $w]=="$w"} {
+	# This dialog already exists
+	wm withdraw $w
+	wm deiconify $w
+	return -1
+    }
+
+    set button "button_$w"
+    global $button
+
+    toplevel $w -class Dialog
+    wm title $w $title
+    wm iconname $w Dialog
+    frame $w.top -relief raised -bd 1
+    pack $w.top -side top -fill both
+    frame $w.bot -relief raised -bd 1
+    pack $w.bot -side bottom -fill both
+
+    # 2. Fill the top part with the bitmap and message.
+
+    message $w.top.msg -width 3i -text $text\
+	    -font -Adobe-Times-Medium-R-Normal-*-180-*
+    pack $w.top.msg -side right -expand 1 -fill both\
+	    -padx 3m -pady 3m
+
+    # Retain the grab until one button is selected and return the number 
+    # of that button.
+    # 3. Create a row of buttons at the bottom of the dialog.
+    set i 0
+    foreach but $args {
+	button $w.bot.button$i -text $but -command\
+		"set $button $i ;destroy_window $w" -font *-helvetica-medium-r-normal--*-140-*
+	pack $w.bot.button$i -side left -expand 1\
+		-padx 3m -pady 3m -ipadx 2m -ipady 1m
+	lappend b_list $w.bot.button$i
+	incr i
+	
+    }
+
+    # Add a help button if requested.
+    if {$help != ""} {
+	set pos [get_fname_start $help]
+	set path [string range $help 0 [expr $pos-1]]
+	set file [string range $help [expr $pos+1] end]
+	button $w.bot.button$i -text "Help" -command\
+		[list application_help $file "Help for dialog box" $path] -font *-helvetica-medium-r-normal--*-140-*
+	pack $w.bot.button$i -side left -expand 1\
+		-padx 3m -pady 3m -ipadx 2m -ipady 1m
+	lappend b_list $w.bot.button$i
+    }
+
+    # 4. Set up a binding for <Return>, if there`s a default,
+    # set a grab, and claim the focus too.
+
+    
+    # Bind buttons to cursor keys and space
+    eval "bind_button_list $b_list"
+   
+    # 5. Wait for the user to respond, then restore the focus
+    # and return the index of the selected button.
+
+    set $button -1
+    tkwait window $w
+    update
+    return [set $button]
+}
+
+# Returns position of last / so that file can be separated from pathname
+
+proc get_fname_start {file} {
+    
+    for {set i [string length $file]} {[string index $file $i]!="/"&&$i>0} {incr i -1} {}
+    return $i
+}
+
+    
+
+
+
+

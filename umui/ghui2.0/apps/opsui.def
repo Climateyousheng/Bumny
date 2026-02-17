@@ -1,0 +1,44 @@
+opsui                     /opt/ukmo/opsui/opsui2.0
+ghui                      /home/hc0300/umui/ghui2.0
+# The versions will be pointed to the location of the GHUI tcl and bin below.
+# ie the directories they point to contain a bin and a tcl directory
+Versions
+1.6       vn1.1 ; Version of application and location of job edit code
+1.7       vn1.1 ; Version of application and location of job edit code
+1.8       vn1.1 ; Version of application and location of job edit code
+1.9       vn1.1 ; Version of application and location of job edit code
+1.10      vn1.1 ; Version of application and location of job edit code
+1.11      vn1.1 ; Version of application and location of job edit code
+END
+# These directory names are relative to the $var/vn$vn directory
+# The left column is the type of directory the right column is its
+# name - so you can call them what you like. 
+Directories
+windows    windows
+functions  OPS
+processing processing
+help       help
+icons      icons
+variables  variables
+skeletons  skeletons
+END
+
+Dimensions
+RELATIVE_WIDTH .8
+LINE_HEIGHT 32
+NUMBER_OF_LINES 15
+END
+
+Columns        ; names of the various columns and functions which set their contents
+suite       string "Job type"    .57   gen_set_details     0 {} 21
+machine     string Machine       .79   gen_set_details     0 {} 5
+nproc       string Nproc         .86   gen_set_details     0 {} 3
+END
+
+GHUI_Columns        ; names of the various columns and functions which set their contents
+id          string Id            .04   {}               0 {} 20
+owner       string Owner         .08   {}               1 {} 16
+description string Description   .14   gen_set_details 0 {} 36
+version     string Version       .50   gen_set_details 0 {} 10
+access_list option "Access List" .91   {}               0 Y  YN
+END

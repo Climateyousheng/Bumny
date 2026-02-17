@@ -1,0 +1,197 @@
+\section{Introduction}
+
+This document contains the system requirements and installation
+instructions for the Generic Hierarchical User Interface (GHUI) and
+the GHUI-based user interfaces. The GHUI is the basis code required by
+user interfaces such as the Unified Model User Interface (UMUI).  The
+GHUI should work on any Unix system supporting X windows (X11R5 or
+later).
+
+The GHUI is written using the Public Domain Tcl/Tk language and a
+small amount of C code that requires compiling.
+
+\section{System Requirements}
+\begin{itemize}
+\item UNIX operating system with standard Korn shell;
+\item ANSI complient C compiler;
+\item X windows X11R5 or later;
+\item Sufficient disk space on each client to store the GHUI code and
+the code relating to the user interface being installed. Furthermore,
+machines that host servers need space to store the application
+database; the central repository of jobs.
+\end{itemize}
+
+\section{System Overview}
+Much of the system documentation is available as help files to the
+various user interfaces within the GHUI system. This section aims to
+give a deeper explanation of the procedures without going into
+specific details that may evolve from application to application.
+
+The GHUI consists of three main parts. These are as follows:
+\begin{itemize}
+\item Job database server system. The system can be run with one
+server or with primary and backup server. There is generally one set
+of servers and one database (or identical primary and backup database)
+per user interface.
+
+The job servers keep track of all experiments and jobs in the
+system. All access to job setups is through the network interface of
+these servers. The machines that host servers should have enough disk
+space to hold all job files. It should be accessible over the network
+to all machines that will be running the client software. It should be
+able to run the server process continuously (this can make a queue
+based time sharing supercomputer unsuitable). The job server is not
+CPU or I/O intensive, so a basic workstation is more that adequate.
+
+The server system has an Administration user interface that is used to
+start, stop and configure the clients and servers.
+
+\item Entry system. The Entry System is the user interface that
+appears when the application is first started. It displays lists of
+experiments and jobs held the database. It is configurable by the
+system manager to display some or all of the basic information stored
+by the server about each job. There is also a Filter system that
+allows users to display subsets of experiments and jobs. Generally
+when it is first started it displays the experiments owned by the
+user.
+
+\item Navigation System. This is a forms-based user interface system
+for editing a job. It is called when a job is opened. Its name comes
+from the fact that its main component is a hierarchical tree that
+groups input panels into categories and subcategories and thus allows
+easy navigation from one part of the interface to another. It is
+sometimes referred to as the Job Editor.
+
+\end{itemize}
+
+A GHUI-based user interface is a network based client-server
+application. The job server is the ``server'' in this system and the
+entry system, Navigation System and Administration user interface are
+``clients''. Only one server (or one primary and backup server) should
+run on one machine (or two separate machines) on the network. Many
+clients like can be run from anywhere on the network including the
+machine running the server.
+
+\section{Installation Procedure}
+
+Ideally, the software components required to install the user
+interface would have included a README file to explain how to install
+the application. The following may duplicate much of this information
+but generally the README file will contain more specific and up to
+date information.
+
+A GHUI-based user interface requires three software components. The
+components should be installed in the order given:
+
+\begin{enumerate}
+\item An appropriate version of Tcl/Tk.
+\item The GHUI software.
+\item The user interface files for the GHUI-based application
+\end{enumerate}
+
+The components are usually provided as separate tar files that need to
+be untarred before installing. The Tcl/Tk and GHUI packages generally
+need to be configured, compiled and then installed. The GHUI-based
+application usually requires configuring only.
+
+For example, to install the GHUI run the ``Configure'' script,
+probably in the ``Install'' directory of the untarred directory
+structure. Answer the series of questions relating to the locations of
+the Tcl/Tk installation, the compilation options and where you want
+the GHUI code to be installed. Once you are happy with the settings
+the Configure script creates a set of Makefiles for compiling and
+installing the code and also some template files that are required
+when configuring a GHUI-based application. The Configure script also
+saves the responses in a file called config.cache. If the Configure
+script is run again these responses will be offered as the default
+answers.
+
+Run ``make'' to compile the few bits of C code and ``make install'' to
+copy all the files to the chosen location. Once installed, the
+untarred GHUI files can be discarded, though keeping the config.cache
+file allows the process to be repeated more quickly if it needs to be.
+
+The GHUI-based application requires configuring only; there are no
+further compilation or installation steps so untar it to a the
+location where it is to be kept. Information required to configure a
+GHUI-based application includes the location of the GHUI installation
+and information about the chosen server configuration. The user
+installing a GHUI-based application needs to have write access to the
+apps directory of the GHUI installation to which a small application
+definition file is written.
+
+The last question in the Configure scripts for the GHUI and the
+GHUI-based application is to ask for confirmation that the inputs are
+correct. Confirmation is required before anything else happens.  If
+confirmation is not given the script will still create the
+config.cache file which will be used as the default answer in
+subsequent runs of the script.
+
+Configuring the GHUI-based application creates a number of files whose
+names are related to the application name provided as part of the
+configuration. For the UMUI, the following files would be created:
+
+\begin{itemize}
+\item A script to start the application called ``umui'' held in a
+directory called bin in the top level UMUI directory.
+\item A script to start the Server Administration user interface
+called ``umui_admin'' also held in the bin directory.
+\item A ``servers.def'' file that defines the locations of the
+servers. This file is held in the etc in the top level UMUI directory.
+\item A ``clients.def'' file that lists all the locations of all UMUI
+clients. Also held in the etc directory.
+\item An application definition file called ``umui.def'' that is
+copied to the GHUI apps directory. This file is based on a
+umui.def.template that should have been provided as part of the UMUI
+installation package. The configuration just adds the location of the
+GHUI and UMUI code.
+
+Essentially the umui script starts up the GHUI providing it with only
+one piece of application specific information; the application name
+``umui''. The GHUI then finds all the information it needs to run the
+UMUI from the umui.def file.
+\end{itemize}
+
+\subsection{Installing on More Than One Machine}
+
+When installing on multiple clients set up .rhosts files for the
+userid on each client to allow it to be accessed by other
+clients. Note that when using primary and backup servers, both servers
+should run under the same account name.
+
+After the first installation a tip for speeding up subsequent
+installations is to copy the config.cache file from the first
+installation to the Install directory on subsequent clients; hopefully
+the answers for each installation will mostly be the same. 
+
+All installations of the GHUI-based application need to know the
+location of the servers. The server information is kept in a file
+called ``servers.def'' in a directory called ``etc''. Configuration of
+the second and subsequent installations is simplified as the Configure
+script for the application will request a location of a previous
+installation and simply copy the servers.def file from that location
+(assuming it has permission to rcp it from the remote host).
+
+Additionally, each client ought to know the locations of all other
+clients. Client information is required by the Server Administration
+user interface when the server definition is changed as a new version
+of the servers.def file then needs to be copied to all other clients.
+The client list is maintained in a file called ``clients.def'' also
+held in the etc directory. Again, when making multiple installations
+the second and subsequent configuration will copy this information
+from the client name supplied to it. It will then add the name of the
+new client to the list and distribute the new version of the file to
+all the other client installations.
+
+In short, the clients.def file and the servers.def file should always
+be identical on all client installations. See the help in the
+Administration user interface for examples of when and how the server
+information might be changed.
+
+If installing to the same pathname on multiple clients then all
+installations will be identical. That is, it is reasonably safe to
+install on one client and then copy the installations to the other
+clients. However, do update all the clients.def files with a list of
+all clients.
+
+\end{document}

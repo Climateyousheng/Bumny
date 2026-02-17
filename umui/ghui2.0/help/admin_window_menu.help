@@ -1,0 +1,9 @@
+   Window Menu
+   -----------
+
+The Window Menu has just one option:
+
+Re-draw: Redraws window, thus updating any changes in the server
+configuration. In particular this option should be selected
+ - After pressing the Start button of a server
+ - After reconfiguring the servers (See the Clients menu)

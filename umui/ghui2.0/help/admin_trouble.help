@@ -1,0 +1,236 @@
+Dealing with a Server Failure
+-----------------------------
+
+Immediate action required
+-------------------------
+
+If one of the servers fails when running in Dual Server Mode, you
+should PAUSE the other server immediately by pressing the "Status
+(ACTIVE)" button. Until the server is paused users will receive errors
+and warnings requesting them to contact the server
+administrators. Once the server is paused they will receive messages
+informing them that the administrators are aware of the problem.
+
+No urgent action is required if running with a single server. The only
+thing that can be done is to resolve the problem and restart the
+server.
+
+Causes
+------
+
+Servers can fail for a number of reasons. The server machine may
+crash, the database may fill up the disk, or a bug in the code may
+come to light. If it is unclear what the problem is, the errors file
+in the database directory may contain an error message. Intermittent
+failures may also affect particular users if their machines lose their
+connection to the server machine.
+
+When a server fails, then each time users attempt an action such as
+saving or loading jobs, they will get an error dialog which, among
+other information, strongly requests that the Application
+Administrator (presumably you!) be contacted.
+
+If the server machine has completely failed, you will also need
+to see the section "Reconfiguring the Clients" which explains 
+how the failed server can be configured out of the system.
+
+However, assuming the reason for the failure has been diagnosed and
+corrected, see the relevant section 1,2 or 3 that follows for details
+of how to restart the server.
+
+1. Server Failure when Running in Single Server Mode
+----------------------------------------------------
+The server can simply be restarted as described in "Starting a Server".
+
+2. Failure of the Primary Server when Running in Dual Server Mode
+-----------------------------------------------------------------
+When the primary server is out of action, the backup server cannot 
+be accessed by users. Therefore there is no risk of the servers becoming
+unsynchronised. Pause the backup server, restart the primary server as
+described in "Starting a Server" and then un-pause both servers.
+
+3. Failure of the Backup Server when Running in Dual Server Mode
+----------------------------------------------------------------
+
+When the backup server fails, users can still access the primary
+server and therefore the databases can become unsynchronised. Each
+time a user attempts an operation on the server such as "save", a 
+warning dialog appears requesting that the Server Administrators are
+informed so hopefully you will find out about failures very soon.
+
+Immediately pause the primary server and then check the log files for
+any signs that the databases are unsynchronised. This would be
+indicated by messages in the primary database log date-stamped after
+the backup server failure saying that jobs or experiments had been
+saved, copied, deleted, opened read/write, or that job or experiment 
+names had been changed.
+
+If no such messages exist, the databases are still synchronised and can 
+be restarted normally as in "Starting a Server".
+
+If such messages do exist, then the backup server has become
+unsynchronised from the primary server and will need
+resynchronisation. See the section on "Synchronising the Databases".
+
+Synchronising the Databases
+---------------------------
+
+This operation is relevant when running in Dual Server Mode.
+
+Carry out the following operation when the backup server database is,
+for whatever reason, not identical to the primary server
+database. Possible causes might be that the backup server failed, or
+the system was previously running in single server mode.
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+TAKE GREAT CARE. IF YOU MAKE A MISTAKE YOU MAY OVERWRITE YOUR DATABASE.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+1. Ensure that the servers are running but Paused or Empty, not Active. 
+2. Press the "Copy" button of the primary server. A dialog box informs you
+   from where to where it will copy the database. CHECK CAREFULLY BEFORE
+   CONFIRMING TO AVOID DELETING THE WRONG DATABASE.
+
+The Admin Interface will then copy the database from the primary
+location to the backup location overwriting the original backup
+database if it already existed. The operation can take up to an hour
+or more. Its progress can be monitored by counting the number of files
+in the backup database directory.
+
+3. Reload the backup database.
+4. Unpause the servers.
+
+Reconfiguring the Clients
+-------------------------
+
+Reconfiguring the clients is one of the following processes:
+
+a) Changing the system from Single Server Mode to Dual Server Mode, or vice versa.
+
+b) Swapping Primary and Backup servers around.
+
+c) Changing the location of the primary or backup servers when in Dual Server Mode.
+
+d) Changing the location of the server when in Single Server Mode.
+
+The client configuration is held in a file called servers.def in the
+etc directory in the application's directory structure. The
+servers.def file is a text file that contains the location of the
+servers. The important thing is that all clients (that is all the
+installations of the application that use the same database) have
+identical copies of the servers.def file. The etc directory also holds
+a clients.def file which is a list of the location of all the
+application installations that use the same database/s.
+
+Users do not need to close down their editing sessions during the
+following operations. The server configuration is rechecked before all
+server actions.
+
+See the appropriate section that follows:
+
+a) Changing the system from Single Server Mode to Dual Server Mode, or
+vice versa:
+
+1. Ensure that the GHUI and the application are correctly installed on
+the machine on which the new server will be running.
+
+2. Start the Admin Interface.
+
+3. Pause the Primary Server. 
+
+4. If moving to Dual Server Mode, start the Backup Server as described
+in "Starting a Server" but leave it in the Paused state. If moving
+from Dual Server Mode to Single Server Mode, kill the Backup Server.
+
+5a. Select the "Show Configure" option from the Clients Menu. This
+displays the Current Client Configuration of the servers as read from
+the servers.def file, the New Client Configuration set by the Admin
+Interface, and a list of all the client applications (obtained from
+the clients.def file).
+
+5b. Select the "Re-configure" option from the Clients Menu. This will
+rewrite the servers.def file to contain the new server configuration
+and then copy it to the etc directory of all the installations listed
+in the clients.def file.
+
+6. Unpause the server/s.
+
+b) Swapping Primary and Backup servers around.
+
+1. Pause both servers.
+
+2. Copy the database from the primary to the backup database (see
+"Synchronising the Databases"). This step is required because it is
+possible for the databases to have become unsynchronised without the
+knowledge of the administrator.
+
+3. Press the "Type" buttons on both servers. Pressing this button
+should toggle the server types between "Type (Primary)" and "Type
+(Backup)" thus allowing primary and backup to be swapped.
+
+4. Select the "Re-configure" option from the Clients Menu. This will
+rewrite the servers.def file to contain the new server configuration
+and then copy it to the etc directory of all the installations listed
+in the clients.def file.
+
+5. Unpause the servers.
+
+c) Changing the location of the primary or backup servers when in Dual
+Server Mode.
+
+1. Ensure that the GHUI and the application are correctly installed on
+the machine on which the new server will be running.
+
+2. Pause both servers.
+
+3. Kill the server that is to be moved.
+
+4. Quit the Admin Interface.
+
+5. Edit the servers.def file in the etc directory of the application -
+put in the new details of the hostname, location of the GHUI code and
+planned location of the database on the new machine. At some stage,
+functionality may be added to the admin interface to carry out this
+operation.
+
+5. Restart the Admin Interface.
+
+6. Start the new server as in "Starting a Server" but do not read the
+database just yet. Successfully starting the server helps ensure that the
+details were correctly entered in the servers.def file.
+
+7. Select the "Copy" button from the ORIGINAL server to copy the
+database to the new server (See "Synchronising the Database), and
+select "read database" to reload the database.
+
+8. Select the "Re-configure" option from the Clients Menu. This will
+rewrite the servers.def file to contain the new server configuration
+and then copy it to the etc directory of all the installations listed
+in the clients.def file.
+
+9. Unpause the servers.
+
+d) Changing the location of the server or database when in Single
+Server Mode.
+
+1. Ensure that the GHUI and the application are correctly installed on
+the machine on which the new database will be held.
+
+2. Kill the server.
+
+3. Quit the Admin Interface.
+
+4. Copy the database to the new location.
+
+4. Edit the servers.def file in the etc directory of the application -
+put in the new details of the hostname, location of the GHUI code and
+location of the database on the new machine. At some stage,
+functionality may be added to the admin interface to carry out this
+operation.
+
+5. Restart the Admin Interface.
+
+6. Start the new server as in "Starting a Server". The server can be
+restarted while the database is still in the process of being copied,
+but wait until the copy is complete before attempting to read the
+database.

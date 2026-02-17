@@ -1,0 +1,572 @@
+<html>
+<head>
+<title>GHUI and UMUI version 4.0.1. The Jobsheet Function</title>
+<!-- Changed by: Steve Mullerworth, 11-Apr-1996 -->
+</head>
+
+<H1> GHUI and UMUI version 4.0.1. The Jobsheet Function</H1>
+
+<HR SIZE=10> <!-- -------------------------------------------------------- -->
+
+ <P> The jobsheet function is a GHUI function which converts a
+GHUI job definition into the form of an ASCII file. The output is
+based on the contents of the windows definition files and the
+order is based mainly on the order of the windows in the nav.spec 
+file. Therefore, once it is set up for a particular application
+it requires very little maintenance as the application changes.
+This function was written for version 4.0.1 of the UMUI, but
+converting an application to use the function is a relatively small
+task.
+ <P> This document is divided into two parts. Firstly it describes the
+operation of the jobsheet function. Secondly, it summarises the
+changes that might need to be made to an application to ensure the
+output obtained from executing the jobsheet function is complete, and
+gives some examples and some problem scenarios.
+
+
+<H3>Summary of requirements</H3>
+
+ <P>The jobsheet function requires a number of additional routines and
+files and some changes to existing files. All requirements are fully
+described in this document and are summarised here.
+
+<LI> A title page function: <B>proc jobsheet_title</B>.
+
+<LI> A function to set the output directory for the JOBSHEET file:
+<B>proc set_processed_dir</B>. This may already exist.
+
+<LI> A method for calling the jobsheet function. A procedure to set up
+an output directory and make a call to start_jobsheet is all that is
+required.  For example, the UMUI creates a jobsheet by calling
+start_jobsheet when the job is processed.
+
+<LI> An optional js_partition_database to allow certain partitions
+to be excluded from the jobsheet output.
+
+<LI> Minor changes to windows definition files - there are additional
+commands some of which are needed to incorporate any windows not
+explicitly listed in the nav.spec file. Other cosmetic changes may be
+desirable to ensure that the output makes sense on paper as well as in
+the form of a window.
+
+<H2>The Jobsheet Procedure</H2>
+ <P>
+The jobsheet function is intended to do the following:
+<LI> Output the full specification of a job, window by window, to an
+ASCII file.
+
+<LI> Exclude parts of windows that are greyed out.
+
+<LI> Exclude windows that contain only variables in inactive partitions. 
+
+<LI> If a variable appears in more than one window, then only output
+its value when its home window is being printed. This prevents its
+value from being printed twice.
+
+<LI> Optional output of variables in certain partitions as specified
+in the js_partition.database. This file is written with the same format
+as the partition.database. It means that questions can be set in the 
+application that enable users to specify that certain partitions are not
+output.
+ <P> Firstly, the jobsheet function calls an application dependent
+procedure jobsheet_title to provide a title page to the jobsheet.  It
+then creates a list of all the primary panels in the nav.spec file
+(that is, those defined with ..p prefixes). The print_window procedure
+is then called for each name in this list.
+
+ <P> An application may contain windows which are not listed as
+primary panels in the nav.spec file. Therefore, three commands have
+been defined for use in window definition files that enable the
+contents of such windows to be incorporated in the jobsheet
+output. These commands are used as follows and are also defined in the
+README_EntryWindows file in the windows directory.
+ <P>
+
+<LI> <B>Replace .pushnext with .pushsequence:</B> Some windows are
+accessed only via a push button on a primary window.  These ought to
+have been listed in the nav.spec with a ..> prefix. Replacing the
+.pushnext command in the definition file of the primary window with a
+.pushsequence command will result in the secondary window being
+printed immediately after the primary window. The .pushsequence
+command is in all other respects identical to the .pushnext command.
+The .pushsequence command can also be used in the secondary window to
+force the output of further follow-on windows. Avoid creating endless
+loops when using pushsequence.
+ <P>
+
+<LI> <B>Use the .function command:</B> Functions can be specified in
+the .pan file to pass control of the jobsheet output to a non-generic,
+application specific function. Functions are necessary to output
+variables set by non-generic windows (ie those created with an
+init_proc call on opening a dummy window).  They can also be used in
+normal windows, but the output of the function is a replacement of the
+normal output, not an addition to it. Specify functions with
+ <P>
+  <B>.function proc_name</B>
+ <P>
+but make sure the command is placed before the .panel command.
+The function will be called with two arguments; the id of the
+output file and the maximum page width in characters.
+ <P>
+
+<LI> <B>Use the .loop construct</B> More than one instance of some
+windows may exist. For example, in the UMUI there are sequences of
+windows containing array variables with the index given by another
+variable (eg NDOMTS(PROFILE)). The value of the index variable is set
+by the close_proc of a preceding window. For such instances, a loop
+can be specified in a .pan file
+ <P>
+  <B>.loop PROFILE 1 NDPROF_A</B>
+ <P>
+Again, place the command before the .panel command.  This indicates
+that the window will be printed NDPROF_A times setting PROFILE to a
+different value each time. Note if a .loop command is listed in a
+window with a .pushsequence command then the secondary window will
+also be printed out on each call of the loop; the loop should not 
+additionally be defined in follow-on windows.
+
+<H2>Printing a window</H2>
+
+Once a list of windows has been obtained, the function outputs the 
+contents of each in turn.
+
+ <P>The jobsheet function makes a number of tests before deciding whether 
+to output anything from a window.
+ <P>
+
+<LI> If there is a .function command, it passes execution to the named
+function.
+
+<LI> If there is a .loop command it prints the window the required
+number of times incrementing the named variable for each call.
+ <P>
+Once it has been decided to print a given window the contents of the 
+.pan window definition file are passed to another routine. The following
+procedures are then carried out. Essentially, if there is nothing on the
+window worth printing, the window is ignored.
+
+These contents
+must then pass the following tests before anything is output.
+ <P>
+
+<LI> A list of the variables on the window is created.
+
+<LI> Each variable is each tested and there must be at least one that
+is active (as defined by the variable register), in an active
+partition (as defined by the partition database), in an active
+partition as defined by the jobsheet partition database, and on its
+home window as defined by the variable register. If none of the
+variables pass all these tests, nothing is output for the window.
+
+<LI> The .pan file is read line by line and text describing the contents
+of the window is appended to a buffer - 
+ <P>
+An underlined title is added.
+ <P>
+Text components are appended just as text.
+ <P>
+Radio buttons, check buttons and entry box are appended with the
+question on the left and the response on the right, but only if the
+variable is on its home window.
+ <P>
+Tables are appended with all their headings, super headings and column
+headings. Very wide tables may be split into two or more separate
+tables but to improve readability each table will include all the
+.elementautonum or output columns. Tables are only output if there
+is at least one input column that is not greyed out. 
+ <P>
+.case or .invisible constructs are evaluated, and the enclosed is
+ignored if required - this also applies to tables.
+
+<LI> Once the window contents have been read, then if at least one
+entry, radio or check component or at least one table is to be output,
+the text buffer will be output to file. If only text is to be output
+then the buffer is discarded.
+
+<H2>Converting an application to use the jobsheet function</H2>
+
+This section discusses:
+
+<LI> How to call the jobsheet function.
+
+<LI> How to change the nav.spec and the .pan files to improve the
+output from the jobsheet function.
+
+ <P>By way of example, this section concludes with a description of
+how the jobsheet function was incorporated into the UMUI and an
+example of the use of the new window commands.
+
+<H3>How to call the jobsheet function</H3>
+
+The jobsheet may be initiated in one of two ways, either by calling
+procedure jobsheet or by calling procedure start_jobsheet. Both
+methods are essentially identical but the latter downloads the
+database file into the /tmp directory and then spawns jobsheet as a
+separate process thus allowing the user to continue editing while the
+jobsheet is created.
+
+ <P>The output file is called JOBSHEET. The directory in which to store
+the file is set by a call to an application specific procedure
+"set_processed_dir". This procedure should be written to set a global
+variable "processed_dir".
+
+ <P>Since it is possible to spawn jobsheet as a separate procedure
+there is an option to prevent two jobsheet functions writing to the
+same directory at the same time. On completion, the start_jobsheet
+function checks for the existence of a LOCK_DIR file in the jobsheet
+directory and deletes it if it exists. Thus by checking for the
+existence of a LOCK_DIR file and by creating such a file before
+calling start_jobsheet, the application specific routine which starts
+the jobsheet function can ensure that two procedures do not run
+simultaneously.
+
+ <P>The jobsheet function requires an application specific procedure
+jobsheet_title to provide a title page for the jobsheet output.
+The procedure will be called with argument "width" the maximum 
+width of the output. It should return a text string containing
+suitable output for a title page. Use the tcl <B>append</B> command
+to build up such a string. Separate lines with "\n".
+
+<H3>Changing windows files</H3>
+
+This section summarises the methods of changing the application specific
+files to ensure that the output from jobsheet is comprehensive, well 
+organised and readable.
+
+<LI> <B>The nav.spec file:</B> 
+
+ <P>Windows should be listed only once as
+primary (..p) panels otherwise it will be output to the JOBSHEET file
+more than once. If a window is to appear more than once in the
+navigation tree, use ..s for subsequent appearances of the window.
+
+<LI> <B>Window definition files:</B> 
+
+ <P>Use .pushsequence instead of
+.pushnext if required to ensure that all secondary windows are
+output. Use .function for dummy windows or to replace the normal
+output. Use .loop if more than one instance of a window exists.
+
+ <P>Use .textw in place of .text for text that will be output when the
+window is created but that is not required in the jobsheet.
+Conversely, use .textj for text to be output to the JOBSHEET file but
+not to the window. A third alternative .textd is used when the
+description of an active component overlaps two lines.  The .textd
+text is output to the JOBSHEET file only if the following component or
+table is output.
+
+ <P>When determining the width of table columns, consider the maximum width of 
+the output from the jobsheet function.
+
+ <P>Take care when mixing variables from different partitions on one window.
+If a variable from an active partition is listed on a window that is nominally
+inactive, the active variable could force the output of this window to the JOBSHEET
+file. If this situation is required, use a .case construct to ensure that the whole
+window is greyed out when the window's partition is inactive.
+
+ <P>Similarly, if a js_partition.database has been set up, then the information in 
+this file is used only to determine whether the whole window is to be ignored. 
+If a window contains one variable that is fully active then all the variables on
+the window will be output whether or not they are active as determined by the
+js_partition.database.
+
+<H2>Example 1: Incorporating the jobsheet function in the UMUI</H2>
+
+In the UMUI the jobsheet function is set up to execute after a job is
+processed by the user. Testing for the LOCK_DIR file prevents the user
+reprocessing the job while a jobsheet is created and produces an
+information message:
+<XMP>
+    if [file exists $processed_dir/LOCK_DIR] {
+	# multioption_dialog sets up a dialog box which warns the user
+	# and offers two options - to quit or retry
+	if {[multioption_dialog .js "Jobsheet in progress" "Directory \
+	$processed_dir contains lock file due to jobsheet being\
+	created. You need to close jobsheet program or delete LOCK_DIR \
+	before retrying" Quit Retry]==1} {
+	    # User elects to retry
+	    um_nav_process
+	}
+	return
+    }
+
+    # Processing code here
+    <snip> 
+
+    if {[get_variable_value JSHEET]=="Y"} {
+	# Jobsheet option is set so create LOCK_DIR file to protect
+	# directory and then spawn the jobsheet procedure
+	exec echo "File created to prevent reprocessing while Jobsheet \
+	is created. You need to delete this or quit jobsheet in order \
+	to reprocess" > $processed_dir/LOCK_DIR
+	start_jobsheet
+    }
+</XMP>
+
+ <P>The directory $processed_dir is set by a call to the following:
+
+<XMP>
+proc set_processed_dir {} {
+    global processed_dir exp_id job_id env
+    # The UMUI copies processed output and jobsheets to a 
+    # directory named after the experiment and job id
+    # held in a directory called umui_jobs in the user's home directory
+    set processed_dir $env(HOME)/umui_jobs/$exp_id$job_id
+}
+</XMP>
+ <P>All applications should have such a procedure but the directory
+name does not have to be the same.
+
+<H2>Example 2: Writing a jobsheet_title page function</H2>
+
+ <P>All applications require a title page function.  The title page
+function of the UMUI outputs the type of job. Here is a section:
+
+<XMP>
+proc jobsheet_title {width} {
+    # Firstly a load of variables are set up
+<snip>
+    # Set up a half width to divide output into two columns
+    set hw [expr $width/2]
+<snip>
+    # Here follows a section of the title page creation 
+    # proc print_line is a GHUI function which takes two arguments, 
+    # a list of strings and a list of formats and returns a
+    # single formatted string terminated by a \n character
+    append page "Jobsheet for $exp_id$job_id\n \n"
+    append page [print_line [list "Atmosphere" $atmos] [list $hw $hw]]
+    append page [print_line [list "Mesoscale" $meso] [list $hw $hw]]
+    append page [print_line [list "Ocean" $ocean] [list $hw $hw]]
+    append page [print_line [list "Slab" $slab] [list $hw $hw]]
+    append page "\n"
+
+    # Another GHUI function that returns a $width length string of
+    # understroke characters terminated with a \n to provide separation  
+    append page [solid_divider $width]
+    
+    # Return the string
+    return $page
+</XMP>
+
+ <P>This example makes use of two simple GHUI functions which format
+the output into two columns and to ensure that the maximum width of
+the returned string is not greater than $width.
+
+<H2>Example 3: Functions, loops and follow-on windows</H2>
+
+ <P>The following is an example, taken from the UMUI, of how
+.pushsequence and .function are used.
+
+ <P>The LBC window allows a user to specify a stream number of 1 to 4
+and then inspect that stream (the meaning of LBC and stream is not
+important). The first window allows the user to specify the stream
+number. The variable OCBMLA is of little interest since it is a system
+variable whose setting determines only which stream is to be examined.
+The follow on windows are only of interest if the stream is active.
+Therefore the output of this and the following windows are undertaken
+by an application specific function "js_lbc".
+
+<XMP>
+.winid "atmos_Control_OutputData_LBC1"
+.title "Generating Lateral Boundary Tendencies"
+.comment JOBSHEET output to be done by function.
+.function js_lbc
+.wintype entry
+
+.panel
+   .basrad "Specify LBC stream to inspect/amend" L 4 v OCBMLA
+            "Stream 1" 1
+            "Stream 2" 2
+            "Stream 3" 3
+            "Stream 4" 4
+   .gap
+   .text "Press NEXT to inspect the stream" L
+<snip>
+   .gap
+   .pushnext "NEXT" atmos_Control_OutputData_LBC2
+.panend
+
+</XMP>
+ <P>The user selects a stream number and then presses NEXT to see the
+follow on window shown below. The follow on window contains elements
+of array variables element number OCBMLA - OCBMLA, of course, having
+been chosen by the user in the window above.
+
+<XMP>
+.winid "atmos_Control_OutputData_LBC2"
+.title "Specification of LBC generation"
+.wintype entry
+
+.panel
+   .check "Stream [get_variable_value OCBMLA] active" L OCBILA(OCBMLA) 1 0 
+   .case OCBILA(OCBMLA)[1]
+     .gap
+     .block 1
+       .check "Packing the data" L ILMAPACK(OCBMLA) 1 0 
+     .blockend
+     .block 1
+       .entry "Fields every (hours)" L ILMAF(OCBMLA)
+       .entry "Starting     (hours into the run)" L ILMAS(OCBMLA)
+       .entry "Ending       (hours into the run)" L ILMAE(OCBMLA)
+     .blockend
+     .gap
+<snip>
+   .caseend
+   .textw "push NEXT to define the vertical grid" L
+   .pushsequence "NEXT" atmos_Control_OutputData_LBC3
+.panend
+</XMP>
+ <P>The function js_lbc is shown below. It is called with two arguments,
+the id of the output file and the page width. Firstly it outputs a list 
+of streams and their active status. Secondly it calls the print_window 
+function to output the follow on windows for each of the active streams.
+<XMP>
+proc js_lbc {output_file page_width} {
+
+    # Output preamble to say which streams active
+    # then output windows
+    puts $output_file "Generating Lateral Boundary Tendencies"
+    puts $output_file "--------------------------------------\n"
+    for {set i 1} {$i<=4} {incr i} {
+	# OCBILA variable stores active status of each of the streams
+	if {[get_variable_value OCBILA($i)]==1} {
+	    puts $output_file "Stream $i is active"
+	} else {
+	    puts $output_file "Stream $i is not active"
+	}
+    }
+    puts $output_file "--------------------------------------\n"
+    for {set i 1} {$i<=4} {incr i} {
+	if {[get_variable_value OCBILA($i)]==1} {
+	    # set_variable_value is a GHUI routine
+	    set_variable_value OCBMLA $i
+	    # print_window is the routine at the heart of the jobsheet
+            # function. 
+	    print_window $output_file $page_width "atmos_Control_OutputData_LBC2"
+	}    
+    }
+}
+
+</XMP>
+
+ <P>The "atmos_Control_OutputData_LBC2" window also has a follow on window
+"atmos_Control_OutputData_LBC3". The .pushsequence command in the 
+definition of the LBC2 window means that for each value of OCBMLA,
+the LBC3 window will be output directly after the LBC2 window.
+
+ <P>There is an alternative but perhaps less tidy way of dealing with
+the output of the above windows which does not use a function but uses
+the .loop command instead. In the LBC1 window, the .function
+definition is removed and the output of the LBC2 window is forced by
+replacing the .pushnext command with a .pushsequence command:
+
+<XMP>
+.winid "atmos_Control_OutputData_LBC1"
+.title "Generating Lateral Boundary Tendencies"
+.wintype entry
+
+.panel
+   .basrad "Specify LBC stream to inspect/amend" L 4 v OCBMLA
+            "Stream 1" 1
+            "Stream 2" 2
+            "Stream 3" 3
+            "Stream 4" 4
+   .gap
+   .text "Press NEXT to inspect the stream" L
+<snip>
+   .gap
+   .pushsequence "NEXT" atmos_Control_OutputData_LBC2
+.panend
+
+</XMP>
+
+ <P>Four different instances of the LBC2 window exist; one for each
+value of OCBMLA. Therefore use the .loop command:
+<XMP>
+.winid "atmos_Control_OutputData_LBC2"
+.title "Specification of LBC generation"
+.loop OCBMLA 1 4
+.wintype entry
+
+.panel
+   .check "Stream [get_variable_value OCBMLA] active" L OCBILA(OCBMLA) 1 0 
+   .case OCBILA(OCBMLA)[1]
+     .gap
+     .block 1
+       .check "Packing the data" L ILMAPACK(OCBMLA) 1 0 
+     .blockend
+     .block 1
+       .entry "Fields every (hours)" L ILMAF(OCBMLA)
+       .entry "Starting     (hours into the run)" L ILMAS(OCBMLA)
+       .entry "Ending       (hours into the run)" L ILMAE(OCBMLA)
+     .blockend
+     .gap
+<snip>
+   .caseend
+   .textw "push NEXT to define the vertical grid" L
+   .pushsequence "NEXT" atmos_Control_OutputData_LBC3
+.panend
+</XMP>
+
+If the second method is used then the LBC1 window will be output
+followed by the four versions of the LBC2 and LBC3 windows with OCBMLA
+set to the four different values. This method is less tidy because the
+"Specify LBC stream to inspect/amend" question in the LBC1 window will
+be output. This question has no importance in the jobsheet because it
+is purely a device to allow the user to select a stream to
+examine. Additionally, the LBC2 and LBC3 windows will be output for
+all streams whether or not the streams are active. However, the case
+statement in the LBC2 window above means that only the title and the
+first question will be output if the stream is inactive.
+
+ <P>Incidentally, note in the above window definition the use of the
+.textw command to specify text that is useful in the window but which
+has no use to the jobsheet.
+
+<H2>Example 4: The jobsheet partition database</H2>
+
+ <P>The jobsheet partition database enables options to be set up
+to allow users to request that certain partitions are not read
+out to the jobsheet file. A js_partition.database file needs to
+be included in the /variables register. Inclusion of such a database 
+is entirely optional.
+
+
+ <P>The form of the js_partition.database is the similar to that for
+the partition.database file. The three differences are that firstly, the 
+whole partition number is required rather than just the initial letter.
+Secondly, not all partitions need to be specified; only those for
+which an option exists need to be listed. Finally, the different elements of 
+cross-partition variables are not considered.
+
+ <P>The js_partition.database in the UMUI has the following format.
+<XMP>
+a2321    atmos           SECTST!="Y"
+o2321    ocean           SECTST!="Y"
+s2321    slab            SECTST!="Y"
+a2323    atmos           SECTFL!="Y"
+y2323    ysubmod         SECTFL!="Y"
+SYSTEM   SYSTEM          ALWAYS
+</XMP>
+
+ <P>As with the partition.database, the partition is inactive when the
+logical statement is true. In the UMUI there are two questions requesting
+whether the user wishes to incorporate particular sections in the jobsheet
+file. The two questions set the variables SECTST and SECTFL to "Y" or "N".
+Additionally, none of the SYSTEM variables need to be output so this option is
+set to ALWAYS true.
+ <P>In the UMUI the y partition relates to cross-partition variables;
+variables whose first element is in the a partition and whose second
+element is in the o partition. However, since the jobsheet function
+does not distinguish between the different elements it is not possible
+to specify separate options for separate partitions.
+<br> <br> <br>
+
+
+<address> 
+11th April 1996 <br>
+Steve Mullerworth | hadsm@hadl10 | sdmullerworth@meto.govt.uk <br> 
+</address>
+
+</body>
+</html>

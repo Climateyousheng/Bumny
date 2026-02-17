@@ -1,0 +1,18 @@
+#!/bin/sh
+#==============================================================================
+# RCS Header:
+#   File         [$Source: /home/hc0300/umui/srce_code/GHUI_archive/ghui2.0/Install/_haltservertemplate.in,v $]
+#   Revision     [$Revision: 1.2 $]     Named [$Name: head#main $]
+#   Last checkin [$Date: 2003/01/30 11:11:21 $]
+#   Author       [$Author: hadsm $]
+#==============================================================================
+
+# This script halts the User Interface server
+
+# The location of the software
+UI_BASE=${UI_BASE:-@ghui_dir@}
+
+# Name of wish executable
+export TCLSH_EXE=${TCLSH_EXE:-@tclsh_exe@}
+
+$UI_BASE/bin/ghui_haltserver @app_name@

@@ -1,0 +1,51 @@
+#!/bin/sh
+#==============================================================================
+# RCS Header:
+#   File         [$Source: /home/hc0300/umui/srce_code/GHUI_archive/ghui2.0/bin/ghui_startserver.in,v $]
+#   Revision     [$Revision: 1.2 $]     Named [$Name: head#main $]
+#   Last checkin [$Date: 2003/01/30 11:51:06 $]
+#   Author       [$Author: hadsm $]
+#==============================================================================
+
+# This script starts and populates a GHUI User Interface database
+# server.  Should be run on the server machine. Arguments can be
+# obtained from the application's server.defs file, or if the
+# application includes a version of the umui2.0/Install/Configure
+# script as obtained from the UMUI (revision 1.5 or, possibly, later),
+# then running Configure will generate appropriate scripts in the
+# umui2.0/bin directory.
+
+if test $# -ne 4
+then
+  echo "ERROR: Wrong number of arguments."
+  exit 1
+fi
+
+
+# The location of the software
+SERVER_BASE=$1
+SERVER_DATABASE=$2
+
+# what Type of server is this
+SERVER_TYPE=$3
+APPLICATION=$4
+
+# Create database if it doesn't already exist
+if [ ! -d $SERVER_DATABASE ]
+then
+  mkdir $SERVER_DATABASE
+fi
+
+TCLSH_EXE=${TCLSH_EXE:-/home/umui/bin/tclsh8.3}
+
+# Start the UI server, detaching from
+# terminal and re-directing any errors
+$TCLSH_EXE \
+  $SERVER_BASE/tcl/startServer.tcl \
+  $SERVER_BASE \
+  $SERVER_TYPE \
+  $SERVER_DATABASE \
+  $APPLICATION \
+  < /dev/null \
+  > $SERVER_DATABASE/errors \
+  2>&1 &

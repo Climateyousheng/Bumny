@@ -1,0 +1,75 @@
+The job menu has the following items:
+
+* New...
+
+A new job is created in the experiment that you have selected. You must be
+the owner or in the access list of that experiment. You will be prompted
+for a textual description and an identifier for the job. Although the job
+will be empty you will be asked to select a version. This is needed when
+you come to edit the job. The only reason you will need this option
+is to create a dummy job which, when opened for editing, can be over-written
+with a basis file you have on disk.
+
+* Copy...
+
+The selected jobs are copied into the selected experiment. You must be the
+owner or in the access list of that experiment. You will be prompted for
+a textual description and an identifier for each job copied.
+
+* Delete
+
+The selected jobs will be deleted. You must be the owner or in the access list
+of the experiments containing the jobs. You will be asked for confirmation
+for each job deleted.
+
+* Force closed...
+
+The selected jobs will be forced closed if locked open read/write. Jobs can
+sometimes be left open in the basis database server if the job edit client
+terminates suddenly during a read/write job edit session (eg closing the
+window directly, or logging off).
+
+* Change description...
+
+You will be prompted for a new textual description of each job selected. You
+must be the owner or in the access list of the experiments containing the jobs.
+
+* Change identifier...
+
+You will be prompted for a new identifier for each job selected. You must be
+the owner or on the access list of the experiments containing the jobs.
+
+* Upgrade version...
+
+Each job selected will be upgraded to a higher version. You will be presented
+with a list of possible upgrade paths from which to choose. Usually you will
+only be able to upgrade to the next highest version. You may,
+however, then be able to upgrade again. It is recommended that you edit
+your job after each upgrade to ensure that new fields are completed.
+
+* Difference
+
+This function will report the differences found between two jobs of
+the same version. Select two jobs and then select "Difference" from
+the job menu.  The two jobs will be read in and checked, then a list
+of differences grouped by window name will be generated. Output is in
+the form: window location, navigation path, text related to entry, and
+setting in each job. 
+  Two types of list may be requested:
+
+Long: A variable must have a different value and be active in at least
+one of the two jobs. However, if a variable is active in one job and
+inactive in the second, the value of the inactive variable is not
+output.
+Short: A variable must have a different value and be active in both jobs.
+
+For example, you may have a panel which is set up totally differently
+in the two jobs. The long list will list all the differences between
+the two panels saying "Entry is inactive" for one of the jobs. The
+short list will not list the differences between the panels. The short
+list will, however, list the difference that caused one panel to be
+greyed out - eg by saying
+
+Radio button: Is this panel in use ?
+ Job aabmh: Entry is set to 'Yes'
+ Job aabmi: Entry is set to 'No'

@@ -1,0 +1,44 @@
+The find menu has the following items:
+
+* Filter...
+
+Brings up the filter dialog. This is used to limit the number of experiments
+and jobs listed by providing search criteria for each column. A default filter
+on the experiments owned by the user is applied when the user interface is 
+started.
+
+* Reload
+
+The list of experiments and jobs is updated. This is done automatically when
+the user does something to change the list, such as deleting or copying a
+job. Manual reloads may be required to see changes made by other users
+or possibly when an error occurs in the middle of an operation.
+
+
+The filter dialog:
+
+There are separate filters for experiments and jobs. The filter dialog is
+correspondingly separated into two parts each with a check box that enables or
+disables all the relevant filters. In the experiment filter section there are 
+filters for all columns of the list. In the job filter section there are filters 
+for just some of the columns. Each of
+these filters has an enabling or disabling checkbox. Some of the filters
+perform sub-string matching (eg: version 3. would match version 3.4 or 3.5). 
+The filter can match more than one string in each entry box; separate the 
+substrings with commas. Other filters provide radio button choices. 
+For an experiment to be matched it must match all the filters that have 
+been switched on. For a job to be matched, the experiment that contains it 
+must also be matched.
+
+When the filter button is pressed the filters are applied. To remind you,
+the title of a column is changed from pink to orange if a filter is being
+applied to that column.
+
+Examples: Owner substring 'hadsm' matches all experiments owned by hadsm.
+Owner substring 'hadsm,hadmk' matches experiments owned by both hadsm and hadmk
+(useful if copying another person's jobs). Owner substring 'had' matches all
+experiments containing the string 'had'. Owner substring 'hadsm' coupled with
+a description substring 'test' in the Job List Filters matches all experiments
+owned by hadsm but only those jobs which contain the string 'test' in their 
+description; consequently some experiments may be listed with no jobs in them.
+  

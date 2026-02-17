@@ -1,0 +1,52 @@
+
+The fonts in the job entry system can be modified by including a 
+file called .[appName]_appearance in your home directory, where
+[appName] stands for the name of the application being used
+(eg For the umui, call it .umui_appearance).
+
+An example template file is shown - just edit the font names in the
+quotes:
+
+----------------------------------------------------------------------
+
+# Font naming is straightforward. Change the number to change the size.
+
+# Status line font: Normal value "helvetica 9"
+set fonts(lines)   "helvetica 9"
+# GHUI Main navigation window font. Normal value "helvetica 9"
+set fonts(navigation) "helvetica 9"
+# GHUI panel fonts (text, checkbutton widgets etc) Normal value "helvetica 11"
+set fonts(normal) "helvetica 11"
+# GHUI table fonts for normal panels. Font fonts(tables,entries) must
+# be in "font_name font_size" format.
+# Normal values "helvetica 11 bold" and "courier 10"
+set fonts(tables,headings) "helvetica 11 bold"
+set fonts(tables,entries)  "courier 10"
+# Large buttons and menubuttons. Normal value "times 14"
+set fonts(buttons) "times 14"
+# Used when outputting chunks of text - eg help windows. Normal values "courier 11"
+set fonts(textOutput) "courier 11"
+# Certain dialog box messages. Normally "times 14"
+set fonts(message) "times 14"
+
+# The following alter the spacing of components in input panels:
+# Height of window components (in pixels). Change height with Font.
+set component_height 25                              ;# standard is 25
+set gap_height 25                                    ;# standard is 25
+# Width of indentation of blocks in pixels
+set indent_width 25                                  ;# standard is 25
+
+###########################################################
+# The following few are required to support UMUI STASH code
+# STASH buttons - 
+set font_butons "helvetica 10 bold"           ; # Normally "helvetica 11 bold"  
+# Size of Profile name boxes
+set font_tables "courier 8"        ; # Normally "courier 10"
+# Average size of diagnostic table (vn4.3+ only)
+set fonts(STASHTable) "helvetica 9" ; # Normally "helvetica 10"
+###########################################################
+
+
+
+
+

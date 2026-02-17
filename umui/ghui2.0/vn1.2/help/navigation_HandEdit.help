@@ -1,0 +1,16 @@
+The Hand Edit button.
+This button allows users to edit the current job basis file, (the file
+that is normally stored in the database). This action should only be
+used as a last resort.  The GHUI is designed not to require hand edits
+and you are in danger of damaging your job. Ensure when editing that
+you leave the basis file in FORTRAN namelist format. If you have made
+any changes to the job these will be included in the editing session.
+
+Enter the name of the editor you want to use to edit the job. The
+default is obtained from the UNIX environment variable EDITOR. This is
+started from within an xterm(1). 
+
+The edits you make will take effect immediately. Although, you will
+need still need to "Save" the job back to the GHUI database. If you do
+not want the edits to be saved, you should "Quit" the navigation
+panel. 

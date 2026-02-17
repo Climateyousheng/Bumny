@@ -1,0 +1,84 @@
+The experiment menu has the following items:
+
+* New...
+
+A new experiment is created. You will be prompted for a text
+description of the experiment. The identifier of the new experiment is
+generated automatically by the system to avoid clashes. The new
+experiment will be owned by you and will contain no jobs. Your user
+interface startup script may have supplied an appropriate initial
+letter for the experiment ID. Otherwise you will be prompted for one.
+
+* Copy...
+
+Each selected experiment will be duplicated with a new identifier. You
+will be prompted for a textual description for each experiment
+copied. All jobs within the experiments are copied verbatim. Your user
+interface startup script may have supplied an appropriate initial
+letter for the experiment ID. Otherwise you will be prompted for one.
+
+* Delete
+
+All selected experiments will be deleted. You will be asked for
+confirmation for each experiment. Only the owner or someone in the
+access list may delete an experiment.
+
+* Download
+
+The basis files of jobs in all selected experiments will be saved to
+local files. A separate directory can be selected for each experiment
+and a summary file is written that describes each job. After
+downloading an experiment, the jobs within it can be deleted, but
+consider keeping the experiment in case the jobs are required
+again. If a job is required again at a later date, create a new job
+with the same version and job identity, open it and use the "Upload"
+button in the Navigation Window to load in the local downloaded file.
+
+NB. There is no function to upload a whole experiment. Also, there is
+no function in the Entry System to Download/Upload a single job. But
+these latter operations can be done from an open job.
+
+* Change description...
+
+You will be prompted for a new textual description for each selected
+experiment.  Only the owner or someone in the access list may change
+the description.
+
+* Change ownership
+
+Use this option to change the user ID that owns the job. You may wish
+to do this if your user ID has been changed or if you want to give
+your jobs to another user. Note that your original user ID will be
+added to the access list of the experiment. This means that if you
+give away ownership to the wrong person you can get it back easily.
+
+* Make operational
+
+The selected experiments will have their identifiers changed to start
+with the letter q. This identifies an experiment as operational in the
+UM system. You will be prompted for confirmation. Only the owner or
+someone in the access list may make an experiment operational.
+
+* Change Privacy...
+
+Use this option to toggle between making the selected experiment(s)
+publicly available (ie. viewable by all users) or private (ie. only
+viewable to the owner and those in the access list).  Only the owner
+or someone in the access list may change the privacy of an experiment.
+
+* Access list...
+
+An access list dialog will be opened for each selected
+experiment. This allows you to change the list of users that can alter
+or delete your experiment and the jobs it contains. Users can be
+deleted by selecting their name from the list and clicking on the
+Delete button. Users can be added by typing their user name and
+clicking on the Add button.
+
+Users are identified for the access list by the user name they are
+logged in as when they are running the GHUI. Only use the name, not
+any host information.  For example, frcp@fr0210 is identified as frcp
+and hadex@hadl30 is identified as hadex. There is no need to put the
+owner of an experiment in the access list. The access list is deleted
+by deleting all the names in it.
+

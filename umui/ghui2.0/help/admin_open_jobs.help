@@ -1,0 +1,19 @@
+                           Open Jobs
+                           ---------
+
+The "Open Jobs" panel to the left of the Admin Interface displays a
+list of jobs that are flagged as "Open Read/Write" in the database.
+Jobs are flagged as such when users are in the process of editing
+them. But they may also be left open if the user's editing session is
+killed (eg. if the user logs out when some jobs are still open).
+
+In the latter case, the user will be unable to edit the job until it
+has been forced closed. The user is able to force close jobs from the
+entry window. Alternatively, the Administrator can force close a job
+by selecting it with the mouse and pressing the "Force Close" button 
+below the "Open Jobs" panel.
+
+The "Open Jobs" list does not update itself automatically. The "Reload
+List" rechecks the database taking account of jobs opened or closed
+since the Admin Interface was started up.
+

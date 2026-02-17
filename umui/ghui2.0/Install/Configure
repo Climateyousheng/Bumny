@@ -1,0 +1,364 @@
+#!/bin/ksh
+
+# Version specific name
+GHUI_VERSION=2.0
+
+function getvalue {
+  if [ "$defaults" != "yes" ]
+  then
+    read value?"[$1] "
+  else
+    echo "[$1]" >&2
+  fi
+  if [ -z "$value" ]
+  then
+    echo $1
+    echo "\nYou selected the default answer: \"$1\"." >&2
+  else
+    echo $value
+    echo "\nYou entered \"$value\"." >&2
+  fi
+}
+
+function usage {
+  cat << EOF
+USAGE:
+  Configure [-options]
+  -h -- print this help message and exit normally
+  -d -- use defaults for all answers
+EOF
+}
+
+BUILD_DIR=`pwd`
+
+if [ -f Config.cache ]
+then
+  eval `cat Config.cache`
+else
+  eval `cat Config.in`
+fi
+
+# Set default install to same level as unpacked tar file
+INSTALL_DIR=${INSTALL_DIR:-`cd ../..;pwd`}
+
+while test $# -gt 0 
+do
+  case "$1" in
+    -d) shift; defaults="yes" ;;
+    -h) shift; usage; exit 0 ;;
+    -*) echo "Configure: unknown option $1" >&2 ;usage;shift;exit 1 ;;
+  esac
+done
+
+cat <<EOF
+
+GHUI Configure...
+
+This program configures version $GHUI_VERSION of the Generic
+Hierarchical User Interface package prior to compilation. 
+
+You must be in Install directory of the GHUI when you run this script. 
+You must run this program under the Korn shell (ie: use "/bin/ksh ./Configure").
+
+You will be asked a series of questions. If you just press return 
+then the default answer printed in square brackets will be taken.
+
+If you make any mistakes while answering the questions in this program, 
+then interrupt the process (Ctrl-C) and start again. 
+
+If you want to accept all the given defaults, Configure will produce a GHUI
+that will compile on a standard HP-UX configuration.
+
+"Configure" keeps track of your default answers in the file "Config.cache" 
+which will be used if Configure is re-run. 
+
+The original answers are in the file "Config.in", to use the default answers 
+in re-configurations, delete "Config.cache". 
+
+Configure has some command line options. Do you want to see them?
+
+EOF
+CHECK=$(getvalue no)
+
+if [ "$CHECK" != no ]
+then
+  echo
+  usage
+  echo
+  CHECK=$(getvalue "Hit a key to continue")
+fi
+
+cat <<EOF
+
+
+Enter the temporary directory. This is a directory that is used by the
+administration client when it is reconfiguring clients. Very little
+disk space is needed.
+
+EOF
+
+TMPDIR=$(getvalue $TMPDIR)
+
+cat <<EOF
+
+
+Enter the installation directory. A directory called ghui$GHUI_VERSION
+will be created here which will contain all that is needed to run the
+GHUI (ie all the exectables, Tcl language libraries, man pages and
+documentation). The GHUI installation is completely independent of all
+other Tcl/Tk installations on your system. NOTE: you cannot move the
+ghui$GHUI_VERSION directory around without editing the files contained
+within, as there are some "hardwired" paths.
+
+EOF
+INSTALL_DIR=$(getvalue $INSTALL_DIR)
+if [ `echo $INSTALL_DIR | cut -c1` != "/" ]
+then
+  INSTALL_DIR=`pwd`"/"`echo $INSTALL_DIR`
+else
+  INSTALL_DIR=`echo $INSTALL_DIR`
+fi
+INSTALL_VERSION=ghui$GHUI_VERSION
+
+ROOT_DIR=`dirname $INSTALL_DIR`
+
+if [ -d $INSTALL_DIR ] && [ -w $INSTALL_DIR ]
+then
+  cd $ROOT_DIR
+  INSTALL_DIR=`pwd`/`basename $INSTALL_DIR`
+  cd $BUILD_DIR
+else
+  cat << EOF
+
+CONFIGURE ERROR:
+  Directory "$INSTALL_DIR"
+  must exist and be writable by you, to install the GHUI.
+  Please create/change the permissions, then re-run Configure or
+  run Configure and select another installation directory.
+
+CONFIGURE ABORTED.
+
+EOF
+  exit 1
+fi
+
+eval SERVER_INSTALL_DIR=$SERVER_INSTALL_DIR
+
+cat <<EOF
+
+The GHUI is a networked client-server program. All experiments and
+jobs owned by a GHUI-based user interface are kept on one machine (the
+primary server) and accessed via the network by the clients. If you
+wish to run servers on a time sharing supercomputer then make sure
+that the server processes are not limited by time constraints; they
+must be able to run continuously. 
+
+EOF
+
+cat <<EOF
+
+The client software includes a version dependent job edit program.
+You may install one or several versions of this program. A
+subdirectory of the ghui called "vn#.#" will be created for each
+version of the software.
+
+Enter the version numbers that you wish to install. If you are
+installing multiple versions, then delimit the version numbers
+with spaces.
+
+EOF
+VERSIONS=$(getvalue "$VERSIONS")
+
+cat <<EOF
+
+Do you only want to install new versions of the job edit program on to
+a current installation of the GHUI or the entire distribution.
+If you are adding a new version to the system then type "yes",
+otherwise type "no".
+
+Add new version to a current GHUI installation?
+
+EOF
+JOB_EDIT_ONLY=$(getvalue $JOB_EDIT_ONLY)
+
+cat <<EOF
+
+The GHUI is partly written in ANSI C. Please enter the command used
+on your system to run the compiler. Include any flags required for
+ANSI mode and for optimisation or debugging.
+
+Also note that the code needs to be compiled as "position independent
+code" (PIC) for use as a shared library.  So, for example, on HP-UX
+systems the compile option "+z" is required.
+
+*** YOU MUST HAVE AN ANSI C COMPILER OPTION ***
+
+EOF
+ANSI_CC=$(getvalue "$ANSI_CC")
+
+cat <<EOF
+
+Please enter the command, with options, for the link editor.
+
+Again, the code needs to be compiled as "position independent
+code" for use as a shared library.  So, for example, on HP-UX systems
+use "ld -b", and on SGI machines use "ld -shared".
+
+EOF
+LD=$(getvalue "$LD")
+
+cat <<EOF
+
+The GHUI is a Tcl/Tk program and requires version 8.0 with patch 2
+installed. An installation package for Tcl/Tk should have been
+included with the GHUI installation for systems on which it has not
+already been installed. The Tcl/Tk installation package creates two
+executables: wish (or wish8.0) and tclsh (or tclsh8.0). wish is 
+required to run the user interface and administration clients, tclsh
+is required to run the server.
+
+First, enter the full pathname and filename name of the wish
+executable.
+
+EOF
+WISH_EXE=$(getvalue $WISH_EXE)
+
+cat <<EOF
+
+Then the full pathname and filename name of the tclsh executable:
+
+EOF
+TCLSH_EXE=$(getvalue $TCLSH_EXE)
+
+cat <<EOF
+
+Enter the directory containing the tcl.h file (usually something like
+/opt/tcl/include). This is required to compile some shared libraries:
+
+EOF
+TCL_INC_DIR=$(getvalue $TCL_INC_DIR)
+
+cat <<EOF
+
+Enter the command used to invoke a remote shell. On some systems this is
+rsh, but on others this is the restricted shell and the remote shell is
+called remsh.
+
+EOF
+REMSH=$(getvalue $REMSH)
+
+cat <<EOF
+
+
+You have chosen the following configuration:
+
+
+You will be installing the GHUI in directory:           "$INSTALL_DIR".
+You will be installing version:                         "$VERSIONS".
+You call your ANSI C compiler with:                     "$ANSI_CC".
+The link editor will be run with:                       "$LD".
+Your tcl.h header file is                               "$TCL_INC_DIR/tcl.h".
+Your wish executable is called                          "$WISH_EXE".
+Your tclsh executable is called                         "$TCLSH_EXE".
+The command to execute remote shell commands is:        "$REMSH".
+EOF
+
+cat <<EOF
+
+Is this ok?
+
+EOF
+
+test=$(getvalue "yes")
+if [ "$test" != "yes" ]
+then
+  echo "### QUITTING CONFIGURATION ###"
+  exit
+fi
+
+
+# create sed script
+echo "\n\n\nMaking sed script..."
+echo "s^@tmpdir@^$TMPDIR^g" > sed_script
+echo "s^@install_dir@^$INSTALL_DIR^g" >> sed_script
+echo "s^@ghui_version@^$INSTALL_VERSION^g" >> sed_script
+echo "s^@cc@^$ANSI_CC^g" >> sed_script
+echo "s^@ld@^$LD^g" >> sed_script
+echo "s^@tcl_inc_dir@^$TCL_INC_DIR^g" >> sed_script
+echo "s^@wish_exe@^$WISH_EXE^g" >> sed_script
+echo "s^@tclsh_exe@^$TCLSH_EXE^g" >> sed_script
+echo "s^@versions@^$VERSIONS^g" >> sed_script
+echo "s^@remote_shell_command@^$REMSH^g" >> sed_script
+if [ "$JOB_EDIT_ONLY" = "yes" ]
+then
+  echo "s^@entry@^^g" >> sed_script
+else
+  echo "s^@entry@^entry_install^g" >> sed_script
+fi
+
+# create files from .in files
+files="../Makefile.in template.in _admintemplate.in"
+files="$files ../bin/ghui.in ../bin/ghui_admin.in ../bin/ghui_server.in"
+files="$files _startservertemplate.in ../bin/ghui_startserver.in"
+files="$files _haltservertemplate.in ../bin/ghui_haltserver.in"
+
+for ver in $VERSIONS
+do
+  files=$files" ../vn$ver/src/Makefile.in"
+done
+
+for i in $files
+do
+  old_file=$(basename $i)
+  new_file=$(basename $i .in)
+  dir=$(dirname $i)
+  echo "Creating $dir/$new_file..."
+  rm -f $dir/$new_file
+  sed -f sed_script < $dir/$old_file > $dir/$new_file
+done
+
+for ver in $VERSIONS
+do
+  cat ../vn$ver/src/Makefile | sed "s^@version@^"$ver"^g" > tmp
+  mv -f tmp ../vn$ver/src/Makefile
+  cat ../Makefile  | sed "s^@version@^"$ver"^g" > tmp
+  mv -f tmp ../Makefile
+done
+
+# remove sed script
+rm sed_script
+
+cat <<EOF
+
+
+Creating Config.cache
+
+EOF
+
+cd $BUILD_DIR
+cat <<EOF > Config.cache
+INSTALL_VERSION="$INSTALL_VERSION"
+TMPDIR="$TMPDIR"
+INSTALL_DIR="$INSTALL_DIR"
+VERSIONS="$VERSIONS"
+JOB_EDIT_ONLY="$JOB_EDIT_ONLY"
+ANSI_CC="$ANSI_CC"
+LD="$LD"
+TCL_INC_DIR="$TCL_INC_DIR"
+WISH_EXE="$WISH_EXE"
+TCLSH_EXE="$TCLSH_EXE"
+REMSH="$REMSH"
+EOF
+
+cat <<EOF
+
+
+### CONFIGURATION FINISHED ###
+
+Now type "make" to build the GHUI or "make install" to build and
+install it. If you just type "make", you can subsequently type "make
+install" to install the GHUI. Once the GHUI is installed you can
+install the required GHUI-based packages such as the UMUI and the
+OPSUI.
+
+EOF

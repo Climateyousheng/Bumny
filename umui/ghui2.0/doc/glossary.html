@@ -1,0 +1,97 @@
+# Use <DL> list to provide description of each item. Anything in 
+# bold should have a reference elsewhere in the document. Start
+# comment lines with hashes.
+
+<DL>
+<DT> Windows directory
+
+<DD> <B>Application-Specific</B> directory that contains <B>window
+definition files</B>, the <B>Navigation Tree</B> control file
+<B>nav.spec</B> and the specification of the navigation buttons
+<B>nav.buttons</B>.
+
+<DT> Application-Specific
+
+<DD>Used to distinguish components or files specific to a GHUI-based user
+interface application from the generic GHUI components.
+
+<DT> Window definition file
+
+<DD>Held in the <B>windows directory</B>. Each GHUI <B>input panel</B>
+is defined by up to three types of file.  The main file has a .pan
+extension. Within its header it will define a <B>skeleton file</B>
+which describes the general format of the panel. The main file may
+also incorporate one or more <B>window include files</B>. Include
+files are used when the same or similar sets of questions are used in
+more than one place.
+
+<DT> nav.spec
+
+<DD> Control file that describes the <B>Navigation Tree</B>.
+
+<DT> nav.buttons
+
+<DD> Control file that describes the buttons displayed along the
+bottom of the <B>Navigation Window</B>.
+
+<DT> Navigation Tree
+
+<DD> Expanding and collapsing tree widget that represents the
+hierarchy of categories and subcategories of <B>Input Panels</B>.  Any
+input panels related to the currently selected node are listed in the
+panel to the right of the tree.
+
+<DT> Input panel
+
+<DD> A form that displays questions along with input components such
+as entry boxes, radio buttons and tables. Each component is related to
+one of the <B>variables</B> in the <B>job</B>. Panels are defined by
+the <B>windows definition files</B>.
+
+<DT> Basis database
+
+<DD> A basis database is a text file containing the values of all data
+items declared in the related <B>variable registers</B>. The format of
+a basis database matches that of a FORTRAN namelist file. There are
+three types of database matching to each of the types of variable
+register:
+
+<B>Job basis databases</B> matches to the var.register file. There is
+one job basis database for each job stored in the application
+database; ie. each one contains all the user inputs for a particular
+job.
+
+<B>System database</B> matches to the system.register file and is held
+in a file called system.database. It contains values of constants used
+in an application.
+
+<B>Parameter database</B> matches to the system.register file and is
+held in a file called parameter.database. It is intended for values of
+integer constants used to declare sizes of arrays in the system and
+variable registers.
+
+<DT> Variable Registers
+
+Variable registers contain declarations for the data objects used in
+the application. An application requires three registers to be held in
+the <B>variables</B> application directory: The var.register,
+system.register, and parameter.register. Each variable register
+matches to a different type of <B>basis database</B>.
+
+Items in the var.register file relate to a particular job setup. The
+values of these items for a particular job setup are stored in a job
+basis database in the central database. Usually, items in the
+var.register file relate the user interface questions.
+
+The system.register file contains a mixture of constants, parameters
+or lists of data, and variables that are hidden from the user such as
+<B>link variables</B>. The values of items in the system.register are
+stored in the system.database. 
+
+The parameter.register file contains constants that can be used in the
+declaration of variables in the other two registers; usually
+declarations of array size. The values of items in the parameter.register
+are stored in the parameter.database.
+
+All files but the job basis databases are held in the <B>variables</B>
+application directory.

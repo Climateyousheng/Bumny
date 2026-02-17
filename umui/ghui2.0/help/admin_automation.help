@@ -1,0 +1,43 @@
+          Automatic starting and stopping of the server
+          ---------------------------------------------
+
+Scripts exist to automatically start and stop the database
+server. These scripts should only be used when running in
+single-server mode. The reason for this is that if the backup server
+is restarted automatically its automatic restart will leave it
+unsynchronised with the primary server.
+
+Scripts to automatically stop and start the server should be found in
+the bin directory of the GHUI based user interface. eg. for the UMUI:
+
+ umui2.0/bin directory:
+   umui_haltserver
+   umui_startserver
+
+If the scripts do not exist, see below for how to generate them.
+
+The umui_haltserver script can be run from any platform since it sends
+a signal to the server to tell it to shut down. 
+
+The umui_startserver script should be only be run by the server
+process owner and it should only be run on the server machine. It
+starts the server and populates the database.
+
+Generating the necessary scripts
+--------------------------------
+
+The start and halt scripts are simple wrapper scripts that pass
+arguments to the ghui_haltserver and ghui_startserver scripts in the
+GHUI bin directory. They are generated automatically from templates in
+the ghui2.0/Install directory when the application's configure script
+is run. If the scripts are not present you may need to obtain a more
+recent version of the configure script. Alternatively, copy and edit
+the _startservertemplate and _haltservertemplate scripts in the
+ghui2.0/Install directory: substitute the items between "@" with
+appropriate choices.
+
+
+
+
+
+

@@ -1,0 +1,39 @@
+          The Backup Server
+          -----------------
+
+This help is only relevant for systems running in Dual Server Mode.
+
+The Backup Server manages the Backup Database which holds the backup
+collection of everybody's experiments and jobs. To find out where the
+Backup Server is running and where the Backup Database is, select the
+"Show Configuration" item from the "Clients" menu. This will display
+the details of both the Primary and Backup Servers.
+
+Ideally, the Backup Database should remain identical to the Primary
+Database at all times - every time an operation such as save, or
+delete is carried out on the Primary Server it is then immediately
+repeated on the Backup Server. There are three situations in which
+the Backup Server can become unsynchronised from the Primary Server.
+
+1. If the Backup Server fails, users can still communicate with the 
+Primary Server. 
+
+2. If the connection to the Backup Server fails, to the user it looks
+identical to a Backup Server failure and users can still communicate
+with the Primary Server.
+
+3. A command may work on the Primary Server and then, for some reason, 
+fail on the Backup Server.
+
+In all three cases, the user will get a clear warning asking for the
+incident to be reported.  However in cases 2. and 3. there is no
+guarantee that this will occur and it is therefore usually safest to
+assume that the Backup Database may have small differences from the 
+Primary Database. Bear this in mind when reconfiguring the servers.
+
+See the "Introduction" help for information on synchronising the
+databases and on reconfiguring the databases.
+
+%I server_buttons
+
+

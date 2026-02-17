@@ -1,0 +1,91 @@
+#==============================================================================
+# RCS Header:
+#   File         [$Source: /home/hc0300/umui/srce_code/GHUI_archive/ghui2.0/doc/GHUI_doc.tex,v $]
+#   Revision     [$Revision: 1.2 $]     Named [$Name: head#main $]
+#   Last checkin [$Date: 2000/10/16 14:24:06 $]
+#   Author       [$Author: hadsm $]
+#==============================================================================
+
+\documentclass{report}
+\usepackage[dvips]{graphicx}
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\textbf{The General Hierarchical User Interface}
+\ \\
+S.D.Mullerworth \\
+\ \\
+Version 1.0 \\
+\ \\
+20th October 2000 \\
+\ \\
+GHUI version 2.0. Navigation System version 1.2
+
+\vspace{2.5in}
+Climate Research \\
+The Met. Office \\
+London Road \\
+BRACKNELL \\
+Berkshire \\
+RG12 2SY \\
+United Kingdom
+
+\vspace{0.5in}
+(c) Crown Copyright 2000
+\par
+\ \\
+This document has not been published. Permission to quote from
+it must be obtained from the Head of Climate Prediction at the above address.
+\end {center}
+
+\end{titlepage}
+
+\tableofcontents
+\chapter{Modification History}
+
+  \begin{center}
+  \begin{tabular}{|c|c|c|p{0.25\hsize}|}           \hline
+  \textbf{Date} & \textbf{Author} & \textbf{UM version}
+  & \textbf{Description of change} \\ \hline
+
+    20 October 2000 &  S.D.Mullerworth & 5.0 &
+    Original. \\ \hline
+
+  \end{tabular}
+  \end{center}
+
+\chapter{Introduction}
+
+The Generic Hierarchical User Interface, or GHUI, is a package that
+allows the creation of large forms based user interfaces. It is the
+package that underlies user interfaces developed at the Met. Office
+such as the UMUI, VARUI and SCSUI.
+
+The GHUI allows the user interface developer to write input panels
+using a simple language. Panels are presented to users in a tree
+hierarchy to help them find their way to the appropriate panel or
+setup panel. Validation of user input is performed to reduce the
+number of user errors. Once setup is completed by the user a
+processing function converts the input into a suitable output as
+prescribed by the user interface developer.
+
+Users may own many separate job setups. The GHUI incorporates code for
+setting up a central job database in which all jobs owned by all users
+is stored. Jobs are accessed via a client/server system.
+
+The functionality provided by the GHUI aims to be reasonably
+comprehensive but also aims to be extendible; where the GHUI functions
+do not provide a comletely appropriate validation check or panel
+design an alternative one can be provided. Some knowledge of Tcl and
+Tk may be required to implement such extensions.
+
+This document incorporates both system documentation, documentation
+required to develop new user interfaces and documentation required to
+install and manage user interfaces. Firstly, an overview of the
+look-and-feel of a typical GHUI based user interface is given.
+
+\input{overviewDoc.tex}
+\input{sysManageDoc.tex}
+\input{userDoc.tex}
+\input{systemDoc.tex}
+\end{document}

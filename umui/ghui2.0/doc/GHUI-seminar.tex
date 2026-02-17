@@ -1,0 +1,545 @@
+\documentclass{article}
+\usepackage{html}
+
+\begin{document}
+
+\title{\bf The Generic Hierarchical User Interface}
+\author{\bf Andy Brady}
+\date{\bf \today}
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{G.H.U.I.}
+A Generic Hierarchical User Interface
+\\
+
+Developed at the United Kingdom Meteorological Office by:
+
+\begin{itemize}
+\item Andrew Brady
+\item Mick Carter
+\item Chris Paulson-Ellis
+\item Steve Mullerworth
+\item Duncan Ford
+\end{itemize}
+
+
+
+1995-1996(c) CROWN COPYRIGHT 1995, METEOROLOGICAL OFFICE
+
+
+\section{Why do we need a GHUI?
+What are the advantages of using it?}
+
+\begin{itemize}                                               
+\item It is portable across modern Unix platforms.
+	\begin{itemize}
+	\item HP-UX.
+	\item Cray.
+	\item Sun (Solaris).
+	\item DEC Alpha.
+	\end{itemize}
+
+\item Uses a Client/Server approach to managing jobs.
+	\begin{itemize}
+	\item Job data stored on a central server.
+	\item Many Computers on network run GHUI clients simultaneously.
+	\item Easy to learn and convenient to use by users.
+	\item Windows.
+	\item Non-linear navigation.
+	\item Help Panels available on all windows.
+	\item Interactive  (no prrocessing in batch).
+	\item Fast reponse (compared to old UMUI).
+	\end{itemize}
+
+
+\item Easy to learn how to build and extend.
+	\begin{itemize}
+	\item Interpreted High level language.
+	\item System cross checking for consistency.
+	\item User modifications (in future releases).
+	\end{itemize}
+\end{itemize}
+	
+\section{Could we have done without GHUI?
+What was wrong with the old UMUI?}
+
+\begin{itemize}
+\item The old UMUI was not at all portable.
+\item It was not user friendly (esp. new users).
+\item It was slow.
+\item It ran on the IBM mainframe.
+\item It was reasonably robust.
+\item One way, linear navigation.
+\item Processing was in batch.
+\item It could not never be run-time extended.
+\item It could induce high levels of stress in users.
+\end{itemize}
+
+\section{What are the disadvantages of using GHUI?}
+
+\begin{itemize}
+\item Still under development.
+\item Some features do not exist, yet.
+\item Dependent on server machine.
+\item Can be slow under some circumstances.
+\end{itemize}
+
+\section{Client Server view of the GHUI}
+\htmladdnormallink{Diagram of the GHUI Client Server}{client-server.gif}
+\\
+
+\section{How do you create new applications using the GHUI?}
+
+\begin{itemize}
+\item Entry System.
+\item Navigation.
+	\begin{itemize}
+	\item The navigation tree
+	\end{itemize}
+\item Navigation buttons
+
+\item Variables.
+	\begin{itemize}
+	\item Variable partitions
+	\item System variables
+	\item User variables
+	\end{itemize}
+
+\item Window Panels
+	\begin{itemize}
+	\item Generic panels
+	\item Tcl/Tk generated panels
+	\end{itemize}
+
+\item Verification and Cross Checking.
+	\begin{itemize}
+	\item On panels
+	\item Global verify
+	\end{itemize}
+
+\item Processing and Producing Job Libraries.
+	\begin{itemize}
+	\item Top level processing navigator
+	\item Processing parser
+	\end{itemize}
+\end{itemize}
+
+\section{The GHUI Entry Panel and Filter}
+\htmladdnormallink{Diagram of the GHUI Entry Panel}{entry_panel.gif}
+\\
+
+\htmladdnormallink{Diagram of the GHUI Entry Panel Filter}{entry_panel_filter.gif}
+\\
+
+\section{Navigation (nav.spec file)}
+
+\htmladdnormallink{Diagram of UMUI navigation}{navigation_panel.gif}
+
+The nav.spec file contains all the information required by the GHUI to
+produce the navigation tree. It contains all the panels that can be
+called from the tree and procedures that should be called before, on
+closing and on abandoning panels.
+
+\htmladdnormallink{Diagram of example navigation}{navigation_example.gif}
+
+\begin{verbatim}
+.n modsel							"Model Selection" 
+..n personal							"Personal details"
+...p personal_gen							"General details"
+..n subindep							"Sub-Model Independent"
+...p subindep_Control						"General Control"
+...p subindep_CompRecon					"Reconfiguration mods"
+...p subindep_JobRes						"Job resources"
+....> subindep_JobRes							"Follow on window"
+...n subindep_Section						"Independent Options"
+....p subindep_Section_Toplev				"The top level control"
+....p subindep_Section_Misc					"Miscellaneous Sections"
+.....> subindep_Section_Misc2					"Follow on window"
+...n subindep_PostProc						"Post Processing"
+....p subindep_PostProc_Gen					"General Questions"
+.....> subindep_PostProc_Gen2					"Follow on window"
+..n atmos							"Atmosphere"
+...n atmos_Domain							"Resolution & Domain"
+....p atmos_Domain_Horiz						"Horizontal"
+....p atmos_Domain_Vert						"Vertical"
+...n atmos_Config							"Model Configuration"
+....p atmos_Config_Tracer						"Tracers"  {} {} {}
+\end{verbatim}
+
+
+\section{Navigation Buttons (nav.buttons)}
+
+The nav.buttons file fully describes the buttons that are placed at
+the bottom of the navigation window.   
+
+\begin{verbatim}
+#<name>	<text>	<show>	<disable>	<command>	<args>
+>help   	Help			NONE	NONE
+>>help		Help..			show_help	.nav_Help
+>>about	Navigation..			show_help	.nav_Nav
+>>verify	Verify.			show_help	.nav_CS
+>>save		Save.			show_help	.nav_Save
+>>process	Process..			show_help	.nav_Process
+>>upload	Upload..			show_help	.nav_Upload
+>>download	Download..			show_help	.nav_Download
+>>handedit	HandEdit..			show_help	.nav_HandEdit
+>>quit		Quit..			show_help	.nav_Quit
+>>windows	Entry.			show_help	.nav_Windows
+verify   	Verify	ALWAYS	NEVER	nav_full_verify	NONE
+save     	Save	ALWAYS	!\$read_write	nav_save	NONE
+process	Process	ALWAYS	NEVER	nav_process	NONE
+upload		Upload	ALWAYS	NEVER	nav_upload	NONE
+download	Download	ALWAYS	NEVER	nav_download	NONE
+handedit	HandEdit	ALWAYS	NEVER	nav_handedit	NONE
+quit      	Quit	ALWAYS	NEVER	nav_quit	NONE
+\end{verbatim}
+
+This example sets up 8 buttons: help, verify, save, process, upload,
+download, handedit and quit. Notice the different forms for "help" and
+"action" buttons. 
+
+
+\section{Example Parameter Register File (parameter.register)}
+
+The parameter.register file defines GHUI variables that have to be
+read before the variable register. These variables have to be read
+before the variables register as, for example, they may be array sizes
+of other variables defined in the variable register
+
+\begin{verbatim}
+NVAR123	0	1	0	0	INT	0	0	none	SYSTEM	NEVER	NONE NULL
+\end{verbatim}
+
+\section{Example Parameter Database File (parameter.database)}
+
+The parameter.register gives values to variables defined in the
+parameter.database
+
+\begin{verbatim}
+ &SYSTEM
+ NVAR123=5
+ &END
+\end{verbatim}
+
+\section{Example Variable Register File  (var.register)}
+
+The var.register file defines all the characteristics of user
+variables that are used internally in the GHUI to store inputs. Each
+variable belongs in a partition (e1 in this example) and a panel
+(example).
+
+\begin{verbatim}
+VAR1	-1	1	NVAR123	0 	STRING	5	0	example	e1	NEVER	NONE OPT
+VAR2	-1	1	NVAR123	0	INT	0	0	example	e1	NEVER	RANGE 1 100
+VAR3	-1	1	NVAR123	0	REAL	0	10.6f	example	e1	NEVER	RANGE 0.0 10.0
+VAR4	-1	1	0	0	INT	0	0	example	e1	NEVER	RANGE 0 2
+VAR5	 0	1	0	0	STRING	15	0	example	e1	VAR4==0	NONE NOOPT
+VAR6	 0	1	0	0	STRING	 5	0	example	e1	VAR4!=1	NONE OPT
+VAR7	 0	1	0	0	STRING	10	0	example	e1	NEVER	NONE OPT
+VAR8	 0	1	0	0	STRING	 1	0	example	e1	NEVER	LIST Y N
+VAR9	 0	1	0	0	STRING	 1	0	example	e1	NEVER	FUNCTION test
+\end{verbatim}
+
+\section{Example partition database file (partitition.database)}
+
+The partition database is used to define how the GHUI acts on
+variables in specific partitions during a ``global verify''. For
+example. In the UMUI, you would not want to check variables in the
+OCEAN model, if you had set up an atmosphere run.
+
+\begin{verbatim}
+e	example	NEVER
+S	SYSTEM	NEVER
+\end{verbatim}
+
+\section{System variable register file (system.register)}
+
+Some variables do not need to be stored in the user job database, and
+do not need to be available to the user. These are defined in the
+system.register file
+
+\begin{verbatim}
+EXPT_ID	0	1	0	0	STRING	4	0	no_home_panel_system	NEVER	NONE	NULL
+JOB_ID	0	1	0	0	STRING	1	0	no_home_panel_system	NEVER	NONE	NULL
+RUN_ID	0	1	0	0	STRING	5	0	no_home_panel_system	NEVER	NONE	NULL
+JOBDESC	0	1	0	0	STRING	80	0	no_home_panel_system	NEVER	NONE	NULL
+VERSION	0	1	0	0	STRING	10	0	no_home_panel_system	NEVER	NONE	NULL
+\end{verbatim}
+
+\section{System variable database file (system.database)}
+
+The system  variables that were set in the system.register file are
+defined in the system.database file.
+
+\begin{verbatim}
+ &system
+ VERSION='example'
+ &END
+\end{verbatim}
+
+
+\section{Example Generic Panel Program}
+
+\htmladdnormallink{Diagram of an example GHUI Panel}{panel_example.gif}
+\\
+
+GHUI panels can be generic or explicit. This means that a panel has
+either been defined using the GHUI windowing language, or that it has
+been defined as explicit Tcl/Tk code. This example demonstrates the
+former.
+
+\begin{verbatim}
+.winid	"example"
+.title	"Example Panel"
+.wintype	entry
+
+.panel
+  .gap
+
+  .text  "This is an included line of text"  L
+  .gap
+
+  .table  table1   "An Example Table"  top  h  NVAR123  10  NONE
+    .elementautonum "Index"	NVAR123		10
+    .element	"VARiable 1"	VAR1	NVAR123	20	in
+    .element	"VARiable 2"	VAR2	NVAR123	15	in
+    .element	"VARiable 3"	VAR3	NVAR123	25	in
+  .tableend
+  .gap
+
+  .basrad  "These are radio buttons"  L  3  v  VAR4
+    "Option 1 -- Set VAR4 to 0"   0
+    "Option 2 -- Set VAR4 to 1"   1
+    "Option 3 -- Set VAR4 to 2"   2
+  .gap
+
+  .case VAR4[0]
+    .text  "This should be grey if VAR4 is 1 (option 2)"   L
+    .entry "Text Entry for VAR5?"  L  VAR5
+  .caseend
+  .gap
+
+  .block 1
+    .text     "This should be indented by 1"  L
+    .entry  "Text Entry for VAR7?"  L  VAR7
+  .blockend
+  .gap
+
+  .invisible  VAR4[!1]
+    .text    "This should only be visible if VAR4 is 1 (option 2)"  L
+    .entry  "Text Entry for VAR6?"   L   VAR6
+  .invisend
+  .gap
+
+  .block 1
+    .text  "These are check boxes indented by 2. Iindented by 1."  L
+  .blockend
+
+  .block 2
+    .check "A Check box for VAR8"  L  VAR8  Y  N
+    .check "A Check box for VAR9"  L  VAR9  Y  N
+  .blockend
+  .gap
+
+  .pushand   "pushand"  example2
+
+.panend
+\end{verbatim}
+
+
+\section{Example Tcl/Tk panel program}
+
+\htmladdnormallink{Diagram showing Example Tcl/Tk panel}{panel_tcl_stash.gif}
+\\
+
+This example demonstrates an example of an explicit Tcl/Tk coded
+window. The Tcl/Tk is not shown, but the procedure name called is
+``stash'', with one argument ``atmos''. This is defined in the
+nav.spec file:
+
+\begin{verbatim}
+.winid 	"atmos_STASH"
+.title 	"Tcl/Tk Routine is called via nav.spec"
+.wintype 	dummy
+\end{verbatim}
+
+Excerpt From nav.spec
+
+\begin{verbatim}
+...n atmos_STASH                         "STASH"
+....p atmos_STASH_tcl                      "Specification" {stash atmos}
+.....> atmos_STASH_Time                    "Time profile"
+.....> atmos_STASH_Domain                "Domain profile 1"
+.....> atmos_STASH_Domain2              "Domain profile 2"
+.....> atmos_STASH_Domain3              "Domain profile 3"
+.....> atmos_STASH_Domain4              "Domain profile 4"
+.....> atmos_STASH_Usage                   "Usage profile"
+\end{verbatim}
+
+\section{Auto Verification and Cross Checking}
+
+\begin{itemize}
+\item In-active check on "close window"
+	\begin{itemize}
+	\item Is variable active/inactive?
+	\item Does variable need checking?
+	\end{itemize}
+
+\item Logic Consistency on "close panel"
+	\begin{itemize}
+	\item Does panel/variable logic agree?
+	\item Does active/inactive logic agree?
+	\end{itemize}
+
+\item Checks on "close window"
+	\begin{itemize}
+	\item STRING/REAL/INTEGER/LIST/RANGE/FILE/FUNCTION?
+	\end{itemize}
+
+\item Global Verify navigation button.
+	\begin{itemize}
+	\item Returns window location.
+	\item Returns variable name.
+	\item Return message.
+	\end{itemize}
+\end{itemize}
+
+\section{Processing Directives}
+
+There are a number of processing directives that may be used in a
+processing definition file.
+
+\begin{verbatim}
+<Longform>		<shortform>
+%TCL			yes
+%TCLEND			no (not req)
+%INCLUDE <process file>	yes
+%ENDINCLUDE		no
+%COMMENT		yes
+%ENDCOMM		none
+%OUTPUTFILE <file>	none
+\end{verbatim}
+
+NOTE: all GHUI variables are parsed also.  They require a "%" prefix.
+
+
+\section{Example top level processing file (top)}
+
+\begin{verbatim}
+%COMM 
+This is a comment
+%ENDCOMM
+%C            This is also a comment
+%C  --- include a function for converting times ---
+%INCLUDE proc_totime
+%C --- include a function for converting levels ---
+%I                  proc_tolevs
+%C ------------------------------------------------------------
+%C Create an output shell script that can be executed
+%OUTPUTFILE SCRIPT
+%I script
+%C ------------------------------------------------------------
+%C create an input data file for the script to read
+%OUTPUTFILE INPUT.DATA
+%I generate_data
+%C -------------------------------------------------------------
+%C End of file "top"
+\end{verbatim}
+
+\section{Example processing file (script)}
+
+\begin{verbatim}
+%C This is processing file "script"
+%C It is called from processing file "top"
+#!/bin/ksh
+# This shell script compiles and runs  and the model
+# USAGE: script
+# Generated automatically from GHUI
+INFILE=%IFILE
+OFILE=%OFILE
+# What compiler
+CC=%CC
+# What compiler options 
+COPTS=%COPTS
+%T if  {%OPTIMISE == "T"} {
+# Optimisation of Compilation
+COOPTS="-O%OPLEV"
+%T }
+# Compile
+$CC $COPTS $COOPTS -o $OFILE $IFILE
+# Execute 
+$OFILE
+\end{verbatim}
+
+\section{Resultant Job File}
+
+\begin{verbatim}
+#!/bin/ksh
+# This shell script compiles and runs  and the model
+# USAGE: script
+# Generated automatically from GHUI
+INFILE=model.c
+OFILE=gomodel
+# What compiler
+CC=gcc
+# What compiler options 
+COPTS=-g
+# Optimisation of Compilation
+COOPTS="-O2"
+# Compile
+$CC $COPTS $COOPTS -o $OFILE $IFILE
+# Execute 
+$OFILE
+\end{verbatim}
+
+\section{Equivalent Shell Commands:}
+
+\begin{verbatim}
+$ gcc -g -O2 -o gomodel model.c
+$ gomodel
+\end{verbatim}
+
+\section{Processing and Producing Job Libraries}
+
+\begin{itemize}
+\item Processing writes entered variables to files.
+\item The format of output is determined by "processing files".
+\item Top level processing file is called "top"
+\item Other processing files can be included.
+\item The files are written partially in TCL.
+\item Special GHUI directives are parsed before TCL interpretation.
+\item The parser is written in C.
+\end{itemize}
+
+\section{Convulsions}
+
+You will, if you ever have to go back to the (IBM)SPF based Unified
+Model User Interface. 
+
+Thanks to:
+
+\begin{itemize}
+\item Mick Carter (Leader of the Pack)
+\item Steve Mullerworth (Worthy successor)
+\item Chris Paulson-Ellis (Early Escapee)
+\item Duncan Ford (Even Earlier Escapee)
+\end{itemize}
+
+\section{Conclusions}
+
+The GHUI, as a system, enables rapid prototyping certain types of
+Graphical User Interfaces (GUI's). The finished product has reduced
+maintenance costs, a wider range of tools, is easy to use and portable
+and robust. 
+\\
+
+It has enabled the UMUI to move from the Middle ages to the 20th
+Century. This, in conjuction with the Unified Model System itself,
+should allow the UKMO to maintain it's position as a world leader in
+NWP and Climate Prediction, well into the next century. 
+
+
+\end{document}

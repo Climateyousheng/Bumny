@@ -1,0 +1,12 @@
+          The Primary Server
+          ------------------
+
+The Primary Server manages the Primary Database which holds the
+definitive collection of everybody's experiments and jobs. To find
+out where the Primary Server is running and where the Primary Database
+is, select the "Show Configuration" item from the "Clients" menu. This
+will display the details of both the Primary and Backup Servers.
+
+%I server_buttons
+
+

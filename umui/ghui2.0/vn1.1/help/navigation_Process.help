@@ -1,0 +1,81 @@
+The Process Button.
+The "process" button is the navigation action button that translates the
+definition of a run as defined by the windows into a set of control files.
+The control files are placed in a directory to be found at:
+	~/{facility}_jobs/{run-id}/*
+where {facility} = umui for the umui facility etc.	
+where {run-id} = {experiment-id}{job_id}
+e.g., for job [x] in UM experiment [abcd], you will find the control files at
+	~/umui_jobs/abcdx/*.
+This is the job directory.	
+ALL FILES IN THIS DIRECTORY ARE DELETED BEFORE ANY PROCESS JOB RUNS.
+
+You should press "Process":
+	If you have finished setting up the job.
+	You have saved the job (not essential).
+	You have pressed "Check setup."
+	You are happy to loose the contents of the job directory.		
+
+The processing system will fail unless you have a completely specified job.
+
+Use the "Check Setup" button to ensure that the job is completely and
+consistently specified.
+
+The jobsheet option is now working. If you have selected it from the 
+Output Choices panel of the Submodel Independent section, a jobsheet will
+be created in your job library. See below for more information.
+
+The windows system acts as an editor on the basis information that defines a
+job. This basis information is held in a central database.
+
+On entering a job, the information is brought into memory and the memory copy
+is "edited" by means of the various windows.
+
+The "Process" button acts on this memory copy at the time of processing (even
+if the "Save" button has not been pressed).
+
+Normally you will process when you have come to the end of the session. If you
+do not save you will be prompted to confirm that you want to process before
+you save. You may do so, but unless you intend to subsequently quit without
+saving you are advised to save first.
+
+You may edit the control files after processing, BUT THE EDITS WILL BE LOST
+when you next process.
+
+You can process someone elses job. The output will go to a directory off your
+home directory. 
+
+---------------------------------------------------------------------------
+JOBSHEET
+---------------------------------------------------------------------------
+
+The jobsheet option is now working. If selected it produces a jobsheet
+when the job is processed. The jobsheet takes a few minutes to
+execute, for this reason it is executed as an independent process
+which means that you can continue to submit or edit your job once the
+jobsheet process starts. However, while the jobsheet is being created
+you will not be able to reprocess - first you will need to quit the 
+current jobsheet process.
+
+This is how the job sheet is created:
+-  The output is based on mainly the contents of the windows. The order of
+   output is based on the order of the navigation tree.
+-  The output is comprehensive - all active variables should be output 
+   except those specifically excluded by the options on this output panel.
+-  For a given window, the output excludes inactive variables (those 
+   greyed out) and variables not on their home panel (so that variables
+   listed on more than one panel are only listed twice).
+-  Entry boxes, check boxes and radiobuttons are output with a question on
+   the left and the answer on the right. Radio buttons are either 'ON' or 'OFF'.
+-  Wide tables may be split into two or more. If tables are split then 
+   information columns may be repeated to improve readibility.
+-  Because the output is comprehensive, it is very long. Without profiles a 
+   typical atmos ocean job is some 2000 lines long.
+-  WARNING if you absolutely must get a hard copy from a laser printer: 
+   output is 79 characters wide. On the Hadley Centre printers this is
+   suitable for output on 2 pages per side of A4 using
+         lp -o2 -oportrait JOBSHEET
+   However, you are advised to test your printer with part of the document
+   first. If there are printers in the Met Office for which 79 columns is
+   too wide then it is a minor change for the development team to reduce 
+   the width of the output.

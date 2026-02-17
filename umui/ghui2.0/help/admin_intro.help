@@ -1,0 +1,134 @@
+Contents
+--------
+Introduction to the Server Administration Interface
+Standard Operations
+ Starting a Server
+ Pausing Servers
+ Killing Servers
+Dealing with a Server Failure
+Synchronising the Databases
+Reconfiguring the Clients
+
+*** If you have started the Admin Interface to deal with a server
+*** failure, you are advised to select the "Trouble-shooting" option
+*** under the Help menu which describes the solutions for all the
+*** possible failure scenarios.
+
+ Introduction to the Server Administration Interface
+ ---------------------------------------------------
+
+The Server Administration Interface administers the primary and
+(optional) backup servers for a GHUI-based application. The startup
+script for this interface is created in the bin directory of a
+GHUI-based application when it is configured and called
+[appName]_admin where [appName] is the name of the application.
+
+To run the interface, run the startup script from the account that
+owns the database.
+
+Tip: Create a script of the following format that starts up the
+interface from any account.
+
+#!/bin/ksh
+
+remsh [hostname] -l [appName] -n \
+  "export DISPLAY=$DISPLAY ;[path of application]/bin/[appName]_admin"
+
+(substitute appropriate values for hostname, appName and path of
+application).
+
+ What are the Database and Server
+ --------------------------------
+
+GHUI-based applications are Client/Server application. Each
+application has one Primary Server and an optional Backup Server. The
+clients are the Entry System and the Navigation System with which
+users edit their jobs, and also this Admin Interface.
+
+Details of all jobs and experiments are held in a single Database
+Directory. The location of the Database Directories can be obtained
+by selecting the "Show configuration" under the "Clients" menu of the
+Admin Interface.
+
+The top level of the Database Directory holds one directory for each
+experiment (eg. called "abcd" for experiment identity "abcd") and one
+file ("abcd.exp"). Within each experiment directory there are two
+files for each job. For a job with identity "a" there will be files
+called "a" and "a.job". The file "a" holds a copy of the basis
+database - the database that holds all the settings in a job. The
+files *.exp and *.job hold the details that are displayed in the Entry
+Window. These files are normal text files.
+
+The server is a program that runs continuously on the machine that
+holds the database directory. When a server is first started, it
+remains empty until the database directory is read (See the section on
+"Starting a Server"). Reading the database reads into memory the
+information held in all the *.exp and *.job files.
+
+There are two additional files held in the database directory. 1. The
+log file holds a log of all important server operations such as
+opening saving and closing jobs, and also a log of errors which may
+either be user errors such as attempting to open read/write a job
+without permission, or real errors that may occur from time to
+time. 2. The errors file should contain an error message if the server
+process crashes for some reason.
+
+ Standard Operations
+ -------------------
+
+The administration of the primary and backup server is identical. The
+following scenarios consider the primary server but are also
+applicable to the backup server.
+
+Starting a Server
+-----------------
+
+If the Primary Server is not running, a single button with text "Start
+Primary Server" will be displayed. Press this button once, wait a
+moment, and then select "Re-draw" from the "Window" menu. If the
+server has started successfully, the "Start Primary Server" button
+will be replaced by a row of buttons, and the last ten lines of the
+server log file will be displayed. The whole server log can be found
+in a file called log in the directory that holds the database.
+
+If the server does not start successfully you may get an error window
+which suggests that there is something wrong with the configuration
+in the servers.def file.
+
+Initially the database is empty and one of the buttons, called the
+Status button, will display text "Status (Empty)". To fill the
+database, select the "Read Database" button. The Status button will
+display the text "Status (RELOAD)" while the database is being
+read. The database should reload at the rate of 1000 jobs every few
+seconds. If it seems to be taking too long, its progress can be
+monitored by viewing the log file in the database directory.
+
+Once the database has completed loading, the Status button text will
+change to "Status (PAUSED)". On pressing the Status button, the text
+will change to "Status (ACTIVE)" and users will then be able to access
+the database.
+
+When running in Dual Server Mode, ensure both servers are started and
+loaded before attempting to un-PAUSE them. 
+
+Pausing Servers
+---------------
+
+Pressing the Status button toggles the server between the "Status (PAUSED)"
+and "Status (ACTIVE)" state. When either server is paused, users will be 
+unable to access the database.
+
+Killing Servers
+---------------
+
+Servers can be stopped by pressing the "Kill" button. Then to restart,
+go through the "Starting a Server" process described above.
+
+IMPORTANT: Information for when running in Dual Server Mode: If the
+primary server fails or is killed then the users will be unable to
+access the backup database.  However, if the backup server fails or is
+killed, then users will still be able to access the primary server and
+therefore there is a possibility that the servers will become
+unsynchronised. In such a situation, see the section "Synchronising the
+Databases".
+

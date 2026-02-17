@@ -1,0 +1,222 @@
+  Introduction to the UMUI and other GHUI Applications.
+  =====================================================
+
+  Users new to this facility should read this help page, and the others in
+  this help series, carefully and in full.
+
+  The GHUI is a system that is the basis of several user interfaces. The GHUI
+  was developed at the Met.Office, primarily as a basis for the User Interface
+  to the Unified Model (the UMUI). You have entered a GHUI application.
+
+  For example, you may have typed umui to enter this application. In which
+  case you are in the User Interface to the Unified Model (UMUI). You may have
+  reached this application by another route, such as a tool-bar icon or drop
+  down menu. Such methods of entry are defined locally and you should seek
+  local advice on which GHUI application you have entered (it was probably
+  obvious), the application is probably named on the title bar.
+
+  The rest of this help will assume that you have entered the UMUI, but could
+  just as easily apply to the other user interface applications that are built
+  using the GHUI.
+
+  A run of the Unified Model (UM) needs, as input, a number of control files
+  that define the users choice of the numerous options available when running
+  the UM. The UMUI is a system that allows users of the UM to create such
+  control files and provides functions to check that choices are made
+  consistently as well as prepare and run the UM. The exact functions
+  available within another GHUI application may vary, but will be documented
+  separately.
+
+  Put simply, the UMUI works in the following way:
+  1. The UMUI holds a central database of run definitions, known as "jobs", in
+  a format that can be understood by the UMUI. The jobs are organised into
+  "experiments", see later.
+  2. The UMUI has an entry system to allow users to "view" all these jobs and
+  define actions on them. This help is available from the entry system, so you
+  are in the entry system (or viewing a link to it).
+  3. The most common action is to "open" a job. If you own the run definition,
+  or are on the "access list", you can open the definition with read-write
+  access. That is, you are allowed to edit the job. 
+  4. To allow a run-definition to be edited a server process ( called the
+  "database server" and part of the UMUI) extracts the run-definition and 
+  enters the information into the memory of the "job set-up" part of the UMUI.
+  5. The job set-up system provides an intelligent editor for the run
+  definition as well as providing other functions to aid in defining and
+  submitting a run.
+  6. Apart from providing a method of opening a run definition, the entry
+  system also allows other actions: 
+    1. To create new job-definitions, either from scratch or, more frequently,
+    by copying any other definition. The key to efficient use of the UMUI is
+    to find the right experiment to copy.
+    2. To delete unwanted job-definitions from the system.
+    3. To upgrade a definition from one version of the Unified Model to
+    another.
+  The specific actions of the entry system are detailed in the help pages in
+  this series. The details of the "job set-up" part of the system are given in
+  the help pages that can be viewed from the various windows that make up this
+  part of the system. The primary window of the job set-up system is called
+  the navigation window.
+
+  The rest of this help provides a more thorough overview of the function of
+  the entry system.
+
+
+  Jobs and Experiments.
+  ~~~~~~~~~~~~~~~~~~~~~
+
+  Before the entry system is described further, the reader will need to
+  understand the terms used to describe the collection of information that
+  describes a run of the UM to the UMUI (a job) and the structure used to hold
+  collections of related jobs together (an experiment).
+
+  The basic unit is a job. This is the definition of a single run of the UM.
+  The user can choose to collect one or more jobs together into an experiment.
+  Hence an experiment is simply the term for a collection of jobs. 
+
+  There is usually some connection between jobs in an experiment. For example,
+  a user who only needs to maintain only a few different definitions of runs
+  may put all his jobs into one experiment (just as a user who only owns a few
+  files may choose to keep them all in one directory). Another example would
+  be a user who wanted to hold a series of jobs that defined some sort of
+  control and perturbation experiment. All these jobs could be collected into
+  another experiment. Another user may choose to keep all the jobs related to
+  one release of the UM in one experiment.
+
+  The organisation of jobs into experiments is up to the owner of the
+  experiments.
+
+  Each experiment has a unique identifier, call the experiment- ID, that is
+  made up of four lower-case letters. The experiment-ID is given by the
+  database server, the user has no choice. The first  letter of the experiment
+  ID is dictated by the client system: the part of the UMUI running on your
+  local machine. In the Met.Office, the clients are configured so that each
+  "division" has its own first letter.
+
+  Each job within an experiment is defined by a single lower case letter
+  called the job-id. The job-id is defined by the user. It is up to the user
+  to ensure that they do not choose the job-id of deleted jobs within an
+  experiment if they have files relating to the original jobs archived by the
+  UM's automatic archiving system. This would cause problems with file-name
+  contention and data may be lost or over-written when the replacement job is
+  run.
+
+  The five lower case letters defined by the experiment-id, followed by the
+  job-id, are known as the run-id.
+
+
+  The Entry System.
+  ~~~~~~~~~~~~~~~~~
+  The main window that you have fired up is called the entry system. It is the
+  part of this GHUI application that allows you to locate, create and maintain
+  experiments and jobs. 
+
+  There are two parts to this screen.
+     1. The experiment table. A list of experiments and the
+     jobs within any experiments that have been opened.
+     2. Action menus. A series of drop-down menus that give
+     access to various actions that can be performed on jobs
+     and experiments.
+
+  The Experiment Table.
+  The entry system provides you with a filtered list of all the experiments
+  known to the system. This part of the UMUI is not specific to a release of
+  the UMUI, and the experiments listed may contain jobs relating to any
+  version of the UMUI (and UM).
+  On entry, the filter is set to display all your own experiments, but using
+  the options from the drop-down menu FILTER, you can change the filter to
+  have another view. The filter can act on any of the columns of the
+  experiment table.
+  See the help on the filter for more details.
+  To see the jobs in an experiment, click on the "folder" icon to open it up.
+  Inside you will see any jobs in the experiment. The folder icon changes to
+  indicate that the experiment is open.
+  To perform any actions on experiments and jobs, you need to select them.
+  This is done by clicking on the wording relating to the job or experiment.
+  The wording will be highlighted. This implies that the item is chosen. Most
+  actions only make sense if you have correctly chosen the right combination
+  of jobs and experiments. For example, to copy a job from one experiment to
+  another you must do the following:
+     1. Un-select any selected items.
+     2. Change the filter to make the job that you want to
+     copy and the experiment that you want to copy it into
+     visible at the same time.
+     3. Open the experiment containing the job that you want
+     to copy by clicking on the folder.
+     4. Choose the job that you want to copy (but not its
+     experiment) by clicking on the wording. The text will
+     become highlighted.
+     5. Choose the experiment that you want to copy the job
+     to: highlight its text.
+     5. Pull down the action menu called JOB and choose COPY.
+     The system will check that there is no ambiguity (i.e. a
+     job and only one experiment has been chosen and that you
+     own the experiment, or are on the access list.
+  The system will bring up an error message if there is any ambiguity in the
+  actions. 
+  Take some time learning how the different actions work. You will find it a
+  good to "un-choose" any chosen items as soon as action has been taken. This
+  will avoid problems with ambiguous or unintentional actions at a later stage
+  in the session.
+
+
+  Action Menu Functions.
+  ~~~~~~~~~~~~~~~~~~~~~~
+  Like copy, these provide the various functions that allow you to maintain a
+  number of jobs and experiments. They are described in the rest of this help
+  set.
+
+
+  Versions of the UM and the UMUI.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  The UM undergoes a period release cycle. Each release is known by a name,
+  such as "UM version 4.2".
+  There are differences between the choices that the user can make at
+  different releases of the UM. To cope with this there needs to be different
+  release of the UMUI. These are named in the same way, 4.2 etc. New releases
+  of the UMUI will typically have a considerable number of new questions
+  relating to new choices in the UM at that release, as well as a few
+  questions that have become redundant.
+
+  There is only one entry system for all releases of the UMUI and the user
+  enters the release specific part of the UMUI when they choose to open a job. 
+
+  Each job within the UMUI is defined to be at a release of the UMUI. The user
+  does not need to chose the release of the UMUI under which to open a job.
+  The UMUI knows the defined release of the job and automatically opens the
+  right release.
+
+  The user can redefine a job to be at another of the available releases of
+  the UMUI (and UM) via the action menu item under the JOB heading. It is
+  normally only possible to move a job upwards from one release to a higher
+  releases, so users should be careful not to change the release of a job
+  unless they want to, it is an irreversible process!
+
+  It is possible to have more than one release of the UMUI relating to one
+  release of the UM. In this case the UMUI will have a release name of the
+  form 4.2.1, which would be the first sub-release of the UMUI relating to 4.2
+  of the UM. This facility allows corrections and enhancements to be made to
+  the UMUI once the UM, and UMUI, have been released (at which point the
+  systems cannot be changed).
+
+  Once the user has used the action option to change a release, they should
+  carefully go through the new release message for that release to ensure that
+  all new options are fully considered. 
+
+  Users are not allowed skip releases of the UM and the equivalent releases of
+  the UMUI, but they can move up without going through sub-releases. That is,
+  you will be allowed to go from 4.0.1 to 4.1 without going through 4.0.2 (if
+  it existed). However, you would not be allowed to go from 4.0.1 to 4.2 in
+  one step.
+
+  The new release messages are written as instructions on how to move up from
+  one major release of the UMUI to another. Users wanting to move from 4.0.1
+  to 4.2 should first follow the instructions for moving from 4.0 to 4.1
+  before going to 4.2. 
+
+
+  Final Remarks.
+  ~~~~~~~~~~~~~~
+  New users should now read the help relating to the actions available from
+  the entry system and practice these actions. They should do this on copied
+  jobs and experiments, until they are confident that they understand the
+  functions of the entry system and how they work.

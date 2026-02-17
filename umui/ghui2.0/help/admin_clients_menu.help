@@ -1,0 +1,26 @@
+  Clients Menu
+  ------------
+
+Show Configuration:
+
+Displays Current Client Configuration of the servers as read from the
+servers.def file and also the New Client Configuration set by the
+Admin Interface. Also displays a list of Clients (that is, the
+locations of all application installtions that use this server).
+
+Re-Configure:
+
+Changes the current configuration held in the servers.def file to
+be the same as that set in the Admin Interface. The new servers.def 
+file is copied to the etc directories of all the Clients (as listed
+by Show Configuration).
+
+For example, to change from Dual Server Mode to Single Server Mode,
+start the Admin Interface, Pause the Primary Server (by pressing the
+Status button) and Kill the Backup Server. On selecting "Show
+Configuration", the Current Client Configuration will show that the
+Backup Server status is set to ACTIVE, but the New Client
+Configuration will show that the Backup Server status is set to
+IGNORE. On pressing "Re-Configure" the servers.def file on all the
+clients will be changed to match the New Client Configuration.
+

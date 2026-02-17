@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# This script runs the User Interface entry system client
+# 
+# Arguments
+#   $1 : Name of GHUI-based application to be run
+#   $2 : Initial letter to give to new experiments
+
+# The location of the software
+UI_BASE=${UI_BASE:-/home/umui/umui/ghui2.0}
+
+# The remote shell command
+REMOTE_SHELL_COMMAND=rsh
+
+# The initial letter for new experiments
+UI_INITIAL=$2
+
+# Name of wish executable
+WISH_EXE=${WISH_EXE:-/home/umui/bin/wish8.3}
+
+# Start the client
+$WISH_EXE \
+  $UI_BASE/tcl/entry.tcl \
+  $WISH_EXE \
+  $REMOTE_SHELL_COMMAND \
+  $UI_BASE \
+  $UI_INITIAL \
+  $1

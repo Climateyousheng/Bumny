@@ -1,0 +1,43 @@
+This is the UMUI/GHUI entry system. It allows you to view and manipulate the
+centrally held list of experiments and jobs.
+
+You should read the introductary help to get an functional overview of this
+and the rest of the GHUI application.
+
+The main screen consists of the following components:
+
+* Menu bar
+
+Each menu has its own help screen. These can be selected from the help menu
+which is located at the right hand end of the bar.
+
+* Title strip
+
+The title strip names each column in the list of experiments and jobs below.
+Each title is coloured. If a title is orange, then there is a search filter
+being applied to that column. Otherwise it will be pink. At start up, the
+owner column has a search filter applied so that only experiments owned by
+you are displayed. To change the filter options, use the filter entry in
+the find menu.
+
+* Folder icons
+
+Each experiment in the list is preceeded by an icon. This shows a picture
+of a folder. If the folder is open, then the jobs in the experiment are
+listed below it. To open or close a folder, just click on its icon.
+
+* Experiments and jobs
+
+Below the title strip is a list of experiments and jobs. These can be
+selected and de-selected by clicking on them. When a line is selected
+it will appear with a light blue background.
+
+* Scroll bar
+
+If the list of experiments and jobs becomes too long to fit on the screen,
+then the scroll bar may be used to move up and down the list.
+
+The entry system is designed to give an error message if there is any
+ambiguity about the action required. Read the other help texts in detail and
+ensure that a minimum number of experiments and jobs are highlighted at any
+one time.

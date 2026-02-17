@@ -1,0 +1,143 @@
+#==============================================================================
+# RCS Header:
+#   File         [$Source: /home/hc0300/umui/srce_code/GHUI_archive/ghui2.0/doc/uiComponents.tex,v $]
+#   Revision     [$Revision: 1.2 $]     Named [$Name: head#main $]
+#   Last checkin [$Date: 2000/10/16 14:22:50 $]
+#   Author       [$Author: hadsm $]
+#==============================================================================
+
+\section{Components Required by All GHUI-Based User Interfaces}
+
+The directory structure of the UMUI, a typical GHUI-based user
+interface is as follows. For version 2.0, the top-level directory is
+called umui2.0. Within this directory the following directories exist:
+
+\begin{description}
+\item [Install]
+Contains the Configure script that is run when installing the UMUI,
+and a umui.def.template file which is used to create the umui.def
+application definition file that is installed into the GHUI apps
+directory. Among other things, the application definition file can
+redefine some of the directory names in the version specific
+directories.
+\item [vn*]
+There exists a separate directory for each version of the
+application. The * usually stands for a version number (eg vn4.5,
+vn5.1.1) but can stand for anything. Each version number needs to be
+registered in the application definition file.
+\item [updates]
+Contains scripts that upgrade a job from one version to another.
+\item [etc]
+Created when the application is configured. Contains the client and
+server definition files.
+\item [bin]
+Created when the application is configured. Contains the scripts for
+starting the application and the application's Server Administration
+user interface.
+\item [help]
+Intended to hold help on the upgrade processes but not implemented
+fully yet.
+\end{description}
+
+Each version specific directory contains a number of standard
+directories but can also contain additional application specific
+directories. Each directory is registered in the application
+definition file along with its symbolic name which the GHUI uses to
+reference it. The symbolic name can be the same as the directory
+name. The standard directories are as follows:
+
+\begin{description}
+\item [windows]
+Holds the control files that define the input panels. Also holds the
+nav.spec file that defines the hierarchy displayed by the Navigation
+Tree, the nav.buttons file that defines the buttons to be displayed by
+the Navigation Window.
+\item [variables]
+Holds the files that declare the application variables. May optionally
+hold a partition.database file, a js_partition.database file for
+applications that use the jobsheet function and a link_variables file
+for applications that include variables that are functions of other
+variables.
+\item [functions]
+Holds application-specific Tcl functions. Note that purely for
+historical reasons the functions directory in the UMUI is called UM.
+
+Application specific functions can be written to provide better
+validation of user input, to write non-standard input panels, to
+implement non-standard Navigation Window buttons among other
+things. Applications can be written without any such functions though.
+Knowledge of Tcl is required to write application specific functions.
+\item [processing]
+Holds template files that define how the job setup is converted to a
+format appropriate for the related application. Files are written in a
+simple formatting language.
+\item [help]
+Contains help for each of the input panels. Also used to hold help
+files for the Navigation Window buttons.
+\item [skeletons]
+Holds templates for standard input panels.
+\item [icons]
+Holds bitmaps for icons.
+\end{description}
+
+NB some of the files in the icons, skeletons and help directories are
+not always specific to a particular application and should probably
+form part of the GHUI. This may happen at some stage. An idea that
+would be suitable for the help files and the icons is that generic
+help files are held in the GHUI but that they could be over-loaded by
+help files with the same name in the application specific directories.
+
+The following components are probably required by all GHUI-based user
+interfaces.
+
+\begin{itemize}
+\item The GHUI needs to know some basic information about the user
+interface when it starts up. Such information includes the location of
+the user interface code, the list and type of information stored by
+the server about each job and experiment, the versions of the user
+interface available and what version of the Navigation System code
+each version uses, and the list and type of information to be shown to
+the user on the Entry System user interface. All this information is
+registered in the application definition file in the apps directory of
+the GHUI installation. An application definition file template should
+be created in the Install directory to allow the application to be
+configured.
+\item Each user interface can have more than one version. Each version
+is held in a separate subdirectory. Upgrading from one version to
+another is allowed if an appropriate upgrade script exists in the
+``updates'' directory at the top level of the user interface.
+\item Each input panel is defined by an input panel control file. All
+input panel control files are kept in the windows directory.
+\item A skeleton file defines the general format of the input
+panels. The normal format of the UMUI input panels, defined in
+``entry.skel'', specifies a panel with three standard buttons: Abandon
+(abandon changes and close panel), Close (check inputs, and if no
+errors, save and close panel), Help (Display help panel if
+available). A second format is the ``dummy.skel'' where no GHUI panel
+appears. Instead the UI developer will define a procedure to be
+executed when the panel is selected. In the UMUI, dummy panels are
+used to call up the non-GHUI STASH user interface.
+\item Ideally, each panel has its own help file in the help
+directory. A help file has a .help suffix and should be prefixed with
+the the window identity (defined by the .winid line in the panel
+control file and conventionally the same as the prefix of the panel
+control file itself).
+\item The nav.spec file in the windows directory defines the panel
+hierarchy.
+\item The nav.buttons file in the windows directory defines the list
+of function buttons displayed in the Navigation Window.
+\item The variables directory holds three variable registers:
+parameter.register, system.register and var.register; and two variable
+databases: the parameter.database and the system.database which define
+the values of the variables declared in the first two registers. The
+variables in the var.register are those which define job setups; each
+separate job setup is stored in a file known as a job basis file in
+the central database.
+\item The GHUI incorporates a processing function. Template files in
+the processing directory define a text format for output files
+appropriate for use with the related model. Use of logic and functions
+allows the output format to be quite flexible. More than one output
+file can be defined. The GHUI processing file requires a top-level
+file called ``top''. This file can refer to other processing control
+files.
+\end{itemize}

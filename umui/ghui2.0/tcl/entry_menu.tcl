@@ -1,0 +1,719 @@
+# callbacks for ectry systems menus
+#
+
+proc menu_quit {} {
+
+  global mserver bserver backup_state
+
+  # remove any at close list for RPC connection
+  if [info exists mserver] {
+    dp_atclose $mserver clear
+  }
+
+  if [info exists bserver] {
+    dp_atclose $bserver clear
+  }
+  exit
+}
+
+proc menu_reload {} {
+
+  global exp_filters job_filters all_lines vis_lines num_lines titles application user filter_exact
+
+
+  # get experiment list
+  set exp_list [OnPrimaryServer send_experiment_list [concat $user $filter_exact $exp_filters]]
+  # puts "exp_list: $exp_list\n"
+  # keep count of visible (with scroll) lines
+  set num_lines 0
+
+  # loop through experiments, saving specs
+  foreach spec $exp_list {
+    set exp_id [lindex $spec 0]
+
+    # retain open and selected flags if the line exists already
+    if {! [info exists all_lines($exp_id-open)]} {
+      set all_lines($exp_id-open) 0
+      set all_lines($exp_id-selected) 0
+    }
+
+    # set details
+    foreach col $titles(all_columns) {
+	set j [expr [lsearch $spec $col]+1]
+	set all_lines($exp_id-$col) [lindex $spec $j]
+    }
+
+    # add to list of lines
+    set vis_lines($num_lines) $exp_id
+    incr num_lines
+
+    # if open, get job list
+    if $all_lines($exp_id-open) {
+
+      set job_list [OnPrimaryServer send_job_list [concat $exp_id $filter_exact $job_filters]]
+
+      # loop through jobs, saving specs
+      foreach spec $job_list {
+        set job_id [lindex $spec 0]
+
+        # retain selected if line exists already
+        if {! [info exists all_lines($exp_id$job_id-selected)]} {
+          set all_lines($exp_id$job_id-selected) 0
+        }
+
+        # set details
+	foreach col $titles(app_columns) {
+	    set j [expr [lsearch $spec $col]+1]
+	    set all_lines($exp_id$job_id-$col) [lindex $spec $j]
+	}
+
+	
+	set j [expr [lsearch $spec description]+1]
+        set all_lines($exp_id$job_id-description) [lindex $spec $j]
+	set j [expr [lsearch $spec version]+1]
+        set all_lines($exp_id$job_id-version) [lindex $spec $j]
+	set j [expr [lsearch $spec opened]+1]
+        set all_lines($exp_id$job_id-opened) [lindex $spec $j]
+
+        # add to list of lines
+        set vis_lines($num_lines) $exp_id$job_id
+        incr num_lines
+      }
+    }
+  }
+  # redraw list, retaining position as determined from scrollbar
+  move_list [lindex [.sbar get] 2]
+}
+
+
+# Filter menu item brings up the filter dialog
+#
+proc menu_filter {} {
+
+  # bring window to top if it exists already
+  if [string match [info commands .filter] .filter] {
+    wm withdraw .filter
+    wm deiconify .filter
+  } else {
+    draw_filter_interface
+  }
+}
+
+
+# open jobs read-only
+#
+proc menu_open_r {} {
+
+  global selected_expts selected_jobs
+
+  find_selections
+
+  if {[llength $selected_expts] > 0} {
+    error "You cannot open experiments, only jobs.\
+           Change your selections and try again."
+  }
+
+  if {[llength $selected_jobs(experiments)] == 0} {
+    error "You have not selected any jobs to open."
+  }
+
+  # open each job
+  foreach exp_id $selected_jobs(experiments) {
+    foreach job_id $selected_jobs($exp_id) {
+      start_job_edit $exp_id $job_id 0
+    }
+  }
+}
+
+
+# open jobs read-write
+#
+proc menu_open_rw {} {
+
+  global selected_expts selected_jobs
+
+  find_selections
+
+  if {[llength $selected_expts] > 0} {
+    error "You cannot open experiments, only jobs.\
+           Change your selections and try again."
+  }
+
+  if {[llength $selected_jobs(experiments)] == 0} {
+    error "You have not selected any jobs to open."
+  }
+
+  # open each job
+  foreach exp_id $selected_jobs(experiments) {
+    foreach job_id $selected_jobs($exp_id) {
+      start_job_edit $exp_id $job_id 1
+    }
+  }
+}
+
+# create new experiment
+#
+proc menu_exp_new {} {
+
+    global user exp_initial
+
+    if {$exp_initial == ""} {
+	set exp_initial [getExperimentInitial]
+    }
+
+    set descr [get_description "Please enter description of new experiment"]
+
+    # Ros (March 07)
+    set privacy N
+
+    set exp_id [OnBothServers create_new_experiment [list $user $exp_initial $descr $privacy]]
+
+    # reload the menu and dialog the user about their new expt
+    menu_reload
+    info_box "Your new experiment's identifier is $exp_id."
+}
+
+# menu_exp_chown
+#  Change ownership of an experiment.
+# Comments
+#  Note that it is not possible to check whether new owner is valid. 
+#  Therefore, current owner is added to the access list. This allows
+#  current owner to take back ownership if required.
+
+proc menu_exp_chown {} {
+
+    global user selected_expts all_lines
+
+    find_selections
+
+    if {[llength $selected_expts] == 0} {
+	error "You have not selected any experiments \
+		to change the ownership of."
+    }
+
+    # Read the server defs
+    read_server_def
+    set newOwner [get_description "Please enter userid of new owner"]
+
+    # These two flags check whether any experiment was actually changed
+    # and whether any access list needed to be updated.
+    set doneAnything 0
+    set changedAccessList 0
+    # Loop over selected experiments changing ownership and access list
+    foreach exp_id $selected_expts {
+	if {[are_you_sure "Are you sure you want to change the \
+		ownership of experiment $exp_id?"]} {
+	    OnBothServers changeExperimentOwner \
+		    [list $exp_id $user $newOwner]
+	    set doneAnything 1
+	    # Add original owner to access list if not already there
+	    if {[lsearch $all_lines($exp_id-access_list) $user] == -1} {
+		set changedAccessList 1
+		lappend all_lines($exp_id-access_list) $user
+		OnBothServers change_access_list [list $exp_id \
+			$newOwner $all_lines($exp_id-access_list)]
+	    }
+	}
+    }
+
+    if {$doneAnything == 1} {
+	if {$changedAccessList == 1} {
+	    set text "Your current user ID has been added to the \
+		    modified experiments' access list."
+	} else {
+	    set text ""
+	}
+	tk_messageBox -type ok -title "Ownership modified" -message \
+		"Ownership modified. Set filter options to view the \
+		experiments with changed ownership. $text"
+    }
+    menu_reload
+}
+
+# menu_exp_download
+#   Download an experiment to a local directory
+
+proc menu_exp_download {} {
+
+    global user selected_expts
+    
+    find_selections
+    
+    if {[llength $selected_expts] == 0} {
+	error "You have not selected any experiments to download."
+    }
+    # Read the server defs
+    read_server_def
+
+    # loop over selected expts. downloading as we go.
+    foreach exp_id $selected_expts {
+	if {[are_you_sure "Are you sure you want to download experiment $exp_id?"]} {
+	    downloadExperiment $exp_id $user
+	}
+    }
+}
+
+# delete an experiment
+#
+proc menu_exp_delete {} {
+
+  global user selected_expts
+
+  find_selections
+
+  if {[llength $selected_expts] == 0} {
+    error "You have not selected any experiments to delete."
+  }
+
+  # Read the server defs
+  read_server_def
+
+  # loop over selected expts. deleting as we go.
+  foreach exp_id $selected_expts {
+    if {[are_you_sure "Are you sure you want to delete experiment $exp_id?"]} {
+      OnBothServers delete_experiment [list $exp_id $user]
+
+    }
+  }
+  menu_reload
+}
+
+
+# change description of experiment
+#
+proc menu_exp_description {} {
+
+  global user selected_expts all_lines
+
+  find_selections
+
+  if {[llength $selected_expts] == 0} {
+    error "You have not selected any experiments to change."
+  }
+
+  foreach exp_id $selected_expts {
+    set old_name $all_lines($exp_id-description)
+    set descr \
+	[get_description "Please enter new description for experiment $exp_id" $old_name]
+    # open socket to primary server and check that it is ok
+
+    OnBothServers change_experiment_description [list $exp_id $user $descr]
+  }
+  menu_reload
+}
+
+
+# make an experiment operational
+#
+proc menu_make_operational {} {
+
+  global user selected_expts
+
+  find_selections
+
+  if {[llength $selected_expts] == 0} {
+    error "You have not selected any experiments to make operational."
+  }
+
+  foreach exp_id $selected_expts {
+    if {[are_you_sure "Are you sure you want to make experiment $exp_id\
+	operational? This action is non-reversible."]} {
+      set new_id [OnBothServers make_experiment_operational [list $exp_id $user]]
+      info_box "The experiment's identifier is now $new_id."
+    }
+  }
+  menu_reload
+}
+
+# Ros (15.03.07) - Making experiments private
+# Change the privacy of an experiment.
+#    If currently "private" then make it "public"
+#    If currently "public" then make it "private" (ie. not viewable to anyone else)
+#
+proc menu_change_privacy {} {
+
+    global user selected_expts exp_filters titles filter_exact
+
+    find_selections
+
+    if {[llength $selected_expts] == 0} {
+        error "You have not selected any experiments to change the privacy of."
+    }
+
+    # get experiment list as need to access the privacy settings
+    set exp_list [OnPrimaryServer send_experiment_list [concat $user $filter_exact $exp_filters]]
+    foreach spec $exp_list {
+	set exp_id [lindex $spec 0]
+
+	# set details
+	set j [expr [lsearch $spec "privacy"]+1]
+	set all_expts($exp_id-privacy) [lindex $spec $j]
+    }
+
+    foreach exp_id $selected_expts {
+        # Determine if we are making this experiment private or public
+	if {$all_expts($exp_id-privacy) == "Y"} {
+	    # experiment currently private so change to public
+	    set privacy public
+	    set switch N
+	} else {
+	    # experiment currently public so change to private
+	    set privacy private
+	    set switch Y
+	}
+
+        if {[are_you_sure "Are you sure you want to make experiment $exp_id $privacy?"]} {
+            OnBothServers change_experiment_privacy [list $exp_id $user $switch]
+	}
+    }
+    menu_reload
+}
+
+# change an experiments access list 
+#
+proc menu_access_list {} {
+
+  global user selected_expts all_lines
+
+  find_selections
+
+  if {[llength $selected_expts] == 0} {
+    error "You have not selected any experiments for changing the access list."
+  }
+
+  foreach exp_id $selected_expts {
+    set new_al [edit_access_list $exp_id $all_lines($exp_id-access_list)]
+
+    OnBothServers change_access_list [list $exp_id $user $new_al]
+  }
+  menu_reload
+}
+
+
+# create a new job
+#
+proc menu_job_new {} {
+
+  global user selected_expts all_lines env
+
+  find_selections
+
+  if {[llength $selected_expts] == 0} {
+    error "You must select an experiment for the new job."
+  }
+  if {[llength $selected_expts] > 1} {
+    error "Select only a single experiment for the new job."
+  }
+
+  set exp_id [lindex $selected_expts 0]
+  set job_id [get_jobid "Please select an identifier for the new job" $exp_id]
+  set descr [get_description "Please enter a description for the new job"]
+  set version [get_version]
+
+  OnBothServers create_new_job [list $exp_id $job_id $user $descr $version]
+  menu_reload
+  # Set personal preferences for new job if experiment owned by user
+  if {$all_lines($exp_id-owner)==$env(LOGNAME)} {
+      read_rcfile $exp_id $job_id $descr $version
+  }
+}
+
+
+# delete jobs
+#
+proc menu_job_delete {} {
+
+  global user selected_jobs
+ 
+  find_selections
+
+  if {[llength $selected_jobs(experiments)] == 0} {
+    error "You have not selected any jobs to delete."
+  }
+
+  foreach exp_id $selected_jobs(experiments) {
+    foreach job_id $selected_jobs($exp_id) {
+      if [are_you_sure "Are you sure you want to delete job $exp_id$job_id?"] {
+	OnBothServers delete_job [list $exp_id $job_id $user]
+      }
+    }
+  }
+  menu_reload
+}
+
+# Force job closed
+#
+proc menu_job_close {} {
+
+  global user selected_jobs
+
+  find_selections
+
+  if {[llength $selected_jobs(experiments)] == 0} {
+    error "You have not selected any jobs to force closed."
+  }
+
+  set open_list [OnPrimaryServer list_open_jobs]
+
+  foreach exp_id $selected_jobs(experiments) {
+    foreach job_id $selected_jobs($exp_id) {
+      set closed "no"
+      foreach entry $open_list {
+        set entry_expid [lindex $entry 0]
+        set entry_jobid [lindex $entry 1]
+        set entry_owner [lindex $entry 2]
+        if {$user==$entry_owner} {
+          if {"$exp_id$job_id"=="$entry_expid$entry_jobid"} {    
+            if [are_you_sure "Are you sure you want to close job $exp_id$job_id?"] {
+	      OnBothServers force_close_job [list $exp_id $job_id]
+	      set closed "yes"
+            }
+          }
+        }
+      }
+      if {$closed!="yes"} {
+        error "Cannot close job $job_id in experiment $exp_id as it is not open or it is not your job."
+      }
+    }
+  }
+}
+
+# copy experiments
+#
+proc menu_exp_copy {} {
+
+    global user selected_expts exp_initial all_lines filter_exact
+    global env application
+
+    find_selections
+
+    if {[llength $selected_expts] == 0} {
+	error "You have not selected any experiments to copy."
+    }
+    if {$exp_initial == ""} {
+	set exp_initial [getExperimentInitial]
+    }
+
+
+    foreach exp_id $selected_expts {
+	set old_name $all_lines($exp_id-description)
+	if {[multioption_dialog .copy_experiment "Are you sure" \
+		"Are you sure you want to \
+		copy the whole experiment $exp_id and all of its jobs."\
+		{Copy} {Cancel}]!=0} {continue}
+	set descr [get_description "Please enter a description for the\
+		copy of experiment $exp_id" $old_name]
+	set new_exp_id [OnBothServers copy_experiment \
+		[list $exp_id $user $exp_initial $descr]]
+	info_box "Your new experiment's identifier is $new_exp_id."
+	update idletasks
+	menu_reload
+	if {$all_lines($exp_id-owner)!=$env(LOGNAME)} {
+	    # Experiment copied from someone else so set 
+	    # personal preferences for each new job
+	    set job_list [OnPrimaryServer send_job_list \
+		    [concat $new_exp_id $filter_exact \
+		    [blank_filter_list job_filters]]]
+	    foreach spec $job_list {
+		set job_id [lindex $spec 0]
+		set version [lindex $spec 2]
+		set descr [lindex $spec 1]
+		read_rcfile $new_exp_id $job_id $descr $version
+	    }
+	}
+    }
+}
+
+
+# copy jobs
+#
+proc menu_job_copy {} {
+
+  global user selected_expts selected_jobs
+  global all_lines env
+
+  find_selections
+
+  if {[llength $selected_expts] != 1} {
+    error "You must select one experiment as the destination of the copy."
+  }
+  if {[llength $selected_jobs(experiments)] == 0} {
+    error "You have not selected any jobs to copy."
+  }
+
+  set exp_id2 [lindex $selected_expts 0]
+
+  foreach exp_id1 $selected_jobs(experiments) {
+    foreach job_id1 $selected_jobs($exp_id1) {
+      set job_id2 [get_jobid "Please select an identifier for the copy of job\
+	  $exp_id1$job_id1" $exp_id2]
+      set old_name $all_lines($exp_id1$job_id1-description)
+      set descr [get_description "Please enter a description for the copy of\
+	  job $exp_id1$job_id1" $old_name]
+
+      OnBothServers copy_job [list $exp_id1 $job_id1 $exp_id2 $job_id2 $user $descr]
+    }
+  }
+
+  menu_reload
+  if {$all_lines($exp_id1-owner)!=$env(LOGNAME)&&$all_lines($exp_id2-owner)==$env(LOGNAME)} {
+      # Job copied from someone else so set personal preferences for new job
+      # unless user does not own job and only has access permission
+      set version $all_lines($exp_id1$job_id1-version)  
+      read_rcfile $exp_id2 $job_id2 $descr $version
+  }
+}
+
+
+# change description of job
+#
+proc menu_job_description {} {
+
+  global user selected_jobs all_lines
+
+  find_selections
+
+  if {[llength $selected_jobs(experiments)] == 0} {
+    error "You have not selected any jobs to change."
+  }
+
+  foreach exp_id $selected_jobs(experiments) {
+    foreach job_id $selected_jobs($exp_id) {
+      set old_name $all_lines($exp_id$job_id-description)
+      set descr [get_description "Please enter new description for job $exp_id$job_id" $old_name]
+      OnBothServers change_job_description [list $exp_id $job_id $user $descr]
+    }
+  }
+  menu_reload
+}
+
+
+# change job identifier
+#
+proc menu_change_identifier {} {
+
+  global user selected_jobs
+
+  find_selections
+
+  if {[llength $selected_jobs(experiments)] == 0} {
+    error "You have not selected any jobs to change."
+  }
+
+  foreach exp_id $selected_jobs(experiments) {
+    foreach job_id $selected_jobs($exp_id) {
+      set new_job_id \
+	  [get_jobid  "Please select a new identifier for job $exp_id$job_id" $exp_id]
+      OnBothServers change_job_id [list $exp_id $job_id $new_job_id $user]
+    }
+  }
+  menu_reload
+}
+
+
+# upgrade version of job
+#
+proc menu_upgrade_version {} {
+
+    global user selected_jobs basis_string update_info
+    global run_id
+
+    find_selections
+
+    if {[llength $selected_jobs(experiments)] == 0} {
+	error "You have not selected any jobs to upgrade."
+    }
+
+    foreach exp_id $selected_jobs(experiments) {
+	foreach job_id $selected_jobs($exp_id) {
+
+	    set version [select_version $exp_id $job_id]
+	    # Load the job and get its version number
+	    set string [OnBothServers update_load_job [list $exp_id $job_id $version $user]]
+	    set old_version [lindex $string 0]
+	    set basis_string [lindex $string 1]
+	    set run_id $exp_id$job_id
+	    # source update procedure
+	    upgrade_source
+	    set update_info {}
+	    if {[set icode [$old_version-$version]] != 1} {
+		dialog .upg_failed "Upgrade failed" \
+			"Upgrade of $exp_id$job_id to $version failed with return code $icode - No change made" \
+			"" {} OK
+		OnBothServers force_close_job [list $exp_id $job_id]
+	    } else {
+		OnBothServers update_save_job [list $exp_id $job_id $version $user $basis_string]
+	    }
+	    #puts $update_info
+	}
+    }
+    menu_reload
+}
+
+# Source all the upgrade procedures in the updates directory
+proc upgrade_source {} {
+    # source all tcl files containing upgrade procedures
+    cd [appdir_path updates]
+    foreach tcl_file [glob *.tcl] {
+	source $tcl_file
+    }
+}
+
+# open jobs for diffing
+#
+proc menu_diff {} {
+
+    global selected_expts selected_jobs
+
+    find_selections
+
+    if {[llength $selected_expts] > 0} {
+	error "You cannot open experiments, only jobs.\
+		Change your selections and try again."
+    }
+
+    set exp_id_list {}
+    set job_id_list {}
+    # open each job
+    foreach exp_id $selected_jobs(experiments) {
+	foreach job_id $selected_jobs($exp_id) {
+	    lappend exp_id_list $exp_id
+	    lappend job_id_list $job_id 
+	}
+    }
+    if { [llength $job_id_list] != 2 } {
+	error "You need to select two jobs"
+    }
+    start_job_diff $exp_id_list $job_id_list
+}
+
+# help
+#
+proc menu_help_intro {} {
+    show_help entry_intro "Introduction"
+}
+
+proc menu_help_general {} {
+    show_help entry_general "General help"
+}
+
+proc menu_help_file {} {
+    show_help entry_file "Help for File Menu"
+}
+
+proc menu_help_find {} {
+    show_help entry_find "Help for Filter"
+}
+
+proc menu_help_exp {} {
+    show_help entry_experiment "Help for Experiment Menu"
+}
+
+proc menu_help_job {} {
+    show_help entry_job "Help for Job Menu"
+}
+
+proc menu_help_fonts {} {
+    show_help entry_fonts "Changing Fonts in the Navigation System"
+}
+

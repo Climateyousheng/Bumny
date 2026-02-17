@@ -1,0 +1,32 @@
+#!/bin/sh
+#==============================================================================
+# RCS Header:
+#   File         [$Source: /home/hc0300/umui/srce_code/GHUI_archive/ghui2.0/Install/_startservertemplate.in,v $]
+#   Revision     [$Revision: 1.3 $]     Named [$Name: head#main $]
+#   Last checkin [$Date: 2003/01/30 11:19:35 $]
+#   Author       [$Author: hadsm $]
+#==============================================================================
+
+# This script starts and populates a GHUI User Interface database server
+
+#\
+@tclsh_exe@ $0 ${1+"$@"}
+#\
+exit
+
+set appName @app_name@
+
+# Source the server details from the 
+source @app_dir@/etc/servers.def
+set hostname [exec hostname]
+
+if {$backup_state != "IGNORE"} {
+    error "Dual-server setup. \
+	    Unsafe to run automatic restart of $appName server"
+}
+
+exec $primary_base_dir/bin/ghui_startserver \
+	$primary_base_dir \
+	$primary_dbse \
+	"PRIMARY" \
+	$appName
