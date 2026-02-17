@@ -50,7 +50,7 @@ export function WindowPanel({
       />
 
       {window.win_type === "dummy" ? (
-        <DummyPlaceholder title={window.title} />
+        <DummyPlaceholder />
       ) : (
         <div className="space-y-2">
           {window.components.map((comp, i) => (
