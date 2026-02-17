@@ -67,8 +67,8 @@ npm run test:e2e
 ### Running the full stack locally
 
 ```bash
-# Terminal 1: Start API with fixture data
-uv run python -m umui_api --db-path ./fixtures/samples
+# Terminal 1: Start API with fixture data + app pack (required for bridge editor)
+uv run python -m umui_api --db-path ./fixtures/samples --app-pack-path ./fixtures/app_pack/vn8.6
 
 # Terminal 2: Start UI dev server
 cd ui && npm run dev
@@ -198,4 +198,4 @@ React 19 web frontend built with Vite, TypeScript, Tailwind CSS, and shadcn/ui. 
 | 4 | Done | Bridge editor (read-write, lock-gated, expression eval) |
 | 4+ | Done | UI parity (explorer, menubar, filtering, 262 tests) |
 | 5 | Done | Menubar actions, diff viewer, hand-edit mode, Process/Submit UI |
-| 6 | Planned | Process/Submit backend (template processing + SSH execution) |
+| 6 | Done | Process/Submit backend (template processing + SSH execution) |

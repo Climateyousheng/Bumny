@@ -46,7 +46,7 @@ def create_app(
     app = FastAPI(title="UMUI API", version="0.1.0", lifespan=_lifespan)
     app.state.fs = fs
     app.state.paths = DatabasePaths(db_path or "")
-    app.state.app_pack = AppPackPaths(app_pack_path or "")
+    app.state.app_pack = AppPackPaths(app_pack_path) if app_pack_path else None
 
     register_error_handlers(app)
 

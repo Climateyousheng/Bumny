@@ -32,7 +32,12 @@ def get_user(
 
 def get_app_pack(request: Request) -> AppPackPaths:
     """Retrieve AppPackPaths from application state."""
-    app_pack: AppPackPaths = request.app.state.app_pack
+    app_pack: AppPackPaths | None = request.app.state.app_pack
+    if app_pack is None:
+        raise HTTPException(
+            status_code=503,
+            detail="App pack not configured. Start the server with --app-pack-path.",
+        )
     return app_pack
 
 
